@@ -96,6 +96,8 @@ private slots:
         const size_t chunk = 800;   // a pezzi, come arriva dalla scheda audio
         for (size_t at = 0; at < pcm.size(); at += chunk)
             text += d.feed(pcm.data() + at, static_cast<int>(std::min(chunk, pcm.size() - at)));
+        qInfo("fiducia della rete a fine segnale: %.2f", static_cast<double>(d.scope().confidence));
+        QVERIFY(d.scope().neural);
         text += d.flush();
         qInfo("CTC: \"%s\"", qPrintable(text));
         QVERIFY2(text.contains(QStringLiteral("CQ")), qPrintable(text));

@@ -2478,8 +2478,8 @@ Right click: change it</source>
         <translation>F: %1 Гц · S: %2 WPM · C: %3</translation>
     </message>
     <message>
-        <source>reading</source>
-        <translation>приём</translation>
+        <source>reading · %1%</source>
+        <translation>чтение · %1%</translation>
     </message>
     <message>
         <source>noise</source>

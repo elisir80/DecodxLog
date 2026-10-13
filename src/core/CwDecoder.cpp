@@ -289,6 +289,13 @@ void CwDecoder::updateScope(const std::vector<float>& signal)
     m_scope.speed = stats.estimatedSpeed_wpm;
     m_scope.cost = stats.costFunction;
     m_scope.reading = stats.costFunction < kMaxCost && stats.estimatedPitch_Hz > 0;
+    // La fiducia di ggmorse: il costo sta fra 0 (Morse perfetto) e la soglia di lettura. Con la
+    // rete neurale la aggiorna feed(), che ha le sue probabilita'.
+    if (!m_neural) {
+        const float raw = m_scope.reading ? std::clamp(1.0f - stats.costFunction / kMaxCost, 0.0f, 1.0f) : 0.0f;
+        m_scope.confidence = raw == 0.0f ? 0.0f : 0.7f * m_scope.confidence + 0.3f * raw;
+    }
+    m_scope.neural = m_neural != nullptr;
 }
 
 QString CwDecoder::feed(const qint16* samples, int count)
@@ -303,7 +310,10 @@ QString CwDecoder::feed(const qint16* samples, int count)
     std::vector<float> mono(static_cast<size_t>(count));
     for (int i = 0; i < count; ++i)
         mono[static_cast<size_t>(i)] = samples[i] / 32768.0f;
-    return applyLexicon(neuralText(*m_neural, mono, m_sampleRate, m_tone, m_toneHz));
+    const QString text = neuralText(*m_neural, mono, m_sampleRate, m_tone, m_toneHz);
+    const float raw = m_scope.reading ? std::clamp(static_cast<float>(m_neural->confidence()), 0.0f, 1.0f) : 0.0f;
+    m_scope.confidence = raw == 0.0f ? 0.0f : 0.7f * m_scope.confidence + 0.3f * raw;
+    return applyLexicon(text);
 }
 
 QString CwDecoder::flush()

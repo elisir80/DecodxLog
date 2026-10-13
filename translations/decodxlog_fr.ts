@@ -2469,8 +2469,8 @@ Clic droit : la modifier</translation>
         <translation>F : %1 Hz · V : %2 WPM · C : %3</translation>
     </message>
     <message>
-        <source>reading</source>
-        <translation>lecture</translation>
+        <source>reading · %1%</source>
+        <translation>lecture · %1 %</translation>
     </message>
     <message>
         <source>noise</source>

@@ -2469,8 +2469,8 @@ Rechtsklik: wijzigen</translation>
         <translation>F: %1 Hz · S: %2 WPM · K: %3</translation>
     </message>
     <message>
-        <source>reading</source>
-        <translation>leest</translation>
+        <source>reading · %1%</source>
+        <translation>leest · %1%</translation>
     </message>
     <message>
         <source>noise</source>

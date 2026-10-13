@@ -2478,8 +2478,8 @@ Clic dreapta: modific-o</translation>
         <translation>F: %1 Hz · V: %2 WPM · C: %3</translation>
     </message>
     <message>
-        <source>reading</source>
-        <translation>citește</translation>
+        <source>reading · %1%</source>
+        <translation>citire · %1%</translation>
     </message>
     <message>
         <source>noise</source>

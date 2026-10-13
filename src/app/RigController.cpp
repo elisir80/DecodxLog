@@ -1245,6 +1245,8 @@ void RigController::publishScope(bool force)
         {QStringLiteral("wpm"), scope.speed},
         {QStringLiteral("cost"), scope.cost},
         {QStringLiteral("reading"), scope.reading},
+        {QStringLiteral("confidence"), scope.confidence},
+        {QStringLiteral("neural"), scope.neural},
     };
     emit decoderScopeChanged();
 }

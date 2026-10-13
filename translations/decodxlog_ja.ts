@@ -2460,8 +2460,8 @@ Right click: change it</source>
         <translation>F: %1 Hz · S: %2 WPM · C: %3</translation>
     </message>
     <message>
-        <source>reading</source>
-        <translation>解読中</translation>
+        <source>reading · %1%</source>
+        <translation>読み取り · %1%</translation>
     </message>
     <message>
         <source>noise</source>

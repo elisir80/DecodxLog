@@ -198,6 +198,30 @@ private slots:
         QVERIFY(decoder.scope().signal.isEmpty());
     }
 
+    // La fiducia: su un segnale pulito e' alta, sulla banda vuota e' zero — il pannello la
+    // colora, e un valore alto sul rumore farebbe fidare di lettere che non ci sono.
+    void confidenceFollowsTheSignal()
+    {
+        CwDecoder decoder(8000);
+        const QVector<qint16> audio = morseAudio(QStringLiteral("CQ CQ DE IU8LMC IU8LMC K"), 22);
+        for (int i = 0; i < audio.size() / 2; i += 512)
+            decoder.feed(audio.constData() + i, qMin(512, audio.size() / 2 - i));
+        QVERIFY(decoder.scope().reading);
+        QVERIFY2(decoder.scope().confidence > 0.5f, qPrintable(QString::number(decoder.scope().confidence)));
+        QVERIFY(decoder.scope().confidence <= 1.0f);
+        QVERIFY(!decoder.scope().neural);
+
+        std::srand(11);
+        CwDecoder quiet(8000);
+        QVector<qint16> chunk(512);
+        for (int block = 0; block < 10 * 8000 / 512; ++block) {
+            for (int i = 0; i < chunk.size(); ++i)
+                chunk[i] = static_cast<qint16>(((std::rand() % 2000) / 1000.0 - 1.0) * 0.2 * 32000);
+            quiet.feed(chunk.constData(), chunk.size());
+        }
+        QVERIFY2(quiet.scope().confidence < 0.3f, qPrintable(QString::number(quiet.scope().confidence)));
+    }
+
     void staysQuietOnAnEmptyBand()
     {
         // Mezzo minuto di solo rumore, come quando la radio e' accesa e non

@@ -2469,8 +2469,8 @@ Clic derecho: modificarla</translation>
         <translation>F: %1 Hz · V: %2 WPM · C: %3</translation>
     </message>
     <message>
-        <source>reading</source>
-        <translation>leyendo</translation>
+        <source>reading · %1%</source>
+        <translation>leyendo · %1 %</translation>
     </message>
     <message>
         <source>noise</source>

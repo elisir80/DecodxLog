@@ -20,6 +20,12 @@ e nominativi non si toccano mai, e nemmeno le parole con virgole o simboli. Vale
 modello neurale, si spegne con «Parole» nel pannello CW, ed e' accesa di serie. Prove sul passo di
 correzione (parola a pezzi, nominativi, simboli, spenta).
 
+**Indicatore di fiducia.** Il pannello CW dice quanto il decodificatore e' sicuro di quello che scrive:
+«lettura · 87%», verde sopra l'80%, ambra sopra il 60%, rosso sotto; sulla banda vuota resta «rumore».
+Con il modello neurale sono le probabilita' interne della rete; con ggmorse viene dal costo dei tempi
+misurati (quanto somigliano a Morse vero). E' una media corta, non salta a ogni fotogramma. Prove: alta
+su un segnale pulito, bassa sul rumore, e con la rete a 1,00 su «CQ DE IU8LMC K».
+
 ## 1.17.12 — 12 ottobre 2026
 
 **Il QSO scritto a mano non si rifiuta piu' per doppione.** Ne' dentro un'attivazione ne' fuori: il

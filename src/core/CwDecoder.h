@@ -60,6 +60,12 @@ public:
         float speed{0};
         float cost{1};
         bool reading{false};
+        // Quanto il decodificatore e' sicuro di quello che scrive, da 0 a 1: col modello neurale
+        // sono le probabilita' interne della rete, con ggmorse viene dal costo dei tempi misurati
+        // (quanto somigliano a Morse vero). Zero quando non sta leggendo. E' una media corta:
+        // non salta a ogni fotogramma.
+        float confidence{0};
+        bool neural{false};
     };
     const Scope& scope() const { return m_scope; }
 

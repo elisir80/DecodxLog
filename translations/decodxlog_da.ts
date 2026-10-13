@@ -2469,8 +2469,8 @@ Højreklik: ret den</translation>
         <translation>F: %1 Hz · H: %2 WPM · K: %3</translation>
     </message>
     <message>
-        <source>reading</source>
-        <translation>læser</translation>
+        <source>reading · %1%</source>
+        <translation>læser · %1 %</translation>
     </message>
     <message>
         <source>noise</source>

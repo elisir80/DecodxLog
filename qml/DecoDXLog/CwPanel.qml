@@ -530,8 +530,13 @@ GlassPanel {
                 anchors.rightMargin: 6
                 anchors.bottomMargin: 3
                 visible: scope.trace.length > 0
-                text: scope.reading ? qsTr("reading") : qsTr("noise")
-                color: scope.reading ? scope.keyColor : Theme.textSecondary
+                // La fiducia: verde sopra l'80%, ambra sopra il 60%, rosso sotto. Dice a colpo
+                // d'occhio se il testo che scorre merita fiducia in questo momento.
+                readonly property real fid: Number(scope.info.confidence || 0)
+                text: !scope.reading ? qsTr("noise")
+                      : qsTr("reading · %1%").arg(Math.round(fid * 100))
+                color: !scope.reading ? Theme.textSecondary
+                       : fid > 0.8 ? Theme.accentColor : fid > 0.6 ? Theme.warningColor : Theme.errorColor
                 font.pixelSize: 10
                 font.bold: scope.reading
             }
