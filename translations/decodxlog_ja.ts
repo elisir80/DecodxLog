@@ -2364,6 +2364,10 @@ Right click: change it</source>
         <translation>デコーダー</translation>
     </message>
     <message>
+        <source>Words</source>
+        <translation>単語</translation>
+    </message>
+    <message>
         <source>AI: %1</source>
         <translation>AI: %1</translation>
     </message>

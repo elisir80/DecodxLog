@@ -12,6 +12,14 @@ ggmorse con un clic. Serve una build con ONNX Runtime (`DECODXLOG_CTC_ONNX=ON`):
 distribuita per ora non la include, e senza la rete il pulsante non compare. Prova: un CW sintetico
 «CQ DE IU8LMC K» a 20 WPM si decodifica per intero.
 
+**Parole corrette, anche con ggmorse.** Da Morsecodium arriva la correzione lessicale: una parola
+appena chiusa, di sole lettere, che e' a un errore da una voce del lessico CW — Q-code, prosegni,
+abbreviazioni ham, parole comuni dei QSO — viene corretta se il vincitore e' netto (TMX → TNX). Le
+lettere restano in vista mentre arrivano, e se la parola cambia le vecchie si ritirano. Cifre, rapporti
+e nominativi non si toccano mai, e nemmeno le parole con virgole o simboli. Vale per ggmorse e per il
+modello neurale, si spegne con «Parole» nel pannello CW, ed e' accesa di serie. Prove sul passo di
+correzione (parola a pezzi, nominativi, simboli, spenta).
+
 ## 1.17.12 — 12 ottobre 2026
 
 **Il QSO scritto a mano non si rifiuta piu' per doppione.** Ne' dentro un'attivazione ne' fuori: il

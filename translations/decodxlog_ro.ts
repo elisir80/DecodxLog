@@ -2382,6 +2382,10 @@ Clic dreapta: modific-o</translation>
         <translation>Decodor</translation>
     </message>
     <message>
+        <source>Words</source>
+        <translation>Cuvinte</translation>
+    </message>
+    <message>
         <source>AI: %1</source>
         <translation>IA: %1</translation>
     </message>

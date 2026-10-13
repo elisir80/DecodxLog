@@ -2382,6 +2382,10 @@ Labais klikšķis: mainīt</translation>
         <translation>Dekoders</translation>
     </message>
     <message>
+        <source>Words</source>
+        <translation>Vārdi</translation>
+    </message>
+    <message>
         <source>AI: %1</source>
         <translation>MI: %1</translation>
     </message>

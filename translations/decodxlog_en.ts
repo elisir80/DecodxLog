@@ -2371,6 +2371,10 @@ Right click: change it</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Words</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>AI: %1</source>
         <translation type="unfinished"></translation>
     </message>

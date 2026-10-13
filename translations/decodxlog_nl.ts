@@ -2373,6 +2373,10 @@ Rechtsklik: wijzigen</translation>
         <translation>Decoder</translation>
     </message>
     <message>
+        <source>Words</source>
+        <translation>Woorden</translation>
+    </message>
+    <message>
         <source>AI: %1</source>
         <translation>AI: %1</translation>
     </message>

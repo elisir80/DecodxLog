@@ -1,6 +1,7 @@
 #include "core/CwDecoder.h"
 
 #include "core/CtcDecoder.h"
+#include "core/Lexicon.h"
 #include "ggmorse/ggmorse.h"
 
 #include <QHash>
@@ -113,9 +114,53 @@ void CwDecoder::rebuild()
     m_wpm = 0;
     m_scope = Scope();
     m_last = QChar();
+    m_word.clear();
+    m_retract = 0;
     setTone(m_tone);
     if (m_neural)
         m_neural->reset();
+}
+
+int CwDecoder::takeRetract()
+{
+    const int r = m_retract;
+    m_retract = 0;
+    return r;
+}
+
+QString CwDecoder::applyLexicon(const QString& chunk)
+{
+    if (!m_lexicon)
+        return chunk;
+    QString out;
+    qsizetype wordInOut = 0;   // le lettere della parola in corso che stanno in questo `out`
+    for (const QChar ch : chunk) {
+        if (ch != QLatin1Char(' ') && ch != QLatin1Char('\n')) {
+            m_word += ch;
+            out += ch;
+            ++wordInOut;
+            continue;
+        }
+        if (!m_word.isEmpty()) {
+            // Solo parole di sole lettere: virgole e simboli restano com'erano.
+            bool lettersOnly = true;
+            for (const QChar c : m_word)
+                lettersOnly = lettersOnly && c.isLetter();
+            const QString upper = m_word.toUpper();
+            const QString fixed = lettersOnly ? lexicon::correct(upper) : upper;
+            if (fixed != upper) {
+                const qsizetype take = m_word.size();
+                const qsizetype fromOut = std::min(take, wordInOut);
+                out.chop(fromOut);
+                m_retract += static_cast<int>(take - fromOut);
+                out += fixed;
+            }
+            m_word.clear();
+            wordInOut = 0;
+        }
+        out += ch;
+    }
+    return out;
 }
 
 bool CwDecoder::neuralAvailable()
@@ -254,11 +299,11 @@ QString CwDecoder::feed(const qint16* samples, int count)
                      static_cast<qsizetype>(count) * static_cast<qsizetype>(sizeof(qint16)));
     const QString fromGgmorse = drain();
     if (!m_neural)
-        return fromGgmorse;
+        return applyLexicon(fromGgmorse);
     std::vector<float> mono(static_cast<size_t>(count));
     for (int i = 0; i < count; ++i)
         mono[static_cast<size_t>(i)] = samples[i] / 32768.0f;
-    return neuralText(*m_neural, mono, m_sampleRate, m_tone, m_toneHz);
+    return applyLexicon(neuralText(*m_neural, mono, m_sampleRate, m_tone, m_toneHz));
 }
 
 QString CwDecoder::flush()
@@ -274,6 +319,8 @@ QString CwDecoder::flush()
         const std::vector<float> quiet(static_cast<size_t>(silence), 0.0f);
         out = neuralText(*m_neural, quiet, m_sampleRate, m_tone, m_toneHz);
     }
+    // L'ultima parola si chiude qui: senza uno spazio in coda non verrebbe corretta.
+    out = applyLexicon(out + QLatin1Char(' '));
     while (out.endsWith(QLatin1Char('\n')) || out.endsWith(QLatin1Char(' ')))
         out.chop(1);
     return out;

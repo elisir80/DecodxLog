@@ -2364,6 +2364,10 @@ Right click: change it</source>
         <translation>解碼器</translation>
     </message>
     <message>
+        <source>Words</source>
+        <translation>單字</translation>
+    </message>
+    <message>
         <source>AI: %1</source>
         <translation>AI: %1</translation>
     </message>

@@ -2382,6 +2382,10 @@ Right click: change it</source>
         <translation>Декодер</translation>
     </message>
     <message>
+        <source>Words</source>
+        <translation>Слова</translation>
+    </message>
+    <message>
         <source>AI: %1</source>
         <translation>ИИ: %1</translation>
     </message>

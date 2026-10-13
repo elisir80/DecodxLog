@@ -2373,6 +2373,10 @@ Højreklik: ret den</translation>
         <translation>Dekoder</translation>
     </message>
     <message>
+        <source>Words</source>
+        <translation>Ord</translation>
+    </message>
+    <message>
         <source>AI: %1</source>
         <translation>AI: %1</translation>
     </message>

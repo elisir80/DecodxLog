@@ -71,6 +71,18 @@ public:
     bool setNeuralModel(const QString& path);
     bool neural() const { return m_neural != nullptr; }
 
+    // La correzione delle parole (Q-code, abbreviazioni, parole comuni dei QSO): una parola
+    // appena chiusa che e' a un errore da una voce del lessico, e solo se il vincitore e'
+    // netto, viene corretta. Le lettere restano in vista mentre arrivano: se la parola cambia,
+    // `takeRetract()` dice quante lettere gia' consegnate vanno tolte dalla fine del testo prima
+    // di aggiungere quello nuovo. Cifre (rapporti, nominativi) non si toccano mai.
+    void setLexicon(bool on) { m_lexicon = on; }
+    bool lexicon() const { return m_lexicon; }
+    int takeRetract();
+    // Il passo di correzione da solo, per le prove: prende il testo uscito dal decodificatore
+    // e torna quello da consegnare (con le correzioni), tenendo il conto da ritirare.
+    QString applyLexicon(const QString& chunk);
+
     // Manda dentro l'audio (mono, 16 bit) e torna il testo nuovo, se ne e'
     // uscito. Si puo' chiamare a pezzi piccoli: lo stato resta.
     QString feed(const qint16* samples, int count);
@@ -90,6 +102,9 @@ private:
     int m_speed{0};
     std::unique_ptr<GGMorse> m_morse;
     std::unique_ptr<CtcDecoder> m_neural;
+    bool m_lexicon{true};
+    QString m_word;        // la parola in corso, come e' stata consegnata
+    int m_retract{0};      // lettere gia' consegnate da togliere prima del prossimo testo
     // L'audio che e' arrivato e non e' ancora stato consumato: ggmorse lo
     // chiede a blocchi interi, e dalla scheda audio arriva come capita.
     QByteArray m_pending;

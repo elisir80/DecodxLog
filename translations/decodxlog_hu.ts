@@ -2364,6 +2364,10 @@ Jobb kattintás: módosítás</translation>
         <translation>Dekóder</translation>
     </message>
     <message>
+        <source>Words</source>
+        <translation>Szavak</translation>
+    </message>
+    <message>
         <source>AI: %1</source>
         <translation>MI: %1</translation>
     </message>

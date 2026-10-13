@@ -84,6 +84,8 @@ class RigController : public QObject {
     // andare a una velocita' completamente diversa.
     Q_PROPERTY(int decoderSpeedLock READ decoderSpeedLock WRITE setDecoderSpeedLock NOTIFY decoderChanged)
     // Il decodificatore neurale (CTC): il modello scelto, se e' acceso, e se questa build lo sa fare.
+    // La correzione delle parole (Q-code, abbreviazioni, parole comuni): attiva di serie.
+    Q_PROPERTY(bool decoderLexicon READ decoderLexicon WRITE setDecoderLexicon NOTIFY decoderChanged)
     Q_PROPERTY(QString decoderModel READ decoderModel NOTIFY decoderChanged)
     Q_PROPERTY(bool decoderNeural READ decoderNeural NOTIFY decoderChanged)
     Q_PROPERTY(bool neuralDecoderAvailable READ neuralDecoderAvailable CONSTANT)
@@ -249,6 +251,8 @@ public:
     void setDecoderToneLock(int hz);
     int decoderSpeedLock() const { return m_decoderSpeedLock; }
     void setDecoderSpeedLock(int wpm);
+    bool decoderLexicon() const { return m_decoder.lexicon(); }
+    void setDecoderLexicon(bool on);
     QString decoderModel() const { return m_decoderModel; }
     bool decoderNeural() const { return m_decoder.neural(); }
     bool neuralDecoderAvailable() const { return core::CwDecoder::neuralAvailable(); }

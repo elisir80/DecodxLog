@@ -138,6 +138,7 @@ RigController::RigController(Context context, QObject* parent)
         m_decoderSpeedLock = 0;
     m_decoder.setTone(m_decoderToneLock);
     m_decoder.setSpeed(m_decoderSpeedLock);
+    m_decoder.setLexicon(s.value(QStringLiteral("cw/lexicon"), true).toBool());
     m_decoderModel = s.value(QStringLiteral("cw/neuralModel")).toString();
     if (!m_decoderModel.isEmpty() && !m_decoder.setNeuralModel(m_decoderModel))
         m_decoderModel.clear();   // il file non c'e' piu', o questa build non ha la rete: si torna a ggmorse
@@ -993,6 +994,15 @@ void RigController::setDecoderToneLock(int hz)
     }
 }
 
+void RigController::setDecoderLexicon(bool on)
+{
+    if (on == m_decoder.lexicon())
+        return;
+    m_decoder.setLexicon(on);
+    QSettings().setValue(QStringLiteral("cw/lexicon"), on);
+    emit decoderChanged();
+}
+
 bool RigController::chooseDecoderModel(const QUrl& file)
 {
     const QString path = file.isLocalFile() ? file.toLocalFile() : file.toString();
@@ -1186,8 +1196,12 @@ void RigController::consumeAudio(const QByteArray& chunk)
         return;
     const int samples = static_cast<int>(pcm.samples.size() / sizeof(qint16));
     const QString text = m_decoder.feed(reinterpret_cast<const qint16*>(pcm.samples.constData()), samples);
+    // Una parola corretta toglie le lettere con cui era stata mostrata, e mette quelle giuste.
+    const int retract = m_decoder.takeRetract();
+    if (retract > 0)
+        m_decoderText.chop(retract);
     m_audioBuffer.remove(0, pcm.consumedBytes);
-    if (!text.isEmpty()) {
+    if (!text.isEmpty() || retract > 0) {
         m_decoderText += text;
         // Non si tiene una giornata di CW in memoria: gli ultimi 4000
         // caratteri bastano e avanzano.
@@ -1266,6 +1280,9 @@ void RigController::stopAudio()
     // lunga tre secondi, e spegnendo si chiuderebbe con una lettera in meno.
     if (m_audio || m_testAudio) {
         const QString last = m_decoder.flush();
+        const int retract = m_decoder.takeRetract();
+        if (retract > 0)
+            m_decoderText.chop(retract);
         if (!last.isEmpty())
             m_decoderText += last;
     }

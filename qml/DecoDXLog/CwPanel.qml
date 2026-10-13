@@ -243,6 +243,13 @@ GlassPanel {
                 checked: root.rig.decoderOn
                 onToggled: root.rig.decoderOn = checked
             }
+            // Le parole corrette (Q-code, abbreviazioni): una parola che e' a un errore da una voce
+            // del lessico viene sistemata. Cifre e nominativi non si toccano mai.
+            ToggleSwitch {
+                text: qsTr("Words")
+                checked: root.rig.decoderLexicon
+                onToggled: root.rig.decoderLexicon = checked
+            }
             // Il decodificatore neurale (CTC) e' un'opzione: senza il modello c'e' ggmorse.
             GlassButton {
                 visible: root.rig.neuralDecoderAvailable

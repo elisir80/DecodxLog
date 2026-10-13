@@ -2373,6 +2373,10 @@ Clic derecho: modificarla</translation>
         <translation>Decodificador</translation>
     </message>
     <message>
+        <source>Words</source>
+        <translation>Palabras</translation>
+    </message>
+    <message>
         <source>AI: %1</source>
         <translation>IA: %1</translation>
     </message>
