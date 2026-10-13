@@ -2,6 +2,8 @@
 #include "app/AudioDevices.h"
 #include "../StartupTrace.h"
 
+#include "core/Bands.h"
+#include "core/CwCalls.h"
 #include "core/QslUpload.h"
 #include "core/SerialPorts.h"
 
@@ -137,7 +139,11 @@ RigController::RigController(Context context, QObject* parent)
     if (m_decoderSpeedLock < 5 || m_decoderSpeedLock > 59)
         m_decoderSpeedLock = 0;
     m_decoder.setTone(m_decoderToneLock);
+    // Con un tono fissato, un passa-banda stretto tiene fuori le stazioni vicine.
+    m_decoder.setNarrowFilter(true);
     m_decoder.setSpeed(m_decoderSpeedLock);
+    m_skimmerOn = s.value(QStringLiteral("cw/skimmer"), true).toBool();
+    m_skimmer.setLexicon(s.value(QStringLiteral("cw/lexicon"), true).toBool());
     m_decoder.setLexicon(s.value(QStringLiteral("cw/lexicon"), true).toBool());
     m_decoderModel = s.value(QStringLiteral("cw/neuralModel")).toString();
     if (!m_decoderModel.isEmpty() && !m_decoder.setNeuralModel(m_decoderModel))
@@ -999,8 +1005,98 @@ void RigController::setDecoderLexicon(bool on)
     if (on == m_decoder.lexicon())
         return;
     m_decoder.setLexicon(on);
+    m_skimmer.setLexicon(on);
     QSettings().setValue(QStringLiteral("cw/lexicon"), on);
     emit decoderChanged();
+}
+
+void RigController::setSkimmerOn(bool on)
+{
+    if (on == m_skimmerOn)
+        return;
+    m_skimmerOn = on;
+    QSettings().setValue(QStringLiteral("cw/skimmer"), on);
+    m_skimmer.reset();
+    publishSkimmer(true);
+}
+
+QString RigController::decoderHtml(const QString& linkColor) const
+{
+    return core::cwcalls::toHtml(m_decoderText, linkColor);
+}
+
+void RigController::listenTo(double toneHz)
+{
+    setDecoderToneLock(static_cast<int>(std::lround(toneHz)));
+}
+
+QString RigController::stationKhz(double toneHz) const
+{
+    const qint64 dial = frequencyHz();
+    if (dial <= 0 || toneHz <= 0)
+        return {};
+    const QString m = mode().toUpper();
+    double offset = 0;
+    if (m.startsWith(QLatin1String("CW"))) {
+        // In CW la radio mostra la frequenza della stazione che si sta ascoltando: le altre stanno
+        // sopra o sotto di quanto il loro tono dista da quello.
+        const double ref = m_decoderToneLock > 0 ? m_decoderToneLock : m_decoder.toneHz();
+        offset = ref > 0 ? toneHz - ref : 0.0;
+        if (m == QLatin1String("CWR"))
+            offset = -offset;
+    } else if (m.startsWith(QLatin1String("LSB"))) {
+        offset = -toneHz;
+    } else {
+        offset = toneHz;
+    }
+    return QString::number((static_cast<double>(dial) + offset) / 1000.0, 'f', 1);
+}
+
+void RigController::publishSkimmer(bool force)
+{
+    if (!force && m_skimmerClock.isValid() && m_skimmerClock.elapsed() < 250)
+        return;
+    m_skimmerClock.restart();
+
+    QVariantList stations;
+    QVariantList spectrum;
+    if (m_skimmerOn && m_decoderOn) {
+        const QString band = frequencyHz() > 0
+                                 ? core::bands::fromMhz(static_cast<double>(frequencyHz()) / 1e6)
+                                 : QString();
+        const double mainTone = m_decoderToneLock > 0 ? m_decoderToneLock : m_decoder.toneHz();
+        for (const core::CwSkimmer::Station& s : m_skimmer.stations()) {
+            QString tail = s.text.right(48);
+            tail.replace(QLatin1Char('\n'), QLatin1Char(' '));
+            QVariantMap row{
+                {QStringLiteral("id"), s.id},
+                {QStringLiteral("freq"), static_cast<int>(std::lround(s.freq))},
+                {QStringLiteral("wpm"), s.wpm},
+                {QStringLiteral("level"), static_cast<int>(std::lround(s.level))},
+                {QStringLiteral("confidence"), s.confidence},
+                {QStringLiteral("text"), tail.trimmed()},
+                {QStringLiteral("call"), s.call},
+                {QStringLiteral("cq"), s.cq},
+                {QStringLiteral("idle"), static_cast<int>(s.idleSeconds)},
+                {QStringLiteral("present"), s.present},
+                {QStringLiteral("listening"), mainTone > 0 && std::abs(s.freq - mainTone) < 25.0},
+                {QStringLiteral("khz"), stationKhz(s.freq)},
+            };
+            if (!s.call.isEmpty() && m_ctx.classifyCall) {
+                const QVariantMap c = m_ctx.classifyCall(s.call, band, QStringLiteral("CW"));
+                for (auto it = c.cbegin(); it != c.cend(); ++it)
+                    row.insert(it.key(), it.value());
+            }
+            stations.append(row);
+        }
+        const QVector<float>& view = m_skimmer.spectrum();
+        spectrum.reserve(view.size());
+        for (const float v : view)
+            spectrum.append(v);
+    }
+    m_stations = stations;
+    m_spectrum = spectrum;
+    emit skimmerChanged();
 }
 
 bool RigController::chooseDecoderModel(const QUrl& file)
@@ -1067,8 +1163,10 @@ void RigController::clearDecoder()
 {
     m_decoderText.clear();
     m_decoder.reset();
+    m_skimmer.reset();
     emit decoderChanged();
     publishScope(true);
+    publishSkimmer(true);
 }
 
 void RigController::startAudio()
@@ -1175,6 +1273,7 @@ void RigController::startAudio()
     }
     m_decoder.setSampleRate(m_audioFormat.sampleRate());
     m_decoder.reset();
+    m_skimmer.setSampleRate(m_audioFormat.sampleRate());
     connect(m_audioDevice, &QIODevice::readyRead, this, [this] {
         consumeAudio(m_audioDevice->readAll());
     });
@@ -1196,6 +1295,10 @@ void RigController::consumeAudio(const QByteArray& chunk)
         return;
     const int samples = static_cast<int>(pcm.samples.size() / sizeof(qint16));
     const QString text = m_decoder.feed(reinterpret_cast<const qint16*>(pcm.samples.constData()), samples);
+    if (m_skimmerOn) {
+        m_skimmer.feed(reinterpret_cast<const qint16*>(pcm.samples.constData()), samples);
+        publishSkimmer();
+    }
     // Una parola corretta toglie le lettere con cui era stata mostrata, e mette quelle giuste.
     const int retract = m_decoder.takeRetract();
     if (retract > 0)
@@ -1265,6 +1368,13 @@ void RigController::playTestAudio(const QByteArray& pcm, int sampleRate)
     sampleRate = sampleRate > 0 ? sampleRate : 8000;
     m_decoder.setSampleRate(sampleRate);
     m_decoder.reset();
+    m_skimmer.setSampleRate(sampleRate);
+    // L'audio di prova e' mono a 16 bit: senza dirlo, la conversione non sa cosa fare dei byte.
+    QAudioFormat format;
+    format.setSampleRate(sampleRate);
+    format.setChannelCount(1);
+    format.setSampleFormat(QAudioFormat::Int16);
+    m_audioFormat = format;
     m_decoderOn = true;
     emit decoderChanged();
 
@@ -1304,6 +1414,10 @@ void RigController::stopAudio()
     m_audioBuffer.clear();
     m_audioFormat = QAudioFormat();
     m_scope.clear();
+    m_skimmer.reset();
+    m_stations.clear();
+    m_spectrum.clear();
+    emit skimmerChanged();
     if (!m_audioInUse.isEmpty()) {
         m_audioInUse.clear();
     }

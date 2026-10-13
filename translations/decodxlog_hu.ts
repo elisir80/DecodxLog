@@ -2352,6 +2352,14 @@ Jobb kattintás: módosítás</translation>
         <translation>%1 szó/perc</translation>
     </message>
     <message>
+        <source>= RX</source>
+        <translation>= RX</translation>
+    </message>
+    <message>
+        <source>Set the keyer to the speed you are receiving</source>
+        <translation>A kulcsot a vett sebességre állítja</translation>
+    </message>
+    <message>
         <source>write here and press Enter: it goes out in CW</source>
         <translation>ide írj, és nyomj Entert: CW-ben megy ki</translation>
     </message>
@@ -2466,6 +2474,38 @@ Jobb kattintás: módosítás</translation>
     <message>
         <source>reading · %1%</source>
         <translation>olvasás · %1%</translation>
+    </message>
+    <message>
+        <source>Stations</source>
+        <translation>Állomások</translation>
+    </message>
+    <message>
+        <source>no signals in the band</source>
+        <translation>nincs jel a sávban</translation>
+    </message>
+    <message>
+        <source>signals in the band: %1</source>
+        <translation>jelek a sávban: %1</translation>
+    </message>
+    <message>
+        <source>Click to listen to the signal at that tone</source>
+        <translation>Kattintson, hogy meghallgassa az adott hangmagasságú jelet</translation>
+    </message>
+    <message>
+        <source>%1 Hz</source>
+        <translation>%1 Hz</translation>
+    </message>
+    <message>
+        <source>Spot</source>
+        <translation>Spot</translation>
+    </message>
+    <message>
+        <source>CW %1 WPM</source>
+        <translation>CW %1 WPM</translation>
+    </message>
+    <message>
+        <source>Click to listen · double-click to put %1 in the QSO</source>
+        <translation>Kattintás: hallgatás · dupla kattintás: %1 a QSO-ba</translation>
     </message>
     <message>
         <source>noise</source>

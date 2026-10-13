@@ -2352,6 +2352,14 @@ Right click: change it</source>
         <translation>%1 wpm</translation>
     </message>
     <message>
+        <source>= RX</source>
+        <translation>= RX</translation>
+    </message>
+    <message>
+        <source>Set the keyer to the speed you are receiving</source>
+        <translation>キーヤーを受信中の速度に合わせます</translation>
+    </message>
+    <message>
         <source>write here and press Enter: it goes out in CW</source>
         <translation>ここに書いて Enter: CW で出ます</translation>
     </message>
@@ -2466,6 +2474,38 @@ Right click: change it</source>
     <message>
         <source>reading · %1%</source>
         <translation>読み取り · %1%</translation>
+    </message>
+    <message>
+        <source>Stations</source>
+        <translation>局</translation>
+    </message>
+    <message>
+        <source>no signals in the band</source>
+        <translation>バンド内に信号がありません</translation>
+    </message>
+    <message>
+        <source>signals in the band: %1</source>
+        <translation>バンド内の信号: %1</translation>
+    </message>
+    <message>
+        <source>Click to listen to the signal at that tone</source>
+        <translation>クリックでそのトーンの信号を聴きます</translation>
+    </message>
+    <message>
+        <source>%1 Hz</source>
+        <translation>%1 Hz</translation>
+    </message>
+    <message>
+        <source>Spot</source>
+        <translation>スポット</translation>
+    </message>
+    <message>
+        <source>CW %1 WPM</source>
+        <translation>CW %1 WPM</translation>
+    </message>
+    <message>
+        <source>Click to listen · double-click to put %1 in the QSO</source>
+        <translation>クリックで受信 · ダブルクリックで %1 を QSO に入力</translation>
     </message>
     <message>
         <source>noise</source>

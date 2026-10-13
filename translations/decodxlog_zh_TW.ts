@@ -2352,6 +2352,14 @@ Right click: change it</source>
         <translation>%1 字/分</translation>
     </message>
     <message>
+        <source>= RX</source>
+        <translation>= RX</translation>
+    </message>
+    <message>
+        <source>Set the keyer to the speed you are receiving</source>
+        <translation>將電鍵速度設為目前接收速度</translation>
+    </message>
+    <message>
         <source>write here and press Enter: it goes out in CW</source>
         <translation>在這裡寫，按 Enter：以 CW 發出</translation>
     </message>
@@ -2466,6 +2474,38 @@ Right click: change it</source>
     <message>
         <source>reading · %1%</source>
         <translation>讀取 · %1%</translation>
+    </message>
+    <message>
+        <source>Stations</source>
+        <translation>電台</translation>
+    </message>
+    <message>
+        <source>no signals in the band</source>
+        <translation>頻段內沒有訊號</translation>
+    </message>
+    <message>
+        <source>signals in the band: %1</source>
+        <translation>頻段內訊號：%1</translation>
+    </message>
+    <message>
+        <source>Click to listen to the signal at that tone</source>
+        <translation>點擊以收聽該音調的訊號</translation>
+    </message>
+    <message>
+        <source>%1 Hz</source>
+        <translation>%1 Hz</translation>
+    </message>
+    <message>
+        <source>Spot</source>
+        <translation>Spot</translation>
+    </message>
+    <message>
+        <source>CW %1 WPM</source>
+        <translation>CW %1 WPM</translation>
+    </message>
+    <message>
+        <source>Click to listen · double-click to put %1 in the QSO</source>
+        <translation>點擊收聽 · 雙擊將 %1 填入 QSO</translation>
     </message>
     <message>
         <source>noise</source>

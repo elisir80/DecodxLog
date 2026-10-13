@@ -2361,6 +2361,14 @@ Rechtsklik: wijzigen</translation>
         <translation>%1 wpm</translation>
     </message>
     <message>
+        <source>= RX</source>
+        <translation>= RX</translation>
+    </message>
+    <message>
+        <source>Set the keyer to the speed you are receiving</source>
+        <translation>Zet de keyer op de snelheid die je ontvangt</translation>
+    </message>
+    <message>
         <source>write here and press Enter: it goes out in CW</source>
         <translation>schrijf hier en druk op Enter: het gaat eruit in CW</translation>
     </message>
@@ -2475,6 +2483,38 @@ Rechtsklik: wijzigen</translation>
     <message>
         <source>reading · %1%</source>
         <translation>leest · %1%</translation>
+    </message>
+    <message>
+        <source>Stations</source>
+        <translation>Stations</translation>
+    </message>
+    <message>
+        <source>no signals in the band</source>
+        <translation>geen signalen in de band</translation>
+    </message>
+    <message>
+        <source>signals in the band: %1</source>
+        <translation>signalen in de band: %1</translation>
+    </message>
+    <message>
+        <source>Click to listen to the signal at that tone</source>
+        <translation>Klik om naar het signaal op die toon te luisteren</translation>
+    </message>
+    <message>
+        <source>%1 Hz</source>
+        <translation>%1 Hz</translation>
+    </message>
+    <message>
+        <source>Spot</source>
+        <translation>Spot</translation>
+    </message>
+    <message>
+        <source>CW %1 WPM</source>
+        <translation>CW %1 WPM</translation>
+    </message>
+    <message>
+        <source>Click to listen · double-click to put %1 in the QSO</source>
+        <translation>Klik om te luisteren · dubbelklik om %1 in de QSO te zetten</translation>
     </message>
     <message>
         <source>noise</source>

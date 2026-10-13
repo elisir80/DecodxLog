@@ -2370,6 +2370,14 @@ Right click: change it</source>
         <translation>%1 сл/мин</translation>
     </message>
     <message>
+        <source>= RX</source>
+        <translation>= RX</translation>
+    </message>
+    <message>
+        <source>Set the keyer to the speed you are receiving</source>
+        <translation>Установить ключ на скорость приёма</translation>
+    </message>
+    <message>
         <source>write here and press Enter: it goes out in CW</source>
         <translation>пишите здесь и жмите Enter: уйдёт в CW</translation>
     </message>
@@ -2484,6 +2492,38 @@ Right click: change it</source>
     <message>
         <source>reading · %1%</source>
         <translation>чтение · %1%</translation>
+    </message>
+    <message>
+        <source>Stations</source>
+        <translation>Станции</translation>
+    </message>
+    <message>
+        <source>no signals in the band</source>
+        <translation>в диапазоне нет сигналов</translation>
+    </message>
+    <message>
+        <source>signals in the band: %1</source>
+        <translation>сигналов в диапазоне: %1</translation>
+    </message>
+    <message>
+        <source>Click to listen to the signal at that tone</source>
+        <translation>Щёлкните, чтобы слушать сигнал на этом тоне</translation>
+    </message>
+    <message>
+        <source>%1 Hz</source>
+        <translation>%1 Гц</translation>
+    </message>
+    <message>
+        <source>Spot</source>
+        <translation>Спот</translation>
+    </message>
+    <message>
+        <source>CW %1 WPM</source>
+        <translation>CW %1 WPM</translation>
+    </message>
+    <message>
+        <source>Click to listen · double-click to put %1 in the QSO</source>
+        <translation>Щелчок — слушать · двойной щелчок — внести %1 в QSO</translation>
     </message>
     <message>
         <source>noise</source>

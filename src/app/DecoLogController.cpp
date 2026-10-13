@@ -991,6 +991,19 @@ bool DecoLogController::openDatabase(const QString& path)
         return m_profiles ? m_profiles->activeProfile().value(QStringLiteral("stationCallsign")).toString()
                           : QString();
     };
+    // Le stazioni che lo skimmer CW sente: nuova entita', gia' lavorata… come per gli spot.
+    rigCtx.classifyCall = [this](const QString& call, const QString& band, const QString& mode) -> QVariantMap {
+        if (!m_cluster)
+            return {};
+        const auto c = m_cluster->classifyCall(call, band, mode);
+        return QVariantMap{
+            {QStringLiteral("status"), c.status},
+            {QStringLiteral("label"), ClusterController::statusText(c.status)},
+            {QStringLiteral("entity"), c.entity},
+            {QStringLiteral("azimuth"), c.azimuth},
+            {QStringLiteral("distanceKm"), c.distanceKm},
+        };
+    };
     m_rig = new RigController(std::move(rigCtx), this);
     // Il VFO che si muove e' una notizia quanto un QSO: il Cloud lo sappia.
     // Il CloudController manda al massimo una volta ogni venti secondi, quindi

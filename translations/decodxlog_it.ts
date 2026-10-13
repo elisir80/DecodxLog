@@ -2361,6 +2361,14 @@ Tasto destro: modificala</translation>
         <translation>%1 wpm</translation>
     </message>
     <message>
+        <source>= RX</source>
+        <translation>= RX</translation>
+    </message>
+    <message>
+        <source>Set the keyer to the speed you are receiving</source>
+        <translation>Porta il keyer alla velocità con cui stai ricevendo</translation>
+    </message>
+    <message>
         <source>write here and press Enter: it goes out in CW</source>
         <translation>scrivi qui e premi Invio: va in aria in CW</translation>
     </message>
@@ -2475,6 +2483,38 @@ Tasto destro: modificala</translation>
     <message>
         <source>reading · %1%</source>
         <translation>lettura · %1%</translation>
+    </message>
+    <message>
+        <source>Stations</source>
+        <translation>Stazioni</translation>
+    </message>
+    <message>
+        <source>no signals in the band</source>
+        <translation>nessun segnale in banda</translation>
+    </message>
+    <message>
+        <source>signals in the band: %1</source>
+        <translation>segnali in banda: %1</translation>
+    </message>
+    <message>
+        <source>Click to listen to the signal at that tone</source>
+        <translation>Clic per ascoltare il segnale a quel tono</translation>
+    </message>
+    <message>
+        <source>%1 Hz</source>
+        <translation>%1 Hz</translation>
+    </message>
+    <message>
+        <source>Spot</source>
+        <translation>Spot</translation>
+    </message>
+    <message>
+        <source>CW %1 WPM</source>
+        <translation>CW %1 WPM</translation>
+    </message>
+    <message>
+        <source>Click to listen · double-click to put %1 in the QSO</source>
+        <translation>Clic per ascoltare · doppio clic per portare %1 nel QSO</translation>
     </message>
     <message>
         <source>noise</source>

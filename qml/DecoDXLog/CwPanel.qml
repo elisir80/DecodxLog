@@ -203,6 +203,19 @@ GlassPanel {
                 font.pixelSize: 12
                 font.bold: true
             }
+            // Si risponde alla velocita' con cui si riceve: il keyer prende i WPM che il decoder legge.
+            GlassButton {
+                readonly property real received: Number(root.rig.decoderScope.wpm || 0)
+                visible: root.rig.decoderOn
+                enabled: root.rig.connected && root.rig.decoderScope.reading === true && received >= 5
+                text: qsTr("= RX")
+                buttonHeight: 22
+                fontPixelSize: 11
+                ToolTip.visible: hovered
+                ToolTip.delay: 500
+                ToolTip.text: qsTr("Set the keyer to the speed you are receiving")
+                onClicked: root.rig.wpm = Math.min(45, Math.max(10, Math.round(received)))
+            }
         }
 
         // ── Scrivere a mano quello che non sta in una macro ─────────────────
@@ -259,8 +272,10 @@ GlassPanel {
                                              : qsTr("AI model…")
                 tone: root.rig.decoderNeural ? Theme.accentColor : Theme.textSecondary
                 onClicked: root.rig.decoderNeural ? root.rig.clearDecoderModel() : neuralModelDialog.open()
-                hint: root.rig.decoderNeural ? qsTr("Click to go back to ggmorse")
-                                             : qsTr("Choose the neural CW model (.onnx) for the decoder")
+                ToolTip.visible: hovered
+                ToolTip.delay: 500
+                ToolTip.text: root.rig.decoderNeural ? qsTr("Click to go back to ggmorse")
+                                                     : qsTr("Choose the neural CW model (.onnx) for the decoder")
             }
             FileDialog {
                 id: neuralModelDialog
@@ -556,6 +571,227 @@ GlassPanel {
             }
         }
 
+        // ── Le stazioni in banda (lo skimmer) ───────────────────────────────
+        // Il decoder principale ascolta un tono solo; qui si vedono tutte le portanti che ci sono
+        // nell'audio, ognuna letta per conto suo. Un clic su una stazione ferma il decoder sul suo
+        // tono; un doppio clic ne porta il nominativo nel QSO.
+        RowLayout {
+            Layout.fillWidth: true
+            visible: root.rig.decoderOn && !root.compact
+            spacing: 8
+            ToggleSwitch {
+                text: qsTr("Stations")
+                checked: root.rig.skimmerOn
+                onToggled: root.rig.skimmerOn = checked
+            }
+            Text {
+                visible: root.rig.skimmerOn
+                Layout.fillWidth: true
+                elide: Text.ElideRight
+                color: Theme.textSecondary
+                font.pixelSize: 11
+                text: root.rig.skimmerStations.length === 0
+                      ? qsTr("no signals in the band")
+                      : qsTr("signals in the band: %1").arg(root.rig.skimmerStations.length)
+            }
+        }
+
+        Rectangle {
+            id: band
+            Layout.fillWidth: true
+            Layout.preferredHeight: 40
+            visible: root.rig.decoderOn && root.rig.skimmerOn && !root.compact
+            color: Theme.bgDeep
+            border.color: Theme.borderSoft
+            radius: 4
+            clip: true
+
+            readonly property var bins: root.rig.skimmerSpectrum
+            readonly property real low: root.rig.skimmerLowHz
+            readonly property real high: root.rig.skimmerHighHz
+            readonly property int mainTone: root.rig.decoderToneLock > 0 ? root.rig.decoderToneLock
+                                                                         : Math.round(Number(root.rig.decoderScope.pitch || 0))
+            function xAt(hz) { return (hz - low) / Math.max(1, high - low) * canvas.width }
+            function hzAt(x) { return low + (high - low) * x / Math.max(1, canvas.width) }
+            onBinsChanged: canvas.requestPaint()
+
+            Canvas {
+                id: canvas
+                anchors.fill: parent
+                anchors.margins: 3
+                renderStrategy: Canvas.Cooperative
+                onWidthChanged: requestPaint()
+                onHeightChanged: requestPaint()
+                onPaint: {
+                    const ctx = getContext("2d")
+                    ctx.reset()
+                    const bins = band.bins
+                    const n = bins.length
+                    if (n < 2 || width <= 0)
+                        return
+                    const labelH = 10
+                    const h = height - labelH
+                    const bw = width / n
+                    // Lo spettro: barre dal fondo, alte quanto sta sopra il rumore.
+                    ctx.fillStyle = Qt.alpha(Theme.secondaryColor, 0.55)
+                    for (let i = 0; i < n; ++i) {
+                        const v = bins[i]
+                        if (v <= 0.02)
+                            continue
+                        ctx.fillRect(i * bw, h - v * h, Math.max(1, bw - 0.5), v * h)
+                    }
+                    // I riferimenti ogni 100 Hz.
+                    ctx.fillStyle = Theme.textSecondary
+                    ctx.font = "8px sans-serif"
+                    ctx.textAlign = "center"
+                    for (let hz = Math.ceil(band.low / 100) * 100; hz <= band.high; hz += 100) {
+                        const x = Math.round(band.xAt(hz)) + 0.5
+                        ctx.fillRect(x - 0.5, h, 1, hz % 500 === 0 ? 4 : 2)
+                        if (hz % 500 === 0)
+                            ctx.fillText(String(hz), x, height - 1)
+                    }
+                    // Le stazioni: una riga e il nominativo, se c'e'.
+                    const stations = root.rig.skimmerStations
+                    ctx.textAlign = "left"
+                    // Il tono su cui sta il decoder, anche se in quel punto non c'e' nessuno.
+                    if (band.mainTone >= band.low && band.mainTone <= band.high) {
+                        ctx.fillStyle = Qt.alpha(Theme.accentColor, 0.5)
+                        ctx.fillRect(Math.round(band.xAt(band.mainTone)) - 0.5, 0, 1, h)
+                    }
+                    for (let k = 0; k < stations.length; ++k) {
+                        const s = stations[k]
+                        const x = Math.round(band.xAt(s.freq)) + 0.5
+                        ctx.fillStyle = s.listening ? Theme.accentColor : (s.present ? Theme.warningColor : Theme.textSecondary)
+                        ctx.fillRect(x - 0.5, 0, 1.5, h)
+                        if (s.call && s.call.length > 0) {
+                            ctx.font = "bold 9px sans-serif"
+                            const w = ctx.measureText(s.call).width
+                            ctx.fillText(s.call, Math.min(x + 3, width - w - 1), 9)
+                        }
+                    }
+                }
+            }
+            MouseArea {
+                anchors.fill: parent
+                hoverEnabled: true
+                cursorShape: Qt.PointingHandCursor
+                onClicked: (mouse) => {
+                    let hz = band.hzAt(mouse.x - 3)
+                    // Vicino a una stazione: si prende il suo tono preciso.
+                    let best = 25
+                    const stations = root.rig.skimmerStations
+                    for (let k = 0; k < stations.length; ++k) {
+                        const d = Math.abs(stations[k].freq - hz)
+                        if (d < best) { best = d; hz = stations[k].freq }
+                    }
+                    root.rig.listenTo(hz)
+                }
+                ToolTip.visible: containsMouse
+                ToolTip.delay: 600
+                ToolTip.text: qsTr("Click to listen to the signal at that tone")
+            }
+        }
+
+        Repeater {
+            model: root.rig.decoderOn && root.rig.skimmerOn && !root.compact ? root.rig.skimmerStations : []
+            delegate: Rectangle {
+                id: row
+                required property var modelData
+                readonly property var st: modelData
+                readonly property bool known: st.call && st.call.length > 0
+                Layout.fillWidth: true
+                Layout.preferredHeight: 24
+                radius: 3
+                color: st.listening ? Qt.alpha(Theme.accentColor, 0.18) : Qt.alpha(Theme.bgMedium, 0.6)
+                border.color: st.listening ? Theme.accentColor : Theme.borderSoft
+                opacity: st.present ? 1.0 : 0.6
+
+                function statusColor(status) {
+                    if (status & 1) return Theme.errorColor
+                    if (status & 2) return Theme.warningColor
+                    if (status & 4) return Theme.secondaryColor
+                    if (status & 8) return Theme.primaryColor
+                    if (status & (256 | 512 | 2048)) return Theme.warningColor
+                    if (status & 32) return Theme.textSecondary
+                    if (status & 16) return Theme.accentColor
+                    return Theme.textPrimary
+                }
+
+                RowLayout {
+                    anchors.fill: parent
+                    anchors.leftMargin: 6
+                    anchors.rightMargin: 4
+                    spacing: 6
+                    Text {
+                        text: qsTr("%1 Hz").arg(row.st.freq)
+                        color: Theme.textSecondary
+                        font.family: Theme.monoFamily
+                        font.pixelSize: 11
+                        Layout.preferredWidth: 58
+                    }
+                    Text {
+                        text: row.st.wpm > 0 ? qsTr("%1 wpm").arg(row.st.wpm) : "—"
+                        color: Theme.textSecondary
+                        font.family: Theme.monoFamily
+                        font.pixelSize: 11
+                        Layout.preferredWidth: 52
+                    }
+                    Text {
+                        text: row.known ? row.st.call : "…"
+                        color: row.known ? row.statusColor(row.st.status || 0) : Theme.textSecondary
+                        font.family: Theme.monoFamily
+                        font.pixelSize: 12
+                        font.bold: row.known
+                        Layout.preferredWidth: 78
+                        elide: Text.ElideRight
+                    }
+                    Text {
+                        visible: row.st.cq === true
+                        text: "CQ"
+                        color: Theme.accentColor
+                        font.pixelSize: 10
+                        font.bold: true
+                    }
+                    Text {
+                        visible: row.known && (row.st.label || "").length > 0
+                        text: row.st.label || ""
+                        color: row.statusColor(row.st.status || 0)
+                        font.pixelSize: 10
+                        elide: Text.ElideRight
+                        Layout.maximumWidth: 90
+                    }
+                    Text {
+                        Layout.fillWidth: true
+                        text: row.st.text
+                        color: Theme.textSecondary
+                        font.family: Theme.monoFamily
+                        font.pixelSize: 10
+                        elide: Text.ElideLeft
+                        horizontalAlignment: Text.AlignRight
+                    }
+                    GlassButton {
+                        visible: row.known
+                        text: qsTr("Spot")
+                        buttonHeight: 18
+                        fontPixelSize: 10
+                        onClicked: spotDialog.openFor(row.st.call, row.st.khz || "",
+                                                      row.st.wpm > 0 ? qsTr("CW %1 WPM").arg(row.st.wpm) : qsTr("CW"))
+                    }
+                }
+                MouseArea {
+                    anchors.fill: parent
+                    anchors.rightMargin: 44
+                    cursorShape: Qt.PointingHandCursor
+                    onClicked: root.rig.listenTo(row.st.freq)
+                    onDoubleClicked: { if (row.known) decolog.lookupCall = row.st.call }
+                    ToolTip.visible: containsMouse && row.known
+                    ToolTip.delay: 600
+                    ToolTip.text: qsTr("Click to listen · double-click to put %1 in the QSO").arg(row.st.call)
+                    hoverEnabled: true
+                }
+            }
+        }
+
         // Il testo decodificato scorre dentro una misura sua: non allunga il
         // pannello man mano che arriva (prima si allungava fino a non finire).
         ScrollView {
@@ -574,7 +810,13 @@ GlassPanel {
                 width: decodedScroll.availableWidth
                 readOnly: true
                 wrapMode: TextArea.WrapAnywhere
-                text: root.rig.decoderText
+                // I nominativi sono collegamenti: un clic li porta nel QSO.
+                textFormat: TextEdit.RichText
+                text: { const unused = root.rig.decoderText; return root.rig.decoderHtml(String(Theme.accentColor)) }
+                onLinkActivated: (link) => {
+                    if (link.indexOf("call:") === 0)
+                        decolog.lookupCall = link.substring(5)
+                }
                 color: Theme.textPrimary
                 font.family: Theme.monoFamily
                 font.pixelSize: 13
@@ -586,6 +828,7 @@ GlassPanel {
     }
 
     CwMacroEditor { id: macroEditor }
+    SpotDialog { id: spotDialog }
 
     // I tasti funzione, quando il pannello ha il fuoco.
     Repeater {

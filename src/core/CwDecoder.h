@@ -39,6 +39,12 @@ public:
     int tone() const { return m_tone; }
     double toneHz() const { return m_toneHz; }
 
+    // Un passa-banda stretto sul tono fissato (circa 80 Hz): le stazioni vicine non entrano. Serve
+    // quando la banda e' affollata e a ogni decoder dello skimmer, che ha un tono suo. Senza un
+    // tono fissato non fa niente: il decoder lo cerca da solo e filtrarlo prima non avrebbe senso.
+    void setNarrowFilter(bool on);
+    bool narrowFilter() const { return m_narrow; }
+
     // 0 lascia che ggmorse misuri la velocita'; altrimenti usa il valore
     // indicato per evitare che un segnale intermittente venga scambiato per
     // un CW molto piu' veloce.
@@ -114,6 +120,10 @@ private:
     void applyDecodeParameters();
     QString drain();
     void updateScope(const std::vector<float>& signal);
+    // Dopo una pausa lunga la stazione ricomincia (un altro passaggio, un'altra stazione): si va
+    // a capo, e il testo non diventa un muro.
+    QString breakLines(QString raw, int count);
+    void filterInto(const qint16* in, qint16* out, int count);
 
     int m_sampleRate{8000};
     int m_tone{0};
@@ -123,6 +133,17 @@ private:
     bool m_lexicon{true};
     qint64 m_fedSamples{0};   // l'audio arrivato dall'ultimo reset: dice quanto e' lunga la finestra
     QString m_word;        // la parola in corso, come e' stata consegnata
+    // Il passa-banda: due biquad uguali in cascata (4o ordine), centrati sul tono fissato.
+    struct Biquad {
+        double b0{0}, b2{0}, a1{0}, a2{0};   // b1 e' sempre zero in un passa-banda RBJ
+        double z1{0}, z2{0};
+    };
+    bool m_narrow{false};
+    int m_filterHz{0};
+    Biquad m_biquad[2];
+    qint64 m_idleSamples{0};   // l'audio arrivato dall'ultimo testo
+    bool m_hadText{false};
+    bool m_atLineStart{true};
     int m_retract{0};      // lettere gia' consegnate da togliere prima del prossimo testo
     // L'audio che e' arrivato e non e' ancora stato consumato: ggmorse lo
     // chiede a blocchi interi, e dalla scheda audio arriva come capita.

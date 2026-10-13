@@ -2361,6 +2361,14 @@ Clic dret: modificar-la</translation>
         <translation>%1 ppm</translation>
     </message>
     <message>
+        <source>= RX</source>
+        <translation>= RX</translation>
+    </message>
+    <message>
+        <source>Set the keyer to the speed you are receiving</source>
+        <translation>Posa el manipulador a la velocitat que estàs rebent</translation>
+    </message>
+    <message>
         <source>write here and press Enter: it goes out in CW</source>
         <translation>escriu aquí i prem Enter: surt en CW</translation>
     </message>
@@ -2475,6 +2483,38 @@ Clic dret: modificar-la</translation>
     <message>
         <source>reading · %1%</source>
         <translation>llegint · %1 %</translation>
+    </message>
+    <message>
+        <source>Stations</source>
+        <translation>Estacions</translation>
+    </message>
+    <message>
+        <source>no signals in the band</source>
+        <translation>cap senyal a la banda</translation>
+    </message>
+    <message>
+        <source>signals in the band: %1</source>
+        <translation>senyals a la banda: %1</translation>
+    </message>
+    <message>
+        <source>Click to listen to the signal at that tone</source>
+        <translation>Clic per escoltar el senyal a aquest to</translation>
+    </message>
+    <message>
+        <source>%1 Hz</source>
+        <translation>%1 Hz</translation>
+    </message>
+    <message>
+        <source>Spot</source>
+        <translation>Spot</translation>
+    </message>
+    <message>
+        <source>CW %1 WPM</source>
+        <translation>CW %1 WPM</translation>
+    </message>
+    <message>
+        <source>Click to listen · double-click to put %1 in the QSO</source>
+        <translation>Clic per escoltar · doble clic per posar %1 al QSO</translation>
     </message>
     <message>
         <source>noise</source>

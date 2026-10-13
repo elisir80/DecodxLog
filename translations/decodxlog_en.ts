@@ -2359,6 +2359,14 @@ Right click: change it</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>= RX</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Set the keyer to the speed you are receiving</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>write here and press Enter: it goes out in CW</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2472,6 +2480,38 @@ Right click: change it</source>
     </message>
     <message>
         <source>reading · %1%</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Stations</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>no signals in the band</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>signals in the band: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Click to listen to the signal at that tone</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1 Hz</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Spot</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>CW %1 WPM</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Click to listen · double-click to put %1 in the QSO</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

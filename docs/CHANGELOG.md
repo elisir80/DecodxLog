@@ -3,6 +3,42 @@
 Le date sono quelle del lavoro, non di una pubblicazione: DecoDXLog cresce mentre lo si usa
 in stazione.
 
+## 1.17.14 — 13 ottobre 2026
+
+**Le stazioni CW in banda, tutte insieme.** Il decoder CW ascoltava un tono solo: in una banda
+affollata inseguiva la portante piu' forte e scriveva a pezzi. Ora il pannello CW guarda tutto
+l'audio della radio (300–1450 Hz): trova le portanti che restano accese, e a ognuna da' un decoder
+suo, fissato sul suo tono (fino a cinque insieme). In elenco, per ogni stazione: tono, velocita',
+nominativo — quando l'ha detto: «DE K1ABC», «CQ TEST K1ABC», o ripetuto — il «CQ» se sta chiamando, e
+lo stato rispetto al tuo log, con gli stessi colori degli spot («NEW DXCC», gia' lavorato…). Sopra
+l'elenco, lo spettro della banda con le stazioni segnate. **Un clic** su una stazione (o sullo
+spettro) ferma il decoder principale sul suo tono; **un doppio clic** porta il nominativo nel QSO;
+**«Spot»** apre la segnalazione con nominativo e frequenza gia' scritti. La frequenza viene dalla
+radio e dal modo: in CW le altre stazioni stanno sopra o sotto di quanto il loro tono dista da
+quello su cui il decoder e' fermo. Si accende e si spegne con «Stazioni» (acceso di serie quando il
+decoder ascolta); costa circa il 2% di un core con tre stazioni. Non compare nel pannello compatto
+del contest. Prove: tre stazioni con ritmi diversi nello stesso audio (con rumore) e ciascuna con il
+suo nominativo, due stazioni a 130 Hz che non si mescolano, una stazione che se ne va e resta in
+elenco per un po', la banda vuota che non da' stazioni.
+
+**Passa-banda stretto sul tono fissato.** Quando il decoder sta su un tono fisso — a mano, o con un
+clic su una stazione — l'audio passa prima per un filtro di circa 80 Hz centrato su quel tono: un
+vicino a 150 Hz e dieci volte piu' forte, che prima copriva la stazione, ora si legge. Senza tono
+fissato (Auto) non cambia niente. Prova su un segnale debole con il vicino forte.
+
+**I nominativi del testo sono cliccabili.** Nel testo decodificato i nominativi sono evidenziati e un
+clic li porta nel QSO. Bande («40M»), rapporti («5NN») e parole non vengono scambiati per nominativi.
+
+**A capo quando la stazione cambia.** Dopo quattro secondi senza una lettera, il testo che arriva
+comincia una riga nuova: i passaggi e le stazioni diverse non si attaccano piu' in un muro.
+
+**«= RX».** Vicino al cursore della velocita': porta il keyer ai WPM con cui stai ricevendo, per
+rispondere al ritmo dell'altro.
+
+Correzioni: il suggerimento dei pulsanti «AI model…» e «= RX» era scritto dentro il pulsante, come se
+fosse una scorciatoia: ora e' un suggerimento; e l'opzione `--cw-audio` (prove da riga di comando) non
+faceva sentire niente al decoder da quando l'audio passa per la conversione del formato.
+
 ## 1.17.13 — 13 ottobre 2026
 
 **Decoder CW neurale (CTC), come opzione.** Dal progetto Morsecodium arriva il decodificatore a rete

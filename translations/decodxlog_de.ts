@@ -2361,6 +2361,14 @@ Rechtsklick: ändern</translation>
         <translation>%1 WpM</translation>
     </message>
     <message>
+        <source>= RX</source>
+        <translation>= RX</translation>
+    </message>
+    <message>
+        <source>Set the keyer to the speed you are receiving</source>
+        <translation>Setzt den Keyer auf das empfangene Tempo</translation>
+    </message>
+    <message>
         <source>write here and press Enter: it goes out in CW</source>
         <translation>hier schreiben und Enter drücken: es geht in CW hinaus</translation>
     </message>
@@ -2475,6 +2483,38 @@ Rechtsklick: ändern</translation>
     <message>
         <source>reading · %1%</source>
         <translation>liest · %1 %</translation>
+    </message>
+    <message>
+        <source>Stations</source>
+        <translation>Stationen</translation>
+    </message>
+    <message>
+        <source>no signals in the band</source>
+        <translation>keine Signale im Band</translation>
+    </message>
+    <message>
+        <source>signals in the band: %1</source>
+        <translation>Signale im Band: %1</translation>
+    </message>
+    <message>
+        <source>Click to listen to the signal at that tone</source>
+        <translation>Klicken, um das Signal bei diesem Ton zu hören</translation>
+    </message>
+    <message>
+        <source>%1 Hz</source>
+        <translation>%1 Hz</translation>
+    </message>
+    <message>
+        <source>Spot</source>
+        <translation>Spot</translation>
+    </message>
+    <message>
+        <source>CW %1 WPM</source>
+        <translation>CW %1 WPM</translation>
+    </message>
+    <message>
+        <source>Click to listen · double-click to put %1 in the QSO</source>
+        <translation>Klicken zum Hören · Doppelklick übernimmt %1 ins QSO</translation>
     </message>
     <message>
         <source>noise</source>

@@ -8,6 +8,7 @@
 #pragma once
 
 #include "core/CwDecoder.h"
+#include "core/CwSkimmer.h"
 #include "core/CwKeyer.h"
 #include "core/WinKeyer.h"
 #include "core/RigControl.h"
@@ -93,6 +94,14 @@ class RigController : public QObject {
     // level, pitch, wpm, cost, reading}. Si aggiorna una quindicina di volte
     // al secondo, non a ogni pezzetto di audio.
     Q_PROPERTY(QVariantMap decoderScope READ decoderScope NOTIFY decoderScopeChanged)
+    // Le stazioni CW in banda, tutte insieme (lo «skimmer»): ognuna con tono, velocita', nominativo
+    // e ultimo testo, piu' lo spettro della banda per sceglierle. Attivo di serie quando il
+    // decoder ascolta.
+    Q_PROPERTY(bool skimmerOn READ skimmerOn WRITE setSkimmerOn NOTIFY skimmerChanged)
+    Q_PROPERTY(QVariantList skimmerStations READ skimmerStations NOTIFY skimmerChanged)
+    Q_PROPERTY(QVariantList skimmerSpectrum READ skimmerSpectrum NOTIFY skimmerChanged)
+    Q_PROPERTY(int skimmerLowHz READ skimmerLowHz CONSTANT)
+    Q_PROPERTY(int skimmerHighHz READ skimmerHighHz CONSTANT)
     Q_PROPERTY(QStringList audioInputs READ audioInputs NOTIFY audioDevicesChanged)
     Q_PROPERTY(QString audioInput READ audioInput WRITE setAudioInput NOTIFY audioSelectionChanged)
     // L'ingresso del decoder, scelto in modo preciso: l'elenco con gli
@@ -152,6 +161,9 @@ public:
         // SO2R: la radio 2, quando ha lei il fuoco. Il CW va li' se non c'e'
         // un manipolatore seriale (che la scatola SO2R gira da sola).
         std::function<core::RigLink*()> alternateRig;
+        // Lo stato di un nominativo sentito in aria rispetto al log (nuova entita', nuova banda,
+        // gia' lavorato…): {status, label, entity, azimuth, distanceKm}. Vuoto: non si dice.
+        std::function<QVariantMap(const QString& call, const QString& band, const QString& mode)> classifyCall;
     };
 
     explicit RigController(Context context, QObject* parent = nullptr);
@@ -261,6 +273,19 @@ public:
     Q_INVOKABLE bool chooseDecoderModel(const QUrl& file);
     Q_INVOKABLE void clearDecoderModel();
     QVariantMap decoderScope() const { return m_scope; }
+    bool skimmerOn() const { return m_skimmerOn; }
+    void setSkimmerOn(bool on);
+    QVariantList skimmerStations() const { return m_stations; }
+    QVariantList skimmerSpectrum() const { return m_spectrum; }
+    int skimmerLowHz() const { return m_skimmer.lowHz(); }
+    int skimmerHighHz() const { return m_skimmer.highHz(); }
+    // Il testo decodificato come HTML, con i nominativi cliccabili ("call:K1ABC") nel colore dato.
+    Q_INVOKABLE QString decoderHtml(const QString& linkColor) const;
+    // La frequenza della stazione al tono dato, in kHz con un decimale, dalla frequenza della
+    // radio e dal modo: serve a segnalare quella stazione.
+    Q_INVOKABLE QString stationKhz(double toneHz) const;
+    // Ascolta quella stazione: il decoder principale si ferma sul suo tono.
+    Q_INVOKABLE void listenTo(double toneHz);
     // Per le prove: fa ascoltare al decoder un file audio (WAV o PCM a 16 bit,
     // mono) al passo del tempo vero, come se arrivasse dalla scheda audio.
     void playTestAudio(const QByteArray& pcm, int sampleRate);
@@ -345,9 +370,11 @@ signals:
     void audioDevicesChanged();
     void audioSelectionChanged();
     void decoderScopeChanged();
+    void skimmerChanged();
 
 private:
     void loadMacros();
+    void publishSkimmer(bool force = false);
     void setActiveMacroIndex(int index);
     void sendExpandedText(const QString& ready);
     bool directYaesuCwUsesKeyerMemory() const;
@@ -385,6 +412,11 @@ private:
     QString m_decoderModel;
     QVariantMap m_scope;
     QElapsedTimer m_scopeClock;
+    core::CwSkimmer m_skimmer{8000};
+    bool m_skimmerOn{true};
+    QVariantList m_stations;
+    QVariantList m_spectrum;
+    QElapsedTimer m_skimmerClock;
     std::unique_ptr<QTimer> m_testAudio;
     QString m_audioInput;
     QString m_audioInputId;

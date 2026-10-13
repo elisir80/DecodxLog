@@ -42,6 +42,9 @@ constexpr double kFlushSeconds = 3.2;
 // il solo rumore di banda sta fra 0.68 e 1.3.
 constexpr float kMaxCost = 0.2f;
 
+// Dopo tanti secondi senza una lettera, il testo che arriva e' un altro passaggio.
+constexpr double kNewLineSeconds = 4.0;
+
 } // namespace
 
 QString morseToChar(const QString& symbols)
@@ -76,6 +79,12 @@ void CwDecoder::setTone(int hz)
 {
     m_tone = hz > 0 ? hz : 0;
     applyDecodeParameters();
+}
+
+void CwDecoder::setNarrowFilter(bool on)
+{
+    m_narrow = on;
+    m_filterHz = 0;   // si ricalcola al prossimo pezzo di audio
 }
 
 void CwDecoder::setSpeed(int wpm)
@@ -117,6 +126,9 @@ void CwDecoder::rebuild()
     m_last = QChar();
     m_word.clear();
     m_retract = 0;
+    m_idleSamples = 0;
+    m_hadText = false;
+    m_atLineStart = true;
     setTone(m_tone);
     if (m_neural)
         m_neural->reset();
@@ -401,19 +413,71 @@ QString CwDecoder::feed(const qint16* samples, int count)
 {
     if (!m_morse || !samples || count <= 0)
         return {};
+    std::vector<qint16> filtered;
+    if (m_narrow && m_tone > 0) {
+        filtered.resize(static_cast<size_t>(count));
+        filterInto(samples, filtered.data(), count);
+        samples = filtered.data();
+    }
     m_pending.append(reinterpret_cast<const char*>(samples),
                      static_cast<qsizetype>(count) * static_cast<qsizetype>(sizeof(qint16)));
     m_fedSamples += count;
     const QString fromGgmorse = drain();
     if (!m_neural)
-        return applyLexicon(fromGgmorse);
+        return applyLexicon(breakLines(fromGgmorse, count));
     std::vector<float> mono(static_cast<size_t>(count));
     for (int i = 0; i < count; ++i)
         mono[static_cast<size_t>(i)] = samples[i] / 32768.0f;
     const QString text = neuralText(*m_neural, mono, m_sampleRate, m_tone, m_toneHz);
     const float raw = m_scope.reading ? std::clamp(static_cast<float>(m_neural->confidence()), 0.0f, 1.0f) : 0.0f;
     m_scope.confidence = raw == 0.0f ? 0.0f : 0.7f * m_scope.confidence + 0.3f * raw;
-    return applyLexicon(text);
+    return applyLexicon(breakLines(text, count));
+}
+
+void CwDecoder::filterInto(const qint16* in, qint16* out, int count)
+{
+    // RBJ, passa-banda a guadagno unitario sul centro. La larghezza e' la stessa a ogni tono:
+    // fissa in hertz (circa 120 per stadio, 80 a -3 dB in cascata), il Q ne segue il tono.
+    if (m_filterHz != m_tone) {
+        constexpr double kBandwidthHz = 120.0;
+        const double w0 = 2.0 * 3.14159265358979323846 * m_tone / m_sampleRate;
+        const double q = std::max(2.0, static_cast<double>(m_tone) / kBandwidthHz);
+        const double alpha = std::sin(w0) / (2.0 * q);
+        const double a0 = 1.0 + alpha;
+        for (Biquad& b : m_biquad) {
+            b.b0 = alpha / a0;
+            b.b2 = -alpha / a0;
+            b.a1 = -2.0 * std::cos(w0) / a0;
+            b.a2 = (1.0 - alpha) / a0;
+        }
+        m_filterHz = m_tone;
+    }
+    for (int i = 0; i < count; ++i) {
+        double x = in[i];
+        for (Biquad& b : m_biquad) {
+            // Forma trasposta II.
+            const double y = b.b0 * x + b.z1;
+            b.z1 = b.z2 - b.a1 * y;      // b1 = 0
+            b.z2 = b.b2 * x - b.a2 * y;
+            x = y;
+        }
+        out[i] = static_cast<qint16>(std::lround(std::clamp(x, -32768.0, 32767.0)));
+    }
+}
+
+QString CwDecoder::breakLines(QString raw, int count)
+{
+    if (raw.trimmed().isEmpty()) {
+        m_idleSamples += count;
+        return raw;
+    }
+    if (m_hadText && !m_atLineStart && m_idleSamples >= static_cast<qint64>(kNewLineSeconds * m_sampleRate)
+        && !raw.startsWith(QLatin1Char('\n')))
+        raw.prepend(QLatin1Char('\n'));
+    m_idleSamples = 0;
+    m_hadText = true;
+    m_atLineStart = raw.endsWith(QLatin1Char('\n'));
+    return raw;
 }
 
 QString CwDecoder::flush()
