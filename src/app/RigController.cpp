@@ -174,6 +174,8 @@ RigController::RigController(Context context, QObject* parent)
 
 void RigController::start()
 {
+    // La lista delle radio si prepara da sola: quando si apre Impostazioni e' gia' li'.
+    QTimer::singleShot(2500, this, &RigController::loadRigModels);
     if (m_enabled)
         connectNow();
 }
@@ -314,14 +316,29 @@ void RigController::probeRadio()
     probeNext();
 }
 
+// Ogni tentativo (porta, velocita') avvia un rigctld, aspetta che apra la seriale, gli chiede
+// la frequenza e va al successivo. Tutto a eventi: con la radio spenta ogni tentativo aspetta
+// la sua risposta fino a 2,7 secondi, e prima la finestra restava ferma per tutto il tempo.
 void RigController::probeNext()
 {
+    ++m_probeGeneration;
     m_probeSocket.reset();
-    if (m_probeProcess) {
-        m_probeProcess->kill();
-        m_probeProcess->waitForFinished(1500);
-        m_probeProcess.reset();
+    m_probeBuffer.clear();
+    if (m_probeProcess && m_probeProcess->state() != QProcess::NotRunning) {
+        // Prima la seriale deve tornare libera: si aspetta la fine del processo senza fermare
+        // la finestra.
+        QProcess* process = m_probeProcess.get();
+        process->disconnect();
+        connect(process, &QProcess::finished, this, [this, process] {
+            if (m_probeProcess.get() != process)
+                return;
+            m_probeProcess.release()->deleteLater();
+            probeNext();
+        });
+        process->kill();
+        return;
     }
+    m_probeProcess.reset();
     if (m_probeIndex < 0 || m_probeIndex >= m_probe.size()) {
         probeFinish(false, QString(), 0);
         return;
@@ -336,36 +353,53 @@ void RigController::probeNext()
     const quint16 chosen = probe.serverPort();
     probe.close();
 
+    const quint64 generation = m_probeGeneration;
     m_probeProcess = std::make_unique<QProcess>();
-    m_probeProcess->start(core::qsl::findRigctld(),
-                          {QStringLiteral("-m"), QString::number(m_rigModel),
-                           QStringLiteral("-r"), port,
-                           QStringLiteral("-s"), QString::number(baud),
-                           QStringLiteral("-T"), QStringLiteral("127.0.0.1"),
-                           QStringLiteral("-t"), QString::number(chosen)});
-    if (!m_probeProcess->waitForStarted(3000)) {
-        ++m_probeIndex;
-        QTimer::singleShot(0, this, &RigController::probeNext);
-        return;
-    }
+    QProcess* process = m_probeProcess.get();
+    connect(process, &QProcess::errorOccurred, this, [this, generation](QProcess::ProcessError error) {
+        if (error == QProcess::FailedToStart && generation == m_probeGeneration)
+            probeAdvance();
+    });
+    // rigctld che se ne va da solo: la porta non c'e' o e' occupata. Inutile aspettare.
+    connect(process, &QProcess::finished, this, [this, generation](int, QProcess::ExitStatus) {
+        if (generation == m_probeGeneration)
+            probeAdvance();
+    });
+    connect(process, &QProcess::started, this, [this, generation, port, baud, chosen] {
+        // Un secondo per aprire la seriale, poi si chiede la frequenza.
+        QTimer::singleShot(1200, this, [this, generation, port, baud, chosen] {
+            if (generation == m_probeGeneration && m_probeIndex >= 0)
+                probeAsk(generation, port, baud, chosen);
+        });
+    });
+    process->start(core::qsl::findRigctld(),
+                   {QStringLiteral("-m"), QString::number(m_rigModel),
+                    QStringLiteral("-r"), port,
+                    QStringLiteral("-s"), QString::number(baud),
+                    QStringLiteral("-T"), QStringLiteral("127.0.0.1"),
+                    QStringLiteral("-t"), QString::number(chosen)});
+}
 
-    // Un secondo per aprire la seriale, poi si chiede la frequenza.
-    QTimer::singleShot(1200, this, [this, port, baud, chosen] {
-        if (m_probeIndex < 0)
+// Il tentativo e' andato male: si passa al prossimo, ma non da dentro il segnale che l'ha detto.
+void RigController::probeAdvance()
+{
+    ++m_probeGeneration;
+    ++m_probeIndex;
+    QTimer::singleShot(0, this, &RigController::probeNext);
+}
+
+void RigController::probeAsk(quint64 generation, const QString& port, int baud, quint16 tcpPort)
+{
+    m_probeBuffer.clear();
+    m_probeSocket = std::make_unique<QTcpSocket>();
+    QTcpSocket* socket = m_probeSocket.get();
+    connect(socket, &QTcpSocket::connected, this, [socket] { socket->write("+f\n"); });
+    connect(socket, &QTcpSocket::readyRead, this, [this, generation, socket, port, baud] {
+        if (generation != m_probeGeneration)
             return;
-        m_probeSocket = std::make_unique<QTcpSocket>();
-        m_probeSocket->connectToHost(QStringLiteral("127.0.0.1"), chosen);
-        if (!m_probeSocket->waitForConnected(1200)) {
-            ++m_probeIndex;
-            probeNext();
-            return;
-        }
-        m_probeSocket->write("+f\n");
-        m_probeSocket->waitForBytesWritten(500);
-        const bool answered = m_probeSocket->waitForReadyRead(1500);
-        const QString reply = answered ? QString::fromUtf8(m_probeSocket->readAll()) : QString();
+        m_probeBuffer += socket->readAll();
         qint64 hz = 0;
-        for (const QString& line : reply.split(QLatin1Char('\n'))) {
+        for (const QString& line : QString::fromUtf8(m_probeBuffer).split(QLatin1Char('\n'))) {
             const QString clean = line.section(QLatin1Char(':'), -1).trimmed();
             bool ok = false;
             const qint64 value = clean.toLongLong(&ok);
@@ -373,20 +407,34 @@ void RigController::probeNext()
                 hz = value;
         }
         if (hz > 0) {
-            probeFinish(true, port, baud);
-            return;
+            ++m_probeGeneration;
+            QTimer::singleShot(0, this, [this, port, baud] { probeFinish(true, port, baud); });
+        } else if (m_probeBuffer.contains("RPRT")) {
+            // Ha risposto, ma con un errore: la radio non e' qui.
+            probeAdvance();
         }
-        ++m_probeIndex;
-        probeNext();
     });
+    connect(socket, &QTcpSocket::errorOccurred, this, [this, generation](QAbstractSocket::SocketError) {
+        if (generation == m_probeGeneration)
+            probeAdvance();
+    });
+    // Senza risposta entro un secondo e mezzo dalla connessione si passa oltre.
+    QTimer::singleShot(2700, this, [this, generation] {
+        if (generation == m_probeGeneration && m_probeIndex >= 0)
+            probeAdvance();
+    });
+    socket->connectToHost(QStringLiteral("127.0.0.1"), tcpPort);
 }
 
 void RigController::probeFinish(bool found, const QString& port, int baud)
 {
+    ++m_probeGeneration;
     m_probeSocket.reset();
     if (m_probeProcess) {
+        // Prima di lasciare la seriale al rigctld vero: kill() e' questione di millisecondi.
+        m_probeProcess->disconnect();
         m_probeProcess->kill();
-        m_probeProcess->waitForFinished(1500);
+        m_probeProcess->waitForFinished(500);
         m_probeProcess.reset();
     }
     m_probeIndex = -1;
@@ -488,6 +536,8 @@ void RigController::overrideTci(const QString& address, int trx)
 
 void RigController::connectNow()
 {
+    // Quello che era in attesa di un avvio precedente non vale piu'.
+    ++m_launchGeneration;
     // Radio nuova, speranza nuova: finche' non dice di no, si prova.
     m_canKeyCw = true;
     if (m_link == QLatin1String("flrig") || m_link == QLatin1String("omnirig")) {
@@ -520,8 +570,14 @@ void RigController::connectNow()
     }
     m_tci.disconnectFromRig();
     m_rig = &m_hamlib;
-    if (m_link == QLatin1String("serial"))
+    if (m_link == QLatin1String("serial")) {
+        // rigctld parte su un processo a parte e la connessione segue quando e' pronto: la
+        // finestra non aspetta (prima, a ogni modifica di una voce della radio, restava
+        // ferma fino a 4 secondi + 0,6 ad ogni avvio).
         startLocalRigctld();
+        emit stateChanged();
+        return;
+    }
     m_hamlib.connectTo(m_host, static_cast<quint16>(m_port));
     emit stateChanged();
 }
@@ -531,8 +587,15 @@ void RigController::connectNow()
 // sempre — per chi opera, e' solo "COM5, questa radio".
 void RigController::startLocalRigctld()
 {
-    if (m_rigctld && m_rigctld->state() != QProcess::NotRunning)
+    const quint64 generation = m_launchGeneration;
+    // Gia' in piedi: basta collegarsi (aspettando che abbia finito di aprire la seriale, se e'
+    // partito da poco).
+    if (m_rigctld && m_rigctld->state() != QProcess::NotRunning) {
+        constexpr qint64 kWarmupMs = 600;
+        const qint64 age = m_rigctldClock.isValid() ? m_rigctldClock.elapsed() : kWarmupMs;
+        connectHamlibLater(generation, qMax<qint64>(0, kWarmupMs - age));
         return;
+    }
     const QString exe = core::qsl::findRigctld();
     if (exe.isEmpty()) {
         if (m_ctx.activity) {
@@ -541,12 +604,30 @@ void RigController::startLocalRigctld()
                               "use the network link"),
                            QStringLiteral("warning"));
         }
+        connectHamlibLater(generation, 0);
         return;
     }
     if (m_serialPort.isEmpty() || m_rigModel <= 0) {
         if (m_ctx.activity)
             m_ctx.activity(QStringLiteral("CAT"), tr("Pick the radio model and the serial port first"),
                            QStringLiteral("warning"));
+        connectHamlibLater(generation, 0);
+        return;
+    }
+    // L'app puo' avviare la radio prima che la pagina Impostazioni sia stata
+    // aperta: in quel caso scopriamo qui le capacita', prima di costruire la
+    // riga di comando, non solo quando la UI le deve visualizzare.
+    requestCapabilities([this, generation] {
+        if (generation == m_launchGeneration)
+            launchRigctld(generation);
+    });
+}
+
+void RigController::launchRigctld(quint64 generation)
+{
+    const QString exe = core::qsl::findRigctld();
+    if (exe.isEmpty() || (m_rigctld && m_rigctld->state() != QProcess::NotRunning)) {
+        connectHamlibLater(generation, 0);
         return;
     }
 
@@ -559,14 +640,11 @@ void RigController::startLocalRigctld()
     m_host = QStringLiteral("127.0.0.1");
     m_port = chosen;
     m_rigctld = std::make_unique<QProcess>();
-    // L'app puo' avviare la radio prima che la pagina Impostazioni sia stata
-    // aperta: in quel caso scopriamo qui le capacita', prima di costruire la
-    // riga di comando, non solo quando la UI le deve visualizzare.
-    refreshSerialCapabilities();
     const QStringList arguments = localRigctldArguments(m_serialPort, m_baud, chosen);
     m_rigctld->setProcessChannelMode(QProcess::MergedChannels);
-    connect(m_rigctld.get(), &QProcess::readyReadStandardOutput, this, [this] {
-        const QString text = QString::fromUtf8(m_rigctld->readAll());
+    QProcess* process = m_rigctld.get();
+    connect(process, &QProcess::readyReadStandardOutput, this, [this, process] {
+        const QString text = QString::fromUtf8(process->readAll());
         for (const QString& line : text.split(QLatin1Char('\n'))) {
             // Le righe che contano sono quelle dove Hamlib dice che non ce la fa.
             if (line.contains(QLatin1String("error"), Qt::CaseInsensitive)
@@ -576,21 +654,41 @@ void RigController::startLocalRigctld()
             }
         }
     });
-    m_rigctld->start(exe, arguments);
-    if (!m_rigctld->waitForStarted(4000)) {
+    connect(process, &QProcess::started, this, [this, generation] {
+        if (m_ctx.activity) {
+            m_ctx.activity(QStringLiteral("CAT"),
+                           tr("Hamlib started on %1 (model %2, %3 baud)")
+                               .arg(m_serialPort).arg(m_rigModel).arg(m_baud),
+                           QStringLiteral("info"));
+        }
+        // Un attimo: rigctld apre la seriale e poi si mette in ascolto.
+        m_rigctldClock.restart();
+        connectHamlibLater(generation, 600);
+    });
+    connect(process, &QProcess::errorOccurred, this, [this, process, generation](QProcess::ProcessError error) {
+        if (error != QProcess::FailedToStart || m_rigctld.get() != process)
+            return;
         if (m_ctx.activity)
             m_ctx.activity(QStringLiteral("CAT"), tr("rigctld did not start"), QStringLiteral("warning"));
-        m_rigctld.reset();
-        return;
-    }
-    if (m_ctx.activity) {
-        m_ctx.activity(QStringLiteral("CAT"),
-                       tr("Hamlib started on %1 (model %2, %3 baud)")
-                           .arg(m_serialPort).arg(m_rigModel).arg(m_baud),
-                       QStringLiteral("info"));
-    }
-    // Un attimo: rigctld apre la seriale e poi si mette in ascolto.
-    QThread::msleep(600);
+        m_rigctld.release()->deleteLater();
+        connectHamlibLater(generation, 0);
+    });
+    process->start(exe, arguments);
+}
+
+// La connessione a Hamlib, subito o fra un po': solo se nel frattempo nessuno ha ricominciato.
+void RigController::connectHamlibLater(quint64 generation, qint64 delayMs)
+{
+    auto connectIfCurrent = [this, generation] {
+        if (generation != m_launchGeneration || m_rig != &m_hamlib)
+            return;
+        m_hamlib.connectTo(m_host, static_cast<quint16>(m_port));
+        emit stateChanged();
+    };
+    if (delayMs <= 0)
+        connectIfCurrent();
+    else
+        QTimer::singleShot(delayMs, this, connectIfCurrent);
 }
 
 void RigController::setLink(const QString& link)
@@ -751,37 +849,98 @@ bool RigController::supportsSerialParameter(const QString& name) const
 
 void RigController::refreshSerialCapabilities()
 {
+    requestCapabilities({});
+}
+
+// Le opzioni della seriale del modello scelto, da `rigctld -m N -L` su un processo a parte.
+// `then` parte quando le capacita' sono quelle del modello di adesso (subito, se gia' lo sono).
+void RigController::requestCapabilities(std::function<void()> then)
+{
+    if (then)
+        m_afterCapabilities.append(std::move(then));
+    auto flush = [this] {
+        const auto waiting = std::exchange(m_afterCapabilities, {});
+        for (const auto& f : waiting)
+            f();
+    };
+
     if (m_rigModel <= 0) {
         if (!m_serialCapabilities.isEmpty()) {
             m_serialCapabilities.clear();
             m_capabilitiesForModel = 0;
             emit serialCapabilitiesChanged();
         }
+        flush();
         return;
     }
-    if (m_capabilitiesForModel == m_rigModel)
+    if (m_capabilitiesForModel == m_rigModel) {
+        flush();
+        return;
+    }
+    // Una domanda e' gia' in volo: chi aspetta e' in coda, e al suo arrivo si guarda se
+    // il modello e' ancora quello.
+    if (m_capsProcess)
         return;
 
-    QStringList capabilities;
     const QString exe = core::qsl::findRigctld();
-    if (!exe.isEmpty()) {
-        QProcess list;
-        list.start(exe, {QStringLiteral("-m"), QString::number(m_rigModel), QStringLiteral("-L")});
-        if (list.waitForFinished(4000)) {
-            for (const QString& line : QString::fromUtf8(list.readAllStandardOutput()).split(QLatin1Char('\n'))) {
-                const int colon = line.indexOf(QLatin1Char(':'));
-                const QString name = line.left(colon).trimmed();
-                if (colon > 0 && name.contains(QRegularExpression(QStringLiteral("^[a-z_]+$"))))
-                    capabilities << name;
-            }
+    if (exe.isEmpty()) {
+        m_capabilitiesForModel = m_rigModel;
+        if (!m_serialCapabilities.isEmpty()) {
+            m_serialCapabilities.clear();
+            emit serialCapabilitiesChanged();
         }
-    }
-    capabilities.removeDuplicates();
-    m_capabilitiesForModel = m_rigModel;
-    if (m_serialCapabilities == capabilities)
+        flush();
         return;
-    m_serialCapabilities = capabilities;
-    emit serialCapabilitiesChanged();
+    }
+
+    m_capsModel = m_rigModel;
+    m_capsProcess = std::make_unique<QProcess>();
+    QProcess* process = m_capsProcess.get();
+    auto done = [this, process](const QStringList& capabilities) {
+        if (m_capsProcess.get() != process)
+            return;
+        m_capsProcess.release()->deleteLater();
+        if (m_capsModel == m_rigModel) {
+            QStringList unique = capabilities;
+            unique.removeDuplicates();
+            m_capabilitiesForModel = m_capsModel;
+            if (m_serialCapabilities != unique) {
+                m_serialCapabilities = unique;
+                emit serialCapabilitiesChanged();
+            }
+            const auto waiting = std::exchange(m_afterCapabilities, {});
+            for (const auto& f : waiting)
+                f();
+        } else {
+            // Nel frattempo e' stato scelto un altro modello: si chiede per quello.
+            requestCapabilities({});
+        }
+    };
+    connect(process, &QProcess::finished, this, [process, done](int, QProcess::ExitStatus) {
+        QStringList capabilities;
+        const QString text = QString::fromUtf8(process->readAllStandardOutput());
+        static const QRegularExpression name(QStringLiteral("^[a-z_]+$"));
+        for (const QString& line : text.split(QLatin1Char('\n'))) {
+            const int colon = line.indexOf(QLatin1Char(':'));
+            const QString key = line.left(colon).trimmed();
+            if (colon > 0 && name.match(key).hasMatch())
+                capabilities << key;
+        }
+        done(capabilities);
+    });
+    connect(process, &QProcess::errorOccurred, this, [done](QProcess::ProcessError error) {
+        if (error == QProcess::FailedToStart)
+            done({});
+    });
+    // Un rigctld che non risponde non tiene in coda per sempre chi aspetta.
+    QTimer::singleShot(4000, this, [this, process, done] {
+        if (m_capsProcess.get() == process) {
+            process->disconnect();
+            process->kill();
+            done({});
+        }
+    });
+    process->start(exe, {QStringLiteral("-m"), QString::number(m_rigModel), QStringLiteral("-L")});
 }
 
 QStringList RigController::localRigctldArguments(const QString& port, int baud, quint16 tcpPort) const
@@ -865,30 +1024,56 @@ void RigController::setCivAddress(const QString& value)
 
 QVariantList RigController::rigModels()
 {
-    decolog::StartupSpan trace("Hamlib rigModels");
-    if (!m_models.isEmpty())
-        return m_models;
+    if (m_models.isEmpty())
+        loadRigModels();
+    return m_models;
+}
+
+// "rigctld -l" scrive l'elenco di tutte le radio che Hamlib conosce. Si legge su un processo a
+// parte: la lista arriva con rigModelsChanged() e la finestra non aspetta nessuno.
+void RigController::loadRigModels()
+{
+    if (m_modelsProcess || !m_models.isEmpty())
+        return;
     const QString exe = core::qsl::findRigctld();
     if (exe.isEmpty())
-        return m_models;
-    // "rigctld -l" scrive l'elenco di tutte le radio che Hamlib conosce.
-    QProcess list;
-    list.start(exe, {QStringLiteral("-l")});
-    if (!list.waitForFinished(8000))
-        return m_models;
-    const QString text = QString::fromUtf8(list.readAllStandardOutput());
-    for (const QString& line : text.split(QLatin1Char('\n'))) {
-        const QString clean = line.trimmed();
-        if (clean.isEmpty() || !clean.at(0).isDigit())
-            continue;
-        const int id = clean.section(QLatin1Char(' '), 0, 0).toInt();
-        const QString rest = clean.section(QLatin1Char(' '), 1).simplified();
-        if (id > 0 && !rest.isEmpty()) {
-            m_models << QVariantMap{{QStringLiteral("id"), id},
-                                    {QStringLiteral("name"), QStringLiteral("%1 \u2014 %2").arg(id).arg(rest.left(40))}};
+        return;
+    m_modelsProcess = std::make_unique<QProcess>();
+    QProcess* process = m_modelsProcess.get();
+    connect(process, &QProcess::finished, this, [this, process](int, QProcess::ExitStatus) {
+        if (m_modelsProcess.get() != process)
+            return;
+        const QString text = QString::fromUtf8(process->readAllStandardOutput());
+        m_modelsProcess.release()->deleteLater();
+        QVariantList models;
+        for (const QString& line : text.split(QLatin1Char('\n'))) {
+            const QString clean = line.trimmed();
+            if (clean.isEmpty() || !clean.at(0).isDigit())
+                continue;
+            const int id = clean.section(QLatin1Char(' '), 0, 0).toInt();
+            const QString rest = clean.section(QLatin1Char(' '), 1).simplified();
+            if (id > 0 && !rest.isEmpty()) {
+                models << QVariantMap{{QStringLiteral("id"), id},
+                                      {QStringLiteral("name"), QStringLiteral("%1 — %2").arg(id).arg(rest.left(40))}};
+            }
         }
-    }
-    return m_models;
+        if (!models.isEmpty()) {
+            m_models = models;
+            emit rigModelsChanged();
+        }
+    });
+    connect(process, &QProcess::errorOccurred, this, [this, process](QProcess::ProcessError error) {
+        if (error == QProcess::FailedToStart && m_modelsProcess.get() == process)
+            m_modelsProcess.release()->deleteLater();
+    });
+    QTimer::singleShot(15000, this, [this, process] {
+        if (m_modelsProcess.get() == process) {
+            process->disconnect();
+            process->kill();
+            m_modelsProcess.release()->deleteLater();
+        }
+    });
+    process->start(exe, {QStringLiteral("-l")});
 }
 
 QStringList RigController::serialPorts() const
@@ -1623,7 +1808,11 @@ void RigController::shutdown()
     m_probeSocket.reset();
     m_probe.clear();
     m_probeIndex = -1;
+    ++m_launchGeneration;
+    ++m_probeGeneration;
     stopChildProcess(m_probeProcess);
+    stopChildProcess(m_modelsProcess);
+    stopChildProcess(m_capsProcess);
     stopChildProcess(m_rigctld);
 
     // WinKeyer vive nel thread della UI e la sua close ha gia' un timeout

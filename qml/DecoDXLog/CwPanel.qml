@@ -9,6 +9,7 @@ import QtQuick.Controls
 import QtQuick.Layouts
 import QtQuick.Window
 import QtQuick.Dialogs
+import QtCore
 import Decodium.UI
 
 GlassPanel {
@@ -23,6 +24,26 @@ GlassPanel {
     property bool compact: false
 
     readonly property var rig: decolog.rig
+
+    // Le stazioni in banda: di serie una striscia di etichette (una riga sola, anche con cinque
+    // segnali); con "Dettagli" una riga per stazione, in una finestra a scorrimento di tre.
+    Settings {
+        id: view
+        category: "layout/cwpanel"
+        property bool skimmerDetail: false
+    }
+
+    // Il colore del nominativo, dallo stato che ne da' il log (nuovo, gia' lavorato, mancante…).
+    function statusColor(status) {
+        if (status & 1) return Theme.errorColor
+        if (status & 2) return Theme.warningColor
+        if (status & 4) return Theme.secondaryColor
+        if (status & 8) return Theme.primaryColor
+        if (status & (256 | 512 | 2048)) return Theme.warningColor
+        if (status & 32) return Theme.textSecondary
+        if (status & 16) return Theme.accentColor
+        return Theme.textPrimary
+    }
 
     // Per le schermate di prova: apre la tendina dell'ingresso audio.
     function showCombo() { audioBox.popup.open() }
@@ -623,9 +644,19 @@ GlassPanel {
                 checked: root.rig.skimmerOn
                 onToggled: root.rig.skimmerOn = checked
             }
+            ToggleSwitch {
+                visible: root.rig.skimmerOn
+                text: qsTr("Details")
+                checked: view.skimmerDetail
+                onToggled: view.skimmerDetail = checked
+                ToolTip.visible: hovered
+                ToolTip.delay: 600
+                ToolTip.text: qsTr("One line per station (call, speed, what it sends) instead of one label each")
+            }
             Text {
                 visible: root.rig.skimmerOn
                 Layout.fillWidth: true
+                Layout.minimumWidth: 0
                 elide: Text.ElideRight
                 color: Theme.textSecondary
                 font.pixelSize: 11
@@ -633,12 +664,13 @@ GlassPanel {
                       ? qsTr("no signals in the band")
                       : qsTr("signals in the band: %1").arg(root.rig.skimmerStations.length)
             }
+            Item { Layout.fillWidth: true; visible: !root.rig.skimmerOn }
         }
 
         Rectangle {
             id: band
             Layout.fillWidth: true
-            Layout.preferredHeight: 40
+            Layout.preferredHeight: 32
             visible: root.rig.decoderOn && root.rig.skimmerOn && !root.compact
             color: Theme.bgDeep
             border.color: Theme.borderSoft
@@ -731,102 +763,195 @@ GlassPanel {
             }
         }
 
-        Repeater {
-            model: root.rig.decoderOn && root.rig.skimmerOn && !root.compact ? root.rig.skimmerStations : []
-            delegate: Rectangle {
-                id: row
-                required property var modelData
-                readonly property var st: modelData
-                readonly property bool known: st.call && st.call.length > 0
-                Layout.fillWidth: true
-                Layout.preferredHeight: 24
-                radius: 3
-                color: st.listening ? Qt.alpha(Theme.accentColor, 0.18) : Qt.alpha(Theme.bgMedium, 0.6)
-                border.color: st.listening ? Theme.accentColor : Theme.borderSoft
-                opacity: st.present ? 1.0 : 0.6
+        // Le etichette: una per stazione, tutte in una riga (vanno a capo solo se non ci stanno).
+        // Il nominativo ha il colore dello stato (nuovo, gia' lavorato…); un clic ascolta, il doppio
+        // clic porta il nominativo nel QSO, il tasto destro apre lo spot. Il resto sta nel suggerimento.
+        Flow {
+            id: chips
+            Layout.fillWidth: true
+            spacing: 4
+            visible: root.rig.decoderOn && root.rig.skimmerOn && !root.compact && !view.skimmerDetail
+                     && root.rig.skimmerStations.length > 0
+            Repeater {
+                model: chips.visible ? root.rig.skimmerStations : []
+                delegate: Rectangle {
+                    id: chip
+                    required property var modelData
+                    readonly property var st: modelData
+                    readonly property bool known: st.call && st.call.length > 0
+                    height: 22
+                    width: chipRow.implicitWidth + 12
+                    radius: 3
+                    color: st.listening ? Qt.alpha(Theme.accentColor, 0.18) : Qt.alpha(Theme.bgMedium, 0.6)
+                    border.color: st.listening ? Theme.accentColor : Theme.borderSoft
+                    opacity: st.present ? 1.0 : 0.6
 
-                function statusColor(status) {
-                    if (status & 1) return Theme.errorColor
-                    if (status & 2) return Theme.warningColor
-                    if (status & 4) return Theme.secondaryColor
-                    if (status & 8) return Theme.primaryColor
-                    if (status & (256 | 512 | 2048)) return Theme.warningColor
-                    if (status & 32) return Theme.textSecondary
-                    if (status & 16) return Theme.accentColor
-                    return Theme.textPrimary
-                }
-
-                RowLayout {
-                    anchors.fill: parent
-                    anchors.leftMargin: 6
-                    anchors.rightMargin: 4
-                    spacing: 6
-                    Text {
-                        text: qsTr("%1 Hz").arg(row.st.freq)
-                        color: Theme.textSecondary
-                        font.family: Theme.monoFamily
-                        font.pixelSize: 11
-                        Layout.preferredWidth: 58
+                    Row {
+                        id: chipRow
+                        anchors.centerIn: parent
+                        spacing: 5
+                        Text {
+                            anchors.verticalCenter: parent.verticalCenter
+                            text: chip.known ? chip.st.call : qsTr("%1 Hz").arg(chip.st.freq)
+                            color: chip.known ? root.statusColor(chip.st.status || 0) : Theme.textSecondary
+                            font.family: Theme.monoFamily
+                            font.pixelSize: 12
+                            font.bold: chip.known
+                        }
+                        Text {
+                            anchors.verticalCenter: parent.verticalCenter
+                            visible: chip.st.cq === true
+                            text: "CQ"
+                            color: Theme.accentColor
+                            font.pixelSize: 10
+                            font.bold: true
+                        }
+                        Text {
+                            anchors.verticalCenter: parent.verticalCenter
+                            visible: chip.st.wpm > 0
+                            text: String(chip.st.wpm)
+                            color: Theme.textSecondary
+                            font.family: Theme.monoFamily
+                            font.pixelSize: 10
+                        }
                     }
-                    Text {
-                        text: row.st.wpm > 0 ? qsTr("%1 wpm").arg(row.st.wpm) : "—"
-                        color: Theme.textSecondary
-                        font.family: Theme.monoFamily
-                        font.pixelSize: 11
-                        Layout.preferredWidth: 52
-                    }
-                    Text {
-                        text: row.known ? row.st.call : "…"
-                        color: row.known ? row.statusColor(row.st.status || 0) : Theme.textSecondary
-                        font.family: Theme.monoFamily
-                        font.pixelSize: 12
-                        font.bold: row.known
-                        Layout.preferredWidth: 78
-                        elide: Text.ElideRight
-                    }
-                    Text {
-                        visible: row.st.cq === true
-                        text: "CQ"
-                        color: Theme.accentColor
-                        font.pixelSize: 10
-                        font.bold: true
-                    }
-                    Text {
-                        visible: row.known && (row.st.label || "").length > 0
-                        text: row.st.label || ""
-                        color: row.statusColor(row.st.status || 0)
-                        font.pixelSize: 10
-                        elide: Text.ElideRight
-                        Layout.maximumWidth: 90
-                    }
-                    Text {
-                        Layout.fillWidth: true
-                        text: row.st.text
-                        color: Theme.textSecondary
-                        font.family: Theme.monoFamily
-                        font.pixelSize: 10
-                        elide: Text.ElideLeft
-                        horizontalAlignment: Text.AlignRight
-                    }
-                    GlassButton {
-                        visible: row.known
-                        text: qsTr("Spot")
-                        buttonHeight: 18
-                        fontPixelSize: 10
-                        onClicked: spotDialog.openFor(row.st.call, row.st.khz || "",
-                                                      row.st.wpm > 0 ? qsTr("CW %1 WPM").arg(row.st.wpm) : qsTr("CW"))
+                    MouseArea {
+                        id: chipMouse
+                        anchors.fill: parent
+                        acceptedButtons: Qt.LeftButton | Qt.RightButton
+                        hoverEnabled: true
+                        cursorShape: Qt.PointingHandCursor
+                        onClicked: (mouse) => {
+                            if (mouse.button === Qt.RightButton) {
+                                if (chip.known)
+                                    spotDialog.openFor(chip.st.call, chip.st.khz || "",
+                                                       chip.st.wpm > 0 ? qsTr("CW %1 WPM").arg(chip.st.wpm) : qsTr("CW"))
+                            } else {
+                                root.rig.listenTo(chip.st.freq)
+                            }
+                        }
+                        onDoubleClicked: (mouse) => {
+                            if (mouse.button === Qt.LeftButton && chip.known)
+                                decolog.lookupCall = chip.st.call
+                        }
+                        ToolTip.visible: containsMouse
+                        ToolTip.delay: 500
+                        ToolTip.text: (chip.known ? chip.st.call + " · " : "")
+                                      + qsTr("%1 Hz").arg(chip.st.freq)
+                                      + (chip.st.wpm > 0 ? " · " + qsTr("%1 wpm").arg(chip.st.wpm) : "")
+                                      + ((chip.st.label || "").length > 0 ? " · " + chip.st.label : "")
+                                      + (chip.st.text ? "\n" + chip.st.text : "")
+                                      + "\n" + (chip.known
+                                                ? qsTr("Click to listen · double-click to put %1 in the QSO · right-click to spot it").arg(chip.st.call)
+                                                : qsTr("Click to listen to this signal"))
                     }
                 }
-                MouseArea {
-                    anchors.fill: parent
-                    anchors.rightMargin: 44
-                    cursorShape: Qt.PointingHandCursor
-                    onClicked: root.rig.listenTo(row.st.freq)
-                    onDoubleClicked: { if (row.known) decolog.lookupCall = row.st.call }
-                    ToolTip.visible: containsMouse && row.known
-                    ToolTip.delay: 600
-                    ToolTip.text: qsTr("Click to listen · double-click to put %1 in the QSO").arg(row.st.call)
-                    hoverEnabled: true
+            }
+        }
+
+        // Una riga per stazione, in una finestra a scorrimento di tre righe al massimo: cinque
+        // segnali non allungano piu' il pannello.
+        ScrollView {
+            id: detailScroll
+            Layout.fillWidth: true
+            Layout.preferredHeight: Math.min(3, Math.max(1, root.rig.skimmerStations.length)) * 26
+            visible: root.rig.decoderOn && root.rig.skimmerOn && !root.compact && view.skimmerDetail
+                     && root.rig.skimmerStations.length > 0
+            clip: true
+            contentWidth: availableWidth
+            ScrollBar.vertical: PanelScrollBar {}
+            ScrollBar.horizontal.policy: ScrollBar.AlwaysOff
+
+            Column {
+                width: detailScroll.availableWidth
+                spacing: 2
+                Repeater {
+                    model: detailScroll.visible ? root.rig.skimmerStations : []
+                    delegate: Rectangle {
+                        id: row
+                        required property var modelData
+                        readonly property var st: modelData
+                        readonly property bool known: st.call && st.call.length > 0
+                        width: parent ? parent.width : 0
+                        height: 24
+                        radius: 3
+                        color: st.listening ? Qt.alpha(Theme.accentColor, 0.18) : Qt.alpha(Theme.bgMedium, 0.6)
+                        border.color: st.listening ? Theme.accentColor : Theme.borderSoft
+                        opacity: st.present ? 1.0 : 0.6
+
+                        RowLayout {
+                            anchors.fill: parent
+                            anchors.leftMargin: 6
+                            anchors.rightMargin: 4
+                            spacing: 6
+                            Text {
+                                text: qsTr("%1 Hz").arg(row.st.freq)
+                                color: Theme.textSecondary
+                                font.family: Theme.monoFamily
+                                font.pixelSize: 11
+                                Layout.preferredWidth: 58
+                            }
+                            Text {
+                                text: row.st.wpm > 0 ? qsTr("%1 wpm").arg(row.st.wpm) : "—"
+                                color: Theme.textSecondary
+                                font.family: Theme.monoFamily
+                                font.pixelSize: 11
+                                Layout.preferredWidth: 52
+                            }
+                            Text {
+                                text: row.known ? row.st.call : "…"
+                                color: row.known ? root.statusColor(row.st.status || 0) : Theme.textSecondary
+                                font.family: Theme.monoFamily
+                                font.pixelSize: 12
+                                font.bold: row.known
+                                Layout.preferredWidth: 78
+                                elide: Text.ElideRight
+                            }
+                            Text {
+                                visible: row.st.cq === true
+                                text: "CQ"
+                                color: Theme.accentColor
+                                font.pixelSize: 10
+                                font.bold: true
+                            }
+                            Text {
+                                visible: row.known && (row.st.label || "").length > 0
+                                text: row.st.label || ""
+                                color: root.statusColor(row.st.status || 0)
+                                font.pixelSize: 10
+                                elide: Text.ElideRight
+                                Layout.maximumWidth: 90
+                            }
+                            Text {
+                                Layout.fillWidth: true
+                                text: row.st.text
+                                color: Theme.textSecondary
+                                font.family: Theme.monoFamily
+                                font.pixelSize: 10
+                                elide: Text.ElideLeft
+                                horizontalAlignment: Text.AlignRight
+                            }
+                            GlassButton {
+                                visible: row.known
+                                text: qsTr("Spot")
+                                buttonHeight: 18
+                                fontPixelSize: 10
+                                onClicked: spotDialog.openFor(row.st.call, row.st.khz || "",
+                                                              row.st.wpm > 0 ? qsTr("CW %1 WPM").arg(row.st.wpm) : qsTr("CW"))
+                            }
+                        }
+                        MouseArea {
+                            anchors.fill: parent
+                            anchors.rightMargin: 44
+                            cursorShape: Qt.PointingHandCursor
+                            onClicked: root.rig.listenTo(row.st.freq)
+                            onDoubleClicked: { if (row.known) decolog.lookupCall = row.st.call }
+                            ToolTip.visible: containsMouse && row.known
+                            ToolTip.delay: 600
+                            ToolTip.text: qsTr("Click to listen · double-click to put %1 in the QSO").arg(row.st.call)
+                            hoverEnabled: true
+                        }
+                    }
                 }
             }
         }
@@ -849,9 +974,12 @@ GlassPanel {
                 width: decodedScroll.availableWidth
                 readOnly: true
                 wrapMode: TextArea.WrapAnywhere
-                // I nominativi sono collegamenti: un clic li porta nel QSO.
+                // I nominativi sono collegamenti: un clic li porta nel QSO. Il testo si prende col
+                // mouse (un doppio clic sceglie una parola, trascinando se ne sceglie quanto si
+                // vuole) e si copia con Ctrl+C.
                 textFormat: TextEdit.RichText
-                text: { const unused = root.rig.decoderText; return root.rig.decoderHtml(String(Theme.accentColor)) }
+                selectByMouse: true
+                persistentSelection: true
                 onLinkActivated: (link) => {
                     if (link.indexOf("call:") === 0)
                         decolog.lookupCall = link.substring(5)
@@ -860,8 +988,22 @@ GlassPanel {
                 font.family: Theme.monoFamily
                 font.pixelSize: 13
                 background: Rectangle { color: Theme.bgMedium; border.color: Theme.borderSoft; radius: 4 }
-                // Si guarda sempre l'ultima riga, come in una telescrivente.
-                onTextChanged: cursorPosition = length
+
+                // Con una selezione in corso il testo aspetta: se scorresse, la selezione si
+                // perderebbe a ogni carattere che arriva. Quando la selezione se ne va, il testo
+                // raggiunge quello che c'e' di nuovo.
+                readonly property string html: { const unused = root.rig.decoderText; return root.rig.decoderHtml(String(Theme.accentColor)) }
+                readonly property bool holding: selectionStart !== selectionEnd
+                function refresh() {
+                    if (holding)
+                        return
+                    text = html
+                    // Si guarda sempre l'ultima riga, come in una telescrivente.
+                    cursorPosition = length
+                }
+                onHtmlChanged: refresh()
+                onHoldingChanged: refresh()
+                Component.onCompleted: refresh()
             }
         }
     }

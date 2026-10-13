@@ -3,6 +3,7 @@
 #include <QCoreApplication>
 #include <QThread>
 #include <QtGlobal>
+#include <atomic>
 #include <chrono>
 #include <cstdio>
 
@@ -22,13 +23,44 @@ inline void startupTrace(const char* phase)
     std::fflush(stderr);
 }
 
+// L'ultima operazione lunga fatta sul filo della finestra: serve al controllo dei blocchi
+// (DecoLogController::startFreezeWatch) per dire *cosa* stava facendo il programma quando la
+// finestra non rispondeva, non solo per quanto. Sempre attivo (non dipende dalla variabile
+// d'ambiente): costa tre scritture atomiche, e solo per le operazioni sopra i 300 ms.
+struct SlowOp {
+    std::atomic<const char*> name{nullptr};
+    std::atomic<long long> endMs{0};       // fine, in ms dal primo uso
+    std::atomic<long long> durationMs{0};
+};
+inline SlowOp& lastSlowOp()
+{
+    static SlowOp op;
+    return op;
+}
+inline long long steadyNowMs()
+{
+    static const auto origin = std::chrono::steady_clock::now();
+    return std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::steady_clock::now() - origin).count();
+}
+
 class StartupSpan {
 public:
-    explicit StartupSpan(const char* name) : m_name(name) { startupTrace(m_name); }
+    explicit StartupSpan(const char* name) : m_name(name) { steadyNowMs(); startupTrace(m_name); }
     ~StartupSpan() {
         char message[256];
         const auto elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(
             std::chrono::steady_clock::now() - m_start).count();
+        if (elapsed >= 300 && QCoreApplication::instance()
+            && QThread::currentThread() == QCoreApplication::instance()->thread()) {
+            SlowOp& slow = lastSlowOp();
+            const long long now = steadyNowMs();
+            // Resta quella piu' lunga delle ultime secondi: e' lei la colpevole del blocco.
+            if (elapsed >= slow.durationMs.load() || now - slow.endMs.load() > 10000) {
+                slow.name.store(m_name);
+                slow.durationMs.store(elapsed);
+                slow.endMs.store(now);
+            }
+        }
         std::snprintf(message, sizeof(message), "done: %s (duration %lld ms)", m_name,
                       static_cast<long long>(elapsed));
         startupTrace(message);

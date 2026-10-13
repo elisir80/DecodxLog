@@ -1,6 +1,10 @@
 #include "core/SerialPorts.h"
+#include "../StartupTrace.h"
 
+#include <QElapsedTimer>
 #include <QFileInfo>
+#include <QMutex>
+#include <QMutexLocker>
 #include <QSerialPortInfo>
 #include <QSet>
 
@@ -38,6 +42,18 @@ QString portPath(const QSerialPortInfo& info)
 
 QStringList availableSerialPorts()
 {
+    // L'elenco costa una quarantina di millisecondi (SetupAPI) e all'apertura della finestra lo
+    // chiedono in tanti, uno dopo l'altro: per un paio di secondi si risponde con quello di prima.
+    static QMutex lock;
+    static QElapsedTimer age;
+    static QStringList last;
+    {
+        QMutexLocker guard(&lock);
+        if (age.isValid() && age.elapsed() < 2000)
+            return last;
+    }
+
+    decolog::StartupSpan trace("Serial ports list");
     QStringList ports;
     QSet<QString> seen;
 
@@ -61,6 +77,11 @@ QStringList availableSerialPorts()
     std::sort(ports.begin(), ports.end(), [](const QString& a, const QString& b) {
         return QString::localeAwareCompare(a, b) < 0;
     });
+    {
+        QMutexLocker guard(&lock);
+        last = ports;
+        age.restart();
+    }
     return ports;
 }
 

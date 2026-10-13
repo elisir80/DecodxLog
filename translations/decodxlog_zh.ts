@@ -2488,6 +2488,14 @@ Right click: change it</source>
         <translation>电台</translation>
     </message>
     <message>
+        <source>Details</source>
+        <translation>详情</translation>
+    </message>
+    <message>
+        <source>One line per station (call, speed, what it sends) instead of one label each</source>
+        <translation>每个电台一行（呼号、速度、发送内容），代替单个标签</translation>
+    </message>
+    <message>
         <source>no signals in the band</source>
         <translation>波段内没有信号</translation>
     </message>
@@ -2502,6 +2510,14 @@ Right click: change it</source>
     <message>
         <source>%1 Hz</source>
         <translation>%1 Hz</translation>
+    </message>
+    <message>
+        <source>Click to listen · double-click to put %1 in the QSO · right-click to spot it</source>
+        <translation>点击收听 · 双击将 %1 填入 QSO · 右键发布 Spot</translation>
+    </message>
+    <message>
+        <source>Click to listen to this signal</source>
+        <translation>点击以收听此信号</translation>
     </message>
     <message>
         <source>Spot</source>
@@ -9660,6 +9676,12 @@ Open it once in DecoDXLog to bring it up to date.</source>
     <message>
         <source>Cannot listen on UDP %1: %2</source>
         <translation>无法在 UDP %1 上监听：%2</translation>
+    </message>
+    <message numerus="yes">
+        <source>The window stopped answering for %1 s, busy with: %2 (%n time(s) since the start)</source>
+        <translation>
+            <numerusform>窗口有 %1 秒没有响应，正在处理：%2（启动以来第 %n 次）</numerusform>
+        </translation>
     </message>
     <message>
         <source>Listening for N1MM Logger+ on UDP %1</source>

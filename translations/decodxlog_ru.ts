@@ -2506,6 +2506,14 @@ Right click: change it</source>
         <translation>Станции</translation>
     </message>
     <message>
+        <source>Details</source>
+        <translation>Подробности</translation>
+    </message>
+    <message>
+        <source>One line per station (call, speed, what it sends) instead of one label each</source>
+        <translation>Одна строка на станцию (позывной, скорость, что передаёт) вместо одной метки</translation>
+    </message>
+    <message>
         <source>no signals in the band</source>
         <translation>в диапазоне нет сигналов</translation>
     </message>
@@ -2520,6 +2528,14 @@ Right click: change it</source>
     <message>
         <source>%1 Hz</source>
         <translation>%1 Гц</translation>
+    </message>
+    <message>
+        <source>Click to listen · double-click to put %1 in the QSO · right-click to spot it</source>
+        <translation>Щелчок — слушать · двойной щелчок — внести %1 в QSO · правый щелчок — спот</translation>
+    </message>
+    <message>
+        <source>Click to listen to this signal</source>
+        <translation>Щёлкните, чтобы слушать этот сигнал</translation>
     </message>
     <message>
         <source>Spot</source>
@@ -9730,6 +9746,14 @@ Open it once in DecoDXLog to bring it up to date.</source>
     <message>
         <source>Cannot listen on UDP %1: %2</source>
         <translation>Не слушать UDP %1: %2</translation>
+    </message>
+    <message numerus="yes">
+        <source>The window stopped answering for %1 s, busy with: %2 (%n time(s) since the start)</source>
+        <translation>
+            <numerusform>Окно не отвечало %1 с, занято: %2 (%n раз с запуска)</numerusform>
+            <numerusform>Окно не отвечало %1 с, занято: %2 (%n раза с запуска)</numerusform>
+            <numerusform>Окно не отвечало %1 с, занято: %2 (%n раз с запуска)</numerusform>
+        </translation>
     </message>
     <message>
         <source>Listening for N1MM Logger+ on UDP %1</source>

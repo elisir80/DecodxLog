@@ -2497,6 +2497,14 @@ Rechtsklick: ändern</translation>
         <translation>Stationen</translation>
     </message>
     <message>
+        <source>Details</source>
+        <translation>Details</translation>
+    </message>
+    <message>
+        <source>One line per station (call, speed, what it sends) instead of one label each</source>
+        <translation>Eine Zeile pro Station (Rufzeichen, Tempo, was sie sendet) statt eines Etiketts</translation>
+    </message>
+    <message>
         <source>no signals in the band</source>
         <translation>keine Signale im Band</translation>
     </message>
@@ -2511,6 +2519,14 @@ Rechtsklick: ändern</translation>
     <message>
         <source>%1 Hz</source>
         <translation>%1 Hz</translation>
+    </message>
+    <message>
+        <source>Click to listen · double-click to put %1 in the QSO · right-click to spot it</source>
+        <translation>Klicken zum Hören · Doppelklick übernimmt %1 ins QSO · Rechtsklick für den Spot</translation>
+    </message>
+    <message>
+        <source>Click to listen to this signal</source>
+        <translation>Klicken, um dieses Signal zu hören</translation>
     </message>
     <message>
         <source>Spot</source>
@@ -9695,6 +9711,13 @@ Open it once in DecoDXLog to bring it up to date.</source>
     <message>
         <source>Cannot listen on UDP %1: %2</source>
         <translation>Kann nicht auf UDP %1 hören: %2</translation>
+    </message>
+    <message numerus="yes">
+        <source>The window stopped answering for %1 s, busy with: %2 (%n time(s) since the start)</source>
+        <translation>
+            <numerusform>Das Fenster hat %1 s lang nicht geantwortet, beschäftigt mit: %2 (%n Mal seit dem Start)</numerusform>
+            <numerusform>Das Fenster hat %1 s lang nicht geantwortet, beschäftigt mit: %2 (%n Mal seit dem Start)</numerusform>
+        </translation>
     </message>
     <message>
         <source>Listening for N1MM Logger+ on UDP %1</source>

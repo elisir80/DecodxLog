@@ -2488,6 +2488,14 @@ Jobb kattintás: módosítás</translation>
         <translation>Állomások</translation>
     </message>
     <message>
+        <source>Details</source>
+        <translation>Részletek</translation>
+    </message>
+    <message>
+        <source>One line per station (call, speed, what it sends) instead of one label each</source>
+        <translation>Állomásonként egy sor (hívójel, sebesség, amit ad) egy címke helyett</translation>
+    </message>
+    <message>
         <source>no signals in the band</source>
         <translation>nincs jel a sávban</translation>
     </message>
@@ -2502,6 +2510,14 @@ Jobb kattintás: módosítás</translation>
     <message>
         <source>%1 Hz</source>
         <translation>%1 Hz</translation>
+    </message>
+    <message>
+        <source>Click to listen · double-click to put %1 in the QSO · right-click to spot it</source>
+        <translation>Kattintás: hallgatás · dupla kattintás: %1 a QSO-ba · jobb kattintás: spot</translation>
+    </message>
+    <message>
+        <source>Click to listen to this signal</source>
+        <translation>Kattintson a jel meghallgatásához</translation>
     </message>
     <message>
         <source>Spot</source>
@@ -9660,6 +9676,12 @@ Nyisd meg egyszer a DecoDXLog-ban a frissítéshez.</translation>
     <message>
         <source>Cannot listen on UDP %1: %2</source>
         <translation>Nem tud figyelni az UDP %1 porton: %2</translation>
+    </message>
+    <message numerus="yes">
+        <source>The window stopped answering for %1 s, busy with: %2 (%n time(s) since the start)</source>
+        <translation>
+            <numerusform>Az ablak %1 másodpercig nem válaszolt, ezzel volt elfoglalva: %2 (%n alkalommal az indítás óta)</numerusform>
+        </translation>
     </message>
     <message>
         <source>Listening for N1MM Logger+ on UDP %1</source>

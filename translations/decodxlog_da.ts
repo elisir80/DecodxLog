@@ -2497,6 +2497,14 @@ Højreklik: ret den</translation>
         <translation>Stationer</translation>
     </message>
     <message>
+        <source>Details</source>
+        <translation>Detaljer</translation>
+    </message>
+    <message>
+        <source>One line per station (call, speed, what it sends) instead of one label each</source>
+        <translation>Én linje pr. station (kaldesignal, hastighed, hvad den sender) i stedet for én etiket</translation>
+    </message>
+    <message>
         <source>no signals in the band</source>
         <translation>ingen signaler i båndet</translation>
     </message>
@@ -2511,6 +2519,14 @@ Højreklik: ret den</translation>
     <message>
         <source>%1 Hz</source>
         <translation>%1 Hz</translation>
+    </message>
+    <message>
+        <source>Click to listen · double-click to put %1 in the QSO · right-click to spot it</source>
+        <translation>Klik for at lytte · dobbeltklik for at sætte %1 i QSO&apos;et · højreklik for spot</translation>
+    </message>
+    <message>
+        <source>Click to listen to this signal</source>
+        <translation>Klik for at lytte til dette signal</translation>
     </message>
     <message>
         <source>Spot</source>
@@ -9695,6 +9711,13 @@ Open it once in DecoDXLog to bring it up to date.</source>
     <message>
         <source>Cannot listen on UDP %1: %2</source>
         <translation>Kan ikke lytte på UDP %1: %2</translation>
+    </message>
+    <message numerus="yes">
+        <source>The window stopped answering for %1 s, busy with: %2 (%n time(s) since the start)</source>
+        <translation>
+            <numerusform>Vinduet svarede ikke i %1 s, optaget af: %2 (%n gang siden starten)</numerusform>
+            <numerusform>Vinduet svarede ikke i %1 s, optaget af: %2 (%n gange siden starten)</numerusform>
+        </translation>
     </message>
     <message>
         <source>Listening for N1MM Logger+ on UDP %1</source>

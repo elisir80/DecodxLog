@@ -1383,10 +1383,20 @@ void DecoLogController::startFreezeWatch()
         if (late < kSayItMs)
             return;
         ++m_freezeCount;
+        // Cosa stava facendo: l'ultima operazione lunga conclusa dentro il blocco.
+        const decolog::SlowOp& slow = decolog::lastSlowOp();
+        const char* busyWith = slow.name.load();
+        const long long endedAgo = decolog::steadyNowMs() - slow.endMs.load();
+        const bool known = busyWith && endedAgo >= 0 && endedAgo <= late + kBeatMs
+                           && slow.durationMs.load() >= late / 3;
+        const QString seconds = QString::number(late / 1000.0, 'f', 1);
         addActivity(QStringLiteral("APP"),
-                    tr("The window stopped answering for %1 s (%n time(s) since the start)",
-                       nullptr, m_freezeCount)
-                        .arg(QString::number(late / 1000.0, 'f', 1)),
+                    known ? tr("The window stopped answering for %1 s, busy with: %2 (%n time(s) since the start)",
+                               nullptr, m_freezeCount)
+                                .arg(seconds, QString::fromLatin1(busyWith))
+                          : tr("The window stopped answering for %1 s (%n time(s) since the start)",
+                               nullptr, m_freezeCount)
+                                .arg(seconds),
                     QStringLiteral("warning"));
     });
     m_freezeBeat.start();

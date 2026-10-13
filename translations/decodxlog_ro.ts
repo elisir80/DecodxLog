@@ -2506,6 +2506,14 @@ Clic dreapta: modific-o</translation>
         <translation>Stații</translation>
     </message>
     <message>
+        <source>Details</source>
+        <translation>Detalii</translation>
+    </message>
+    <message>
+        <source>One line per station (call, speed, what it sends) instead of one label each</source>
+        <translation>O linie pe stație (indicativ, viteză, ce transmite) în loc de o etichetă</translation>
+    </message>
+    <message>
         <source>no signals in the band</source>
         <translation>niciun semnal în bandă</translation>
     </message>
@@ -2520,6 +2528,14 @@ Clic dreapta: modific-o</translation>
     <message>
         <source>%1 Hz</source>
         <translation>%1 Hz</translation>
+    </message>
+    <message>
+        <source>Click to listen · double-click to put %1 in the QSO · right-click to spot it</source>
+        <translation>Clic pentru a asculta · dublu clic pentru a pune %1 în QSO · clic dreapta pentru spot</translation>
+    </message>
+    <message>
+        <source>Click to listen to this signal</source>
+        <translation>Clic pentru a asculta acest semnal</translation>
     </message>
     <message>
         <source>Spot</source>
@@ -9730,6 +9746,14 @@ Deschide-l o dată în DecoDXLog ca să-l actualizezi.</translation>
     <message>
         <source>Cannot listen on UDP %1: %2</source>
         <translation>Nu poate asculta pe UDP %1: %2</translation>
+    </message>
+    <message numerus="yes">
+        <source>The window stopped answering for %1 s, busy with: %2 (%n time(s) since the start)</source>
+        <translation>
+            <numerusform>Fereastra nu a răspuns %1 s, ocupată cu: %2 (%n dată de la pornire)</numerusform>
+            <numerusform>Fereastra nu a răspuns %1 s, ocupată cu: %2 (de %n ori de la pornire)</numerusform>
+            <numerusform>Fereastra nu a răspuns %1 s, ocupată cu: %2 (de %n ori de la pornire)</numerusform>
+        </translation>
     </message>
     <message>
         <source>Listening for N1MM Logger+ on UDP %1</source>

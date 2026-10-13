@@ -2506,6 +2506,14 @@ Labais klikšķis: mainīt</translation>
         <translation>Stacijas</translation>
     </message>
     <message>
+        <source>Details</source>
+        <translation>Detaļas</translation>
+    </message>
+    <message>
+        <source>One line per station (call, speed, what it sends) instead of one label each</source>
+        <translation>Viena rinda katrai stacijai (zvanu zīme, ātrums, ko tā raida) vienas etiķetes vietā</translation>
+    </message>
+    <message>
         <source>no signals in the band</source>
         <translation>joslā nav signālu</translation>
     </message>
@@ -2520,6 +2528,14 @@ Labais klikšķis: mainīt</translation>
     <message>
         <source>%1 Hz</source>
         <translation>%1 Hz</translation>
+    </message>
+    <message>
+        <source>Click to listen · double-click to put %1 in the QSO · right-click to spot it</source>
+        <translation>Klikšķis, lai klausītos · dubultklikšķis, lai ievietotu %1 QSO · labais klikšķis — spots</translation>
+    </message>
+    <message>
+        <source>Click to listen to this signal</source>
+        <translation>Noklikšķiniet, lai klausītos šo signālu</translation>
     </message>
     <message>
         <source>Spot</source>
@@ -9730,6 +9746,14 @@ Atver to vienreiz DecoDXLog, lai atjauninātu.</translation>
     <message>
         <source>Cannot listen on UDP %1: %2</source>
         <translation>Nevar klausīties uz UDP %1: %2</translation>
+    </message>
+    <message numerus="yes">
+        <source>The window stopped answering for %1 s, busy with: %2 (%n time(s) since the start)</source>
+        <translation>
+            <numerusform>Logs %1 s neatbildēja, aizņemts ar: %2 (%n reizi kopš starta)</numerusform>
+            <numerusform>Logs %1 s neatbildēja, aizņemts ar: %2 (%n reizes kopš starta)</numerusform>
+            <numerusform>Logs %1 s neatbildēja, aizņemts ar: %2 (%n reizes kopš starta)</numerusform>
+        </translation>
     </message>
     <message>
         <source>Listening for N1MM Logger+ on UDP %1</source>

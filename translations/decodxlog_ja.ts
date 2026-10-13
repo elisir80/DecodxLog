@@ -2488,6 +2488,14 @@ Right click: change it</source>
         <translation>局</translation>
     </message>
     <message>
+        <source>Details</source>
+        <translation>詳細</translation>
+    </message>
+    <message>
+        <source>One line per station (call, speed, what it sends) instead of one label each</source>
+        <translation>ラベル1つの代わりに、局ごとに1行（コールサイン、速度、送信内容）で表示します</translation>
+    </message>
+    <message>
         <source>no signals in the band</source>
         <translation>バンド内に信号がありません</translation>
     </message>
@@ -2502,6 +2510,14 @@ Right click: change it</source>
     <message>
         <source>%1 Hz</source>
         <translation>%1 Hz</translation>
+    </message>
+    <message>
+        <source>Click to listen · double-click to put %1 in the QSO · right-click to spot it</source>
+        <translation>クリックで受信 · ダブルクリックで %1 を QSO に入力 · 右クリックでスポット</translation>
+    </message>
+    <message>
+        <source>Click to listen to this signal</source>
+        <translation>クリックでこの信号を聴きます</translation>
     </message>
     <message>
         <source>Spot</source>
@@ -9660,6 +9676,12 @@ DecoDXLog で一度開いて更新してください。</translation>
     <message>
         <source>Cannot listen on UDP %1: %2</source>
         <translation>UDP %1 で聞けません: %2</translation>
+    </message>
+    <message numerus="yes">
+        <source>The window stopped answering for %1 s, busy with: %2 (%n time(s) since the start)</source>
+        <translation>
+            <numerusform>窓が %1 秒のあいだ返事をしませんでした。処理中: %2 (起動してから %n 回目)</numerusform>
+        </translation>
     </message>
     <message>
         <source>Listening for N1MM Logger+ on UDP %1</source>

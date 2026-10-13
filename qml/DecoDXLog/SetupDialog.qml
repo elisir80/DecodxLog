@@ -1849,14 +1849,22 @@ DialogFrame {
                                 Layout.preferredWidth: 320
                                 mono: false
                                 editable: true
-                                readonly property var models: decolog.rig.rigModels()
+                                // L'elenco arriva da Hamlib su un processo a parte: la finestra non
+                                // lo aspetta, e quando e' pronto la lista si riempie da sola.
+                                readonly property var models: decolog.rig.rigModelList
                                 model: models.map(m => m.name)
                                 onActivated: decolog.rig.rigModel = models[currentIndex].id
-                                Component.onCompleted: {
+                                function syncIndex() {
                                     for (let i = 0; i < models.length; ++i) {
-                                        if (models[i].id === decolog.rig.rigModel)
+                                        if (models[i].id === decolog.rig.rigModel) {
                                             currentIndex = i
+                                            break
+                                        }
                                     }
+                                }
+                                onModelsChanged: Qt.callLater(syncIndex)
+                                Component.onCompleted: {
+                                    syncIndex()
                                     // Hamlib descrive le opzioni disponibili modello per modello.
                                     Qt.callLater(decolog.rig.refreshSerialCapabilities)
                                 }

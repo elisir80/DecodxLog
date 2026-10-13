@@ -2497,6 +2497,14 @@ Clic droit : la modifier</translation>
         <translation>Stations</translation>
     </message>
     <message>
+        <source>Details</source>
+        <translation>Détails</translation>
+    </message>
+    <message>
+        <source>One line per station (call, speed, what it sends) instead of one label each</source>
+        <translation>Une ligne par station (indicatif, vitesse, ce qu&apos;elle envoie) au lieu d&apos;une étiquette</translation>
+    </message>
+    <message>
         <source>no signals in the band</source>
         <translation>aucun signal dans la bande</translation>
     </message>
@@ -2511,6 +2519,14 @@ Clic droit : la modifier</translation>
     <message>
         <source>%1 Hz</source>
         <translation>%1 Hz</translation>
+    </message>
+    <message>
+        <source>Click to listen · double-click to put %1 in the QSO · right-click to spot it</source>
+        <translation>Clic pour écouter · double-clic pour mettre %1 dans le QSO · clic droit pour le spot</translation>
+    </message>
+    <message>
+        <source>Click to listen to this signal</source>
+        <translation>Cliquer pour écouter ce signal</translation>
     </message>
     <message>
         <source>Spot</source>
@@ -9695,6 +9711,13 @@ Ouvrez-le une fois dans DecoDXLog pour le mettre à jour.</translation>
     <message>
         <source>Cannot listen on UDP %1: %2</source>
         <translation>Impossible d&apos;écouter sur UDP %1 : %2</translation>
+    </message>
+    <message numerus="yes">
+        <source>The window stopped answering for %1 s, busy with: %2 (%n time(s) since the start)</source>
+        <translation>
+            <numerusform>La fenêtre n&apos;a pas répondu pendant %1 s, occupée par : %2 (%n fois depuis le démarrage)</numerusform>
+            <numerusform>La fenêtre n&apos;a pas répondu pendant %1 s, occupée par : %2 (%n fois depuis le démarrage)</numerusform>
+        </translation>
     </message>
     <message>
         <source>Listening for N1MM Logger+ on UDP %1</source>

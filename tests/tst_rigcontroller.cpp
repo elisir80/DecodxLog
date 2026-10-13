@@ -1,7 +1,11 @@
 // Il pulsante Stop deve fermare la radio che sta realmente trasmettendo.
 #include "app/RigController.h"
 
+#include "core/QslUpload.h"
+
+#include <QElapsedTimer>
 #include <QSettings>
+#include <QSignalSpy>
 #include <QTest>
 
 using namespace decolog;
@@ -46,6 +50,47 @@ private slots:
         QCoreApplication::setOrganizationName(QStringLiteral("DecoDXLogTest"));
         QCoreApplication::setApplicationName(QStringLiteral("tst_rigcontroller"));
         QSettings().clear();
+    }
+
+    // L'elenco delle radio di Hamlib arriva da un processo a parte: chiederlo non ferma la
+    // finestra (prima si aspettava rigctld fino a 8 secondi nel filo della UI).
+    void rigModelsDoNotBlockTheWindow()
+    {
+        if (core::qsl::findRigctld().isEmpty())
+            QSKIP("Hamlib (rigctld) is not installed here");
+        app::RigController controller{app::RigController::Context{}};
+        QSignalSpy arrived(&controller, &app::RigController::rigModelsChanged);
+
+        QElapsedTimer clock;
+        clock.start();
+        const QVariantList first = controller.rigModels();
+        QVERIFY2(clock.elapsed() < 150, "rigModels() waited for rigctld");
+        QVERIFY(first.isEmpty());
+
+        QVERIFY(arrived.wait(20000));
+        const QVariantList models = controller.rigModels();
+        QVERIFY(models.size() > 100);
+        // Il dummy di Hamlib c'e' sempre, con il numero 1.
+        bool dummy = false;
+        for (const QVariant& m : models)
+            dummy = dummy || m.toMap().value(QStringLiteral("id")).toInt() == 1;
+        QVERIFY(dummy);
+    }
+
+    void serialCapabilitiesAreAskedWithoutWaiting()
+    {
+        if (core::qsl::findRigctld().isEmpty())
+            QSKIP("Hamlib (rigctld) is not installed here");
+        app::RigController controller{app::RigController::Context{}};
+        QSignalSpy arrived(&controller, &app::RigController::serialCapabilitiesChanged);
+
+        QElapsedTimer clock;
+        clock.start();
+        controller.setRigModel(1);   // il dummy
+        QVERIFY2(clock.elapsed() < 150, "setRigModel() waited for rigctld -L");
+        // Per il dummy `rigctld -L` dice qualcosa sulla seriale: o almeno non si pianta.
+        arrived.wait(8000);
+        QVERIFY(clock.elapsed() < 9000);
     }
 
     void stopTargetsTheRadioThatReceivedTheMacro()

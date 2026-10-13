@@ -2495,6 +2495,14 @@ Right click: change it</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Details</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>One line per station (call, speed, what it sends) instead of one label each</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>no signals in the band</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2508,6 +2516,14 @@ Right click: change it</source>
     </message>
     <message>
         <source>%1 Hz</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Click to listen · double-click to put %1 in the QSO · right-click to spot it</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Click to listen to this signal</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -9691,6 +9707,13 @@ Open it once in DecoDXLog to bring it up to date.</source>
     <message>
         <source>Cannot listen on UDP %1: %2</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message numerus="yes">
+        <source>The window stopped answering for %1 s, busy with: %2 (%n time(s) since the start)</source>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+        </translation>
     </message>
     <message>
         <source>Listening for N1MM Logger+ on UDP %1</source>

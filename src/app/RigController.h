@@ -141,6 +141,10 @@ class RigController : public QObject {
     // letto da `rigctld -L` per il modello Hamlib scelto e la UI mostra solo
     // quelli che quel backend dichiara di saper configurare.
     Q_PROPERTY(QStringList serialCapabilities READ serialCapabilities NOTIFY serialCapabilitiesChanged)
+    // I modelli di radio che conosce Hamlib: arrivano da "rigctld -l" su un processo a parte, e
+    // quando sono pronti la lista cambia. Prima si aspettava la risposta nel filo della
+    // finestra, e un rigctld lento (antivirus, disco freddo) la teneva ferma per secondi.
+    Q_PROPERTY(QVariantList rigModelList READ rigModelList NOTIFY rigModelsChanged)
     Q_PROPERTY(QString dataBits READ dataBits WRITE setDataBits NOTIFY changed)
     Q_PROPERTY(QString stopBits READ stopBits WRITE setStopBits NOTIFY changed)
     Q_PROPERTY(QString parity READ parity WRITE setParity NOTIFY changed)
@@ -362,14 +366,17 @@ public:
     // Preme e rilascia il PTT per un attimo, per sentire se la radio va in
     // trasmissione davvero.
     Q_INVOKABLE void testPtt(int milliseconds = 900);
-    // I modelli che conosce Hamlib, letti da "rigctl -l": {id, name}.
+    // I modelli che conosce Hamlib, letti da "rigctl -l": {id, name}. Quello che si ha
+    // adesso (vuoto la prima volta): la lista vera arriva con rigModelsChanged().
     Q_INVOKABLE QVariantList rigModels();
+    QVariantList rigModelList() { return rigModels(); }
     // Le porte seriali di questo computer.
     Q_INVOKABLE QStringList serialPorts() const;
 
 signals:
     void changed();
     void serialCapabilitiesChanged();
+    void rigModelsChanged();
     void stateChanged();
     void shareChanged();
     void macrosChanged();
@@ -451,12 +458,30 @@ private:
     QString m_pttType{QStringLiteral("RIG")};
     QString m_pttPort;
     QVariantList m_models;
+    // Le domande a Hamlib (modelli, capacita') partono su un processo a parte e si
+    // aspettano senza bloccare la finestra.
+    std::unique_ptr<QProcess> m_modelsProcess;
+    std::unique_ptr<QProcess> m_capsProcess;
+    int m_capsModel{0};
+    QList<std::function<void()>> m_afterCapabilities;
+    void loadRigModels();
+    void requestCapabilities(std::function<void()> then);
+    // L'avvio di rigctld sulla seriale: ogni connectNow() apre una "generazione"; quel che
+    // resta in attesa di una generazione vecchia non fa piu' niente.
+    quint64 m_launchGeneration{0};
+    QElapsedTimer m_rigctldClock;
+    void launchRigctld(quint64 generation);
+    void connectHamlibLater(quint64 generation, qint64 delayMs);
     // La ricerca della radio: elenco di tentativi (porta, velocita').
     QVariantList m_probe;
     int m_probeIndex{-1};
+    quint64 m_probeGeneration{0};
+    QByteArray m_probeBuffer;
     std::unique_ptr<QProcess> m_probeProcess;
     std::unique_ptr<QTcpSocket> m_probeSocket;
     void probeNext();
+    void probeAsk(quint64 generation, const QString& port, int baud, quint16 tcpPort);
+    void probeAdvance();
     void probeFinish(bool found, const QString& port, int baud);
     QVariantList m_macros;
     QString m_host{QStringLiteral("127.0.0.1")};

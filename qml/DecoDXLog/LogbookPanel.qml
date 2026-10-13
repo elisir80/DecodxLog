@@ -146,6 +146,46 @@ GlassPanel {
         root.selectedIds = list
     }
 
+    // ── La selezione col mouse, trascinando ─────────────────────────────────
+    // Si preme su una riga e si scende (o si sale) tenendo premuto: tutte le righe fino a quella
+    // sotto il mouse sono scelte. Con Ctrl si aggiungono a quelle che gia' c'erano. Per le righe
+    // fuori dallo schermo resta Maiusc+clic.
+    property int dragAnchor: -1
+    property bool dragMoved: false
+    property var dragBase: []
+    function rowAtY(y) {
+        const r = Math.floor((y + table.contentY) / Theme.rowHeight)
+        return Math.max(0, Math.min(root.model.count - 1, r))
+    }
+    function dragBegin(row, ctrl) {
+        root.dragAnchor = row
+        root.dragMoved = false
+        root.dragBase = ctrl ? root.selectedIds.slice() : []
+    }
+    // `y`: dove sta il mouse, in coordinate della tabella.
+    function dragUpdate(y) {
+        if (root.dragAnchor < 0)
+            return
+        const row = root.rowAtY(y)
+        // Un clic che si sposta di un pelo dentro la stessa riga resta un clic.
+        if (!root.dragMoved && row === root.dragAnchor)
+            return
+        root.dragMoved = true
+        const list = root.dragBase.slice()
+        for (let r = Math.min(root.dragAnchor, row); r <= Math.max(root.dragAnchor, row); ++r) {
+            const id = root.model.idAt(r)
+            if (id > 0 && list.indexOf(id) < 0)
+                list.push(id)
+        }
+        root.selectedIds = list
+        root.selectedRow = row
+    }
+    function dragEnd() {
+        if (root.dragAnchor >= 0 && root.dragMoved)
+            decolog.lookupCall = root.model.callAt(root.selectedRow)
+        root.dragAnchor = -1
+    }
+
     // ── Larghezza delle colonne ─────────────────────────────────────────
     //
     // Il bordo fra due intestazioni si trascina: Qt se lo ricorda in
@@ -1651,10 +1691,29 @@ GlassPanel {
                 }
 
                 MouseArea {
+                    id: cellMouse
                     anchors.fill: parent
                     acceptedButtons: Qt.LeftButton | Qt.RightButton
+                    // Senza, la lista (un Flickable) si prende il trascinamento e scorre invece di
+                    // scegliere le righe.
+                    preventStealing: true
+                    onPressed: (mouse) => {
+                        if (mouse.button === Qt.LeftButton)
+                            root.dragBegin(cell.row, mouse.modifiers & Qt.ControlModifier)
+                    }
+                    onPositionChanged: (mouse) => {
+                        if (pressed && root.dragAnchor >= 0)
+                            root.dragUpdate(cellMouse.mapToItem(table, mouse.x, mouse.y).y)
+                    }
+                    onReleased: root.dragEnd()
+                    onCanceled: root.dragEnd()
                     onClicked: (mouse) => {
                         root.forceActiveFocus()
+                        // La selezione l'ha gia' fatta il trascinamento.
+                        if (mouse.button === Qt.LeftButton && root.dragMoved) {
+                            root.dragMoved = false
+                            return
+                        }
                         if (mouse.button === Qt.RightButton) {
                             // Il menu vale per quello che e' scelto: se si clicca
                             // fuori dalla selezione, la selezione diventa questa riga.
@@ -1873,6 +1932,10 @@ GlassPanel {
             root.selectedRow = next
             decolog.lookupCall = root.model.callAt(next)
             table.positionViewAtRow(next, TableView.Contain)
+            event.accepted = true
+        } else if (event.key === Qt.Key_A && (event.modifiers & Qt.ControlModifier)) {
+            // Ctrl+A: tutte le righe che si vedono con i filtri di adesso.
+            root.selectedIds = root.model.shownIds()
             event.accepted = true
         } else if (event.key === Qt.Key_Escape) {
             // Esc: la selezione se ne va, la riga corrente resta dov'e'.

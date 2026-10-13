@@ -1,3 +1,4 @@
+#include "../StartupTrace.h"
 #include "core/QslUpload.h"
 
 #include "core/Adif.h"
@@ -110,6 +111,7 @@ QString findTqsl()
 
 QStringList tqslStationLocations()
 {
+    decolog::StartupSpan trace("TQSL station locations");
     QStringList out;
     const QString dir = tqslDataDirectory();
     if (dir.isEmpty())
