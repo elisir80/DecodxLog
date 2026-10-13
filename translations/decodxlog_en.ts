@@ -2467,6 +2467,10 @@ Right click: change it</source>
         <translation>F: %1 Hz · S: %2 WPM · C: %3</translation>
     </message>
     <message>
+        <source>Fist: %1:1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>reading · %1%</source>
         <translation type="unfinished"></translation>
     </message>

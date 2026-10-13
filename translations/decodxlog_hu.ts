@@ -2460,6 +2460,10 @@ Jobb kattintás: módosítás</translation>
         <translation>F: %1 Hz · S: %2 WPM · K: %3</translation>
     </message>
     <message>
+        <source>Fist: %1:1</source>
+        <translation>Kéz: %1:1</translation>
+    </message>
+    <message>
         <source>reading · %1%</source>
         <translation>olvasás · %1%</translation>
     </message>

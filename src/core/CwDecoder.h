@@ -66,6 +66,18 @@ public:
         // non salta a ogni fotogramma.
         float confidence{0};
         bool neural{false};
+        // I segni che il decodificatore vede nella finestra, uno per ogni tono acceso e
+        // completo (non quelli tagliati dai bordi): dove comincia e quanto dura, in frazione
+        // della finestra, e se per la sua durata e' una linea. Il «pugno» e' il rapporto fra
+        // la durata di una linea e quella di un punto: 3 e' il Morse da manuale, un operatore
+        // lo allarga o lo stringe. Zero finche' non ci sono abbastanza segni per dirlo.
+        struct Element {
+            float at{0};
+            float length{0};
+            bool dah{false};
+        };
+        QVector<Element> elements;
+        float fist{0};
     };
     const Scope& scope() const { return m_scope; }
 
@@ -109,6 +121,7 @@ private:
     std::unique_ptr<GGMorse> m_morse;
     std::unique_ptr<CtcDecoder> m_neural;
     bool m_lexicon{true};
+    qint64 m_fedSamples{0};   // l'audio arrivato dall'ultimo reset: dice quanto e' lunga la finestra
     QString m_word;        // la parola in corso, come e' stata consegnata
     int m_retract{0};      // lettere gia' consegnate da togliere prima del prossimo testo
     // L'audio che e' arrivato e non e' ancora stato consumato: ggmorse lo

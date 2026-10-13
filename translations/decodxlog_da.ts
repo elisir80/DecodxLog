@@ -2469,6 +2469,10 @@ Højreklik: ret den</translation>
         <translation>F: %1 Hz · H: %2 WPM · K: %3</translation>
     </message>
     <message>
+        <source>Fist: %1:1</source>
+        <translation>Håndskrift: %1:1</translation>
+    </message>
+    <message>
         <source>reading · %1%</source>
         <translation>læser · %1 %</translation>
     </message>

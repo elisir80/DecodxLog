@@ -2469,6 +2469,10 @@ Clic dret: modificar-la</translation>
         <translation>F: %1 Hz · V: %2 WPM · C: %3</translation>
     </message>
     <message>
+        <source>Fist: %1:1</source>
+        <translation>Pols: %1:1</translation>
+    </message>
+    <message>
         <source>reading · %1%</source>
         <translation>llegint · %1 %</translation>
     </message>

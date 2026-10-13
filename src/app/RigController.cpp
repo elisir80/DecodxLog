@@ -1238,6 +1238,12 @@ void RigController::publishScope(bool force)
             signal.append(peak);
         }
     }
+    // I segni, come {at, length, dah}: in frazione della finestra, per disegnarli sul grafico.
+    QVariantList elements;
+    elements.reserve(scope.elements.size());
+    for (const core::CwDecoder::Scope::Element& e : scope.elements)
+        elements.append(QVariantMap{{QStringLiteral("at"), e.at}, {QStringLiteral("length"), e.length},
+                                    {QStringLiteral("dah"), e.dah}});
     m_scope = QVariantMap{
         {QStringLiteral("signal"), signal},
         {QStringLiteral("level"), scope.level},
@@ -1246,6 +1252,8 @@ void RigController::publishScope(bool force)
         {QStringLiteral("cost"), scope.cost},
         {QStringLiteral("reading"), scope.reading},
         {QStringLiteral("confidence"), scope.confidence},
+        {QStringLiteral("fist"), scope.fist},
+        {QStringLiteral("elements"), elements},
         {QStringLiteral("neural"), scope.neural},
     };
     emit decoderScopeChanged();

@@ -2478,6 +2478,10 @@ Labais klikšķis: mainīt</translation>
         <translation>F: %1 Hz · Ā: %2 WPM · I: %3</translation>
     </message>
     <message>
+        <source>Fist: %1:1</source>
+        <translation>Roka: %1:1</translation>
+    </message>
+    <message>
         <source>reading · %1%</source>
         <translation>lasa · %1%</translation>
     </message>

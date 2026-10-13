@@ -2469,6 +2469,10 @@ Rechtsklik: wijzigen</translation>
         <translation>F: %1 Hz · S: %2 WPM · K: %3</translation>
     </message>
     <message>
+        <source>Fist: %1:1</source>
+        <translation>Hand: %1:1</translation>
+    </message>
+    <message>
         <source>reading · %1%</source>
         <translation>leest · %1%</translation>
     </message>

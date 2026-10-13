@@ -476,6 +476,18 @@ GlassPanel {
                     }
                     ctx.globalAlpha = 1
 
+                    // I segni con la loro durata vera: i punti in verde, le linee in ambra. La
+                    // lunghezza e' quella misurata, non un simbolo: si vede com'e' la mano di chi
+                    // trasmette (linee corte, punti lunghi, ritmo irregolare).
+                    const els = scope.info.elements || []
+                    for (let k = 0; k < els.length; ++k) {
+                        const e = els[k]
+                        ctx.fillStyle = e.dah ? Theme.warningColor : Theme.accentColor
+                        ctx.globalAlpha = 1.0
+                        ctx.fillRect(e.at * width, 1, Math.max(2, e.length * width), keyH - 2)
+                    }
+                    ctx.globalAlpha = 1
+
                     // Il segnale, pieno sotto la linea.
                     ctx.beginPath()
                     ctx.moveTo(0, top + h)
@@ -520,6 +532,8 @@ GlassPanel {
                         .arg(Number(scope.info.pitch || 0).toFixed(1))
                         .arg(Math.round(scope.info.wpm || 0))
                         .arg(Number(scope.info.cost || 0).toFixed(3))
+                        + (Number(scope.info.fist || 0) > 0
+                           ? " · " + qsTr("Fist: %1:1").arg(Number(scope.info.fist).toFixed(1)) : "")
                 color: scope.reading ? Theme.textPrimary : Theme.textSecondary
                 font.family: Theme.monoFamily
                 font.pixelSize: 10

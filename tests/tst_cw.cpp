@@ -18,7 +18,7 @@ namespace {
 
 // Il testo, in tono a 700 Hz, alla velocita' chiesta, con un po' di rumore.
 QVector<qint16> morseAudio(const QString& text, int wpm, int sampleRate = 8000,
-                           double toneHz = 700, double noise = 0.0)
+                           double toneHz = 700, double noise = 0.0, int dahDots = 3)
 {
     const int dotSamples = static_cast<int>(1.2 / wpm * sampleRate);
     QVector<qint16> out;
@@ -44,7 +44,7 @@ QVector<qint16> morseAudio(const QString& text, int wpm, int sampleRate = 8000,
         }
         const QString symbols = charToMorse(c);
         for (int s = 0; s < symbols.size(); ++s) {
-            add(dotSamples * (symbols.at(s) == QLatin1Char('.') ? 1 : 3), true);
+            add(dotSamples * (symbols.at(s) == QLatin1Char('.') ? 1 : dahDots), true);
             add(dotSamples, false);       // dentro la lettera
         }
         add(dotSamples * 2, false);       // fra le lettere: 3 punti in tutto
@@ -220,6 +220,42 @@ private slots:
             quiet.feed(chunk.constData(), chunk.size());
         }
         QVERIFY2(quiet.scope().confidence < 0.3f, qPrintable(QString::number(quiet.scope().confidence)));
+        // E sul rumore il decodificatore non si inventa un pugno ne' dei segni.
+        QCOMPARE(quiet.scope().fist, 0.0f);
+        QVERIFY2(quiet.scope().elements.size() < 3, qPrintable(QString::number(quiet.scope().elements.size())));
+    }
+
+    // I segni e il pugno: il Morse da manuale ha la linea lunga tre punti, e il decodificatore
+    // deve vedere i segni (punti e linee) e dare un rapporto vicino a 3. Con la linea piu' lunga
+    // (4 punti) il rapporto sale: e' il pugno dell'operatore.
+    void seesTheElementsAndTheFist()
+    {
+        CwDecoder decoder(8000);
+        const QVector<qint16> audio = morseAudio(QStringLiteral("CQ CQ DE IU8LMC IU8LMC K"), 22);
+        for (int i = 0; i < audio.size() / 2; i += 512)
+            decoder.feed(audio.constData() + i, qMin(512, audio.size() / 2 - i));
+        const CwDecoder::Scope& scope = decoder.scope();
+        const float standard = scope.fist;
+        QVERIFY2(scope.elements.size() >= 6, qPrintable(QString::number(scope.elements.size())));
+        int dits = 0;
+        int dahs = 0;
+        for (const CwDecoder::Scope::Element& e : scope.elements) {
+            QVERIFY(e.at >= 0.0f && e.at + e.length <= 1.0001f);
+            (e.dah ? dahs : dits)++;
+        }
+        QVERIFY(dits > 0 && dahs > 0);
+        QVERIFY2(scope.fist > 2.3f && scope.fist < 3.8f, qPrintable(QString::number(scope.fist)));
+        // Mano pesante: linee da quattro punti, rapporto piu' alto.
+        CwDecoder heavy(8000);
+        const QVector<qint16> slow = morseAudio(QStringLiteral("CQ CQ DE IU8LMC IU8LMC K"), 22, 8000, 700, 0.0, 4);
+        for (int i = 0; i < slow.size() / 2; i += 512)
+            heavy.feed(slow.constData() + i, qMin(512, slow.size() / 2 - i));
+        QVERIFY2(heavy.scope().fist > standard + 0.4f,
+                 qPrintable(QString("%1 contro %2").arg(heavy.scope().fist).arg(standard)));
+
+        decoder.reset();
+        QVERIFY(decoder.scope().elements.isEmpty());
+        QCOMPARE(decoder.scope().fist, 0.0f);
     }
 
     void staysQuietOnAnEmptyBand()

@@ -110,6 +110,7 @@ void CwDecoder::rebuild()
     m_morse = std::make_unique<GGMorse>(parameters);
     m_pending.clear();
     m_taken = 0;
+    m_fedSamples = 0;
     m_toneHz = 0;
     m_wpm = 0;
     m_scope = Scope();
@@ -296,6 +297,104 @@ void CwDecoder::updateScope(const std::vector<float>& signal)
         m_scope.confidence = raw == 0.0f ? 0.0f : 0.7f * m_scope.confidence + 0.3f * raw;
     }
     m_scope.neural = m_neural != nullptr;
+
+    // I segni: le corse di «acceso» sopra la soglia, quelle che non toccano i bordi della finestra.
+    // Il rapporto fra linea e punto si ricava dai segni stessi — due gruppi di durate — e non
+    // dalla velocita' di ggmorse: con una mano pesante ggmorse non legge piu', ma i segni
+    // restano misurabili.
+    m_scope.elements.clear();
+    const int n = static_cast<int>(m_scope.signal.size());
+    const double window = std::min(3.0, static_cast<double>(m_fedSamples) / std::max(1, m_sampleRate));
+    struct Run {
+        int from;
+        int to;
+        double seconds;
+    };
+    std::vector<Run> runs;
+    if (n > 8 && window > 0.3) {
+        for (int i = 0; i < n;) {
+            const bool on = m_scope.signal[i] > m_scope.level;
+            int j = i;
+            while (j < n && (m_scope.signal[j] > m_scope.level) == on)
+                ++j;
+            if (on && i > 0 && j < n)
+                runs.push_back({i, j, (j - i) * window / n});
+            i = j;
+        }
+    }
+    bool measured = false;
+    if (runs.size() >= 4) {
+        std::vector<double> d;
+        for (const Run& r : runs)
+            d.push_back(r.seconds);
+        std::sort(d.begin(), d.end());
+        // Il salto piu' grande fra due durate vicine: sotto i punti, sopra le linee.
+        size_t split = 0;
+        double bestJump = 1.0;
+        for (size_t k = 0; k + 1 < d.size(); ++k) {
+            const double jump = d[k + 1] / std::max(d[k], 1e-6);
+            if (jump > bestJump) {
+                bestJump = jump;
+                split = k + 1;
+            }
+        }
+        auto median = [](const std::vector<double>& v, size_t from, size_t to) {
+            return v[from + (to - from) / 2];
+        };
+        double dah = 0;      // soglia di classificazione: sopra e' una linea
+        double ditMed = 0;
+        double dahMed = 0;
+        bool clusters = false;
+        if (bestJump >= 1.5 && split > 0 && split < d.size()) {
+            ditMed = median(d, 0, split);
+            dahMed = median(d, split, d.size());
+            const double spreadDit = d[split - 1] / std::max(d.front(), 1e-6);
+            const double spreadDah = d.back() / std::max(d[split], 1e-6);
+            const double ratio = dahMed / ditMed;
+            // Due gruppi veri: ciascuno stretto, e il rapporto di una mano umana. Fuori da
+            // qui e' rumore che a caso ha qualche tono acceso.
+            clusters = ratio >= 1.5 && ratio <= 6.0 && spreadDit <= 2.0 && spreadDah <= 2.0;
+            if (clusters)
+                dah = std::sqrt(ditMed * dahMed);
+        }
+        // Un gruppo solo (tutti punti, o tutte linee): lo dice la velocita' di ggmorse, se c'e'.
+        const double wpm = m_scope.speed;
+        if (!clusters && wpm >= 5.0 && m_scope.reading) {
+            dah = 2.0 * 1.2 / wpm;
+            measured = true;
+        } else if (clusters) {
+            measured = true;
+        }
+        if (measured && (clusters || m_scope.reading)) {
+            std::vector<double> dits;
+            std::vector<double> dahs;
+            for (const Run& r : runs) {
+                // Meno di un terzo del punto e' un disturbo, non un segno.
+                const double dit = clusters ? ditMed : 1.2 / std::max(wpm, 5.0);
+                if (r.seconds < dit / 3.0)
+                    continue;
+                Scope::Element e;
+                e.at = static_cast<float>(static_cast<double>(r.from) / n);
+                e.length = static_cast<float>(static_cast<double>(r.to - r.from) / n);
+                e.dah = r.seconds > dah;
+                m_scope.elements << e;
+                (e.dah ? dahs : dits).push_back(r.seconds);
+            }
+            if (clusters && dits.size() >= 3 && dahs.size() >= 2) {
+                std::sort(dits.begin(), dits.end());
+                std::sort(dahs.begin(), dahs.end());
+                const double ratio = std::clamp(dahs[dahs.size() / 2] / dits[dits.size() / 2], 1.5, 6.0);
+                m_scope.fist = m_scope.fist > 0 ? 0.6f * m_scope.fist + 0.4f * static_cast<float>(ratio)
+                                                : static_cast<float>(ratio);
+            }
+        }
+    }
+    if (!measured && !m_scope.reading)
+        m_scope.fist = 0;
+    // Con i segni misurati il segnale e' Morse anche se ggmorse non lo legge: il pannello non
+    // deve dire «rumore» davanti a una mano pesante che la rete sta decodificando.
+    if (!m_scope.reading && measured && m_neural)
+        m_scope.reading = true;
 }
 
 QString CwDecoder::feed(const qint16* samples, int count)
@@ -304,6 +403,7 @@ QString CwDecoder::feed(const qint16* samples, int count)
         return {};
     m_pending.append(reinterpret_cast<const char*>(samples),
                      static_cast<qsizetype>(count) * static_cast<qsizetype>(sizeof(qint16)));
+    m_fedSamples += count;
     const QString fromGgmorse = drain();
     if (!m_neural)
         return applyLexicon(fromGgmorse);

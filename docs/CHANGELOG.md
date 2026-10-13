@@ -26,6 +26,17 @@ Con il modello neurale sono le probabilita' interne della rete; con ggmorse vien
 misurati (quanto somigliano a Morse vero). E' una media corta, non salta a ogni fotogramma. Prove: alta
 su un segnale pulito, bassa sul rumore, e con la rete a 1,00 su «CQ DE IU8LMC K».
 
+**Segni con la durata vera, e il «pugno».** Nella striscia in alto dello scope ogni tono acceso e
+completo e' ora un segno alla sua lunghezza misurata: i punti in verde, le linee in ambra, scelti
+dai due gruppi di durate che il segnale stesso mostra. Dai gruppi viene il **pugno**, il rapporto
+fra linea e punto («Pugno: 3,0:1» e' il Morse da manuale; una mano pesante sale, una svelta
+scende), come mediana, e solo quando i segni sono abbastanza e i due gruppi sono veri: sul rumore non
+compare niente. La misura non dipende dalla velocita' di ggmorse. Scoperta strada facendo: ggmorse
+non legge per niente il Morse con linee da quattro punti (costo 100, «rumore»); i segni invece si
+misurano, e col modello neurale, che regge i pesi non standard, il pannello non dice piu' «rumore»
+mentre la rete scrive. Prove: segni e rapporto su un segnale standard (circa 3), piu' alto con linee
+da quattro punti, zero sul rumore.
+
 ## 1.17.12 — 12 ottobre 2026
 
 **Il QSO scritto a mano non si rifiuta piu' per doppione.** Ne' dentro un'attivazione ne' fuori: il
