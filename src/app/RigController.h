@@ -83,6 +83,10 @@ class RigController : public QObject {
     // E' indipendente dai WPM con cui si trasmette: il corrispondente puo'
     // andare a una velocita' completamente diversa.
     Q_PROPERTY(int decoderSpeedLock READ decoderSpeedLock WRITE setDecoderSpeedLock NOTIFY decoderChanged)
+    // Il decodificatore neurale (CTC): il modello scelto, se e' acceso, e se questa build lo sa fare.
+    Q_PROPERTY(QString decoderModel READ decoderModel NOTIFY decoderChanged)
+    Q_PROPERTY(bool decoderNeural READ decoderNeural NOTIFY decoderChanged)
+    Q_PROPERTY(bool neuralDecoderAvailable READ neuralDecoderAvailable CONSTANT)
     // Il grafico del decoder, come quello di ggmorse: {signal: [0..1],
     // level, pitch, wpm, cost, reading}. Si aggiorna una quindicina di volte
     // al secondo, non a ogni pezzetto di audio.
@@ -245,6 +249,13 @@ public:
     void setDecoderToneLock(int hz);
     int decoderSpeedLock() const { return m_decoderSpeedLock; }
     void setDecoderSpeedLock(int wpm);
+    QString decoderModel() const { return m_decoderModel; }
+    bool decoderNeural() const { return m_decoder.neural(); }
+    bool neuralDecoderAvailable() const { return core::CwDecoder::neuralAvailable(); }
+    // Sceglie il modello ONNX del decodificatore neurale (vuoto: si torna a ggmorse). Torna
+    // false se il file non si carica o se questa build non ha ONNX Runtime.
+    Q_INVOKABLE bool chooseDecoderModel(const QUrl& file);
+    Q_INVOKABLE void clearDecoderModel();
     QVariantMap decoderScope() const { return m_scope; }
     // Per le prove: fa ascoltare al decoder un file audio (WAV o PCM a 16 bit,
     // mono) al passo del tempo vero, come se arrivasse dalla scheda audio.
@@ -367,6 +378,7 @@ private:
     QString m_decoderText;
     int m_decoderToneLock{0};
     int m_decoderSpeedLock{0};
+    QString m_decoderModel;
     QVariantMap m_scope;
     QElapsedTimer m_scopeClock;
     std::unique_ptr<QTimer> m_testAudio;

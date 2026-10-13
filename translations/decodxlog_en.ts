@@ -2371,6 +2371,30 @@ Right click: change it</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>AI: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>AI model…</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Click to go back to ggmorse</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Choose the neural CW model (.onnx) for the decoder</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Neural CW model</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>ONNX models (*.onnx)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>System default</source>
         <translation type="unfinished"></translation>
     </message>
@@ -9777,10 +9801,6 @@ Open it once in DecoDXLog to bring it up to date.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Already worked in this activation</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Logged %1 %2 %3 (manual)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -10985,6 +11005,22 @@ Open it once in DecoDXLog to bring it up to date.</source>
     </message>
     <message>
         <source>CW decoder tone set to automatic search</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The neural CW model cannot be loaded: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This build has no neural CW decoder (ONNX Runtime missing)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>CW decoder: neural model %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>CW decoder: back to ggmorse</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

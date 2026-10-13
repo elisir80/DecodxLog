@@ -18,6 +18,7 @@
 #include <vector>
 
 class GGMorse;
+class CtcDecoder;
 
 namespace decolog::core {
 
@@ -62,6 +63,14 @@ public:
     };
     const Scope& scope() const { return m_scope; }
 
+    // Il decodificatore neurale (CTC, rete ONNX): sceglie il modello e lo carica. Torna false
+    // se il programma non e' stato costruito con ONNX Runtime, o se il file non si legge: in
+    // quel caso resta ggmorse. Con il modello attivo il testo viene dalla rete; ggmorse continua
+    // a guardare il segnale per il tono e per il pannello.
+    static bool neuralAvailable();
+    bool setNeuralModel(const QString& path);
+    bool neural() const { return m_neural != nullptr; }
+
     // Manda dentro l'audio (mono, 16 bit) e torna il testo nuovo, se ne e'
     // uscito. Si puo' chiamare a pezzi piccoli: lo stato resta.
     QString feed(const qint16* samples, int count);
@@ -80,6 +89,7 @@ private:
     int m_tone{0};
     int m_speed{0};
     std::unique_ptr<GGMorse> m_morse;
+    std::unique_ptr<CtcDecoder> m_neural;
     // L'audio che e' arrivato e non e' ancora stato consumato: ggmorse lo
     // chiede a blocchi interi, e dalla scheda audio arriva come capita.
     QByteArray m_pending;

@@ -2364,6 +2364,30 @@ Right click: change it</source>
         <translation>解碼器</translation>
     </message>
     <message>
+        <source>AI: %1</source>
+        <translation>AI: %1</translation>
+    </message>
+    <message>
+        <source>AI model…</source>
+        <translation>AI 模型…</translation>
+    </message>
+    <message>
+        <source>Click to go back to ggmorse</source>
+        <translation>點擊以切換回 ggmorse</translation>
+    </message>
+    <message>
+        <source>Choose the neural CW model (.onnx) for the decoder</source>
+        <translation>為解碼器選擇神經網路 CW 模型 (.onnx)</translation>
+    </message>
+    <message>
+        <source>Neural CW model</source>
+        <translation>神經網路 CW 模型</translation>
+    </message>
+    <message>
+        <source>ONNX models (*.onnx)</source>
+        <translation>ONNX 模型 (*.onnx)</translation>
+    </message>
+    <message>
         <source>System default</source>
         <translation>系統預設</translation>
     </message>
@@ -9745,10 +9769,6 @@ Open it once in DecoDXLog to bring it up to date.</source>
         <translation>請輸入有效的 UTC 日期</translation>
     </message>
     <message>
-        <source>Already worked in this activation</source>
-        <translation>這次激活裡已經通聯過</translation>
-    </message>
-    <message>
         <source>Logged %1 %2 %3 (manual)</source>
         <translation>已記錄 %1 %2 %3（手動）</translation>
     </message>
@@ -10927,6 +10947,22 @@ Open it once in DecoDXLog to bring it up to date.</source>
     <message>
         <source>CW decoder tone set to automatic search</source>
         <translation>CW 解碼器音調已設為自動搜尋</translation>
+    </message>
+    <message>
+        <source>The neural CW model cannot be loaded: %1</source>
+        <translation>無法載入神經網路 CW 模型: %1</translation>
+    </message>
+    <message>
+        <source>This build has no neural CW decoder (ONNX Runtime missing)</source>
+        <translation>此版本沒有神經網路 CW 解碼器（缺少 ONNX Runtime）</translation>
+    </message>
+    <message>
+        <source>CW decoder: neural model %1</source>
+        <translation>CW 解碼器：神經網路模型 %1</translation>
+    </message>
+    <message>
+        <source>CW decoder: back to ggmorse</source>
+        <translation>CW 解碼器：已切換回 ggmorse</translation>
     </message>
     <message>
         <source>CW decoder speed locked at %1 WPM</source>

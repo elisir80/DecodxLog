@@ -8,6 +8,7 @@ import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
 import QtQuick.Window
+import QtQuick.Dialogs
 import Decodium.UI
 
 GlassPanel {
@@ -241,6 +242,24 @@ GlassPanel {
                 text: qsTr("Decoder")
                 checked: root.rig.decoderOn
                 onToggled: root.rig.decoderOn = checked
+            }
+            // Il decodificatore neurale (CTC) e' un'opzione: senza il modello c'e' ggmorse.
+            GlassButton {
+                visible: root.rig.neuralDecoderAvailable
+                buttonHeight: 26
+                fontPixelSize: 11
+                text: root.rig.decoderNeural ? qsTr("AI: %1").arg(root.rig.decoderModel.split(/[\\/]/).pop())
+                                             : qsTr("AI model…")
+                tone: root.rig.decoderNeural ? Theme.accentColor : Theme.textSecondary
+                onClicked: root.rig.decoderNeural ? root.rig.clearDecoderModel() : neuralModelDialog.open()
+                hint: root.rig.decoderNeural ? qsTr("Click to go back to ggmorse")
+                                             : qsTr("Choose the neural CW model (.onnx) for the decoder")
+            }
+            FileDialog {
+                id: neuralModelDialog
+                title: qsTr("Neural CW model")
+                nameFilters: [qsTr("ONNX models (*.onnx)")]
+                onAccepted: root.rig.chooseDecoderModel(selectedFile)
             }
             ColumnLayout {
                 Layout.fillWidth: true

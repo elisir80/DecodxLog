@@ -2382,6 +2382,30 @@ Right click: change it</source>
         <translation>Декодер</translation>
     </message>
     <message>
+        <source>AI: %1</source>
+        <translation>ИИ: %1</translation>
+    </message>
+    <message>
+        <source>AI model…</source>
+        <translation>Модель ИИ…</translation>
+    </message>
+    <message>
+        <source>Click to go back to ggmorse</source>
+        <translation>Нажмите, чтобы вернуться к ggmorse</translation>
+    </message>
+    <message>
+        <source>Choose the neural CW model (.onnx) for the decoder</source>
+        <translation>Выберите нейросетевую модель CW (.onnx) для декодера</translation>
+    </message>
+    <message>
+        <source>Neural CW model</source>
+        <translation>Нейросетевая модель CW</translation>
+    </message>
+    <message>
+        <source>ONNX models (*.onnx)</source>
+        <translation>Модели ONNX (*.onnx)</translation>
+    </message>
+    <message>
         <source>System default</source>
         <translation>Системный по умолчанию</translation>
     </message>
@@ -9817,10 +9841,6 @@ Open it once in DecoDXLog to bring it up to date.</source>
         <translation>Введите правильную дату UTC</translation>
     </message>
     <message>
-        <source>Already worked in this activation</source>
-        <translation>В этой активации уже был</translation>
-    </message>
-    <message>
         <source>Logged %1 %2 %3 (manual)</source>
         <translation>Записан %1 %2 %3 (вручную)</translation>
     </message>
@@ -11053,6 +11073,22 @@ Open it once in DecoDXLog to bring it up to date.</source>
     <message>
         <source>CW decoder tone set to automatic search</source>
         <translation>Тон декодера CW переведён на автопоиск</translation>
+    </message>
+    <message>
+        <source>The neural CW model cannot be loaded: %1</source>
+        <translation>Нейросетевую модель CW не удалось загрузить: %1</translation>
+    </message>
+    <message>
+        <source>This build has no neural CW decoder (ONNX Runtime missing)</source>
+        <translation>В этой сборке нет нейросетевого декодера CW (нет ONNX Runtime)</translation>
+    </message>
+    <message>
+        <source>CW decoder: neural model %1</source>
+        <translation>Декодер CW: нейросетевая модель %1</translation>
+    </message>
+    <message>
+        <source>CW decoder: back to ggmorse</source>
+        <translation>Декодер CW: возврат к ggmorse</translation>
     </message>
     <message>
         <source>CW decoder speed locked at %1 WPM</source>

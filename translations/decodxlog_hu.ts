@@ -2364,6 +2364,30 @@ Jobb kattintás: módosítás</translation>
         <translation>Dekóder</translation>
     </message>
     <message>
+        <source>AI: %1</source>
+        <translation>MI: %1</translation>
+    </message>
+    <message>
+        <source>AI model…</source>
+        <translation>MI-modell…</translation>
+    </message>
+    <message>
+        <source>Click to go back to ggmorse</source>
+        <translation>Kattints a ggmorse-ra való visszatéréshez</translation>
+    </message>
+    <message>
+        <source>Choose the neural CW model (.onnx) for the decoder</source>
+        <translation>Válaszd ki a dekóder neurális CW-modelljét (.onnx)</translation>
+    </message>
+    <message>
+        <source>Neural CW model</source>
+        <translation>Neurális CW-modell</translation>
+    </message>
+    <message>
+        <source>ONNX models (*.onnx)</source>
+        <translation>ONNX-modellek (*.onnx)</translation>
+    </message>
+    <message>
         <source>System default</source>
         <translation>Rendszer alapértelmezett</translation>
     </message>
@@ -9745,10 +9769,6 @@ Nyisd meg egyszer a DecoDXLog-ban a frissítéshez.</translation>
         <translation>Adj meg érvényes UTC dátumot</translation>
     </message>
     <message>
-        <source>Already worked in this activation</source>
-        <translation>Ebben az aktiválásban már megvolt</translation>
-    </message>
-    <message>
         <source>Logged %1 %2 %3 (manual)</source>
         <translation>Naplózva %1 %2 %3 (kézzel)</translation>
     </message>
@@ -10927,6 +10947,22 @@ Nyisd meg egyszer a DecoDXLog-ban a frissítéshez.</translation>
     <message>
         <source>CW decoder tone set to automatic search</source>
         <translation>CW-dekóder hangja automatikus keresésre állítva</translation>
+    </message>
+    <message>
+        <source>The neural CW model cannot be loaded: %1</source>
+        <translation>A neurális CW-modell nem tölthető be: %1</translation>
+    </message>
+    <message>
+        <source>This build has no neural CW decoder (ONNX Runtime missing)</source>
+        <translation>Ez a verzió nem tartalmaz neurális CW-dekódert (hiányzik az ONNX Runtime)</translation>
+    </message>
+    <message>
+        <source>CW decoder: neural model %1</source>
+        <translation>CW-dekóder: neurális modell %1</translation>
+    </message>
+    <message>
+        <source>CW decoder: back to ggmorse</source>
+        <translation>CW-dekóder: vissza a ggmorse-ra</translation>
     </message>
     <message>
         <source>CW decoder speed locked at %1 WPM</source>

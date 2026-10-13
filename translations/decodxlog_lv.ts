@@ -2382,6 +2382,30 @@ Labais klikšķis: mainīt</translation>
         <translation>Dekoders</translation>
     </message>
     <message>
+        <source>AI: %1</source>
+        <translation>MI: %1</translation>
+    </message>
+    <message>
+        <source>AI model…</source>
+        <translation>MI modelis…</translation>
+    </message>
+    <message>
+        <source>Click to go back to ggmorse</source>
+        <translation>Noklikšķiniet, lai atgrieztos pie ggmorse</translation>
+    </message>
+    <message>
+        <source>Choose the neural CW model (.onnx) for the decoder</source>
+        <translation>Izvēlieties dekodera neironu CW modeli (.onnx)</translation>
+    </message>
+    <message>
+        <source>Neural CW model</source>
+        <translation>Neironu CW modelis</translation>
+    </message>
+    <message>
+        <source>ONNX models (*.onnx)</source>
+        <translation>ONNX modeļi (*.onnx)</translation>
+    </message>
+    <message>
         <source>System default</source>
         <translation>Sistēmas noklusējums</translation>
     </message>
@@ -9817,10 +9841,6 @@ Atver to vienreiz DecoDXLog, lai atjauninātu.</translation>
         <translation>Ievadi derīgu UTC datumu</translation>
     </message>
     <message>
-        <source>Already worked in this activation</source>
-        <translation>Šajā aktivizēšanā jau nostrādāts</translation>
-    </message>
-    <message>
         <source>Logged %1 %2 %3 (manual)</source>
         <translation>Ierakstīts %1 %2 %3 (ar roku)</translation>
     </message>
@@ -11053,6 +11073,22 @@ Atver to vienreiz DecoDXLog, lai atjauninātu.</translation>
     <message>
         <source>CW decoder tone set to automatic search</source>
         <translation>CW dekodera tonis iestatīts uz automātisko meklēšanu</translation>
+    </message>
+    <message>
+        <source>The neural CW model cannot be loaded: %1</source>
+        <translation>Neironu CW modeli nevar ielādēt: %1</translation>
+    </message>
+    <message>
+        <source>This build has no neural CW decoder (ONNX Runtime missing)</source>
+        <translation>Šai versijai nav neironu CW dekodera (trūkst ONNX Runtime)</translation>
+    </message>
+    <message>
+        <source>CW decoder: neural model %1</source>
+        <translation>CW dekoderis: neironu modelis %1</translation>
+    </message>
+    <message>
+        <source>CW decoder: back to ggmorse</source>
+        <translation>CW dekoderis: atpakaļ uz ggmorse</translation>
     </message>
     <message>
         <source>CW decoder speed locked at %1 WPM</source>

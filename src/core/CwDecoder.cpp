@@ -1,5 +1,6 @@
 #include "core/CwDecoder.h"
 
+#include "core/CtcDecoder.h"
 #include "ggmorse/ggmorse.h"
 
 #include <QHash>
@@ -113,6 +114,36 @@ void CwDecoder::rebuild()
     m_scope = Scope();
     m_last = QChar();
     setTone(m_tone);
+    if (m_neural)
+        m_neural->reset();
+}
+
+bool CwDecoder::neuralAvailable()
+{
+    return CtcDecoder::isCompiled();
+}
+
+bool CwDecoder::setNeuralModel(const QString& path)
+{
+    m_neural.reset();
+    if (path.isEmpty() || !neuralAvailable())
+        return false;
+    auto net = std::make_unique<CtcDecoder>();
+    if (!net->loadModel(path))
+        return false;
+    m_neural = std::move(net);
+    reset();
+    return true;
+}
+
+// Il testo della rete per un pezzo di audio. ggmorse va avanti lo stesso (tono, pannello), ma il
+// suo testo si butta: col modello neurale il testo viene da qui.
+static QString neuralText(CtcDecoder& net, const std::vector<float>& mono, int rate, int tone, double toneHz)
+{
+    QString out;
+    const double hz = tone > 0 ? tone : (toneHz > 0 ? toneHz : 700.0);
+    net.processAudio(mono.data(), static_cast<int>(mono.size()), rate, hz, out);
+    return out;
 }
 
 void CwDecoder::reset()
@@ -221,7 +252,13 @@ QString CwDecoder::feed(const qint16* samples, int count)
         return {};
     m_pending.append(reinterpret_cast<const char*>(samples),
                      static_cast<qsizetype>(count) * static_cast<qsizetype>(sizeof(qint16)));
-    return drain();
+    const QString fromGgmorse = drain();
+    if (!m_neural)
+        return fromGgmorse;
+    std::vector<float> mono(static_cast<size_t>(count));
+    for (int i = 0; i < count; ++i)
+        mono[static_cast<size_t>(i)] = samples[i] / 32768.0f;
+    return neuralText(*m_neural, mono, m_sampleRate, m_tone, m_toneHz);
 }
 
 QString CwDecoder::flush()
@@ -233,6 +270,10 @@ QString CwDecoder::flush()
     const int silence = static_cast<int>(kFlushSeconds * m_sampleRate);
     m_pending.append(static_cast<qsizetype>(silence) * static_cast<qsizetype>(sizeof(qint16)), '\0');
     QString out = drain();
+    if (m_neural) {
+        const std::vector<float> quiet(static_cast<size_t>(silence), 0.0f);
+        out = neuralText(*m_neural, quiet, m_sampleRate, m_tone, m_toneHz);
+    }
     while (out.endsWith(QLatin1Char('\n')) || out.endsWith(QLatin1Char(' ')))
         out.chop(1);
     return out;

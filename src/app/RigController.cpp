@@ -7,6 +7,7 @@
 
 #include <QAudioDevice>
 #include <QAudioFormat>
+#include <QFileInfo>
 #include <QJsonArray>
 #include <QMediaDevices>
 #include <QSettings>
@@ -137,6 +138,9 @@ RigController::RigController(Context context, QObject* parent)
         m_decoderSpeedLock = 0;
     m_decoder.setTone(m_decoderToneLock);
     m_decoder.setSpeed(m_decoderSpeedLock);
+    m_decoderModel = s.value(QStringLiteral("cw/neuralModel")).toString();
+    if (!m_decoderModel.isEmpty() && !m_decoder.setNeuralModel(m_decoderModel))
+        m_decoderModel.clear();   // il file non c'e' piu', o questa build non ha la rete: si torna a ggmorse
     loadMacros();
 
     for (core::RigLink* link : {static_cast<core::RigLink*>(&m_hamlib), static_cast<core::RigLink*>(&m_tci),
@@ -987,6 +991,43 @@ void RigController::setDecoderToneLock(int hz)
                                        : tr("CW decoder tone set to automatic search");
         m_ctx.activity(QStringLiteral("CW"), what, QStringLiteral("info"));
     }
+}
+
+bool RigController::chooseDecoderModel(const QUrl& file)
+{
+    const QString path = file.isLocalFile() ? file.toLocalFile() : file.toString();
+    const bool ok = m_decoder.setNeuralModel(path);
+    if (!ok) {
+        m_decoderModel.clear();   // ggmorse resta: il pannello non deve dire «modello» se non c'e'
+        if (m_ctx.activity)
+            m_ctx.activity(QStringLiteral("CW"),
+                           core::CwDecoder::neuralAvailable() ? tr("The neural CW model cannot be loaded: %1").arg(path)
+                                                              : tr("This build has no neural CW decoder (ONNX Runtime missing)"),
+                           QStringLiteral("warning"));
+        emit decoderChanged();
+        return false;
+    }
+    m_decoderModel = path;
+    QSettings().setValue(QStringLiteral("cw/neuralModel"), path);
+    m_decoder.reset();
+    publishScope(true);
+    emit decoderChanged();
+    if (m_ctx.activity)
+        m_ctx.activity(QStringLiteral("CW"), tr("CW decoder: neural model %1").arg(QFileInfo(path).fileName()),
+                       QStringLiteral("info"));
+    return true;
+}
+
+void RigController::clearDecoderModel()
+{
+    m_decoder.setNeuralModel(QString());
+    m_decoderModel.clear();
+    QSettings().remove(QStringLiteral("cw/neuralModel"));
+    m_decoder.reset();
+    publishScope(true);
+    emit decoderChanged();
+    if (m_ctx.activity)
+        m_ctx.activity(QStringLiteral("CW"), tr("CW decoder: back to ggmorse"), QStringLiteral("info"));
 }
 
 void RigController::setDecoderSpeedLock(int wpm)

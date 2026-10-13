@@ -2373,6 +2373,30 @@ Clic dret: modificar-la</translation>
         <translation>Descodificador</translation>
     </message>
     <message>
+        <source>AI: %1</source>
+        <translation>IA: %1</translation>
+    </message>
+    <message>
+        <source>AI model…</source>
+        <translation>Model IA…</translation>
+    </message>
+    <message>
+        <source>Click to go back to ggmorse</source>
+        <translation>Fes clic per tornar a ggmorse</translation>
+    </message>
+    <message>
+        <source>Choose the neural CW model (.onnx) for the decoder</source>
+        <translation>Tria el model CW neuronal (.onnx) del descodificador</translation>
+    </message>
+    <message>
+        <source>Neural CW model</source>
+        <translation>Model CW neuronal</translation>
+    </message>
+    <message>
+        <source>ONNX models (*.onnx)</source>
+        <translation>Models ONNX (*.onnx)</translation>
+    </message>
+    <message>
         <source>System default</source>
         <translation>Predeterminat del sistema</translation>
     </message>
@@ -9781,10 +9805,6 @@ Obre&apos;l una vegada a DecoDXLog per actualitzar-lo.</translation>
         <translation>Escriu una data UTC vàlida</translation>
     </message>
     <message>
-        <source>Already worked in this activation</source>
-        <translation>Ja treballat en aquesta activació</translation>
-    </message>
-    <message>
         <source>Logged %1 %2 %3 (manual)</source>
         <translation>Registrat %1 %2 %3 (a mà)</translation>
     </message>
@@ -10990,6 +11010,22 @@ Obre&apos;l una vegada a DecoDXLog per actualitzar-lo.</translation>
     <message>
         <source>CW decoder tone set to automatic search</source>
         <translation>To del descodificador CW en cerca automàtica</translation>
+    </message>
+    <message>
+        <source>The neural CW model cannot be loaded: %1</source>
+        <translation>No es pot carregar el model CW neuronal: %1</translation>
+    </message>
+    <message>
+        <source>This build has no neural CW decoder (ONNX Runtime missing)</source>
+        <translation>Aquesta versió no té el descodificador CW neuronal (falta ONNX Runtime)</translation>
+    </message>
+    <message>
+        <source>CW decoder: neural model %1</source>
+        <translation>Descodificador CW: model neuronal %1</translation>
+    </message>
+    <message>
+        <source>CW decoder: back to ggmorse</source>
+        <translation>Descodificador CW: tornada a ggmorse</translation>
     </message>
     <message>
         <source>CW decoder speed locked at %1 WPM</source>

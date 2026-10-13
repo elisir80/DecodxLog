@@ -3,6 +3,15 @@
 Le date sono quelle del lavoro, non di una pubblicazione: DecoDXLog cresce mentre lo si usa
 in stazione.
 
+## 1.17.13 — 13 ottobre 2026
+
+**Decoder CW neurale (CTC), come opzione.** Dal progetto Morsecodium arriva il decodificatore a rete
+neurale: legge lo spettro e scrive direttamente le lettere, senza misurare i tempi. Con il modello
+accanto (`cw_ctc_v8.onnx`, circa 2,5 MB) si sceglie dal pannello CW con «AI model…»; si torna a
+ggmorse con un clic. Serve una build con ONNX Runtime (`DECODXLOG_CTC_ONNX=ON`): la versione
+distribuita per ora non la include, e senza la rete il pulsante non compare. Prova: un CW sintetico
+«CQ DE IU8LMC K» a 20 WPM si decodifica per intero.
+
 ## 1.17.12 — 12 ottobre 2026
 
 **Il QSO scritto a mano non si rifiuta piu' per doppione.** Ne' dentro un'attivazione ne' fuori: il

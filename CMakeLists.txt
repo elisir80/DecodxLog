@@ -16,6 +16,10 @@ endif()
 
 option(DECODXLOG_BUILD_TESTS "Build the unit tests" ON)
 option(DECODXLOG_BUILD_TOOLS "Build the command-line tools (UDP simulator)" ON)
+# Il decodificatore CW CTC (rete neurale, da Morsecodium): richiede ONNX Runtime. Spento di
+# default: il programma distribuito non lo include finche' non si decide di farlo.
+option(DECODXLOG_CTC_ONNX "Build the neural CW decoder (CTC, needs ONNX Runtime)" OFF)
+set(ONNXRUNTIME_DIR "" CACHE PATH "ONNX Runtime root (contains include/ and lib/), for DECODXLOG_CTC_ONNX")
 
 find_package(Qt6 6.5 REQUIRED COMPONENTS Core Network Sql Gui Qml Quick QuickControls2 Multimedia WebSockets Positioning Location SerialPort LinguistTools)
 qt_standard_project_setup(REQUIRES 6.5)
@@ -93,6 +97,10 @@ add_library(decolog_core STATIC
     src/core/Modes.cpp
     src/core/Modes.h
     src/core/CwDecoder.cpp
+    src/core/CtcDecoder.cpp
+    src/core/CtcDecoder.h
+    src/core/MorseTables.cpp
+    src/core/MorseTables.h
     src/core/CwKeyer.cpp
     src/core/CwKeyer.h
     src/core/Gs232.cpp
@@ -210,6 +218,15 @@ target_include_directories(decolog_core PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/src)
 target_link_libraries(decolog_core PUBLIC Qt6::Core Qt6::Network Qt6::Sql Qt6::Gui Qt6::WebSockets Qt6::SerialPort)
 # Il decodificatore CW: ggmorse fa il lavoro, CwDecoder gli porta l'audio.
 target_link_libraries(decolog_core PRIVATE ggmorse)
+if(DECODXLOG_CTC_ONNX)
+    if(NOT EXISTS "${ONNXRUNTIME_DIR}/include")
+        message(FATAL_ERROR "DECODXLOG_CTC_ONNX=ON ma ONNXRUNTIME_DIR non valido: ${ONNXRUNTIME_DIR}")
+    endif()
+    find_library(ONNXRT_LIB onnxruntime HINTS "${ONNXRUNTIME_DIR}/lib" REQUIRED)
+    target_include_directories(decolog_core PRIVATE "${ONNXRUNTIME_DIR}/include")
+    target_link_libraries(decolog_core PRIVATE ${ONNXRT_LIB})
+    target_compile_definitions(decolog_core PRIVATE HAVE_ONNXRUNTIME)
+endif()
 # La firma degli aggiornamenti: Ed25519 da Monocypher.
 target_link_libraries(decolog_core PRIVATE monocypher)
 # Il cty.xml di Club Log arriva compresso con gzip.
@@ -526,7 +543,7 @@ endif()
 if(DECODXLOG_BUILD_TESTS)
     enable_testing()
     find_package(Qt6 REQUIRED COMPONENTS Test)
-    foreach(name adif protocol database countries credentials callbook awards decolink lotw spots cluster qsl cabrillo solar rotor rig modes updates cw cwkeyer cloud cloudsettings vault mailsender dates tci rotorgateway worldclock propagation kstchat flrig supercheck contestnet winkeyer catshare logbackup qsldownload decodiumlog n1mm localapi clublogcty migration voacap connectionprobe)
+    foreach(name adif protocol database countries credentials callbook awards decolink lotw spots cluster qsl cabrillo solar rotor rig modes updates cw cwkeyer cloud cloudsettings vault mailsender dates tci rotorgateway worldclock propagation kstchat flrig supercheck contestnet winkeyer catshare logbackup qsldownload decodiumlog n1mm localapi clublogcty migration voacap connectionprobe ctcdecoder)
         qt_add_executable(tst_${name} tests/tst_${name}.cpp)
         target_link_libraries(tst_${name} PRIVATE decolog_core Qt6::Test)
         set_target_properties(tst_${name} PROPERTIES WIN32_EXECUTABLE OFF)

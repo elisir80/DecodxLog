@@ -2364,6 +2364,30 @@ Right click: change it</source>
         <translation>デコーダー</translation>
     </message>
     <message>
+        <source>AI: %1</source>
+        <translation>AI: %1</translation>
+    </message>
+    <message>
+        <source>AI model…</source>
+        <translation>AI モデル…</translation>
+    </message>
+    <message>
+        <source>Click to go back to ggmorse</source>
+        <translation>クリックして ggmorse に戻す</translation>
+    </message>
+    <message>
+        <source>Choose the neural CW model (.onnx) for the decoder</source>
+        <translation>デコーダー用のニューラル CW モデル (.onnx) を選択</translation>
+    </message>
+    <message>
+        <source>Neural CW model</source>
+        <translation>ニューラル CW モデル</translation>
+    </message>
+    <message>
+        <source>ONNX models (*.onnx)</source>
+        <translation>ONNX モデル (*.onnx)</translation>
+    </message>
+    <message>
         <source>System default</source>
         <translation>システムの既定</translation>
     </message>
@@ -9745,10 +9769,6 @@ DecoDXLog で一度開いて更新してください。</translation>
         <translation>正しい UTC 日付を入力してください</translation>
     </message>
     <message>
-        <source>Already worked in this activation</source>
-        <translation>このアクティベーションではもう交信済み</translation>
-    </message>
-    <message>
         <source>Logged %1 %2 %3 (manual)</source>
         <translation>記録しました %1 %2 %3 (手入力)</translation>
     </message>
@@ -10927,6 +10947,22 @@ DecoDXLog で一度開いて更新してください。</translation>
     <message>
         <source>CW decoder tone set to automatic search</source>
         <translation>CW デコーダーのトーンを自動検索にしました</translation>
+    </message>
+    <message>
+        <source>The neural CW model cannot be loaded: %1</source>
+        <translation>ニューラル CW モデルを読み込めません: %1</translation>
+    </message>
+    <message>
+        <source>This build has no neural CW decoder (ONNX Runtime missing)</source>
+        <translation>このビルドにはニューラル CW デコーダーがありません (ONNX Runtime がありません)</translation>
+    </message>
+    <message>
+        <source>CW decoder: neural model %1</source>
+        <translation>CW デコーダー: ニューラルモデル %1</translation>
+    </message>
+    <message>
+        <source>CW decoder: back to ggmorse</source>
+        <translation>CW デコーダー: ggmorse に戻しました</translation>
     </message>
     <message>
         <source>CW decoder speed locked at %1 WPM</source>
