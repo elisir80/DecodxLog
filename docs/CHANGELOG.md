@@ -3,6 +3,38 @@
 Le date sono quelle del lavoro, non di una pubblicazione: DecoDXLog cresce mentre lo si usa
 in stazione.
 
+## 1.17.15 — 13 ottobre 2026
+
+**Le righe del log si scelgono trascinando il mouse.** Si preme su una riga e si scende (o si
+sale) tenendo premuto: sono scelte tutte quelle fino al mouse; con Ctrl si aggiungono a quelle che
+c'erano. Prima la lista si prendeva il trascinamento e scorreva, invece di scegliere. Il clic
+singolo, Maiusc+clic e Esc fanno quel che facevano; in piu' **Ctrl+A** sceglie tutte le righe che
+si vedono con i filtri di adesso. Per intervalli piu' lunghi dello schermo resta Maiusc+clic.
+
+**Le stazioni CW in banda occupano una riga.** Di serie sono etichette compatte, tutte in una riga
+anche con cinque segnali: nominativo (col colore dello stato), CQ e velocita'. Un clic ascolta, il
+doppio clic porta il nominativo nel QSO, il tasto destro apre lo spot; il resto sta nel
+suggerimento. Con **Dettagli** tornano le righe per stazione, ma in una finestra a scorrimento di
+tre righe al massimo. La striscia dello spettro e' piu' bassa (32 px invece di 40).
+
+**Il testo CW decodificato si seleziona col mouse.** Doppio clic su una parola, trascinando quanto
+si vuole, Ctrl+C per copiare. Prima la selezione si perdeva a ogni carattere che arrivava: ora il
+testo aspetta finche' c'e' una selezione, e raggiunge quel che c'e' di nuovo quando la si lascia.
+
+**Impostazioni radio: la finestra non aspetta piu' Hamlib.** L'elenco delle radio (`rigctld -l`,
+fino a 8 secondi), le opzioni della seriale del modello scelto (`-L`, fino a 4 secondi a ogni
+cambio di modello), l'avvio di rigctld sulla seriale e la ricerca della radio (con la radio spenta,
+fino a 2,7 secondi per ognuno dei tentativi) aspettavano nel filo della finestra, che restava
+ferma. Adesso partono su processi a parte e la finestra continua a rispondere; l'elenco delle radio
+si prepara da solo poco dopo l'avvio, cosi' quando si apre Impostazioni e' gia' li'. La ricerca
+si ferma subito se la porta non c'e' o e' occupata. L'elenco delle porte seriali si ricorda per due
+secondi: all'apertura della finestra lo chiedevano in tanti, uno dopo l'altro.
+
+**Il controllo dei blocchi dice cosa stava facendo il programma.** Quando la finestra smette di
+rispondere per piu' di un secondo e mezzo, nell'attivita' compare anche l'operazione lunga che
+l'ha tenuta ferma («occupata con: …»), non solo la durata. Se capita ancora, e' la riga da
+mandare.
+
 ## 1.17.14 — 13 ottobre 2026
 
 **Le stazioni CW in banda, tutte insieme.** Il decoder CW ascoltava un tono solo: in una banda
