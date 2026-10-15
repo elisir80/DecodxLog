@@ -19,12 +19,15 @@ ctest --test-dir build -R '^awards$' --output-on-failure
 Risultato: test passato, 0 fallimenti. La fixture verifica che l'Antartide
 resti nell'elenco visualizzato e non nei conteggi ufficiali, che Oceania porti
 il totale ufficiale a sei e che i totali per banda rispettino lo stesso filtro.
-La fixture Cloud condivisa è stata rieseguita con `pytest -q
-server/tests/test_analytics.py`: 20 test passati.
+Il calcolatore Cloud applica ora lo stesso flag: `AN` resta visibile, ma
+`official_worked`, `official_confirmed` e `official_band_totals()` lo
+escludono. La pagina `/awards` usa i conteggi ufficiali per WAC senza
+nascondere l'item geografico. La suite Cloud è stata eseguita con `pytest -q
+server/tests`: 136 test passati, inclusa una fixture AN/EU/OC dedicata.
 
 Fonte della regola: [ARRL WAC](https://www.arrl.org/wac), che elenca i sei
 continenti validi per il diploma.
 
-Limite: questo checkout non contiene un calcolatore Cloud indipendente da
-confrontare in esecuzione; la parità desktop/Cloud resta da verificare contro
-un servizio remoto o una fixture condivisa del backend.
+Limite: la verifica è locale e non copre un deployment remoto del servizio
+Cloud; la parità è stata verificata tra i due calcolatori presenti nel
+checkout e nelle rispettive fixture, non contro un'istanza pubblicata.

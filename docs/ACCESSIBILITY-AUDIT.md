@@ -3,7 +3,7 @@
 This is a source-level baseline for DXL-031, not a substitute for a user
 usability session or an assistive-technology certification.
 
-The focused check was run on 2026-10-15 with
+The focused check was run on 2026-10-16 with
 `cmake --build build --target tst_qmlpopups decolog` followed by
 `ctest --test-dir build -R '^qmlpopups$'`; result: 1/1 passed.
 
@@ -34,7 +34,7 @@ The focused check was run on 2026-10-15 with
 The static checks must remain green, but these remaining items require a
 separate design and runtime/accessibility test plan before implementation.
 
-## Verifica ripetuta — 15 ottobre 2026
+## Verifica ripetuta — 16 ottobre 2026
 
 ```text
 cmake --build build --parallel 4 --target tst_qmlpopups decolog

@@ -341,9 +341,9 @@ DecoLogController::DecoLogController(QObject* parent)
     m_awardFilter.confirmLotw = s.value(QStringLiteral("awards/confirmLotw"), true).toBool();
     m_awardFilter.confirmCard = s.value(QStringLiteral("awards/confirmCard"), true).toBool();
     m_awardFilter.confirmEqsl = s.value(QStringLiteral("awards/confirmEqsl"), false).toBool();
-    // I 60 metri contano di serie (scelta dell'operatore); chi vuole il conto
-    // ufficiale ARRL spegne l'interruttore «60 m».
-    m_awardFilter.count60m = s.value(QStringLiteral("awards/count60m"), true).toBool();
+    // Il profilo ufficiale ARRL esclude i 60 metri; il valore true salvato e'
+    // l'override personale dell'operatore.
+    m_awardFilter.count60m = s.value(QStringLiteral("awards/count60m"), false).toBool();
     // Un account DXCC ufficiale non deve sommare automaticamente casa,
     // portatile e altri nominativi. Per una nuova installazione si parte dal
     // profilo attivo; una scelta gia' salvata (anche "All stations" = 0) e'
@@ -6022,7 +6022,7 @@ StatsFilter statsFilterFor(const QString& mode, int year)
     f.year = year;
     // Come nei diplomi: i 60 metri nel DXCC se l'operatore li conta. Si legge
     // dalle impostazioni perche' qui si arriva anche da un altro filo.
-    f.count60m = QSettings().value(QStringLiteral("awards/count60m"), true).toBool();
+    f.count60m = QSettings().value(QStringLiteral("awards/count60m"), false).toBool();
     return f;
 }
 

@@ -768,6 +768,25 @@ QString CloudController::settingsFingerprint(const QVariantMap& values)
 
 bool CloudController::applyRemoteSettings(const QVariantMap& document)
 {
+    const int revision = document.value(QStringLiteral("revision")).toInt();
+    const int known = m_ctx.db ? m_ctx.db->setting(QStringLiteral("cloud.settingsRevision")).toInt() : 0;
+    if (revision <= known || document.value(QStringLiteral("data")).toMap().isEmpty())
+        return false;
+
+    QSettings s;
+    const QVariantMap remote = document.value(QStringLiteral("data")).toMap();
+    const QVariantMap base = settingsBase();
+    const bool haveBase = !base.isEmpty();
+    m_pendingSettings = cloudsettings::preview(s, remote, haveBase ? &base : nullptr);
+    m_pendingSettingsDocument = document;
+    m_status = tr("Cloud: settings waiting for confirmation (%n change(s))", nullptr,
+                  m_pendingSettings.size());
+    emit changed();
+    return false;
+}
+
+bool CloudController::applyRemoteSettingsNow(const QVariantMap& document)
+{
     if (!m_ctx.db)
         return false;
     const int revision = document.value(QStringLiteral("revision")).toInt();
@@ -813,6 +832,33 @@ bool CloudController::applyRemoteSettings(const QVariantMap& document)
         note(tr("Cloud: %n setting(s) changed here kept (they go up at the next sync)", nullptr,
                 int(kept.size())), QStringLiteral("info"));
     return written > 0;
+}
+
+void CloudController::applyPendingSettings()
+{
+    if (m_pendingSettingsDocument.isEmpty())
+        return;
+    const bool settingsChanged = applyRemoteSettingsNow(m_pendingSettingsDocument);
+    m_pendingSettings.clear();
+    m_pendingSettingsDocument.clear();
+    if (settingsChanged) {
+        note(tr("Cloud: settings updated from another device"), QStringLiteral("success"));
+        emit settingsApplied();
+    }
+    emit changed();
+}
+
+void CloudController::discardPendingSettings()
+{
+    if (m_pendingSettingsDocument.isEmpty())
+        return;
+    const int revision = m_pendingSettingsDocument.value(QStringLiteral("revision")).toInt();
+    if (m_ctx.db && revision > 0)
+        m_ctx.db->setSetting(QStringLiteral("cloud.settingsRevision"), QString::number(revision));
+    m_pendingSettings.clear();
+    m_pendingSettingsDocument.clear();
+    m_status = tr("Cloud: remote settings discarded on this device");
+    emit changed();
 }
 
 QVariantMap CloudController::settingsBase() const

@@ -18,7 +18,7 @@ Verified locally:
 - award calculation ignores an inferred DXCC value;
 - `awards` passes after the provenance guard.
 
-Verification repeated on 2026-10-15: `database`, `callbook` and `awards`
+Verification repeated on 2026-10-16: `database`, `callbook` and `awards`
 passed 3/3. The tests cover provenance/undo, protection of operator-entered
 fields, and exclusion of inferred geographic values from award eligibility.
 

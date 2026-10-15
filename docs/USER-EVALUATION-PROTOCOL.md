@@ -1,6 +1,6 @@
 # DXL-034 — Protocollo di valutazione comparativa
 
-## Stato verificato — 15 ottobre 2026
+## Stato verificato — 16 ottobre 2026
 
 Nel repository non esiste una raccolta di sessioni con utenti, uno strumento di
 telemetria consensuale o un benchmark comparativo già eseguito. I test
@@ -31,3 +31,5 @@ ad altri prodotti. Senza operatori, dataset concordato e configurazioni
 comparabili, qualsiasi classifica sarebbe un'ipotesi di prodotto. La voce
 DXL-034 resta quindi aperta; i risultati futuri dovranno riportare dati grezzi,
 metodo e limiti, senza trasformare i test tecnici in una valutazione utenti.
+I benchmark tecnici locali restano separati da questa voce e non vengono usati
+come sostituto del successo operativo misurato con operatori reali.

@@ -1,5 +1,7 @@
 # DXL-008 — macOS distribution audit
 
+Audit date: 2026-10-16
+
 ## Current state
 
 The macOS workflow deploys the Qt bundle, applies an ad-hoc bundle signature,
@@ -26,3 +28,12 @@ install test. The required evidence is:
 
 The current workflow already performs item 4 and ad-hoc bundle verification;
 items 1–3 remain pending credentials and an external clean machine.
+
+## Local prerequisite check — 16 October 2026
+
+The development Mac exposes only an `Apple Development` signing identity;
+there is no `Developer ID Application` identity. `xcrun notarytool` is
+installed, but no Apple ID, team identifier, or app-specific password is
+available in the environment. Therefore no Developer ID/notarization step was
+run or claimed, and the workflow was intentionally left unchanged rather than
+adding an untestable credential path.

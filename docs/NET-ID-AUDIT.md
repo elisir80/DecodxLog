@@ -14,11 +14,15 @@ Verifiche presenti e passate:
 - `contestnet/receiveFromAnotherPc`: il trasporto UDP riceve un messaggio da un
   altro ID e scarta il proprio messaggio riflesso.
 
-Il 2026-10-15 sono stati rieseguiti `cloudsettings` e `udppipeline` con
-`ctest --test-dir build -R '^(cloudsettings|udppipeline)$'`: 2/2 passati.
+Il 2026-10-16 sono stati rieseguiti i test pertinenti con
+`cmake --build build --parallel 4 --target tst_cloudsettings tst_contestnet` e
+`ctest --test-dir build --output-on-failure -R '^(cloudsettings|contestnet)$'`:
+2/2 passati. La suite Cloud completa ha inoltre 136/136 test passati.
 
 Questo copre la separazione dell'identità e il trasporto locale senza alterare
 gli UUID dei QSO, che sono memorizzati nel database e non derivano da `net/id`.
 
 Limite: non è stato eseguito un test fisico su due host distinti; il test UDP
 usa loopback e la sincronizzazione delle impostazioni usa file temporanei.
+La verifica runtime su due macchine reali resta da fare prima di dichiarare
+coperto il caso di rete fisica.

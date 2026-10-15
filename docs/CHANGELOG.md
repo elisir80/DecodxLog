@@ -3285,3 +3285,16 @@ storico delle revisioni, profili stazione, import/export ADIF senza perdite, log
 filtri, scheda del nominativo, entità DXCC dal `cty.csv` di AD1C, credenziali nel
 portachiavi di sistema, callbook QRZ.com e HamQTH, award calcolati dal log, copie di
 sicurezza notturne, DecoLink verso Decodium.
+# 1.17.24
+
+## Italiano
+
+- Rafforzata l'integrità dei bundle di backup della stazione: ogni database e risorsa inclusa viene verificata con SHA-256 prima del ripristino.
+- Un bundle alterato o corrotto viene rifiutato senza modificare il log di destinazione.
+- Aggiornata la versione applicativa a 1.17.24, mantenendo i miglioramenti CAT/seriali della 1.17.23.
+
+## English
+
+- Strengthened station-backup bundle integrity: every included database and resource is verified with SHA-256 before restore.
+- A modified or corrupted bundle is rejected without changing the destination log.
+- Bumped the application version to 1.17.24 while retaining the 1.17.23 CAT/serial improvements.

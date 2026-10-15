@@ -190,6 +190,21 @@ def test_the_cloud_counts_the_same_awards_as_the_program():
     assert by_id["waac"].target == 0         # il traguardo lo mette il programma
 
 
+def test_cloud_wac_keeps_antarctica_visible_but_excludes_it_officially():
+    rows = [qso(call="DL9ZZT", band="20m", CONT="EU", QSL_RCVD="Y"),
+            qso(call="DP1POL", band="20m", CONT="AN", QSL_RCVD="Y"),
+            qso(call="VK3ABC", band="20m", CONT="OC")]
+    wac = next(a for a in analytics.awards(rows) if a.id == "wac")
+    assert wac.worked == 3
+    assert wac.official_worked == 2
+    assert wac.confirmed == 2
+    assert wac.official_confirmed == 1
+    assert wac.band_totals(["20m"])[0]["worked"] == 3
+    assert wac.official_band_totals(["20m"])[0]["worked"] == 2
+    antarctica = next(i for i in wac.items if i.key == "AN")
+    assert not antarctica.counts_for_award
+
+
 def test_japan_prefectures_districts_cities_and_guns():
     rows = [
         qso(call="JA1ABC", DXCC="339", STATE="12", CNTY="1001"),     # Chiba, citta' di Tokyo

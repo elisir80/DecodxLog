@@ -245,9 +245,8 @@ private slots:
 
     void sixtyMetersCountUnlessTheOperatorWantsArrlRules()
     {
-        // Di serie i 60 metri contano anche nel DXCC e nel WAS: lo chiedono gli
-        // operatori. Con il conto ufficiale dell'ARRL (count60m spento) no; per
-        // gli altri diplomi (WAZ) valgono sempre.
+        // Il profilo ufficiale esclude i 60 metri da DXCC e WAS; l'override
+        // personale li riattiva. Per gli altri diplomi (WAZ) valgono sempre.
         LogDatabase db;
         QVERIFY(db.open(":memory:"));
         auto qso = [&db](const char* call, const char* band, int dxcc, int cqz, const char* state) {
@@ -283,10 +282,10 @@ private slots:
         QCOMPARE(find(results, "waz").worked(), 3);   // il WAZ non e' dell'ARRL
     }
 
-    void aNewAwardProfileCountsSixtyMetersUnlessTheOperatorTurnsThemOff()
+    void aNewAwardProfileUsesOfficialRulesForSixtyMeters()
     {
         const AwardFilter freshProfile;
-        QVERIFY(freshProfile.count60m);
+        QVERIFY(!freshProfile.count60m);
     }
 
     void satelliteQsosStayInTheLogButDoNotCountForTerrestrialDxccAwards()
@@ -333,6 +332,34 @@ private slots:
         QCOMPARE(pota.items.first().key, QString("339"));
         byTag.tag = "field day";
         QCOMPARE(find(calc.compute(db, byTag), "dxcc").worked(), 1);
+    }
+
+    void officialCountsDoNotMixExplicitStationAccounts()
+    {
+        LogDatabase db;
+        QVERIFY(db.open(":memory:"));
+        StationProfile home{.name = "Casa", .stationCallsign = "IU8LMC", .myDxcc = 248};
+        StationProfile portable{.name = "Portatile", .stationCallsign = "IU8LMC/P", .myDxcc = 291};
+        const qint64 homeId = db.saveStationProfile(home);
+        const qint64 portableId = db.saveStationProfile(portable);
+        auto add = [&db](const char* call, int dxcc, qint64 profile) {
+            AdifRecord r{{"CALL", call}, {"QSO_DATE", "20260101"}, {"TIME_ON", "1200"},
+                         {"BAND", "20m"}, {"MODE", "CW"}, {"DXCC", QString::number(dxcc)}};
+            QCOMPARE(db.insertQso(r, "import", {}, false, profile).status, InsertResult::Status::Inserted);
+        };
+        add("EA5ABC",  29,         homeId);
+        add("W1AW",    291,         portableId);
+
+        const AwardCalculator calc;
+        AwardFilter homeFilter;
+        homeFilter.stationProfileId = homeId;
+        AwardFilter portableFilter;
+        portableFilter.stationProfileId = portableId;
+        QCOMPARE(find(calc.compute(db, homeFilter), "dxcc").worked(), 1);
+        QCOMPARE(find(calc.compute(db, portableFilter), "dxcc").worked(), 1);
+        // Il totale ufficiale di ciascun account non ingloba l'altro profilo.
+        QVERIFY(find(calc.compute(db, homeFilter), "dxcc").items.first().key !=
+                find(calc.compute(db, portableFilter), "dxcc").items.first().key);
     }
 
     // ── WAC, WAJA, AJD ───────────────────────────────────────────────────────

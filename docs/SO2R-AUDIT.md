@@ -16,11 +16,11 @@
 ## Test eseguiti
 
 ```text
-cmake --build build --parallel 4 --target tst_so2r tst_contestrules tst_rigcontroller decolog
-ctest --test-dir build -R '^(so2r|contestrules|rigcontroller)$' --output-on-failure
+cmake --build build --parallel 4 --target tst_so2r tst_contestrules tst_rigcontroller tst_contestnet decolog
+ctest --test-dir build -R '^(so2r|contestrules|rigcontroller|contestnet)$' --output-on-failure
 ```
 
-Risultato: 3 test passati, 0 falliti. La build dell’applicazione è completata.
+Risultato: 4 test passati, 0 falliti. La build dell’applicazione è completata.
 
 ## Limiti e collaudo residuo
 
@@ -35,14 +35,14 @@ trasmettitori contemporanei resta necessario l’interlock hardware previsto
 dall’impianto della stazione; DecoDXLog non deve essere presentato come suo
 sostituto.
 
-## Verifica ripetuta — 15 ottobre 2026
+## Verifica ripetuta — 16 ottobre 2026
 
 La verifica focalizzata è stata rieseguita sul checkout macOS arm64 corrente:
 
 ```text
-cmake --build build --parallel 4 --target tst_so2r tst_contestrules tst_rigcontroller decolog
-ctest --test-dir build -R '^(so2r|contestrules|rigcontroller)$' --output-on-failure
-3/3 test superati
+cmake --build build --parallel 4 --target tst_so2r tst_contestrules tst_rigcontroller tst_contestnet decolog
+ctest --test-dir build -R '^(so2r|contestrules|rigcontroller|contestnet)$' --output-on-failure
+4/4 test superati
 ```
 
 Questo conferma i percorsi simulati di fuoco sulla radio 2, stop della macro e

@@ -354,6 +354,7 @@ class AwardItem:
     qsos: int = 0
     first_call: str = ""
     first: dt.datetime | None = None
+    counts_for_award: bool = True
 
     @property
     def is_confirmed(self) -> bool:
@@ -373,8 +374,16 @@ class Award:
         return len(self.items)
 
     @property
+    def official_worked(self) -> int:
+        return sum(1 for i in self.items if i.counts_for_award)
+
+    @property
     def confirmed(self) -> int:
         return sum(1 for i in self.items if i.is_confirmed)
+
+    @property
+    def official_confirmed(self) -> int:
+        return sum(1 for i in self.items if i.counts_for_award and i.is_confirmed)
 
     def band_totals(self, bands: list[str]) -> list[dict]:
         out = []
@@ -385,6 +394,13 @@ class Award:
                 "confirmed": sum(1 for i in self.items if band in i.confirmed),
             })
         return out
+
+    def official_band_totals(self, bands: list[str]) -> list[dict]:
+        return [{
+            "band": band,
+            "worked": sum(1 for i in self.items if i.counts_for_award and band in i.worked),
+            "confirmed": sum(1 for i in self.items if i.counts_for_award and band in i.confirmed),
+        } for band in bands]
 
     @property
     def slots(self) -> int:
@@ -434,12 +450,13 @@ def awards(rows: list[Row], band: str = "", mode_group: str = "",
                      or (confirm_card and r.confirmed_card)
                      or (confirm_eqsl and r.confirmed_eqsl))
 
-        def add(award_id: str, key: str, name: str = "") -> None:
+        def add(award_id: str, key: str, name: str = "", counts_for_award: bool = True) -> None:
             if not key:
                 return
             item = built[award_id].get(key)
             if item is None:
-                item = AwardItem(key=key, name=name, first_call=r.call, first=r.when)
+                item = AwardItem(key=key, name=name, first_call=r.call, first=r.when,
+                                 counts_for_award=counts_for_award)
                 built[award_id][key] = item
             item.qsos += 1
             if r.band:
@@ -452,7 +469,7 @@ def awards(rows: list[Row], band: str = "", mode_group: str = "",
             if r.submode == "FT2":
                 add("ft2", str(r.dxcc), r.country)
         if r.continent in CONTINENT_NAMES:
-            add("wac", r.continent, CONTINENT_NAMES[r.continent])
+            add("wac", r.continent, CONTINENT_NAMES[r.continent], r.continent != "AN")
         if r.continent == "AF" and r.dxcc:
             add("waac", str(r.dxcc), r.country)
         if 1 <= r.cqz <= 40:

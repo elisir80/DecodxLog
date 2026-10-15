@@ -27,7 +27,7 @@ operator to run the relevant integration while watching these stages; this
 report intentionally does not claim a remote service is reachable merely from
 stored credentials.
 
-## Verification record — 15 October 2026
+## Verification record — 16 October 2026
 
 On the current macOS arm64 checkout, the focused verification completed with:
 

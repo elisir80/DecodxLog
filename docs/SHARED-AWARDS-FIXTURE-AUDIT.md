@@ -15,7 +15,7 @@ ctest --test-dir build -R '^awards$' --output-on-failure
 1/1 passed
 
 pytest -q server/tests/test_analytics.py
-20 passed
+21 passed
 ```
 
 ## Esito e limite
@@ -26,7 +26,7 @@ parità completa di tutte le regole, diplomi e filtri: prima di considerare
 DXL-028 completamente chiuso va esteso il corpus alle correzioni successive
 e mantenuto in CI su entrambe le implementazioni.
 
-## Verifica ripetuta — 15 ottobre 2026
+## Verifica ripetuta — 16 ottobre 2026
 
 Sul checkout corrente sono stati rieseguiti entrambi i lati del contratto:
 
@@ -35,7 +35,7 @@ ctest --test-dir build --output-on-failure -R '^awards$'
 1/1 passed
 
 pytest -q server/tests/test_analytics.py
-20 passed
+21 passed
 ```
 
 La voce resta parzialmente verificata: non è stata dichiarata parità globale

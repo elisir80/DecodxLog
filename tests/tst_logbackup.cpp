@@ -249,6 +249,49 @@ private slots:
                                              QDir::Dirs | QDir::Hidden).isEmpty());
     }
 
+    void aCorruptedStationBundleDoesNotTouchTheTargetLog()
+    {
+        QTemporaryDir dir;
+        QVERIFY(dir.isValid());
+        const QString sourcePath = dir.filePath(QStringLiteral("source.sqlite"));
+        const QString targetPath = dir.filePath(QStringLiteral("target.sqlite"));
+        const QString backupDir = dir.filePath(QStringLiteral("backups"));
+        const QString resourceRoot = dir.filePath(QStringLiteral("appdata"));
+        QVERIFY(QDir().mkpath(backupDir));
+        QVERIFY(QDir().mkpath(resourceRoot));
+
+        LogDatabase source;
+        QVERIFY(source.open(sourcePath));
+        addQso(source, "W1AW", "20260101");
+        const QString sqlite = QDir(backupDir).filePath(QStringLiteral("copy.sqlite"));
+        QVERIFY(source.backupTo(sqlite));
+        source.close();
+        const QString sourceResource = dir.filePath(QStringLiteral("source.wav"));
+        QFile wav(sourceResource);
+        QVERIFY(wav.open(QIODevice::WriteOnly));
+        wav.write("voice-keyer");
+        wav.close();
+        const QString bundle = dir.filePath(QStringLiteral("station.bundle"));
+        QVERIFY(logbackup::createBundle(sqlite, bundle,
+                                        {{sourceResource, QStringLiteral("dvk/F1.wav")}}).ok);
+        QFile tampered(QDir(bundle).filePath(QStringLiteral("dvk/F1.wav")));
+        QVERIFY(tampered.open(QIODevice::WriteOnly | QIODevice::Truncate));
+        tampered.write("tampered");
+        tampered.close();
+
+        LogDatabase target;
+        QVERIFY(target.open(targetPath));
+        addQso(target, "JA1XYZ", "20260102");
+        target.close();
+        const auto restored = logbackup::restoreBundle(bundle, targetPath, backupDir, resourceRoot);
+        QVERIFY(!restored.ok);
+        QVERIFY(restored.error.contains(QStringLiteral("integrity")));
+        QCOMPARE(countQsos(targetPath), 1);
+        QVERIFY(!QFileInfo::exists(QDir(resourceRoot).filePath(QStringLiteral("dvk/F1.wav"))));
+        QVERIFY(QDir(resourceRoot).entryList({QStringLiteral(".decodxlog-bundle-restore-*")},
+                                             QDir::Dirs | QDir::Hidden).isEmpty());
+    }
+
     void whatIsNotALogIsSaid()
     {
         QVERIFY(!logbackup::inspect(m_dir.filePath(QStringLiteral("none.sqlite"))).readable);

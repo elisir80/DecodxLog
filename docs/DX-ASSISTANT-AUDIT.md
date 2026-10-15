@@ -1,6 +1,6 @@
 # DXL-030 — Assistente DX basato su priorità spiegabili
 
-## Verifica — 15 ottobre 2026
+## Verifica — 16 ottobre 2026
 
 Il ramo dispone già di tre sorgenti separate:
 
@@ -14,7 +14,7 @@ Sono stati rieseguiti i test delle sorgenti:
 ```text
 cmake --build build --parallel 4 --target tst_spots tst_cluster tst_voacap
 ctest --test-dir build --output-on-failure -R '^(spots|cluster|voacap)$'
-3/3 test superati
+3/3 test superati (rieseguiti il 16 ottobre 2026)
 ```
 
 ## Gap verificato

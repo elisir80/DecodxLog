@@ -41,7 +41,7 @@ Nessuna modifica applicativa è stata introdotta per questa voce: implementarla
 senza aver scelto e verificato un protocollo tracker produrrebbe una funzione
 solo apparentemente completa.
 
-## Verifica ripetuta — 15 ottobre 2026
+## Verifica ripetuta — 16 ottobre 2026
 
 Il percorso dati già disponibile è stato rieseguito:
 

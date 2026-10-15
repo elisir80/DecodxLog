@@ -30,7 +30,7 @@ processi, servizio Cloud e rete interrotta/riattivata. Il protocollo e lo
 storico sono verificati, ma il comportamento trasporto/retry deve essere
 validato separatamente in un ambiente di integrazione.
 
-## Verifica ripetuta — 15 ottobre 2026
+## Verifica ripetuta — 16 ottobre 2026
 
 È stato aggiunto `clockSkewDoesNotOverrideRevisionOrder` a
 `tests/tst_cloud.cpp`: una revisione più nuova vince con timestamp remoto

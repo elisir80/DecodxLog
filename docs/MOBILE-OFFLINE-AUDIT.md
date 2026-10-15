@@ -1,6 +1,6 @@
 # DXL-023 — Client portatile con registrazione realmente offline
 
-## Stato verificato — 15 ottobre 2026
+## Stato verificato — 16 ottobre 2026
 
 La voce richiede un client mobile/portatile capace di registrare QSO senza
 rete, conservarli dopo il riavvio e sincronizzarli senza duplicazioni o
@@ -31,6 +31,9 @@ cmake --build build --parallel 4 --target tst_database tst_cloud tst_migration
 ctest --test-dir build --output-on-failure -R '^(database|cloud|migration)$'
 3/3 test superati
 ```
+
+La stessa suite è stata rieseguita il 16 ottobre 2026: `database`, `cloud` e
+`migration` hanno superato tutti i test (3/3).
 
 La prova focalizzata ripetuta dopo l'aggiunta del caso di riapertura è:
 

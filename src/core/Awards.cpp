@@ -951,7 +951,7 @@ QList<AwardResult> AwardCalculator::compute(const LogDatabase& db, const AwardFi
         const QDateTime on = QDateTime::fromString(q.value(13).toString(), Qt::ISODate).toUTC();
         // Le regole dell'ARRL: i QSO sui 60 metri non valgono per nessun suo
         // diploma, DXCC compreso (le conferme valide le dice creditsFor). Si
-        // contano lo stesso se l'operatore lo vuole (count60m, di serie si').
+        // contano solo nell'override personale (count60m).
         const bool arrlBand = filter.count60m || band.compare(QLatin1String("60m"), Qt::CaseInsensitive) != 0;
 
         auto addAs = [&](const char* award, const QString& key, const QString& name, bool isConfirmed,

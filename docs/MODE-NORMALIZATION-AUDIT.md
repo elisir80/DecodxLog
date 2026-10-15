@@ -1,5 +1,7 @@
 # DXL-005 — Mode normalization audit
 
+Audit date: 2026-10-16
+
 ## Scope
 
 The desktop log, diploma/statistics grouping, and ADIF import must agree on
@@ -23,10 +25,9 @@ statistics classifier independently, including an explicit cross-check against
 ## Evidence
 
 ```text
-cmake --build build --parallel 4 --target tst_lotw
-ctest --test-dir build -R '^lotw$' --output-on-failure
-1/1 Test #17: modes ... Passed
-1/1 Test #9: lotw ... Passed
+cmake --build build --parallel 4 --target tst_modes tst_lotw
+ctest --test-dir build --output-on-failure -R '^(modes|lotw)$'
+2/2 tests passed, 0 failed
 ```
 
 This is a local macOS arm64 verification. Cross-platform builds remain part

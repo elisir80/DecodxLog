@@ -13,6 +13,7 @@
 #include <QLatin1String>
 #include <QString>
 #include <QVariantMap>
+#include <QVariantList>
 
 #include <functional>
 
@@ -58,6 +59,12 @@ QVariantMap collect(QSettings& settings,
 int apply(QSettings& settings, const QVariantMap& values, bool dryRun = false,
           const std::function<qint64(const QString&)>& profileForUuid = {},
           const QVariantMap* base = nullptr, QStringList* keptLocal = nullptr);
+
+// Elenco deterministico di ciò che una applicazione remota farebbe, senza
+// scrivere nulla. Ogni voce contiene key, scope, action e i valori locali/remoti
+// quando sono rappresentabili; serve alla preview prima della conferma UI.
+QVariantList preview(QSettings& settings, const QVariantMap& values,
+                     const QVariantMap* base = nullptr);
 
 // Vero se due valori (come li da' `collect`) dicono la stessa cosa: un numero
 // letto dal file come testo e lo stesso numero scritto come numero sono uguali.

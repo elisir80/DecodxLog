@@ -230,6 +230,51 @@ int apply(QSettings& settings, const QVariantMap& values, bool dryRun,
     return written;
 }
 
+QVariantList preview(QSettings& settings, const QVariantMap& values,
+                     const QVariantMap* base)
+{
+    QVariantList out;
+    auto scopeName = [](const QString& key) {
+        switch (scopeOf(key)) {
+        case Scope::Portable: return QStringLiteral("portable");
+        case Scope::Station: return QStringLiteral("station");
+        case Scope::Device: return QStringLiteral("device");
+        }
+        return QStringLiteral("portable");
+    };
+
+    for (auto it = values.cbegin(); it != values.cend(); ++it) {
+        if (isMachineOnly(it.key()))
+            continue;
+
+        const QVariant local = settings.contains(it.key())
+            ? pack(settings.value(it.key())) : QVariant();
+        const QVariant remote = it.value();
+        if (it.key() != kActiveProfileUuid && settings.contains(it.key())
+            && sameValue(local, remote))
+            continue;
+
+        QString action = QStringLiteral("apply");
+        if (it.key() == kActiveProfileUuid) {
+            action = QStringLiteral("profile");
+        } else if (base && settings.contains(it.key())) {
+            const bool changedHere = !base->contains(it.key())
+                || !sameValue(local, base->value(it.key()));
+            if (changedHere && !sameValue(local, remote))
+                action = QStringLiteral("keep-local");
+        }
+
+        QVariantMap item{{QStringLiteral("key"), it.key()},
+                         {QStringLiteral("scope"), scopeName(it.key())},
+                         {QStringLiteral("action"), action}};
+        if (local.isValid())
+            item.insert(QStringLiteral("local"), unpack(local));
+        item.insert(QStringLiteral("remote"), unpack(remote));
+        out.append(item);
+    }
+    return out;
+}
+
 QString fingerprint(const QVariantMap& values)
 {
     const QByteArray json = QJsonDocument(QJsonObject::fromVariantMap(values)).toJson(QJsonDocument::Compact);

@@ -27,7 +27,7 @@ independent services.
   and no full service-failure fault-injection matrix exists yet.
 - No data-format migration was introduced by this incremental change.
 
-## Verifica ripetuta — 15 ottobre 2026
+## Verifica ripetuta — 16 ottobre 2026
 
 ```text
 ctest --test-dir build --output-on-failure -R '^(architecture|database|awards)$'
@@ -38,3 +38,9 @@ La prova conferma il salvataggio locale senza attesa del servizio esterno,
 il dominio diplomi senza GUI e i controlli architetturali correnti. Restano
 non verificati i runtime Windows/Linux e una matrice completa di fault
 injection dei servizi.
+
+Questa verifica non introduce una riscrittura: il ramo corrente soddisfa i
+criteri incrementali del backlog con le separazioni già presenti e con i test
+di contratto esistenti. Un refactoring più ampio resta fuori da questa voce
+finché non siano disponibili una matrice di fault injection e verifiche runtime
+su Windows/Linux.

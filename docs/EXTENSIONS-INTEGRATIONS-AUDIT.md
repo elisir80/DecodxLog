@@ -1,6 +1,6 @@
 # DXL-033 — Estensioni e integrazioni comunitarie con permessi
 
-## Verifica — 15 ottobre 2026
+## Verifica — 16 ottobre 2026
 
 Il programma dispone di integrazioni esplicite, non di un SDK generale per
 plugin: API HTTP locale, UDP/DecoLink, cluster, callbook e servizi QSL. Le
@@ -12,7 +12,7 @@ Sono stati rieseguiti i test dei confini più vicini alla voce:
 ```text
 cmake --build build --parallel 4 --target tst_localapi tst_cluster tst_qsl tst_qsldownload
 ctest --test-dir build --output-on-failure -R '^(localapi|cluster|qsl|qsldownload)$'
-4/4 test superati
+4/4 test superati (rieseguiti il 16 ottobre 2026)
 ```
 
 Le prove coprono l'API locale autenticata, il traffico cluster, gli upload QSL

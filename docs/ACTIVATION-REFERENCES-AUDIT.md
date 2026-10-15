@@ -1,6 +1,6 @@
 # DXL-024 — Workflow avanzato per attivazioni e referenze multiple
 
-## Verifica — 15 ottobre 2026
+## Verifica — 16 ottobre 2026
 
 Il modello di sessione conserva una stringa di referenza e la applica ai campi
 ADIF dell'attivatore (`MY_SIG_INFO`, `MY_POTA_REF`, `MY_WWFF_REF`,
@@ -19,7 +19,7 @@ entrambi i record restano intatti le due referenze e il locatore.
 ```text
 cmake --build build --parallel 4 --target tst_activation
 ctest --test-dir build --output-on-failure -R '^activation$'
-1/1 test superato
+1/1 test superato (rieseguito il 16 ottobre 2026)
 ```
 
 ## Limiti

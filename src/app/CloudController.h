@@ -35,6 +35,7 @@ class CloudController : public QObject {
     Q_PROPERTY(QString lastSync READ lastSync NOTIFY changed)
     Q_PROPERTY(int queued READ queued NOTIFY changed)
     Q_PROPERTY(QVariantMap remote READ remote NOTIFY changed)
+    Q_PROPERTY(QVariantList pendingSettings READ pendingSettings NOTIFY changed)
     // "qso" dopo ogni QSO e ogni cinque minuti, "timer" solo a tempo, "manual".
     Q_PROPERTY(QString autoMode READ autoMode WRITE setAutoMode NOTIFY changed)
     // Le credenziali dei servizi viaggiano (chiuse) oppure restano qui.
@@ -90,6 +91,7 @@ public:
     QString lastSync() const { return core::dates::show(m_lastSync); }
     int queued() const;
     QVariantMap remote() const { return m_remote; }
+    QVariantList pendingSettings() const { return m_pendingSettings; }
     QString autoMode() const { return m_autoMode; }
     void setAutoMode(const QString& mode);
     bool syncSecrets() const;
@@ -119,6 +121,8 @@ public:
     // Stacca questo dispositivo: il token sparisce, il log resta.
     Q_INVOKABLE void logout();
     Q_INVOKABLE void syncNow();
+    Q_INVOKABLE void applyPendingSettings();
+    Q_INVOKABLE void discardPendingSettings();
     // Svuota il Cloud: QSO, storico, documenti e presenze di questo nominativo.
     // Vuole la parola DELETE scritta a mano; il log qui sul computer non si
     // tocca, e alla prossima sincronizzazione risale tutto da capo.
@@ -168,6 +172,7 @@ private:
     bool applyRemoteSecrets(const QVariantMap& document);
     static QString settingsFingerprint(const QVariantMap& values);
     bool applyRemoteSettings(const QVariantMap& document);
+    bool applyRemoteSettingsNow(const QVariantMap& document);
     // Le impostazioni come erano all'ultimo accordo con il Cloud (nel log).
     QVariantMap settingsBase() const;
     void storeSettingsBase(const QVariantMap& values);
@@ -183,6 +188,8 @@ private:
     QVariantMap m_remote;
     QString m_sharedLog;
     QVariantMap m_team;
+    QVariantList m_pendingSettings;
+    QVariantMap m_pendingSettingsDocument;
     QString m_teamStatus;
     QVariantMap m_lastInvite;
     // L'impronta delle impostazioni gia' mandate in questo giro.

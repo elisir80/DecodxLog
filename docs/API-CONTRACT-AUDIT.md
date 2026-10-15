@@ -21,7 +21,7 @@ Verified locally:
 
 No external API or network exposure was added by this change.
 
-Verification repeated on 2026-10-15: `localapi` and `diagnostics` passed 2/2.
+Verification repeated on 2026-10-16: `localapi` and `diagnostics` passed 2/2.
 This verifies the v1 contract, token redaction, localhost binding and
 idempotent QSO behavior with local test servers; it does not constitute a
 security audit of arbitrary third-party clients.

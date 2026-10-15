@@ -11,7 +11,7 @@ same service/QSO from being queued again. The controller exposes service,
 account and active station profile in the service rows, and cancellation does
 not mark a request as sent.
 
-Verification on 2026-10-15:
+Verification repeated on 2026-10-16:
 
 - `tst_qsl`: passed 1/1, including ambiguous confirmation, persisted queue,
   retry state and idempotent sent state;

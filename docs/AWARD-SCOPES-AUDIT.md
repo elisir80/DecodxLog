@@ -22,9 +22,10 @@ cmake --build build --parallel 4 --target tst_awards
 ctest --test-dir build -R '^awards$' --output-on-failure
 ```
 
-Result: passed. Re-run on 2026-10-15 after the current branch changes: the
-focused C++ award test passed 1/1 and the shared Cloud analytics suite passed
-20/20.
+Result: the focused C++ award test passed after changing the new-profile
+default to official rules; the personal override and QSO retention cases also
+pass. The Cloud analytics suite currently passes 136/136 tests. Cloud
+deployment remains outside this local verification.
 
 The ARRL [DXCC rules](https://www.arrl.org/dxcc-rules) state that 60 m contacts
 do not qualify for DXCC credit; the [DXCC Challenge rules](https://www.arrl.org/files/file/DXCC/Rules.pdf)

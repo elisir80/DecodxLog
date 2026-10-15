@@ -24,7 +24,7 @@ The catalog is intentionally conservative: adding a contest requires a
 reviewed rule sheet and corresponding sample tests rather than a guessed
 fallback.
 
-## Verifica ripetuta — 15 ottobre 2026
+## Verifica ripetuta — 16 ottobre 2026
 
 ```text
 cmake --build build --parallel 4 --target tst_contestrules tst_cabrillo tst_activation

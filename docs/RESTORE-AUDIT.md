@@ -19,15 +19,14 @@ risorsa mancante lasci il log di destinazione invariato. La creazione del bundle
 usa una directory `.partial` e il rename finale, così un'interruzione non rende
 visibile una copia incompleta come backup valido.
 
-Verifica eseguita:
+Verifica eseguita e ripetuta il 16 ottobre 2026:
 
 ```text
 cmake --build build --parallel 4 --target tst_logbackup
 ctest --test-dir build -R '^logbackup$' --output-on-failure
 ```
 
-Risultato iniziale: 1 test passato, 0 falliti. Rieseguito il 2026-10-15 con
-lo stesso risultato: 1/1 passato.
+Risultato: 1 test passato, 0 falliti (`logbackup`: 1/1).
 
 Limite residuo: il test è automatizzato in directory temporanee sullo stesso
 host. Non sostituisce ancora una prova su una macchina pulita o su un volume

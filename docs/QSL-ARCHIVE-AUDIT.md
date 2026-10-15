@@ -17,7 +17,7 @@ cmake --build build --parallel 4 --target tst_logbackup
 ctest --test-dir build -R '^logbackup$' --output-on-failure
 1/1 Test #36: logbackup ... Passed
 
-Re-verified on 2026-10-15: `qsl` and `logbackup` passed 2/2. The focused
+Re-verified on 2026-10-16: `qsl` and `logbackup` passed 2/2. The focused
 tests cover SHA-256 deduplication, one attachment linked to multiple QSOs,
 byte recovery after restore, and the fact that an attachment does not create
 an award confirmation.

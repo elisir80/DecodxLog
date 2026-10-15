@@ -2,6 +2,7 @@
 #include "core/CloudSettings.h"
 
 #include <QCoreApplication>
+#include <QCryptographicHash>
 #include <QDir>
 #include <QElapsedTimer>
 #include <QFile>
@@ -266,6 +267,21 @@ bool safeBundlePath(const QString& relative)
            && !clean.contains(QStringLiteral("/../"));
 }
 
+QByteArray sha256File(const QString& path)
+{
+    QFile file(path);
+    if (!file.open(QIODevice::ReadOnly))
+        return {};
+    QCryptographicHash hash(QCryptographicHash::Sha256);
+    while (!file.atEnd()) {
+        const QByteArray chunk = file.read(1024 * 1024);
+        if (chunk.isEmpty() && !file.atEnd())
+            return {};
+        hash.addData(chunk);
+    }
+    return hash.result().toHex();
+}
+
 } // namespace
 
 BundleResult createBundle(const QString& sqliteCopy, const QString& bundlePath,
@@ -291,8 +307,16 @@ BundleResult createBundle(const QString& sqliteCopy, const QString& bundlePath,
         return result;
     }
     QJsonArray files;
+    QJsonObject hashes;
     files.append(QStringLiteral("log.sqlite"));
     result.files << QStringLiteral("log.sqlite");
+    const QByteArray databaseHash = sha256File(database);
+    if (databaseHash.isEmpty()) {
+        QDir(partial).removeRecursively();
+        result.error = Tr::tr("The SQLite copy could not be verified inside the bundle.");
+        return result;
+    }
+    hashes.insert(QStringLiteral("log.sqlite"), QString::fromLatin1(databaseHash));
     if (!portableSettings.isEmpty()) {
         QFile settingsFile(QDir(partial).filePath(QStringLiteral("settings.json")));
         if (!settingsFile.open(QIODevice::WriteOnly)
@@ -322,10 +346,18 @@ BundleResult createBundle(const QString& sqliteCopy, const QString& bundlePath,
         }
         files.append(relative);
         result.files << relative;
+        const QByteArray resourceHash = sha256File(target);
+        if (resourceHash.isEmpty()) {
+            QDir(partial).removeRecursively();
+            result.error = Tr::tr("The bundle resource could not be verified: %1").arg(resource.first);
+            return result;
+        }
+        hashes.insert(relative, QString::fromLatin1(resourceHash));
     }
     const QJsonObject manifest{{QStringLiteral("format"), QStringLiteral("decodxlog-station-bundle-1")},
                               {QStringLiteral("qsoCount"), snapshot.qsos},
-                              {QStringLiteral("files"), files}};
+                              {QStringLiteral("files"), files},
+                              {QStringLiteral("sha256"), hashes}};
     QFile manifestFile(QDir(partial).filePath(QStringLiteral("manifest.json")));
     if (!manifestFile.open(QIODevice::WriteOnly) ||
         manifestFile.write(QJsonDocument(manifest).toJson(QJsonDocument::Indented)) < 0) {
@@ -375,6 +407,19 @@ RestoreResult restoreBundle(const QString& bundlePath, const QString& target,
         result.error = Tr::tr("The backup bundle manifest is incomplete.");
         return result;
     }
+    const QJsonObject hashes = manifest.value(QStringLiteral("sha256")).toObject();
+    auto verifyHash = [&](const QString& relative, const QString& path) {
+        if (!hashes.contains(relative))
+            return true; // Bundles created before manifest hashes remain readable.
+        const QByteArray actual = sha256File(path);
+        return !actual.isEmpty() && QString::fromLatin1(actual)
+                                      == hashes.value(relative).toString();
+    };
+    const QString bundledDatabase = QDir(bundlePath).filePath(QStringLiteral("log.sqlite"));
+    if (!verifyHash(QStringLiteral("log.sqlite"), bundledDatabase)) {
+        result.error = Tr::tr("The database in the backup bundle failed its integrity check.");
+        return result;
+    }
     const QString staging = QDir(resourceRoot).filePath(
         QStringLiteral(".decodxlog-bundle-restore-%1").arg(QUuid::createUuid().toString(QUuid::WithoutBraces)));
     if (!QDir().mkpath(staging)) {
@@ -394,6 +439,11 @@ RestoreResult restoreBundle(const QString& bundlePath, const QString& target,
         if (!QFileInfo(source).isFile()) {
             QDir(staging).removeRecursively();
             result.error = Tr::tr("The bundle resource is missing: %1").arg(relative);
+            return result;
+        }
+        if (!verifyHash(relative, source)) {
+            QDir(staging).removeRecursively();
+            result.error = Tr::tr("The bundle resource failed its integrity check: %1").arg(relative);
             return result;
         }
         if (relative == QLatin1String("settings.json")) {

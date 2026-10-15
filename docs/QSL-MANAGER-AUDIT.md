@@ -18,7 +18,7 @@ Verified locally:
 - the suggestion requires approval and never sends automatically;
 - database, QSL and QML popup tests pass.
 
-Verification repeated on 2026-10-15: `database`, `qsl` and `qmlpopups`
+Verification repeated on 2026-10-16: `database`, `qsl` and `qmlpopups`
 passed 3/3. The controller exposes `potentialCredits`, `source`,
 `acquiredAt`, `stale`, `requiresApproval` and `automaticSend=false`; the UI
 uses those values for the operator-facing warning.

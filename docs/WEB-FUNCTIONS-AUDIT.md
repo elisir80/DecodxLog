@@ -1,6 +1,6 @@
 # DXL-025 — Funzioni web richieste
 
-## Verifica — 15 ottobre 2026
+## Verifica — 16 ottobre 2026
 
 Il ramo contiene già un Cloud/web log con export ADIF, selezione del profilo
 stazione, pagine QSL e dati di sincronizzazione. Le autorizzazioni distinguono
@@ -12,7 +12,7 @@ Sono stati rieseguiti i test che coprono il contratto web e i documenti:
 ```text
 pytest -q server/tests/test_web.py server/tests/test_team.py \
   server/tests/test_docs.py server/tests/test_qslmail.py
-54 passed
+54 passed (rieseguiti il 16 ottobre 2026)
 ```
 
 Le prove verificano in particolare export ADIF, export filtrato per profilo,

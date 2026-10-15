@@ -19,7 +19,7 @@
   {% for a in awards %}
   <div class="tile award">
     <span>{{ a.title }}</span>
-    <div class="score"><b>{{ a.confirmed }}</b> <span class="dim">/ {{ a.worked }}{% if a.total %} · {{ a.total }}{% endif %}</span></div>
+    <div class="score"><b>{% if a.id == 'wac' %}{{ a.official_confirmed }}{% else %}{{ a.confirmed }}{% endif %}</b> <span class="dim">/ {% if a.id == 'wac' %}{{ a.official_worked }}{% else %}{{ a.worked }}{% endif %}{% if a.total %} · {{ a.total }}{% endif %}</span></div>
     {% if a.target %}
     <div class="progress" title="{{ a.confirmed }} su {{ a.target }}">
       <div class="fill" style="width: {{ [a.confirmed / a.target * 100, 100] | min | round(1) }}%"></div>
@@ -41,7 +41,7 @@
       {% if a.worked %}
       <tr>
         <td>{{ a.title }}</td>
-        {% for t in a.band_totals(award_bands) %}
+        {% for t in (a.official_band_totals(award_bands) if a.id == 'wac' else a.band_totals(award_bands)) %}
         <td>{% if t.worked %}<span class="ok">{{ t.confirmed }}</span><span class="dim">/{{ t.worked }}</span>{% else %}<span class="dim">—</span>{% endif %}</td>
         {% endfor %}
       </tr>
@@ -72,7 +72,7 @@
 
 {% for a in awards %}
 {% if a.items %}
-<h3 class="muted">{{ a.title }} · {{ a.worked }} lavorati, {{ a.confirmed }} confermati</h3>
+<h3 class="muted">{{ a.title }} · {% if a.id == 'wac' %}{{ a.official_worked }} lavorati, {{ a.official_confirmed }} confermati{% else %}{{ a.worked }} lavorati, {{ a.confirmed }} confermati{% endif %}</h3>
 <p class="keys">
   {% for i in a.items %}
   <span class="{% if i.is_confirmed %}ok{% else %}dim{% endif %}"

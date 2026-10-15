@@ -215,6 +215,36 @@ private slots:
         QCOMPARE(written, 1);
         QCOMPARE(s->value(QStringLiteral("theme/current")).toString(), QStringLiteral("Ocean Blue"));
     }
+
+    void previewListsActionsWithoutWriting()
+    {
+        QTemporaryDir dir;
+        QScopedPointer<QSettings> s(fresh(dir, QStringLiteral("preview.ini")));
+        s->setValue(QStringLiteral("theme/current"), QStringLiteral("Ocean Blue"));
+        s->setValue(QStringLiteral("cw/macros"), QStringLiteral("[mine]"));
+        s->setValue(QStringLiteral("udp/port"), 2238);
+        const QVariantMap base = cloudsettings::collect(*s);
+
+        QVariantMap remote = base;
+        remote.insert(QStringLiteral("theme/current"), QStringLiteral("Darkcodium"));
+        remote.insert(QStringLiteral("cw/macros"), QStringLiteral("[remote]"));
+        remote.insert(QStringLiteral("udp/port"), 9999);
+
+        s->setValue(QStringLiteral("cw/macros"), QStringLiteral("[changed-here]"));
+        const QVariantList rows = cloudsettings::preview(*s, remote, &base);
+        QCOMPARE(rows.size(), 2);
+        QCOMPARE(rows.at(0).toMap().value(QStringLiteral("key")).toString(),
+                 QStringLiteral("cw/macros"));
+        QCOMPARE(rows.at(0).toMap().value(QStringLiteral("action")).toString(),
+                 QStringLiteral("keep-local"));
+        QCOMPARE(rows.at(1).toMap().value(QStringLiteral("key")).toString(),
+                 QStringLiteral("theme/current"));
+        QCOMPARE(rows.at(1).toMap().value(QStringLiteral("scope")).toString(),
+                 QStringLiteral("portable"));
+        // La porta e' locale: non compare nella preview e non viene scritta.
+        QVERIFY(!s->contains(QStringLiteral("theme/unused")));
+        QCOMPARE(s->value(QStringLiteral("udp/port")).toInt(), 2238);
+    }
 };
 
 QTEST_MAIN(TestCloudSettings)

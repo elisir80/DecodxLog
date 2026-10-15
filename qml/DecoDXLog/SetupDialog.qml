@@ -928,6 +928,43 @@ DialogFrame {
                             }
                         }
                     }
+                    Rectangle {
+                        Layout.fillWidth: true
+                        visible: decolog.cloud.pendingSettings.length > 0
+                        color: Qt.rgba(Theme.warningColor.r, Theme.warningColor.g, Theme.warningColor.b, 0.10)
+                        border.color: Theme.warningColor
+                        border.width: 1
+                        radius: 8
+                        implicitHeight: pendingSettingsRow.implicitHeight + 20
+                        RowLayout {
+                            id: pendingSettingsRow
+                            anchors.fill: parent
+                            anchors.margins: 10
+                            spacing: 10
+                            Text {
+                                Layout.fillWidth: true
+                                wrapMode: Text.Wrap
+                                text: qsTr("Cloud settings waiting for confirmation: %1 change(s)")
+                                      .arg(decolog.cloud.pendingSettings.length)
+                                      + "\n" + decolog.cloud.pendingSettings.map(function (row) {
+                                          return row.key + " · " + row.scope + " · " + row.action
+                                      }).join("\n")
+                                color: Theme.textPrimary
+                                font.family: Theme.monoFamily
+                                font.pixelSize: 11
+                            }
+                            GlassButton {
+                                text: qsTr("Apply")
+                                tone: Theme.accentColor
+                                filled: true
+                                onClicked: decolog.cloud.applyPendingSettings()
+                            }
+                            GlassButton {
+                                text: qsTr("Discard")
+                                onClicked: decolog.cloud.discardPendingSettings()
+                            }
+                        }
+                    }
                     RowLayout {
                         Layout.fillWidth: true
                         spacing: 8
