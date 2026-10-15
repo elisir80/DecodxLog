@@ -35,3 +35,18 @@ additional instrumentation and runtime runs on each target platform. The
 that an edit plus soft-delete produces the same award summary as rebuilding
 the database from the resulting live QSO set. Therefore DXL-026 remains
 partially verified rather than complete.
+
+## Latest verification — 16 October 2026
+
+The same three sizes were rerun on the current checkout with:
+
+```text
+DECODXLOG_BENCH_SYNTHETIC=10000,100000,1000000 \
+  /usr/bin/time -l ./build/tst_awards benchSyntheticLog
+```
+
+The test passed 3/3 cases. The current arm64 results were 388/1/34 ms,
+4002/6/448 ms and 50114/62/3355 ms for import/query/compute respectively.
+The one-million-row run took 58.52 s wall time and reached 728,449,024 bytes
+maximum RSS. These are measurements of this macOS host, not cross-platform
+acceptance thresholds; UI p50/p95 and cold-start latency remain unmeasured.
