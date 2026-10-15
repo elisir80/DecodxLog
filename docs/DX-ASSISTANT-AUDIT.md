@@ -47,11 +47,24 @@ nuovo DXCC/banda/referenza con propagazione buona contro un candidato vecchio e
 senza previsione; `neverAddsTransmitOrLogSideEffects` verifica il contratto di
 assenza di effetti collaterali.
 
+È stato aggiunto anche l'adattatore `ClusterController::assistantRecommendations`:
+legge gli spot visibili già arricchiti dal cluster e restituisce gli stessi
+campi descrittivi al chiamante QML/API. Il test controller verifica un nuovo
+DXCC con motivazione e limite di propagazione mancante.
+
 ```text
 cmake -S . -B build -G Ninja -DDECODXLOG_BUILD_TESTS=ON
 cmake --build build --parallel 4 --target tst_dxassistant
 ctest --test-dir build -R '^dxassistant$' --output-on-failure
 1/1 test superato
+
+Verifica controller:
+
+```text
+cmake --build build --parallel 4 --target tst_clustercontroller
+ctest --test-dir build -R '^clustercontroller$' --output-on-failure
+1/1 test superato
+```
 ```
 
 ## Criteri per l'implementazione successiva
@@ -64,7 +77,7 @@ Prima di aggiungere il ranking servono una specifica versionata per:
 4. formato della spiegazione e dei limiti quando una fonte manca;
 5. divieto esplicito di inventare nominativi/QSO e di trasmettere.
 
-La voce resta parzialmente aperta: il nucleo di ranking è verificato, ma
-mancano ancora l'adattatore al cluster live, il collegamento alla previsione
-VOACAP, le preferenze persistenti dell'operatore e la UI che mostri la
-classifica senza confonderla con osservazioni o previsioni.
+La voce resta parzialmente aperta: il nucleo e l'adattatore al cluster sono
+verificati, ma mancano ancora il collegamento alla previsione VOACAP, le
+preferenze persistenti dell'operatore e la UI che mostri la classifica senza
+confonderla con osservazioni o previsioni.

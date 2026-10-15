@@ -137,6 +137,12 @@ private slots:
         QVERIFY(spot->value("statusBits").toInt() & StatusNewDxcc);
         QVERIFY(activity.last().startsWith("CLUSTER:"));
 
+        const QVariantList recommendations = cluster.assistantRecommendations();
+        QCOMPARE(recommendations.size(), 1);
+        QCOMPARE(recommendations.first().toMap().value("call").toString(), QString("3Y0J"));
+        QVERIFY(recommendations.first().toMap().value("reasons").toStringList().join(" ").contains("new DXCC"));
+        QVERIFY(recommendations.first().toMap().value("limitations").toStringList().join(" ").contains("propagation"));
+
         // Lo stesso DX da un altro skimmer: una riga con due spotter, nessun nuovo avviso.
         cluster.injectLine(QString("DX de DL1ABC-#:  14025.1  3Y0J  CW 22 dB 25 WPM CQ  %1Z").arg(hhmm));
         QCOMPARE(model->count(), 1);

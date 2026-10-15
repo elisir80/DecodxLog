@@ -855,6 +855,36 @@ QVariantList ClusterController::mapSpots() const
     return out;
 }
 
+QVariantList ClusterController::assistantRecommendations() const
+{
+    QList<core::dxassistant::Candidate> candidates;
+    const QDateTime now = QDateTime::currentDateTimeUtc();
+    for (const EnrichedSpot& e : m_model.visible()) {
+        core::dxassistant::Candidate c;
+        c.call = e.spot.dxCall;
+        c.band = e.spot.band;
+        c.mode = e.spot.mode;
+        c.spottedAt = e.spot.time;
+        c.status = e.status;
+        c.source = e.spot.source;
+        c.hasHistory = m_index.qsoCount() > 0;
+        candidates.append(c);
+    }
+    QVariantList out;
+    for (const auto& r : core::dxassistant::rank(candidates, {}, now)) {
+        out << QVariantMap{
+            {QStringLiteral("call"), r.candidate.call},
+            {QStringLiteral("band"), r.candidate.band},
+            {QStringLiteral("mode"), r.candidate.mode},
+            {QStringLiteral("source"), r.candidate.source},
+            {QStringLiteral("score"), r.score},
+            {QStringLiteral("reasons"), r.reasons},
+            {QStringLiteral("limitations"), r.limitations},
+        };
+    }
+    return out;
+}
+
 void ClusterController::clearSpots()
 {
     m_model.clear();

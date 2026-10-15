@@ -11,6 +11,7 @@
 #include "core/ClusterConnection.h"
 #include "core/Countries.h"
 #include "core/Spots.h"
+#include "core/DxAssistant.h"
 #include "core/VoiceAnnouncer.h"
 
 #include <QHash>
@@ -180,6 +181,8 @@ public:
     Q_INVOKABLE void clearSpots();
     // Gli spot mostrati, con la posizione, per la mappa.
     Q_INVOKABLE QVariantList mapSpots() const;
+    // Ranking descrittivo degli spot attuali. Non sintonizza e non trasmette.
+    Q_INVOKABLE QVariantList assistantRecommendations() const;
     // La band map di una banda: {band, lowKhz, highKhz, spots: [{key, call, freqKhz,
     // mode, status, statusLabel, ageMinutes, count, entity, comment}]}. Con
     // `useFilter` passano solo gli spot che il filtro del cluster lascia vedere
