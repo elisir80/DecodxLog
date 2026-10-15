@@ -19,12 +19,14 @@ DecoDXLog su COM4; «Trova la radio» provava tutte le porte nell'ordine, trovav
 DecoDXLog la prendeva. Adesso:
 
 - **Porte riservate.** In Impostazioni → Radio, sotto la porta seriale: l'interruttore «Non aprire
-  mai la porta che Decodium usa per il CAT» (acceso di serie; la porta si legge da `Decodium3.ini`,
-  `[Transceiver]/serialPort`) e il campo «Altre porte che DecoDXLog non apre mai» (per esempio
-  `COM5, COM9`). Una porta riservata non compare negli elenchi, si salta nella ricerca della radio e
-  non si apre mai: non per il CAT (rigctld), non per il PTT su un'altra porta, non per il tasto CW,
-  non per il rotore (seriale e ARCO) e non per la scatola SO2R. Se la porta scelta e' riservata
-  l'attivita' dice perche' non si collega, e come cambiarlo.
+  mai la porta che Decodium usa per il CAT» (acceso di serie) e il campo «Altre porte che DecoDXLog
+  non apre mai» (per esempio `COM5, COM9`). Con l'interruttore acceso si lasciano stare tutte le
+  seriali che Decodium dichiara in `Decodium3.ini`: il CAT (`[Transceiver]/serialPort`), il PTT su
+  un'altra porta, il CAT nativo e l'amplificatore. Una porta riservata non compare negli elenchi, si
+  salta nella ricerca della radio e non si apre mai: non per il CAT (rigctld), non per il PTT su
+  un'altra porta, non per il tasto CW, non per il WinKeyer, non per il rotore (seriale e ARCO) e non
+  per la scatola SO2R. Se la porta scelta e' riservata l'attivita' dice perche' non si collega, e
+  come cambiarlo.
 - **La ricerca della radio** salta anche gli estremi nascosti delle coppie virtuali (`CNCA*`/`CNCB*`
   di com0com: sono di chi ha creato la coppia, DecoPort per primo) e prova prima le porte virtuali
   condivise, con una velocita' sola (su una porta virtuale non conta).

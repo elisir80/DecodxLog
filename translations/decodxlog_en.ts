@@ -9305,6 +9305,10 @@ Extra fields are preserved: %8</source>
 <context>
     <name>WinKeyer</name>
     <message>
+        <source>WinKeyer: %1 is reserved for another program (Decodium): not opened</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>WinKeyer: cannot open %1: %2</source>
         <translation type="unfinished"></translation>
     </message>

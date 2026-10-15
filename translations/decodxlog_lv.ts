@@ -9334,6 +9334,10 @@ Papildu lauki tiek saglabāti: %8</translation>
 <context>
     <name>WinKeyer</name>
     <message>
+        <source>WinKeyer: %1 is reserved for another program (Decodium): not opened</source>
+        <translation>WinKeyer: %1 ir rezervēts citai programmai (Decodium): nav atvērts</translation>
+    </message>
+    <message>
         <source>WinKeyer: cannot open %1: %2</source>
         <translation>WinKeyer: nevar atvērt %1: %2</translation>
     </message>

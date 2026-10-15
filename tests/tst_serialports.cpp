@@ -4,6 +4,7 @@
 
 #include <QCoreApplication>
 #include <QSettings>
+#include <QTemporaryDir>
 #include <QTest>
 
 using namespace decolog::core;
@@ -95,6 +96,35 @@ private slots:
         QVERIFY(!order.contains(QStringLiteral("CNCB2")));
         // Mai la porta riservata, nemmeno se e' quella scelta adesso.
         QVERIFY(!serialProbeOrder(QStringLiteral("COM5"), all, {}).contains(QStringLiteral("COM5")));
+    }
+
+    // Il CAT di Decodium (COM5 nella stazione), ma anche il PTT su un'altra porta e
+    // l'amplificatore: tutto cio' che Decodium apre resta suo. «CAT» come PTT non e' una porta.
+    void everyPortDecodiumUsesIsReserved()
+    {
+        QTemporaryDir dir;
+        QVERIFY(dir.isValid());
+        QSettings::setPath(QSettings::IniFormat, QSettings::UserScope, dir.path());
+        {
+            QSettings decodium(QSettings::IniFormat, QSettings::UserScope, QStringLiteral("Decodium"),
+                               QStringLiteral("Decodium3"));
+            decodium.setValue(QStringLiteral("Transceiver/serialPort"), QStringLiteral("COM5"));
+            decodium.setValue(QStringLiteral("Transceiver/pttPort"), QStringLiteral("CAT"));
+            decodium.setValue(QStringLiteral("CAT_Native/serialPort"), QString());
+            decodium.setValue(QStringLiteral("General/AmpPort"), QStringLiteral("COM9"));
+            decodium.sync();
+        }
+        QCOMPARE(decodiumCatPort(), QStringLiteral("COM5"));
+        QCOMPARE(decodiumSerialPorts(), (QStringList{QStringLiteral("COM5"), QStringLiteral("COM9")}));
+
+        setLeaveDecodiumPort(true);
+        QVERIFY(isSerialPortReserved(QStringLiteral("COM5")));
+        QVERIFY(isSerialPortReserved(QStringLiteral("COM9")));
+        QVERIFY(!isSerialPortReserved(QStringLiteral("COM4")));
+        QVERIFY(!isSerialPortReserved(QStringLiteral("CAT")));
+
+        setLeaveDecodiumPort(false);
+        QVERIFY(!isSerialPortReserved(QStringLiteral("COM5")));
     }
 
     void reservedPortsAreNotOfferedInTheLists()

@@ -32,6 +32,9 @@ void setLeaveDecodiumPort(bool on);
 // La porta su cui Decodium tiene il CAT (Decodium3.ini, [Transceiver]/serialPort),
 // o vuoto se non la si trova.
 QString decodiumCatPort();
+// Tutte le seriali che Decodium usa: il CAT, il PTT su un'altra porta, il
+// CAT nativo, l'amplificatore. Sono quelle che DecoDXLog lascia stare.
+QStringList decodiumSerialPorts();
 
 // Gli estremi nascosti delle coppie di porte virtuali (com0com li chiama CNCA0,
 // CNCB0 ...): l'altra meta' e' di chi ha creato la coppia, DecoPort per primo.

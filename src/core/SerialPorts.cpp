@@ -112,13 +112,32 @@ QString decodiumCatPort()
     return {};
 }
 
+QStringList decodiumSerialPorts()
+{
+    const QSettings decodium(QSettings::IniFormat, QSettings::UserScope, QStringLiteral("Decodium"),
+                             QStringLiteral("Decodium3"));
+    static const QRegularExpression looksLikeAPort(
+        QStringLiteral("^(COM\\d+|/dev/\\S+|tty\\S+|cu\\.\\S+)$"), QRegularExpression::CaseInsensitiveOption);
+    QStringList out;
+    // Le chiavi dove Decodium scrive le sue seriali: il CAT, il PTT (che puo' dire "CAT" e allora
+    // non e' una porta), il CAT nativo, l'amplificatore.
+    for (const char* key : {"Transceiver/serialPort", "Transceiver/pttPort", "CAT_Native/serialPort",
+                            "CAT_Native/pttPort", "General/AmpPort"}) {
+        const QString port = normalizedPortName(decodium.value(QLatin1String(key)).toString());
+        if (!port.isEmpty() && looksLikeAPort.match(port).hasMatch() && !out.contains(port))
+            out << port;
+    }
+    return out;
+}
+
 QStringList reservedSerialPorts()
 {
     QStringList out = userReservedSerialPorts();
     if (leaveDecodiumPort()) {
-        const QString decodium = decodiumCatPort();
-        if (!decodium.isEmpty() && !out.contains(decodium))
-            out << decodium;
+        for (const QString& port : decodiumSerialPorts()) {
+            if (!out.contains(port))
+                out << port;
+        }
     }
     return out;
 }

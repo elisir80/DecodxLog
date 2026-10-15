@@ -9312,6 +9312,10 @@ Campos extra conservados: %8</translation>
 <context>
     <name>WinKeyer</name>
     <message>
+        <source>WinKeyer: %1 is reserved for another program (Decodium): not opened</source>
+        <translation>WinKeyer: %1 está reservado para otro programa (Decodium): no se abrió</translation>
+    </message>
+    <message>
         <source>WinKeyer: cannot open %1: %2</source>
         <translation>WinKeyer: no se puede abrir %1: %2</translation>
     </message>

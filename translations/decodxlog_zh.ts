@@ -9290,6 +9290,10 @@ QSL 状态：%6 · UTC 不完整：%7。
 <context>
     <name>WinKeyer</name>
     <message>
+        <source>WinKeyer: %1 is reserved for another program (Decodium): not opened</source>
+        <translation>WinKeyer：%1 已保留给另一个程序 (Decodium)：未打开</translation>
+    </message>
+    <message>
         <source>WinKeyer: cannot open %1: %2</source>
         <translation>WinKeyer：无法打开 %1：%2</translation>
     </message>

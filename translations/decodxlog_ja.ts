@@ -9290,6 +9290,10 @@ QSL の状態: %6 · UTC が不完全: %7。
 <context>
     <name>WinKeyer</name>
     <message>
+        <source>WinKeyer: %1 is reserved for another program (Decodium): not opened</source>
+        <translation>WinKeyer: %1 は別のプログラム (Decodium) 用に予約されています: 開きませんでした</translation>
+    </message>
+    <message>
         <source>WinKeyer: cannot open %1: %2</source>
         <translation>WinKeyer: %1 を開けません: %2</translation>
     </message>

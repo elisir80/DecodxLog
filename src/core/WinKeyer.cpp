@@ -1,4 +1,5 @@
 #include "core/WinKeyer.h"
+#include "core/SerialPorts.h"
 
 #include <QCoreApplication>
 #include <QSerialPort>
@@ -45,6 +46,11 @@ bool WinKeyer::isOpen() const
 bool WinKeyer::open(const QString& portName)
 {
     close();
+    if (isSerialPortReserved(portName)) {
+        emit failed(QCoreApplication::translate("WinKeyer", "WinKeyer: %1 is reserved for another program (Decodium): not opened")
+                        .arg(portName));
+        return false;
+    }
     m_port = new QSerialPort(this);
     m_port->setPortName(portName);
     m_port->setBaudRate(1200);

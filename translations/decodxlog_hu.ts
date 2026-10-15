@@ -9290,6 +9290,10 @@ A további mezők megmaradnak: %8</translation>
 <context>
     <name>WinKeyer</name>
     <message>
+        <source>WinKeyer: %1 is reserved for another program (Decodium): not opened</source>
+        <translation>WinKeyer: a(z) %1 egy másik programnak (Decodium) van fenntartva: nincs megnyitva</translation>
+    </message>
+    <message>
         <source>WinKeyer: cannot open %1: %2</source>
         <translation>WinKeyer: %1 nem nyitható meg: %2</translation>
     </message>

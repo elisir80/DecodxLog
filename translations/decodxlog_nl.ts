@@ -9312,6 +9312,10 @@ Extra velden blijven behouden: %8</translation>
 <context>
     <name>WinKeyer</name>
     <message>
+        <source>WinKeyer: %1 is reserved for another program (Decodium): not opened</source>
+        <translation>WinKeyer: %1 is gereserveerd voor een ander programma (Decodium): niet geopend</translation>
+    </message>
+    <message>
         <source>WinKeyer: cannot open %1: %2</source>
         <translation>WinKeyer: kan %1 niet openen: %2</translation>
     </message>
