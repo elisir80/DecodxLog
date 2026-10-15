@@ -469,8 +469,7 @@ void RigController::setPttType(const QString& type)
         return;
     m_pttType = clean;
     QSettings().setValue(QStringLiteral("rig/pttType"), clean);
-    if (m_enabled && m_link == QLatin1String("serial"))
-        connectNow();
+    scheduleSerialRestart();
     emit changed();
 }
 
@@ -480,8 +479,7 @@ void RigController::setPttPort(const QString& port)
         return;
     m_pttPort = port.trimmed();
     QSettings().setValue(QStringLiteral("rig/pttPort"), m_pttPort);
-    if (m_enabled && m_link == QLatin1String("serial"))
-        connectNow();
+    scheduleSerialRestart();
     emit changed();
 }
 
@@ -528,6 +526,59 @@ void RigController::overrideTci(const QString& address, int trx)
     m_link = QStringLiteral("tci");
     m_enabled = true;
     connectNow();
+    emit changed();
+}
+
+void RigController::scheduleSerialRestart()
+{
+    if (!m_enabled || m_link != QLatin1String("serial"))
+        return;
+    if (!m_serialRestartTimer) {
+        m_serialRestartTimer = new QTimer(this);
+        m_serialRestartTimer->setSingleShot(true);
+        m_serialRestartTimer->setInterval(700);
+        connect(m_serialRestartTimer, &QTimer::timeout, this, &RigController::restartSerialNow);
+    }
+    m_serialRestartTimer->start();
+}
+
+void RigController::restartSerialNow()
+{
+    if (!m_enabled || m_link != QLatin1String("serial"))
+        return;
+    // Quello che era in attesa di un avvio precedente non vale piu'.
+    ++m_launchGeneration;
+    const quint64 generation = m_launchGeneration;
+    m_hamlib.disconnectFromRig();
+    if (m_rigctld && m_rigctld->state() != QProcess::NotRunning) {
+        // La seriale si libera solo quando rigctld e' finito: si aspetta senza fermare la finestra.
+        QProcess* process = m_rigctld.get();
+        process->disconnect();
+        connect(process, &QProcess::finished, this, [this, process, generation] {
+            if (m_rigctld.get() != process)
+                return;
+            m_rigctld.release()->deleteLater();
+            if (generation == m_launchGeneration)
+                connectNow();
+        });
+        process->kill();
+        return;
+    }
+    m_rigctld.reset();
+    connectNow();
+}
+
+void RigController::reconnectSerial()
+{
+    if (m_link != QLatin1String("serial"))
+        return;
+    if (!m_enabled) {
+        m_enabled = true;
+        QSettings().setValue(QStringLiteral("rig/enabled"), true);
+    }
+    if (m_serialRestartTimer)
+        m_serialRestartTimer->stop();
+    restartSerialNow();
     emit changed();
 }
 
@@ -830,6 +881,7 @@ void RigController::setSerialPort(const QString& port)
         return;
     m_serialPort = port.trimmed();
     QSettings().setValue(QStringLiteral("rig/serialPort"), m_serialPort);
+    scheduleSerialRestart();
     emit changed();
 }
 
@@ -844,6 +896,7 @@ void RigController::setReservedPorts(const QString& ports)
     if (list == core::userReservedSerialPorts())
         return;
     core::setUserReservedSerialPorts(list);
+    scheduleSerialRestart();
     emit changed();
 }
 
@@ -857,6 +910,7 @@ void RigController::setLeaveDecodiumPort(bool on)
     if (on == core::leaveDecodiumPort())
         return;
     core::setLeaveDecodiumPort(on);
+    scheduleSerialRestart();
     emit changed();
 }
 
@@ -883,6 +937,7 @@ void RigController::setRigModel(int model)
     m_capabilitiesForModel = 0;
     QSettings().setValue(QStringLiteral("rig/model"), model);
     refreshSerialCapabilities();
+    scheduleSerialRestart();
     emit changed();
     emit stateChanged();
 }
@@ -893,6 +948,7 @@ void RigController::setBaud(int baud)
         return;
     m_baud = baud;
     QSettings().setValue(QStringLiteral("rig/baud"), baud);
+    scheduleSerialRestart();
     emit changed();
 }
 
@@ -1031,49 +1087,49 @@ void RigController::setDataBits(const QString& value)
 {
     const QString clean = value == QLatin1String("7") || value == QLatin1String("8") ? value : QStringLiteral("Default");
     if (clean == m_dataBits) return;
-    m_dataBits = clean; QSettings().setValue(QStringLiteral("rig/dataBits"), clean); emit changed();
+    m_dataBits = clean; QSettings().setValue(QStringLiteral("rig/dataBits"), clean); scheduleSerialRestart(); emit changed();
 }
 
 void RigController::setStopBits(const QString& value)
 {
     const QString clean = value == QLatin1String("1") || value == QLatin1String("2") ? value : QStringLiteral("Default");
     if (clean == m_stopBits) return;
-    m_stopBits = clean; QSettings().setValue(QStringLiteral("rig/stopBits"), clean); emit changed();
+    m_stopBits = clean; QSettings().setValue(QStringLiteral("rig/stopBits"), clean); scheduleSerialRestart(); emit changed();
 }
 
 void RigController::setParity(const QString& value)
 {
     const QString clean = QStringList{QStringLiteral("None"), QStringLiteral("Odd"), QStringLiteral("Even"), QStringLiteral("Mark"), QStringLiteral("Space")}.contains(value) ? value : QStringLiteral("Default");
     if (clean == m_parity) return;
-    m_parity = clean; QSettings().setValue(QStringLiteral("rig/parity"), clean); emit changed();
+    m_parity = clean; QSettings().setValue(QStringLiteral("rig/parity"), clean); scheduleSerialRestart(); emit changed();
 }
 
 void RigController::setHandshake(const QString& value)
 {
     const QString clean = QStringList{QStringLiteral("None"), QStringLiteral("XONXOFF"), QStringLiteral("Hardware")}.contains(value) ? value : QStringLiteral("Default");
     if (clean == m_handshake) return;
-    m_handshake = clean; QSettings().setValue(QStringLiteral("rig/handshake"), clean); emit changed();
+    m_handshake = clean; QSettings().setValue(QStringLiteral("rig/handshake"), clean); scheduleSerialRestart(); emit changed();
 }
 
 void RigController::setDtrState(const QString& value)
 {
     const QString clean = QStringList{QStringLiteral("ON"), QStringLiteral("OFF")}.contains(value) ? value : QStringLiteral("Unset");
     if (clean == m_dtrState) return;
-    m_dtrState = clean; QSettings().setValue(QStringLiteral("rig/dtrState"), clean); emit changed();
+    m_dtrState = clean; QSettings().setValue(QStringLiteral("rig/dtrState"), clean); scheduleSerialRestart(); emit changed();
 }
 
 void RigController::setRtsState(const QString& value)
 {
     const QString clean = QStringList{QStringLiteral("ON"), QStringLiteral("OFF")}.contains(value) ? value : QStringLiteral("Unset");
     if (clean == m_rtsState) return;
-    m_rtsState = clean; QSettings().setValue(QStringLiteral("rig/rtsState"), clean); emit changed();
+    m_rtsState = clean; QSettings().setValue(QStringLiteral("rig/rtsState"), clean); scheduleSerialRestart(); emit changed();
 }
 
 void RigController::setCivAddress(const QString& value)
 {
     const QString clean = value.trimmed();
     if (clean == m_civAddress) return;
-    m_civAddress = clean; QSettings().setValue(QStringLiteral("rig/civAddress"), clean); emit changed();
+    m_civAddress = clean; QSettings().setValue(QStringLiteral("rig/civAddress"), clean); scheduleSerialRestart(); emit changed();
 }
 
 QVariantList RigController::rigModels()

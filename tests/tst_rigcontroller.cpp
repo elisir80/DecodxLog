@@ -93,6 +93,27 @@ private slots:
         QVERIFY(clock.elapsed() < 9000);
     }
 
+    // Cambiando la porta (o la velocita', il modello...) il rigctld in piedi ha ancora i
+    // parametri di prima: nella 1.17.21 la nuova porta non veniva presa se non riavviando il
+    // programma. Con il dummy di Hamlib si vede dal TCP di rigctld, che e' nuovo a ogni avvio.
+    void changingTheSerialPortRestartsTheLocalRigctld()
+    {
+        if (core::qsl::findRigctld().isEmpty())
+            QSKIP("Hamlib (rigctld) is not installed here");
+        QSettings().clear();
+        app::RigController controller{app::RigController::Context{}};
+        controller.setLink(QStringLiteral("serial"));
+        controller.setRigModel(1);   // il dummy: ignora la porta
+        controller.setSerialPort(QStringLiteral("dummy-a"));
+        controller.setEnabled(true);
+        QTRY_VERIFY_WITH_TIMEOUT(controller.connected(), 20000);
+        const int first = controller.port();
+        QVERIFY(first > 0);
+
+        controller.setSerialPort(QStringLiteral("dummy-b"));
+        QTRY_VERIFY_WITH_TIMEOUT(controller.port() != first && controller.connected(), 20000);
+    }
+
     void stopTargetsTheRadioThatReceivedTheMacro()
     {
         FakeRig radio2;

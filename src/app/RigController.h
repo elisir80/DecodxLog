@@ -257,6 +257,8 @@ public:
     // Le macro rilette dalle impostazioni: quando le ha cambiate il Cloud.
     void reloadMacros();
     Q_INVOKABLE void connectNow();
+    // Sulla seriale: ferma il rigctld di adesso e ne avvia uno con le impostazioni di ora.
+    Q_INVOKABLE void reconnectSerial();
     // Cerca la radio da sola: prova le porte e le velocita' una per una,
     // finche' una risponde. Quella che risponde si tiene.
     Q_INVOKABLE void probeRadio();
@@ -456,6 +458,12 @@ private:
     bool m_decoderOn{false};
     // rigctld avviato da noi quando la radio sta su una seriale.
     std::unique_ptr<QProcess> m_rigctld;
+    // Dopo un cambio alla seriale (porta, velocita', modello, controllo di flusso...)
+    // il rigctld in piedi ha ancora i parametri di prima: lo si ferma e se ne avvia un
+    // altro, un attimo dopo l'ultima modifica e senza fermare la finestra.
+    void scheduleSerialRestart();
+    void restartSerialNow();
+    QTimer* m_serialRestartTimer{nullptr};
     QString m_link{QStringLiteral("network")};
     QString m_serialPort;
     int m_rigModel{0};

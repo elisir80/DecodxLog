@@ -1907,6 +1907,27 @@ DialogFrame {
                         }
                     }
 
+                    //  Le modifiche alla seriale si applicano da sole un attimo dopo; qui si
+                    //  collega subito, o si lascia cercare la radio.
+                    RowLayout {
+                        spacing: 12
+                        visible: decolog.rig.link === "serial"
+                        GlassButton {
+                            text: qsTr("Connect now")
+                            tone: Theme.primaryColor
+                            onClicked: decolog.rig.reconnectSerial()
+                        }
+                        GlassButton {
+                            text: decolog.rig.probing ? qsTr("Looking…") : qsTr("Find the radio")
+                            enabled: !decolog.rig.probing
+                            onClicked: decolog.rig.probeRadio()
+                        }
+                        Pill {
+                            text: decolog.rig.connected ? qsTr("radio connected") : qsTr("radio not connected")
+                            tone: decolog.rig.connected ? Theme.accentColor : Theme.warningColor
+                        }
+                    }
+
                     //  Le porte di un altro programma: una seriale la apre uno solo, e se
                     //  DecoDXLog prende quella di Decodium, Decodium resta senza radio.
                     ToggleSwitch {

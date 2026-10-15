@@ -5,6 +5,14 @@ in stazione.
 
 ## 1.17.22 — 15 ottobre 2026
 
+**Cambiare la porta della radio ora la cambia davvero.** Con la radio su una seriale, scegliere
+un'altra porta (o un'altra velocita', un altro modello, il controllo di flusso, DTR/RTS, l'indirizzo
+CI-V, il PTT) salvava la scelta ma non faceva niente: il rigctld partito prima restava sulla porta
+di prima finche' non si riavviava il programma. Per questo la porta virtuale condivisa di Decodium
+«non veniva presa». Adesso, un attimo dopo l'ultima modifica, il rigctld vecchio si ferma e ne parte
+uno con le impostazioni nuove, senza fermare la finestra. Sulla pagina Radio, in modalita' seriale,
+ci sono anche «Collega ora» e «Trova la radio» (prima stavano solo in modalita' rete), con lo stato.
+
 **Le porte seriali di Decodium restano di Decodium.** Una seriale la apre un programma solo: se la
 prende DecoDXLog, Decodium resta senza radio. Il caso vero: CAT di Decodium su COM5, quello di
 DecoDXLog su COM4; «Trova la radio» provava tutte le porte nell'ordine, trovava la radio su COM5 e
