@@ -14,7 +14,18 @@ Sono stati rieseguiti i test delle sorgenti:
 ```text
 cmake --build build --parallel 4 --target tst_spots tst_cluster tst_voacap
 ctest --test-dir build --output-on-failure -R '^(spots|cluster|voacap)$'
-3/3 test superati (rieseguiti il 16 ottobre 2026)
+3/3 test superati (rieseguiti il 16 ottobre 2026).
+
+Verifica corrente delle sorgenti separate dopo l'ultima modifica locale:
+
+```text
+cmake --build build --parallel 4 --target tst_spots tst_clustercontroller tst_propagation tst_voacap
+ctest --test-dir build --output-on-failure -R '^(spots|clustercontroller|propagation|voacap)$'
+4/4 test superati
+```
+
+Questa riesecuzione conferma le fonti di input, ma non chiude il gap: manca
+ancora il ranking composito con motivazioni, età dei dati e limiti esposti.
 ```
 
 ## Gap verificato
