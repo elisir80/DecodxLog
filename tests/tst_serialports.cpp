@@ -43,7 +43,12 @@ private slots:
         QVERIFY(!isSerialPortReserved(QStringLiteral("COM5")));
 
         setUserReservedSerialPorts({QStringLiteral("com5"), QStringLiteral("COM9"), QStringLiteral("COM5")});
+#ifdef Q_OS_WIN
         QCOMPARE(userReservedSerialPorts().size(), 2);
+#else
+        // POSIX device paths are case-sensitive; only Windows normalizes COM names.
+        QCOMPARE(userReservedSerialPorts().size(), 3);
+#endif
 #ifdef Q_OS_WIN
         QVERIFY(isSerialPortReserved(QStringLiteral("COM5")));
         QVERIFY(isSerialPortReserved(QStringLiteral("com9")));
