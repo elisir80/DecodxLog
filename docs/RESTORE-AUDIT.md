@@ -35,7 +35,13 @@ ctest --test-dir build -R '^logbackup$' --output-on-failure
 Risultato: 1 test passato, 0 falliti (`logbackup`: 1/1), inclusi i casi di
 bundle incompleto e bundle alterato.
 
+Verifica aggiuntiva su volume separato, 16 ottobre 2026: l'intera suite
+`tst_logbackup` è stata eseguita con `TMPDIR` dentro un'immagine APFS sparse
+montata tramite `hdiutil`. Risultato: 14 test passati, 0 falliti, inclusi i
+casi di creazione atomica, ripristino di database e risorse e rifiuto di bundle
+alterati.
+
 Limite residuo: il test è automatizzato in directory temporanee sullo stesso
-host. Non sostituisce ancora una prova su una macchina pulita o su un volume
-removibile, né una simulazione di interruzione del processo durante la copia
-fisica di un file molto grande.
+host o su un'immagine montata, e non sostituisce ancora una prova su una
+macchina pulita né una simulazione di interruzione del processo durante la
+copia fisica di un file molto grande.
