@@ -3,6 +3,17 @@
 Le date sono quelle del lavoro, non di una pubblicazione: DecoDXLog cresce mentre lo si usa
 in stazione.
 
+## 1.17.23 — 15 ottobre 2026
+
+**La radio non si scollega piu' di continuo con DTR e RTS forzati.** Con la radio su una seriale
+(visto sulla COM8 virtuale di DecoPort, FT-991A, modello 1035) e DTR/RTS messi su «ON», Hamlib non
+apriva la porta: «cannot set RTS with hardware handshake». Il controllo di flusso di serie di tante
+radio, FT-991 compresa, e' quello hardware, che usa proprio RTS, e le due cose non stanno insieme:
+rigctld rifiutava ogni apertura, e DecoDXLog si collegava e si scollegava a ripetizione. Adesso, se
+RTS e' forzato (ON o OFF) e il controllo di flusso e' «Default» o «Hardware», si apre con «None». Le
+scelte esplicite che non confliggono (per esempio XON/XOFF) restano com'erano. In piu' le righe
+«cannot set …» di Hamlib compaiono nell'attivita', cosi' una causa del genere si vede.
+
 ## 1.17.22 — 15 ottobre 2026
 
 **Cambiare la porta della radio ora la cambia davvero.** Con la radio su una seriale, scegliere

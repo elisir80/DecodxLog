@@ -44,6 +44,12 @@ bool isHiddenVirtualPort(const QString& port);
 // poi le altre. Mai le riservate ne' gli estremi nascosti delle coppie virtuali.
 QStringList serialProbeOrder(const QString& current, const QStringList& all, const QStringList& virtualPorts);
 
+// Il controllo di flusso con cui aprire la seriale. Hamlib non apre una porta con
+// il controllo hardware (quello di serie di tante radio, FT-991 compresa) e RTS
+// forzato ON/OFF: «cannot set RTS with hardware handshake», e rigctld si ferma a
+// ogni connessione. Se RTS e' forzato, il controllo hardware non puo' essere: «None».
+QString serialHandshakeFor(const QString& handshake, const QString& rtsState);
+
 // Le porte virtuali visibili (una coppia com0com: DecoPort ne crea una per ogni
 // radio che condivide, nel dialetto nativo della radio). Si usano come una
 // seriale qualunque: stesso modello della radio, stessa velocita'.

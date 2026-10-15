@@ -170,6 +170,18 @@ QStringList virtualSerialPorts()
     return withoutReserved(out);
 }
 
+QString serialHandshakeFor(const QString& handshake, const QString& rtsState)
+{
+    const QString rts = rtsState.trimmed().toUpper();
+    const bool rtsForced = rts == QLatin1String("ON") || rts == QLatin1String("OFF");
+    const QString hs = handshake.trimmed();
+    const bool hardwareOrDefault = hs.isEmpty() || hs.compare(QLatin1String("Default"), Qt::CaseInsensitive) == 0
+                                   || hs.compare(QLatin1String("Hardware"), Qt::CaseInsensitive) == 0;
+    if (rtsForced && hardwareOrDefault)
+        return QStringLiteral("None");
+    return hs;
+}
+
 QStringList serialProbeOrder(const QString& current, const QStringList& all, const QStringList& virtualPorts)
 {
     QStringList order;

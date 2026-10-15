@@ -133,6 +133,21 @@ private slots:
         QVERIFY(!isSerialPortReserved(QStringLiteral("COM5")));
     }
 
+    // Con RTS forzato Hamlib non apre la porta se il controllo di flusso e' quello hardware (di serie
+    // sulla FT-991): rigctld si ferma a ogni connessione e il programma si scollega e ricollega di
+    // continuo. Visto sulla COM8 virtuale di DecoPort con DTR e RTS «ON».
+    void forcedRtsMeansNoHardwareHandshake()
+    {
+        QCOMPARE(serialHandshakeFor(QStringLiteral("Default"), QStringLiteral("ON")), QStringLiteral("None"));
+        QCOMPARE(serialHandshakeFor(QString(), QStringLiteral("OFF")), QStringLiteral("None"));
+        QCOMPARE(serialHandshakeFor(QStringLiteral("Hardware"), QStringLiteral("ON")), QStringLiteral("None"));
+        // Quello che l'operatore ha scelto di esplicito e che non confligge resta com'e'.
+        QCOMPARE(serialHandshakeFor(QStringLiteral("XONXOFF"), QStringLiteral("ON")), QStringLiteral("XONXOFF"));
+        QCOMPARE(serialHandshakeFor(QStringLiteral("None"), QStringLiteral("ON")), QStringLiteral("None"));
+        QCOMPARE(serialHandshakeFor(QStringLiteral("Default"), QStringLiteral("Unset")), QStringLiteral("Default"));
+        QCOMPARE(serialHandshakeFor(QStringLiteral("Hardware"), QStringLiteral("Unset")), QStringLiteral("Hardware"));
+    }
+
     void reservedPortsAreNotOfferedInTheLists()
     {
         setLeaveDecodiumPort(false);

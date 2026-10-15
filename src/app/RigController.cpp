@@ -710,7 +710,8 @@ void RigController::launchRigctld(quint64 generation)
         const QString text = QString::fromUtf8(process->readAll());
         for (const QString& line : text.split(QLatin1Char('\n'))) {
             // Le righe che contano sono quelle dove Hamlib dice che non ce la fa.
-            if (line.contains(QLatin1String("error"), Qt::CaseInsensitive)
+            if ((line.contains(QLatin1String("error"), Qt::CaseInsensitive)
+                 || line.contains(QLatin1String("cannot set"), Qt::CaseInsensitive))
                 && m_ctx.activity && !line.trimmed().isEmpty()) {
                 m_ctx.activity(QStringLiteral("CAT"), tr("Hamlib: %1").arg(line.trimmed()),
                                QStringLiteral("warning"));
@@ -1068,7 +1069,10 @@ QStringList RigController::localRigctldArguments(const QString& port, int baud, 
     addConfiguration(QStringLiteral("data_bits"), m_dataBits, QStringLiteral("Default"));
     addConfiguration(QStringLiteral("stop_bits"), m_stopBits, QStringLiteral("Default"));
     addConfiguration(QStringLiteral("serial_parity"), m_parity, QStringLiteral("Default"));
-    addConfiguration(QStringLiteral("serial_handshake"), m_handshake, QStringLiteral("Default"));
+    // Con RTS forzato il controllo di flusso hardware non puo' stare (Hamlib non apre la porta
+    // e DecoDXLog si collega e si scollega di continuo): si passa a «None».
+    addConfiguration(QStringLiteral("serial_handshake"), core::serialHandshakeFor(m_handshake, m_rtsState),
+                     QStringLiteral("Default"));
     addConfiguration(QStringLiteral("dtr_state"), m_dtrState, QStringLiteral("Unset"));
     addConfiguration(QStringLiteral("rts_state"), m_rtsState, QStringLiteral("Unset"));
     if (supportsSerialParameter(QStringLiteral("civaddr")) && !m_civAddress.isEmpty())
