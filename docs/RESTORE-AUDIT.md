@@ -19,6 +19,12 @@ risorsa mancante lasci il log di destinazione invariato. La creazione del bundle
 usa una directory `.partial` e il rename finale, così un'interruzione non rende
 visibile una copia incompleta come backup valido.
 
+Il manifest dei bundle nuovi contiene anche le impronte SHA-256 del database e
+di ogni risorsa. `aCorruptedStationBundleDoesNotTouchTheTargetLog` altera una
+risorsa dopo la creazione, verifica il rifiuto per integrità e dimostra che il
+log di destinazione e le risorse installate restano invariati. I bundle storici
+senza la sezione `sha256` restano leggibili per compatibilità.
+
 Verifica eseguita e ripetuta il 16 ottobre 2026:
 
 ```text
@@ -26,7 +32,8 @@ cmake --build build --parallel 4 --target tst_logbackup
 ctest --test-dir build -R '^logbackup$' --output-on-failure
 ```
 
-Risultato: 1 test passato, 0 falliti (`logbackup`: 1/1).
+Risultato: 1 test passato, 0 falliti (`logbackup`: 1/1), inclusi i casi di
+bundle incompleto e bundle alterato.
 
 Limite residuo: il test è automatizzato in directory temporanee sullo stesso
 host. Non sostituisce ancora una prova su una macchina pulita o su un volume
