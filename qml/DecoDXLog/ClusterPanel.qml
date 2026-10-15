@@ -186,6 +186,11 @@ GlassPanel {
         if (mode === "CW") return Theme.secondaryColor
         return Theme.textPrimary
     }
+    function setAssistantPreference(key, value) {
+        const preferences = Object.assign({}, root.cluster.assistantPreferences)
+        preferences[key] = value
+        root.cluster.assistantPreferences = preferences
+    }
     // Per le schermate di prova.
     function showMenu(name) {
         if (name === "row") rowMenu.popupFor(root.model.get(0))
@@ -381,6 +386,24 @@ GlassPanel {
                 GlassButton { text: qsTr("Close"); buttonHeight: 24; fontPixelSize: 11; onClicked: recommendationsPopup.close() }
             }
             Note { Layout.fillWidth: true; text: qsTr("Based on observed spots and log status. Propagation is not included until a forecast is available; no radio command is performed.") }
+            GridLayout {
+                Layout.fillWidth: true
+                columns: 6
+                rowSpacing: 4
+                columnSpacing: 6
+                Text { text: qsTr("DXCC"); color: Theme.textSecondary; font.pixelSize: 11 }
+                SpinBox { from: 0; to: 100; value: root.cluster.assistantPreferences.newEntityWeight; onValueModified: root.setAssistantPreference("newEntityWeight", value); Layout.preferredWidth: 70 }
+                Text { text: qsTr("Band"); color: Theme.textSecondary; font.pixelSize: 11 }
+                SpinBox { from: 0; to: 100; value: root.cluster.assistantPreferences.newBandWeight; onValueModified: root.setAssistantPreference("newBandWeight", value); Layout.preferredWidth: 70 }
+                Text { text: qsTr("Mode"); color: Theme.textSecondary; font.pixelSize: 11 }
+                SpinBox { from: 0; to: 100; value: root.cluster.assistantPreferences.newModeWeight; onValueModified: root.setAssistantPreference("newModeWeight", value); Layout.preferredWidth: 70 }
+                Text { text: qsTr("Reference"); color: Theme.textSecondary; font.pixelSize: 11 }
+                SpinBox { from: 0; to: 100; value: root.cluster.assistantPreferences.newReferenceWeight; onValueModified: root.setAssistantPreference("newReferenceWeight", value); Layout.preferredWidth: 70 }
+                Text { text: qsTr("Propagation"); color: Theme.textSecondary; font.pixelSize: 11 }
+                SpinBox { from: 0; to: 100; value: root.cluster.assistantPreferences.propagationWeight; onValueModified: root.setAssistantPreference("propagationWeight", value); Layout.preferredWidth: 70 }
+                Text { text: qsTr("Freshness min"); color: Theme.textSecondary; font.pixelSize: 11 }
+                SpinBox { from: 1; to: 240; value: root.cluster.assistantPreferences.freshnessMinutes; onValueModified: root.setAssistantPreference("freshnessMinutes", value); Layout.preferredWidth: 70 }
+            }
             ListView {
                 Layout.fillWidth: true
                 Layout.fillHeight: true

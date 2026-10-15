@@ -73,6 +73,9 @@ La compilazione completa del target `decolog` ha ricreato anche il cache QML di
 I pesi del ranking e la soglia di freschezza sono ora persistenti in
 `cluster/assistantPreferences`, con clamp dei pesi a `0..100` e della soglia a
 `1..240` minuti. Il test controller verifica lettura/scrittura e i limiti.
+Il popup espone inoltre sei controlli grafici numerici per DXCC, banda, modo,
+riferimento, propagazione e freschezza; ogni modifica passa dalla stessa API
+validata e viene salvata nelle preferenze.
 ```
 ```
 
@@ -87,6 +90,6 @@ Prima di aggiungere il ranking servono una specifica versionata per:
 5. divieto esplicito di inventare nominativi/QSO e di trasmettere.
 
 La voce resta parzialmente aperta: il nucleo e l'adattatore al cluster sono
-verificati e la UI è presente. Mancano ancora il collegamento alla previsione
-VOACAP e i controlli grafici dedicati per modificare i pesi senza passare
-dall’API QML.
+verificati e la UI è presente. Manca ancora il collegamento alla previsione
+VOACAP; le preferenze sono invece modificabili dal popup e non richiedono più
+un intervento diretto sull’API QML.
