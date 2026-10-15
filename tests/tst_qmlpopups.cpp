@@ -211,6 +211,18 @@ private slots:
         QVERIFY(source.contains(QStringLiteral("verify the route before sending")));
     }
 
+    void integrationDiagnosticsRequiresExplicitReportApproval()
+    {
+        const QDir qmlDir(QStringLiteral(QML_DIR));
+        const QString source = readFile(qmlDir.filePath(QStringLiteral("BottomTabs.qml")));
+        QVERIFY(source.contains(QStringLiteral("integrationDiagnostics")));
+        QVERIFY(source.contains(QStringLiteral("diagnosticSupportText")));
+        QVERIFY(source.contains(QStringLiteral("Approve and save report")));
+        QVERIFY(source.contains(QStringLiteral("onAccepted")));
+        QVERIFY(source.contains(QStringLiteral("saveDiagnosticReport")));
+        QVERIFY(source.contains(QStringLiteral("The checks stay on this computer")));
+    }
+
     // Nella 1.17.20 «importa» non partiva (la finestra dell'anteprima chiamava
     // `root`, che in Main.qml non c'e': l'id e' `window`), la scheda inferiore non
     // compariva (FileDialog senza `import QtQuick.Dialogs`) e la finestra restava

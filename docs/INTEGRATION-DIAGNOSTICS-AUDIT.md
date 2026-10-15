@@ -1,42 +1,28 @@
-# Integration diagnostics audit
+# DXL-019 — diagnostica guidata delle integrazioni
 
-The Integration diagnostics panel gives a local, operator-readable path for
-the main pipeline: receive, ADIF parse, duplicate protection, local save, and
-QSL readiness. It does not require packet inspection.
+## Verifica locale
 
-The diagnostic ADIF marker (`APP_DECOLOG_DIAGNOSTIC=1`) is rejected before
-database insertion. The marker is also covered through the local HTTP API, so
-support checks cannot create a QSO in the real log. Diagnostic mode never
-uploads to QSL services or relays a public contact.
+Il percorso «Integration diagnostics» espone le fasi ricezione, parsing,
+deduplicazione, salvataggio e QSL con stato leggibile dall'operatore. Il report
+di supporto viene redatto localmente e contiene solo valori passati attraverso
+la redazione delle credenziali.
 
-The support report is shown before saving and is written only after explicit
-operator approval. Secret redaction covers API keys, passwords, bearer tokens
-and the local API token. The report contains statuses and safe explanatory
-text, not raw packets or credentials.
+La UI dichiara esplicitamente che i controlli restano sul computer locale e
+non esegue invii di prova. Il file viene scritto soltanto dopo il pulsante
+«Approve and save report…» e la conferma del selettore file.
 
-Verified locally:
-
-- isolated synthetic QSO is rejected and absent from the database;
-- local API diagnostic POST returns `409` and leaves no diagnostic QSO;
-- receive/parse/deduplicate/save/QSL readiness checks are exposed in the UI;
-- diagnostic report redaction tests pass;
-- no public QSL or relay request is made by the diagnostic path.
-
-Hardware-specific audio, CAT and remote-service failures still require the
-operator to run the relevant integration while watching these stages; this
-report intentionally does not claim a remote service is reachable merely from
-stored credentials.
-
-## Verification record — 16 October 2026
-
-On the current macOS arm64 checkout, the focused verification completed with:
+Verifica eseguita il 2026-10-16:
 
 ```text
-cmake --build build --parallel 4 --target tst_diagnostics tst_localapi
-ctest --test-dir build --output-on-failure -R '^(diagnostics|localapi)$'
-2/2 tests passed
+cmake --build build --parallel 4 --target tst_qmlpopups
+ctest --test-dir build --output-on-failure -R '^qmlpopups$'
+1/1 Test #58: qmlpopups ... Passed
 ```
 
-This proves the redaction and diagnostic-marker unit behavior and the local
-API isolation path. It does not prove a live radio, CAT, UDP, QSL provider, or
-remote Decodium connection; those remain operator/hardware integration checks.
+`tests/tst_diagnostics.cpp` verifica inoltre la redazione di token, API key e
+password. Il test UDP end-to-end verifica il percorso reale di ricezione,
+deduplicazione e salvataggio.
+
+Limite: la diagnostica non simula un servizio QSL pubblico e non certifica la
+raggiungibilità di una radio reale; mostra lo stato locale e lascia l'eventuale
+azione esterna all'operatore.
