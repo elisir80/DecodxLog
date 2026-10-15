@@ -15,9 +15,10 @@ bash scripts/release-gate.sh build build/DecoDXLog.app/Contents/MacOS/DecoDXLog
 
 Risultato:
 
-- controllo versione/documentazione: passato;
+- controllo versione/documentazione: passato dopo l'allineamento dei riferimenti
+  alla versione `1.17.24` (il primo run aveva rilevato `README=1.17.23`);
 - build dell'app macOS: passata;
-- CTest: 68/68 passati, 0 falliti;
+- CTest: 69/69 passati, 0 falliti;
 - eseguibile macOS presente e avviabile dal percorso del gate.
 - smoke test offscreen `--grab`: passato.
 
@@ -28,11 +29,13 @@ Il gate blocca quindi un artefatto locale quando build, test o versione
 documentale falliscono, verifica anche l'avvio offscreen e la creazione di una
 schermata smoke, invece di limitarsi alla compilazione dell'app. La CI
 principale include inoltre un job separato per la suite Cloud. Il
-comando è stato rieseguito il 2026-10-16, anche dopo la correzione di
-`mktemp`: il processo del gate ha completato build, CTest e smoke test senza
-nuovi errori osservati; il log finale conferma il completamento di
-`udppipeline`. Il precedente `LastTestsFailed.log` non è stato aggiornato ed è
-un residuo del 15 ottobre (`serialports`), già rieseguito con esito 1/1.
+Il comando è stato rieseguito il 2026-10-16. Il primo tentativo si è fermato
+correttamente per un riferimento README obsoleto; dopo l'allineamento a
+`1.17.24`, il gate ha completato build, CTest (69/69) e smoke test senza
+errori. Durante la verifica è emerso anche un errore reale di avvio QML:
+`ClusterPanel.qml` usava `Note` senza dichiararlo quando veniva caricato
+direttamente. Il componente è stato reso locale a `ClusterPanel`; il test
+`udppipeline` è poi passato 1/1 e il gate è stato rieseguito con successo.
 
 Il job Cloud separato è presente in `.github/workflows/ci.yml`; la dipendenza
 `httpx` usata dal test client FastAPI è ora dichiarata in

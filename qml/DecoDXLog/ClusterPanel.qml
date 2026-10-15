@@ -10,6 +10,15 @@ import Decodium.UI
 GlassPanel {
     id: root
 
+    // ClusterPanel is also loaded directly by the main layout, so helper
+    // components declared only by ClusterWindow are not in scope here.
+    component Note: Text {
+        Layout.fillWidth: true
+        wrapMode: Text.Wrap
+        color: Theme.textSecondary
+        font.pixelSize: 12
+    }
+
     property bool compact: false
     // Durante un contest il cluster serve a una cosa sola: vedere chi porta un
     // moltiplicatore che non si ha. Via tutto il resto, e quelli che contano si
