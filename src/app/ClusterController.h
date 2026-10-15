@@ -48,6 +48,7 @@ class ClusterController : public QObject {
     Q_PROPERTY(QStringList console READ console NOTIFY consoleChanged)
     Q_PROPERTY(QVariantList statusNames READ statusNames CONSTANT)
     Q_PROPERTY(bool sendToDecodium READ sendToDecodium WRITE setSendToDecodium NOTIFY settingsChanged)
+    Q_PROPERTY(QVariantMap assistantPreferences READ assistantPreferences WRITE setAssistantPreferences NOTIFY settingsChanged)
 
     Q_PROPERTY(bool voiceAvailable READ voiceAvailable CONSTANT)
     Q_PROPERTY(QString voiceBackend READ voiceBackend CONSTANT)
@@ -130,6 +131,8 @@ public:
     QVariantList statusNames() const;
     bool sendToDecodium() const { return m_sendToDecodium; }
     void setSendToDecodium(bool on);
+    QVariantMap assistantPreferences() const;
+    void setAssistantPreferences(const QVariantMap& preferences);
 
     bool voiceAvailable() const { return m_voice.available(); }
     QString voiceBackend() const { return m_voice.backend(); }
@@ -279,6 +282,7 @@ private:
     QNetworkAccessManager* m_net{nullptr};
     bool m_started{false};
     bool m_sendToDecodium{true};
+    core::dxassistant::Preferences m_assistantPreferences;
     bool m_voiceEnabled{true};
     QString m_voiceName;
     int m_voiceRate{0};

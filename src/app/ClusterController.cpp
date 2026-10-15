@@ -104,6 +104,15 @@ ClusterController::ClusterController(Context context, QObject* parent)
     m_savedFilters = QJsonDocument::fromJson(s.value(QStringLiteral("cluster/savedFilters")).toString().toUtf8())
                          .object().toVariantMap();
     m_sendToDecodium = s.value(QStringLiteral("cluster/sendToDecodium"), true).toBool();
+    const QVariantMap assistant = QJsonDocument::fromJson(
+        s.value(QStringLiteral("cluster/assistantPreferences")).toString().toUtf8())
+                                      .object().toVariantMap();
+    m_assistantPreferences.newEntityWeight = assistant.value(QStringLiteral("newEntityWeight"), 40).toInt();
+    m_assistantPreferences.newBandWeight = assistant.value(QStringLiteral("newBandWeight"), 25).toInt();
+    m_assistantPreferences.newModeWeight = assistant.value(QStringLiteral("newModeWeight"), 15).toInt();
+    m_assistantPreferences.newReferenceWeight = assistant.value(QStringLiteral("newReferenceWeight"), 20).toInt();
+    m_assistantPreferences.propagationWeight = assistant.value(QStringLiteral("propagationWeight"), 20).toInt();
+    m_assistantPreferences.freshnessMinutes = assistant.value(QStringLiteral("freshnessMinutes"), 30).toInt();
     m_voiceEnabled = s.value(QStringLiteral("cluster/voice/enabled"), true).toBool();
     m_voiceName = s.value(QStringLiteral("cluster/voice/name")).toString();
     m_voiceRate = s.value(QStringLiteral("cluster/voice/rate"), 0).toInt();
@@ -871,7 +880,7 @@ QVariantList ClusterController::assistantRecommendations() const
         candidates.append(c);
     }
     QVariantList out;
-    for (const auto& r : core::dxassistant::rank(candidates, {}, now)) {
+    for (const auto& r : core::dxassistant::rank(candidates, m_assistantPreferences, now)) {
         out << QVariantMap{
             {QStringLiteral("call"), r.candidate.call},
             {QStringLiteral("band"), r.candidate.band},
@@ -883,6 +892,35 @@ QVariantList ClusterController::assistantRecommendations() const
         };
     }
     return out;
+}
+
+QVariantMap ClusterController::assistantPreferences() const
+{
+    return {
+        {QStringLiteral("newEntityWeight"), m_assistantPreferences.newEntityWeight},
+        {QStringLiteral("newBandWeight"), m_assistantPreferences.newBandWeight},
+        {QStringLiteral("newModeWeight"), m_assistantPreferences.newModeWeight},
+        {QStringLiteral("newReferenceWeight"), m_assistantPreferences.newReferenceWeight},
+        {QStringLiteral("propagationWeight"), m_assistantPreferences.propagationWeight},
+        {QStringLiteral("freshnessMinutes"), m_assistantPreferences.freshnessMinutes},
+    };
+}
+
+void ClusterController::setAssistantPreferences(const QVariantMap& preferences)
+{
+    auto bounded = [&](const char* key, int fallback, int low, int high) {
+        return qBound(low, preferences.value(QString::fromLatin1(key), fallback).toInt(), high);
+    };
+    m_assistantPreferences.newEntityWeight = bounded("newEntityWeight", 40, 0, 100);
+    m_assistantPreferences.newBandWeight = bounded("newBandWeight", 25, 0, 100);
+    m_assistantPreferences.newModeWeight = bounded("newModeWeight", 15, 0, 100);
+    m_assistantPreferences.newReferenceWeight = bounded("newReferenceWeight", 20, 0, 100);
+    m_assistantPreferences.propagationWeight = bounded("propagationWeight", 20, 0, 100);
+    m_assistantPreferences.freshnessMinutes = bounded("freshnessMinutes", 30, 1, 240);
+    QSettings().setValue(QStringLiteral("cluster/assistantPreferences"),
+                         QString::fromUtf8(QJsonDocument(QJsonObject::fromVariantMap(assistantPreferences()))
+                                               .toJson(QJsonDocument::Compact)));
+    emit settingsChanged();
 }
 
 void ClusterController::clearSpots()

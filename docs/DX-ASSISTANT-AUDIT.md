@@ -69,6 +69,10 @@ La UI del DX Cluster ora espone il pulsante `DX priorities` e una finestra
 dedicata che mostra nominativo, banda/modo, score, motivazioni e limitazioni.
 La compilazione completa del target `decolog` ha ricreato anche il cache QML di
 `ClusterPanel.qml` senza errori.
+
+I pesi del ranking e la soglia di freschezza sono ora persistenti in
+`cluster/assistantPreferences`, con clamp dei pesi a `0..100` e della soglia a
+`1..240` minuti. Il test controller verifica lettura/scrittura e i limiti.
 ```
 ```
 
@@ -83,6 +87,6 @@ Prima di aggiungere il ranking servono una specifica versionata per:
 5. divieto esplicito di inventare nominativi/QSO e di trasmettere.
 
 La voce resta parzialmente aperta: il nucleo e l'adattatore al cluster sono
-verificati e la UI è presente, ma mancano ancora il collegamento alla
-previsione VOACAP e le preferenze persistenti dell'operatore. La finestra
-indica esplicitamente quando la previsione non è disponibile.
+verificati e la UI è presente. Mancano ancora il collegamento alla previsione
+VOACAP e i controlli grafici dedicati per modificare i pesi senza passare
+dall’API QML.
