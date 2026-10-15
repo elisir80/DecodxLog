@@ -69,3 +69,12 @@ successo sono:
 Le job risultano tutte `completed/success`. Questa evidenza copre la matrice
 dei runner CI, ma non sostituisce l'installazione manuale su una macchina
 pulita o la notarizzazione Developer ID di DXL-008.
+
+## Verifica post-fix QML — run 38824727717
+
+La run CI del commit `4bd7f79` (dopo la correzione di `ClusterPanel.qml`) è
+terminata con successo il 2026-10-15: Cloud `success`, Linux `success` e
+Windows `success`. La durata osservata è stata rispettivamente di circa 0,5,
+10 e 12 minuti. Questa è evidenza reale della matrice Windows/Linux/Cloud per
+il fix QML; le run successive con i test di idempotenza e i timeout CI sono
+ancora in corso.
