@@ -37,3 +37,9 @@ installed, but no Apple ID, team identifier, or app-specific password is
 available in the environment. Therefore no Developer ID/notarization step was
 run or claimed, and the workflow was intentionally left unchanged rather than
 adding an untestable credential path.
+
+The fork secret inventory was checked on 16 October 2026. It contains only
+`DECODXLOG_ELISIR80_RELEASE_SIGNING_KEY`, used for update manifests; no Apple
+certificate, App Store Connect/API key, team identifier, or notarization
+credential is configured. This confirms that the missing evidence is external
+authorization, not an unobserved local workflow failure.
