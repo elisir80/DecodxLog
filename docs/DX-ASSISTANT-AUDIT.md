@@ -28,12 +28,31 @@ Questa riesecuzione conferma le fonti di input, ma non chiude il gap: manca
 ancora il ranking composito con motivazioni, età dei dati e limiti esposti.
 ```
 
-## Gap verificato
+## Gap verificato prima dell'implementazione
 
 Non esiste ancora un assistente unico che combini queste fonti in una classifica
 con punteggio, età del dato, motivazione e limiti. L'attuale cluster mostra
 stati e filtri, ma non dichiara una priorità composita; VOACAP resta una
 previsione separata. Non è stato introdotto alcun TX automatico.
+
+## Implementazione incrementale — 16 ottobre 2026
+
+È stato aggiunto `core::dxassistant::rank`, un nucleo deterministico che riceve
+candidati già osservati, stato rispetto al log, previsione opzionale e orario
+dello spot. Restituisce un punteggio ordinato, motivazioni e limitazioni esplicite.
+Non esegue CAT, non modifica il database e non trasmette.
+
+Il test `tst_dxassistant/ranksWithExplicitReasonsAndLimits` verifica un caso
+nuovo DXCC/banda/referenza con propagazione buona contro un candidato vecchio e
+senza previsione; `neverAddsTransmitOrLogSideEffects` verifica il contratto di
+assenza di effetti collaterali.
+
+```text
+cmake -S . -B build -G Ninja -DDECODXLOG_BUILD_TESTS=ON
+cmake --build build --parallel 4 --target tst_dxassistant
+ctest --test-dir build -R '^dxassistant$' --output-on-failure
+1/1 test superato
+```
 
 ## Criteri per l'implementazione successiva
 
@@ -45,5 +64,7 @@ Prima di aggiungere il ranking servono una specifica versionata per:
 4. formato della spiegazione e dei limiti quando una fonte manca;
 5. divieto esplicito di inventare nominativi/QSO e di trasmettere.
 
-La voce resta aperta: le sorgenti di base sono verificate, ma l'assistente
-spiegabile richiesto non è ancora presente.
+La voce resta parzialmente aperta: il nucleo di ranking è verificato, ma
+mancano ancora l'adattatore al cluster live, il collegamento alla previsione
+VOACAP, le preferenze persistenti dell'operatore e la UI che mostri la
+classifica senza confonderla con osservazioni o previsioni.
