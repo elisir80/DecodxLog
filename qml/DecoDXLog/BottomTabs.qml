@@ -156,24 +156,30 @@ GlassPanel {
                         anchors.margins: 8
                         spacing: 2
                         Text {
+                            width: parent.width
                             text: tile.modelData.title
                             color: tile.modelData.id === "ft2" ? Theme.accentColor : Theme.secondaryColor
                             font.family: Theme.monoFamily
                             font.pixelSize: 11
                             font.bold: true
+                            elide: Text.ElideRight
                         }
                         Text {
+                            width: parent.width
                             text: tile.modelData.worked + (tile.modelData.total > 0 ? " / " + tile.modelData.total : "")
                             color: Theme.textPrimary
                             font.family: Theme.monoFamily
                             font.pixelSize: 15
                             font.bold: true
+                            elide: Text.ElideRight
                         }
                         Text {
+                            width: parent.width
                             text: qsTr("%1 confirmed").arg(tile.modelData.confirmed)
                             color: Theme.textSecondary
                             font.family: Theme.monoFamily
                             font.pixelSize: 10
+                            elide: Text.ElideRight
                         }
                     }
                     MouseArea {
