@@ -283,10 +283,10 @@ private slots:
         QCOMPARE(find(results, "waz").worked(), 3);   // il WAZ non e' dell'ARRL
     }
 
-    void aNewAwardProfileUsesTheOfficialSixtyMeterRule()
+    void aNewAwardProfileCountsSixtyMetersUnlessTheOperatorTurnsThemOff()
     {
         const AwardFilter freshProfile;
-        QVERIFY(!freshProfile.count60m);
+        QVERIFY(freshProfile.count60m);
     }
 
     void satelliteQsosStayInTheLogButDoNotCountForTerrestrialDxccAwards()

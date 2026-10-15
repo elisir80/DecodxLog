@@ -91,6 +91,14 @@
 <context>
     <name>ActivationController</name>
     <message>
+        <source>Activation references cannot contain empty items</source>
+        <translation>I riferimenti di attivazione non possono contenere elementi vuoti</translation>
+    </message>
+    <message>
+        <source>Activation references cannot contain duplicates: %1</source>
+        <translation>I riferimenti di attivazione non possono contenere duplicati: %1</translation>
+    </message>
+    <message>
         <source>Zones</source>
         <translation>Zone</translation>
     </message>
@@ -348,6 +356,10 @@
         <translation>Locatori</translation>
     </message>
     <message>
+        <source>Grid statistics</source>
+        <translation>Statistiche dei locatori</translation>
+    </message>
+    <message>
         <source>Diploma: 30 castles in 5 different regions (20 for stations outside Italy), at least one in the province of Cuneo. So far: %1 in %2 regions, Cuneo %3.</source>
         <translation>Diploma: 30 castelli in 5 regioni diverse (20 per le stazioni fuori d&apos;Italia), almeno uno della provincia di Cuneo. Finora: %1 in %2 regioni, Cuneo %3.</translation>
     </message>
@@ -376,6 +388,10 @@
         <translation>Il riferimento si legge da SIG/SIG_INFO (SIG = %1) o da un commento come &quot;%1 LI-001&quot;.</translation>
     </message>
     <message>
+        <source>Official WAC counts six continents; Antarctica is shown but not counted.</source>
+        <translation>Il WAC ufficiale conta sei continenti; l&apos;Antartide è mostrata ma non contata.</translation>
+    </message>
+    <message>
         <source>QSOs on 60 m are counted here, but the ARRL does not accept them: for the official count switch off &quot;60 m&quot;.</source>
         <translation>Qui i QSO sui 60 m si contano, ma l&apos;ARRL non li accetta: per il conto ufficiale spegni &quot;60 m&quot;.</translation>
     </message>
@@ -393,6 +409,10 @@
             <numerusform>%n QSO con entità cancellate o operazioni non accettate dall&apos;ARRL (Club Log) resta fuori.</numerusform>
             <numerusform>%n QSO con entità cancellate o operazioni non accettate dall&apos;ARRL (Club Log) restano fuori.</numerusform>
         </translation>
+    </message>
+    <message>
+        <source>Satellite QSOs stay in the log but are excluded from terrestrial DXCC/WAS credit.</source>
+        <translation>I QSO via satellite restano nel log ma sono esclusi dal credito DXCC/WAS terrestre.</translation>
     </message>
     <message>
         <source>Diploma: 75 provinces for Italian stations, 60 for the others.</source>
@@ -430,8 +450,24 @@
         <translation>traguardo %1</translation>
     </message>
     <message>
+        <source>statistics · rules not verified</source>
+        <translation>statistiche · regole non verificate</translation>
+    </message>
+    <message>
+        <source>Create claim (%1)</source>
+        <translation>Crea richiesta (%1)</translation>
+    </message>
+    <message>
         <source>worked %1</source>
         <translation>lavorati %1</translation>
+    </message>
+    <message>
+        <source>official rules</source>
+        <translation>regole ufficiali</translation>
+    </message>
+    <message>
+        <source>personal · 60 m</source>
+        <translation>personale · 60 m</translation>
     </message>
     <message>
         <source>band slots %1 / %2</source>
@@ -486,14 +522,6 @@
         <translation>Cartolina</translation>
     </message>
     <message>
-        <source>60 m</source>
-        <translation>60 m</translation>
-    </message>
-    <message>
-        <source>Count QSOs on 60 m in DXCC, DXCC Challenge and WAS too. The ARRL does not accept them: switch off for the official count.</source>
-        <translation>Conta i QSO sui 60 m anche nel DXCC, nel DXCC Challenge e nel WAS. L&apos;ARRL non li accetta: spegni per il conto ufficiale.</translation>
-    </message>
-    <message>
         <source>All stations</source>
         <translation>Tutte le stazioni</translation>
     </message>
@@ -502,8 +530,48 @@
         <translation>Tutte le etichette</translation>
     </message>
     <message>
+        <source>Claims</source>
+        <translation>Richieste</translation>
+    </message>
+    <message>
+        <source>Outcome / note</source>
+        <translation>Esito / nota</translation>
+    </message>
+    <message>
+        <source>Evidence or external reference</source>
+        <translation>Prova o riferimento esterno</translation>
+    </message>
+    <message>
+        <source>Submit</source>
+        <translation>Invia</translation>
+    </message>
+    <message>
+        <source>Verify</source>
+        <translation>Verifica</translation>
+    </message>
+    <message>
+        <source>Reject</source>
+        <translation>Rifiuta</translation>
+    </message>
+    <message>
+        <source>Credit</source>
+        <translation>Accredita</translation>
+    </message>
+    <message>
         <source>Valid for %1</source>
         <translation>Valide per %1</translation>
+    </message>
+    <message>
+        <source>60 m · personal</source>
+        <translation>60 m · personale</translation>
+    </message>
+    <message>
+        <source>60 m · official</source>
+        <translation>60 m · ufficiale</translation>
+    </message>
+    <message>
+        <source>The official ARRL count excludes 60 m. Enable it only for a personal count.</source>
+        <translation>Il conteggio ufficiale ARRL esclude i 60 m. Attivalo solo per un conteggio personale.</translation>
     </message>
     <message>
         <source>chosen by you</source>
@@ -697,6 +765,26 @@
         <translation>Servizio</translation>
     </message>
     <message>
+        <source>Account / profile</source>
+        <translation>Account / profilo</translation>
+    </message>
+    <message>
+        <source>not configured</source>
+        <translation>non configurato</translation>
+    </message>
+    <message>
+        <source>active station</source>
+        <translation>stazione attiva</translation>
+    </message>
+    <message>
+        <source>Integration diagnostics…</source>
+        <translation>Diagnostica delle integrazioni…</translation>
+    </message>
+    <message>
+        <source>Runs locally; no test QSO is uploaded</source>
+        <translation>Gira in locale; nessun QSO di prova viene inviato</translation>
+    </message>
+    <message>
         <source>Download LoTW confirmations</source>
         <translation>Scarica le conferme LoTW</translation>
     </message>
@@ -731,6 +819,30 @@
     <message>
         <source>LoTW: TQSL signs and sends, and the confirmations come back here.</source>
         <translation>LoTW: TQSL firma e invia, e le conferme tornano qui.</translation>
+    </message>
+    <message>
+        <source>Integration diagnostics</source>
+        <translation>Diagnostica delle integrazioni</translation>
+    </message>
+    <message>
+        <source>The checks stay on this computer. The support report is redacted and is saved only after confirmation.</source>
+        <translation>I controlli restano su questo computer. Il rapporto per l&apos;assistenza è oscurato e viene salvato solo dopo conferma.</translation>
+    </message>
+    <message>
+        <source>Approve and save report…</source>
+        <translation>Approva e salva il rapporto…</translation>
+    </message>
+    <message>
+        <source>Save diagnostic support report</source>
+        <translation>Salva il rapporto diagnostico per l&apos;assistenza</translation>
+    </message>
+    <message>
+        <source>Text files (*.txt)</source>
+        <translation>File di testo (*.txt)</translation>
+    </message>
+    <message>
+        <source>All files (*)</source>
+        <translation>Tutti i file (*)</translation>
     </message>
     <message>
         <source>Sent</source>
@@ -2924,6 +3036,73 @@ In Decodium: Settings → Reporting → UDP Server 127.0.0.1, porta %1, e &quot;
     </message>
 </context>
 <context>
+    <name>FirstRunGuide</name>
+    <message>
+        <source>Start with DecoDXLog</source>
+        <translation>Inizia con DecoDXLog</translation>
+    </message>
+    <message>
+        <source>A short path to your first contact</source>
+        <translation>Un breve percorso verso il primo collegamento</translation>
+    </message>
+    <message>
+        <source>You can use DecoDXLog without a radio. Configure CAT only if you want the log to read the frequency and mode automatically.</source>
+        <translation>Puoi usare DecoDXLog senza radio. Configura il CAT solo se vuoi che il log legga da solo la frequenza e il modo.</translation>
+    </message>
+    <message>
+        <source>1  Station profile</source>
+        <translation>1  Profilo stazione</translation>
+    </message>
+    <message>
+        <source>Set your callsign, grid and station details in the profile dialog.</source>
+        <translation>Imposta nominativo, locatore e dati della stazione nella finestra del profilo.</translation>
+    </message>
+    <message>
+        <source>2  Radio (optional)</source>
+        <translation>2  Radio (facoltativa)</translation>
+    </message>
+    <message>
+        <source>In Setup → Radio (CAT), choose the model and connection, then use Find the radio. For a shared CAT connection, enter its host and port instead of opening a second serial connection.</source>
+        <translation>In Impostazioni → Radio (CAT) scegli il modello e la connessione, poi usa Trova la radio. Per una connessione CAT condivisa, inserisci il suo host e la porta invece di aprire una seconda seriale.</translation>
+    </message>
+    <message>
+        <source>3  First QSO</source>
+        <translation>3  Primo QSO</translation>
+    </message>
+    <message>
+        <source>Open New QSO, enter a callsign and the required fields, then press Ctrl+Enter or Register. The local log remains usable if CAT or an online service is unavailable.</source>
+        <translation>Apri Nuovo QSO, inserisci un nominativo e i campi richiesti, poi premi Ctrl+Invio o Registra. Il log locale resta utilizzabile anche se il CAT o un servizio online non è disponibile.</translation>
+    </message>
+    <message>
+        <source>This guide appears once when the log is empty; the normal setup and New QSO shortcuts remain available afterwards.</source>
+        <translation>Questa guida compare una sola volta, quando il log è vuoto; poi restano le normali scorciatoie di impostazione e Nuovo QSO.</translation>
+    </message>
+    <message>
+        <source>Configure radio</source>
+        <translation>Configura la radio</translation>
+    </message>
+    <message>
+        <source>Open radio and CAT setup</source>
+        <translation>Apri le impostazioni radio e CAT</translation>
+    </message>
+    <message>
+        <source>Open New QSO</source>
+        <translation>Apri Nuovo QSO</translation>
+    </message>
+    <message>
+        <source>Open the new QSO form</source>
+        <translation>Apri la scheda del nuovo QSO</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation>Chiudi</translation>
+    </message>
+    <message>
+        <source>Close the first-run guide</source>
+        <translation>Chiudi la guida di primo avvio</translation>
+    </message>
+</context>
+<context>
     <name>FlrigControl</name>
     <message>
         <source>connecting to flrig at %1…</source>
@@ -3063,6 +3242,70 @@ In Decodium: Settings → Reporting → UDP Server 127.0.0.1, porta %1, e &quot;
     <message>
         <source>The backup could not take the place of the log; the log as it was is back.</source>
         <translation>La copia non ha potuto prendere il posto del log; il log com&apos;era è tornato.</translation>
+    </message>
+    <message>
+        <source>The SQLite copy cannot be included: %1</source>
+        <translation>Non è possibile includere la copia SQLite: %1</translation>
+    </message>
+    <message>
+        <source>The bundle destination already exists.</source>
+        <translation>La destinazione del pacchetto esiste già.</translation>
+    </message>
+    <message>
+        <source>The SQLite copy could not be copied into the bundle.</source>
+        <translation>Non è stato possibile copiare la copia SQLite nel pacchetto.</translation>
+    </message>
+    <message>
+        <source>Portable settings could not be written to the backup bundle.</source>
+        <translation>Non è stato possibile scrivere le impostazioni portatili nel pacchetto di backup.</translation>
+    </message>
+    <message>
+        <source>Unsafe resource path in backup bundle: %1</source>
+        <translation>Percorso di risorsa non sicuro nel pacchetto di backup: %1</translation>
+    </message>
+    <message>
+        <source>Resource could not be copied into the bundle: %1</source>
+        <translation>Non è stato possibile copiare la risorsa nel pacchetto: %1</translation>
+    </message>
+    <message>
+        <source>The backup bundle manifest could not be written.</source>
+        <translation>Non è stato possibile scrivere il manifesto del pacchetto di backup.</translation>
+    </message>
+    <message>
+        <source>The backup bundle could not be committed atomically.</source>
+        <translation>Non è stato possibile completare il pacchetto di backup in modo atomico.</translation>
+    </message>
+    <message>
+        <source>The backup bundle has no readable manifest.</source>
+        <translation>Il pacchetto di backup non ha un manifesto leggibile.</translation>
+    </message>
+    <message>
+        <source>The backup bundle format is not supported.</source>
+        <translation>Il formato del pacchetto di backup non è supportato.</translation>
+    </message>
+    <message>
+        <source>The backup bundle manifest is incomplete.</source>
+        <translation>Il manifesto del pacchetto di backup è incompleto.</translation>
+    </message>
+    <message>
+        <source>The bundle resources could not be staged.</source>
+        <translation>Non è stato possibile preparare le risorse del pacchetto.</translation>
+    </message>
+    <message>
+        <source>The bundle resource is missing: %1</source>
+        <translation>Manca la risorsa del pacchetto: %1</translation>
+    </message>
+    <message>
+        <source>Portable settings could not be read from the backup bundle.</source>
+        <translation>Non è stato possibile leggere le impostazioni portatili dal pacchetto di backup.</translation>
+    </message>
+    <message>
+        <source>The bundle resource could not be staged: %1</source>
+        <translation>Non è stato possibile preparare la risorsa del pacchetto: %1</translation>
+    </message>
+    <message>
+        <source>The bundle resource could not be restored: %1</source>
+        <translation>Non è stato possibile ripristinare la risorsa del pacchetto: %1</translation>
     </message>
     <message>
         <source>DecoDXLog did not close in time: the log was not touched.</source>
@@ -3846,6 +4089,26 @@ Aprilo una volta in DecoDXLog per aggiornarlo.</translation>
         <translation>agganciato</translation>
     </message>
     <message>
+        <source>Beginner</source>
+        <translation>Principiante</translation>
+    </message>
+    <message>
+        <source>DX</source>
+        <translation>DX</translation>
+    </message>
+    <message>
+        <source>Digital</source>
+        <translation>Digitale</translation>
+    </message>
+    <message>
+        <source>Contest</source>
+        <translation>Contest</translation>
+    </message>
+    <message>
+        <source>Portable</source>
+        <translation>Portatile</translation>
+    </message>
+    <message>
         <source>Import a log</source>
         <translation>Importa un log</translation>
     </message>
@@ -3870,6 +4133,36 @@ Aprilo una volta in DecoDXLog per aggiornarlo.</translation>
         <translation>Tutti i file (*)</translation>
     </message>
     <message>
+        <source>Import preview</source>
+        <translation>Anteprima dell&apos;importazione</translation>
+    </message>
+    <message>
+        <source>%1 records read from %2.
+Estimated result: %3 new · %4 duplicates · %5 rejected.
+QSL status: %6 · incomplete UTC: %7.
+Extra fields are preserved: %8</source>
+        <translation>%1 record letti da %2.
+Risultato stimato: %3 nuovi · %4 duplicati · %5 scartati.
+Stato QSL: %6 · UTC incompleto: %7.
+Campi extra conservati: %8</translation>
+    </message>
+    <message>
+        <source>none</source>
+        <translation>nessuno</translation>
+    </message>
+    <message>
+        <source>Cannot preview this import: %1</source>
+        <translation>Impossibile mostrare l&apos;anteprima di questa importazione: %1</translation>
+    </message>
+    <message>
+        <source>unknown error</source>
+        <translation>errore sconosciuto</translation>
+    </message>
+    <message>
+        <source>Records with incomplete UTC will be rejected during import.</source>
+        <translation>I record con UTC incompleto saranno scartati durante l&apos;importazione.</translation>
+    </message>
+    <message>
         <source>Export ADIF</source>
         <translation>Esporta ADIF</translation>
     </message>
@@ -3892,6 +4185,14 @@ Aprilo una volta in DecoDXLog per aggiornarlo.</translation>
     <message>
         <source>Detach it into its own window</source>
         <translation>Staccalo in una finestra sua</translation>
+    </message>
+    <message>
+        <source>Operational presets</source>
+        <translation>Preimpostazioni operative</translation>
+    </message>
+    <message>
+        <source>Choose a starting layout; your current layout is changed only after selection.</source>
+        <translation>Scegli una disposizione di partenza; quella attuale cambia solo dopo la scelta.</translation>
     </message>
     <message>
         <source>Restore the default layout</source>
@@ -5261,6 +5562,18 @@ Aprilo una volta in DecoDXLog per aggiornarlo.</translation>
         <translation>File ADIF (*.adi)</translation>
     </message>
     <message>
+        <source>Import received QSL scan or image</source>
+        <translation>Importa scansione o immagine di una QSL ricevuta</translation>
+    </message>
+    <message>
+        <source>Images and documents (*.png *.jpg *.jpeg *.webp *.pdf)</source>
+        <translation>Immagini e documenti (*.png *.jpg *.jpeg *.webp *.pdf)</translation>
+    </message>
+    <message>
+        <source>All files (*)</source>
+        <translation>Tutti i file (*)</translation>
+    </message>
+    <message>
         <source>Delete %1? The QSO stays in the history and can be recovered.</source>
         <translation>Elimino %1? Il QSO resta nello storico e si può recuperare.</translation>
     </message>
@@ -5499,6 +5812,46 @@ Aprilo una volta in DecoDXLog per aggiornarlo.</translation>
     <message>
         <source>QSL status · per service</source>
         <translation>Stato QSL · per servizio</translation>
+    </message>
+    <message>
+        <source>Received QSL archive</source>
+        <translation>Archivio delle QSL ricevute</translation>
+    </message>
+    <message>
+        <source>QSL manager: %1 · %2 · %3</source>
+        <translation>Manager QSL: %1 · %2 · %3</translation>
+    </message>
+    <message>
+        <source>unknown source</source>
+        <translation>origine sconosciuta</translation>
+    </message>
+    <message>
+        <source>Import scan or image…</source>
+        <translation>Importa scansione o immagine…</translation>
+    </message>
+    <message>
+        <source>Not a confirmation by itself</source>
+        <translation>Non è una conferma da sola</translation>
+    </message>
+    <message>
+        <source>%1 KB</source>
+        <translation>%1 KB</translation>
+    </message>
+    <message>
+        <source>Data provenance</source>
+        <translation>Provenienza dei dati</translation>
+    </message>
+    <message>
+        <source>empty</source>
+        <translation>vuoto</translation>
+    </message>
+    <message>
+        <source>Undo</source>
+        <translation>Annulla l&apos;ultima azione</translation>
+    </message>
+    <message>
+        <source>No enriched fields recorded.</source>
+        <translation>Nessun campo arricchito registrato.</translation>
     </message>
     <message>
         <source>Award impact</source>
@@ -5814,12 +6167,12 @@ Aprilo una volta in DecoDXLog per aggiornarlo.</translation>
         <translation>Scegli un backup</translation>
     </message>
     <message>
-        <source>DecoDXLog logs (*.sqlite)</source>
-        <translation>Log di DecoDXLog (*.sqlite)</translation>
-    </message>
-    <message>
         <source>All files (*)</source>
         <translation>Tutti i file (*)</translation>
+    </message>
+    <message>
+        <source>DecoDXLog backups (*.sqlite *.bundle)</source>
+        <translation>Backup di DecoDXLog (*.sqlite *.bundle)</translation>
     </message>
     <message numerus="yes">
         <source>Log now: %1 · %n QSO · last %2</source>
@@ -7212,6 +7565,10 @@ Aprilo una volta in DecoDXLog per aggiornarlo.</translation>
         <translation>A sinistra quello che mostra il tasto, a destra quello che va in aria ({CALL}, {MYCALL}, {RST}, {NR}, {EXCH}). Le prime dodici vanno sui tasti F1-F12, Esc ferma. Sono anche nel pannello CW (Macro…, o tasto destro su un tasto).</translation>
     </message>
     <message>
+        <source>Radio 1 is the one above; radio 2 is connected here. In the contest entry the radio with the focus gets the band, the tuning and the CW: Ctrl+← and Ctrl+→ choose radio 1 or 2, Pause swaps them, ` (backquote) toggles stereo listening. The SO2R box (MK2R, SO2RDuino, YCCC…) follows through OTRSP: TX1/TX2 for the transmitter, RX1/RX2 or RX1S/RX2S for the headphones. Software focus is not an RF interlock: use the hardware interlock and verify the actual station wiring before transmitting.</source>
+        <translation>La radio 1 è quella qui sopra; la radio 2 è collegata qui. Nell&apos;inserimento del contest la radio con il fuoco riceve la banda, la sintonia e il CW: Ctrl+← e Ctrl+→ scelgono la radio 1 o 2, Pausa le scambia, ` (apice inverso) attiva o disattiva l&apos;ascolto stereo. La scatola SO2R (MK2R, SO2RDuino, YCCC…) segue tramite OTRSP: TX1/TX2 per il trasmettitore, RX1/RX2 o RX1S/RX2S per le cuffie. Il fuoco del software non è un interblocco RF: usa l&apos;interblocco hardware e verifica i collegamenti reali della stazione prima di trasmettere.</translation>
+    </message>
+    <message>
         <source>Antenna rotor</source>
         <translation>Rotore d&apos;antenna</translation>
     </message>
@@ -7738,10 +8095,6 @@ Aprilo una volta in DecoDXLog per aggiornarlo.</translation>
     <message>
         <source>SO2R box port not open</source>
         <translation>Porta della scatola SO2R non aperta</translation>
-    </message>
-    <message>
-        <source>Radio 1 is the one above; radio 2 is connected here. In the contest entry the radio with the focus gets the band, the tuning and the CW: Ctrl+← and Ctrl+→ choose radio 1 or 2, Pause swaps them, ` (backquote) toggles stereo listening. The SO2R box (MK2R, SO2RDuino, YCCC…) follows through OTRSP: TX1/TX2 for the transmitter, RX1/RX2 or RX1S/RX2S for the headphones.</source>
-        <translation>La radio 1 è quella qui sopra; la radio 2 si collega qui. Nell&apos;inserimento del contest la radio col fuoco prende la banda, la sintonia e il CW: Ctrl+← e Ctrl+→ scelgono la radio 1 o 2, Pausa le scambia, ` (accento grave) accende e spegne l&apos;ascolto stereo. La scatola SO2R (MK2R, SO2RDuino, YCCC…) segue con OTRSP: TX1/TX2 per il trasmettitore, RX1/RX2 o RX1S/RX2S per le cuffie.</translation>
     </message>
     <message>
         <source>The control box, directly (built-in gateway)</source>
@@ -9252,6 +9605,10 @@ Aprilo una volta in DecoDXLog per aggiornarlo.</translation>
         <translation>In questa sessione non c&apos;è ancora nessun QSO</translation>
     </message>
     <message>
+        <source>Cabrillo export is unavailable: this contest has no verified rule sheet</source>
+        <translation>L&apos;esportazione Cabrillo non è disponibile: questo contest non ha un regolamento verificato</translation>
+    </message>
+    <message>
         <source>Nothing to write</source>
         <translation>Non c&apos;è niente da scrivere</translation>
     </message>
@@ -9756,6 +10113,10 @@ Aprilo una volta in DecoDXLog per aggiornarlo.</translation>
         <translation>nessun callbook impostato: Impostazioni → Callbook</translation>
     </message>
     <message>
+        <source>Could not record provenance for QSO %1</source>
+        <translation>Impossibile registrare la provenienza del QSO %1</translation>
+    </message>
+    <message>
         <source>radio (CAT)</source>
         <translation>radio (CAT)</translation>
     </message>
@@ -9893,6 +10254,114 @@ Aprilo una volta in DecoDXLog per aggiornarlo.</translation>
             <numerusform>Già nel log (entro %n minuto)</numerusform>
             <numerusform>Già nel log (entro %n minuti)</numerusform>
         </translation>
+    </message>
+    <message>
+        <source>Cannot read attachment: %1</source>
+        <translation>Impossibile leggere l&apos;allegato: %1</translation>
+    </message>
+    <message>
+        <source>Choose at least one QSO and a non-empty file</source>
+        <translation>Scegli almeno un QSO e un file non vuoto</translation>
+    </message>
+    <message>
+        <source>Cannot store QSL attachment</source>
+        <translation>Impossibile memorizzare l&apos;allegato QSL</translation>
+    </message>
+    <message>
+        <source>Attached %1 to %n QSO(s)</source>
+        <translation>Allegato %1 a %n QSO</translation>
+    </message>
+    <message>
+        <source>Attachment not found</source>
+        <translation>Allegato non trovato</translation>
+    </message>
+    <message>
+        <source>Cannot write attachment</source>
+        <translation>Impossibile scrivere l&apos;allegato</translation>
+    </message>
+    <message>
+        <source>Receive</source>
+        <translation>Ricezione</translation>
+    </message>
+    <message>
+        <source>Decodium connection is active</source>
+        <translation>La connessione con Decodium è attiva</translation>
+    </message>
+    <message>
+        <source>No Decodium client is connected</source>
+        <translation>Nessun client Decodium è collegato</translation>
+    </message>
+    <message>
+        <source>Parse</source>
+        <translation>Lettura</translation>
+    </message>
+    <message>
+        <source>ADIF parser is available</source>
+        <translation>Il lettore ADIF è disponibile</translation>
+    </message>
+    <message>
+        <source>Deduplicate</source>
+        <translation>Duplicati</translation>
+    </message>
+    <message>
+        <source>Duplicate protection is enabled</source>
+        <translation>La protezione dai duplicati è attiva</translation>
+    </message>
+    <message>
+        <source>Save</source>
+        <translation>Salva</translation>
+    </message>
+    <message>
+        <source>Local log is open</source>
+        <translation>Il log locale è aperto</translation>
+    </message>
+    <message>
+        <source>No local log is open</source>
+        <translation>Nessun log locale è aperto</translation>
+    </message>
+    <message>
+        <source>QSL</source>
+        <translation>QSL</translation>
+    </message>
+    <message>
+        <source>%1 QSL service(s) ready; diagnostic mode never uploads</source>
+        <translation>%1 servizi QSL pronti; la modalità diagnostica non invia mai nulla</translation>
+    </message>
+    <message>
+        <source>Choose a file first</source>
+        <translation>Scegli prima un file</translation>
+    </message>
+    <message>
+        <source>Cannot write diagnostic report: %1</source>
+        <translation>Impossibile scrivere il rapporto diagnostico: %1</translation>
+    </message>
+    <message>
+        <source>Cannot save diagnostic report</source>
+        <translation>Impossibile salvare il rapporto diagnostico</translation>
+    </message>
+    <message>
+        <source>No QSL manager is recorded for this QSO</source>
+        <translation>Nessun manager QSL registrato per questo QSO</translation>
+    </message>
+    <message>
+        <source>entered in the QSO</source>
+        <translation>inserito nel QSO</translation>
+    </message>
+    <message>
+        <source>no unconfirmed service is recorded</source>
+        <translation>nessun servizio non confermato registrato</translation>
+    </message>
+    <message>
+        <source>potentially useful for: %1</source>
+        <translation>potenzialmente utile per: %1</translation>
+    </message>
+    <message>
+        <source>Manager %1 may be outdated; verify the route before sending; %2</source>
+        <translation>Il manager %1 potrebbe non essere aggiornato; verifica il percorso prima di spedire; %2</translation>
+    </message>
+    <message>
+        <source>Manager %1 could resolve the paper QSL for this QSO; %2; review and approve the route</source>
+        <translation>Il manager %1 potrebbe gestire la QSL cartacea di questo QSO; %2; controlla e approva il percorso</translation>
     </message>
     <message>
         <source>This column cannot be edited here: open the QSO card</source>
@@ -10197,8 +10666,20 @@ Aprilo una volta in DecoDXLog per aggiornarlo.</translation>
         <translation>Importo %1…</translation>
     </message>
     <message>
-        <source>%1: %2 new, %3 duplicates, %4 rejected</source>
-        <translation>%1: %2 nuovi, %3 duplicati, %4 scartati</translation>
+        <source>%1: %2 read, %3 new, %4 duplicates, %5 rejected, %6 with QSL status</source>
+        <translation>%1: %2 letti, %3 nuovi, %4 duplicati, %5 scartati, %6 con stato QSL</translation>
+    </message>
+    <message>
+        <source>%1 record(s) had no complete UTC date/time</source>
+        <translation>%1 record senza data/ora UTC completa</translation>
+    </message>
+    <message>
+        <source>Preserved unmapped ADIF fields: %1</source>
+        <translation>Campi ADIF non mappati conservati: %1</translation>
+    </message>
+    <message>
+        <source>Undid the last import: %1 QSO(s) moved to the recycle history.</source>
+        <translation>Ultima importazione annullata: %1 QSO spostati nella cronologia del cestino.</translation>
     </message>
     <message>
         <source>Cannot write %1: %2</source>
@@ -10518,6 +10999,10 @@ Aprilo una volta in DecoDXLog per aggiornarlo.</translation>
         <source>%1 joined the network</source>
         <translation>%1 è entrato nella rete</translation>
     </message>
+    <message>
+        <source>Serial collision detected: %1 was already assigned locally; verify the contest log</source>
+        <translation>Collisione di numero progressivo: %1 era già stato assegnato in locale; controlla il log del contest</translation>
+    </message>
 </context>
 <context>
     <name>decolog::app::QslCardController</name>
@@ -10804,6 +11289,14 @@ Aprilo una volta in DecoDXLog per aggiornarlo.</translation>
             <numerusform>TQSL pronto · %n station location</numerusform>
             <numerusform>TQSL pronto · %n station location</numerusform>
         </translation>
+    </message>
+    <message>
+        <source>not configured</source>
+        <translation>non configurato</translation>
+    </message>
+    <message>
+        <source>active station</source>
+        <translation>stazione attiva</translation>
     </message>
     <message>
         <source>no credentials: Setup → QSL services</source>

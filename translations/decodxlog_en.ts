@@ -91,6 +91,14 @@
 <context>
     <name>ActivationController</name>
     <message>
+        <source>Activation references cannot contain empty items</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Activation references cannot contain duplicates: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Zones</source>
         <translation type="unfinished"></translation>
     </message>
@@ -348,6 +356,10 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Grid statistics</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Diploma: 30 castles in 5 different regions (20 for stations outside Italy), at least one in the province of Cuneo. So far: %1 in %2 regions, Cuneo %3.</source>
         <translation>Diploma: 30 castles in 5 different regions (20 for stations outside Italy), at least one in the province of Cuneo. So far: %1 in %2 regions, Cuneo %3.</translation>
     </message>
@@ -376,6 +388,10 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Official WAC counts six continents; Antarctica is shown but not counted.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>QSOs on 60 m are counted here, but the ARRL does not accept them: for the official count switch off &quot;60 m&quot;.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -393,6 +409,10 @@
             <numerusform></numerusform>
             <numerusform></numerusform>
         </translation>
+    </message>
+    <message>
+        <source>Satellite QSOs stay in the log but are excluded from terrestrial DXCC/WAS credit.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Diploma: 75 provinces for Italian stations, 60 for the others.</source>
@@ -430,7 +450,23 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>statistics · rules not verified</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Create claim (%1)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>worked %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>official rules</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>personal · 60 m</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -486,14 +522,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>60 m</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Count QSOs on 60 m in DXCC, DXCC Challenge and WAS too. The ARRL does not accept them: switch off for the official count.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>All stations</source>
         <translation type="unfinished"></translation>
     </message>
@@ -502,7 +530,47 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Claims</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Outcome / note</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Evidence or external reference</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Submit</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Verify</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Reject</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Credit</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Valid for %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>60 m · personal</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>60 m · official</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The official ARRL count excludes 60 m. Enable it only for a personal count.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -697,6 +765,26 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Account / profile</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>not configured</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>active station</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Integration diagnostics…</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Runs locally; no test QSO is uploaded</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Download LoTW confirmations</source>
         <translation type="unfinished"></translation>
     </message>
@@ -730,6 +818,30 @@
     </message>
     <message>
         <source>LoTW: TQSL signs and sends, and the confirmations come back here.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Integration diagnostics</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The checks stay on this computer. The support report is redacted and is saved only after confirmation.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Approve and save report…</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Save diagnostic support report</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Text files (*.txt)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>All files (*)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2921,6 +3033,73 @@ In Decodium: Settings → Reporting → UDP Server 127.0.0.1, port %1, and &quot
     </message>
 </context>
 <context>
+    <name>FirstRunGuide</name>
+    <message>
+        <source>Start with DecoDXLog</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>A short path to your first contact</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You can use DecoDXLog without a radio. Configure CAT only if you want the log to read the frequency and mode automatically.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>1  Station profile</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Set your callsign, grid and station details in the profile dialog.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>2  Radio (optional)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>In Setup → Radio (CAT), choose the model and connection, then use Find the radio. For a shared CAT connection, enter its host and port instead of opening a second serial connection.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>3  First QSO</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Open New QSO, enter a callsign and the required fields, then press Ctrl+Enter or Register. The local log remains usable if CAT or an online service is unavailable.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This guide appears once when the log is empty; the normal setup and New QSO shortcuts remain available afterwards.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Configure radio</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Open radio and CAT setup</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Open New QSO</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Open the new QSO form</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation type="unfinished">Close</translation>
+    </message>
+    <message>
+        <source>Close the first-run guide</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>FlrigControl</name>
     <message>
         <source>connecting to flrig at %1…</source>
@@ -3059,6 +3238,70 @@ In Decodium: Settings → Reporting → UDP Server 127.0.0.1, port %1, and &quot
     </message>
     <message>
         <source>The backup could not take the place of the log; the log as it was is back.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The SQLite copy cannot be included: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The bundle destination already exists.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The SQLite copy could not be copied into the bundle.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Portable settings could not be written to the backup bundle.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unsafe resource path in backup bundle: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Resource could not be copied into the bundle: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The backup bundle manifest could not be written.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The backup bundle could not be committed atomically.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The backup bundle has no readable manifest.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The backup bundle format is not supported.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The backup bundle manifest is incomplete.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The bundle resources could not be staged.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The bundle resource is missing: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Portable settings could not be read from the backup bundle.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The bundle resource could not be staged: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The bundle resource could not be restored: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3842,6 +4085,26 @@ Open it once in DecoDXLog to bring it up to date.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Beginner</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>DX</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Digital</source>
+        <translation type="unfinished">Digital</translation>
+    </message>
+    <message>
+        <source>Contest</source>
+        <translation type="unfinished">Contest</translation>
+    </message>
+    <message>
+        <source>Portable</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Import a log</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3866,6 +4129,33 @@ Open it once in DecoDXLog to bring it up to date.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Import preview</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1 records read from %2.
+Estimated result: %3 new · %4 duplicates · %5 rejected.
+QSL status: %6 · incomplete UTC: %7.
+Extra fields are preserved: %8</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>none</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot preview this import: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>unknown error</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Records with incomplete UTC will be rejected during import.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Export ADIF</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3887,6 +4177,14 @@ Open it once in DecoDXLog to bring it up to date.</source>
     </message>
     <message>
         <source>Detach it into its own window</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Operational presets</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Choose a starting layout; your current layout is changed only after selection.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -5257,6 +5555,18 @@ Open it once in DecoDXLog to bring it up to date.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Import received QSL scan or image</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Images and documents (*.png *.jpg *.jpeg *.webp *.pdf)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>All files (*)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Delete %1? The QSO stays in the history and can be recovered.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5494,6 +5804,46 @@ Open it once in DecoDXLog to bring it up to date.</source>
     </message>
     <message>
         <source>QSL status · per service</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Received QSL archive</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>QSL manager: %1 · %2 · %3</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>unknown source</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Import scan or image…</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Not a confirmation by itself</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1 KB</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Data provenance</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>empty</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Undo</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>No enriched fields recorded.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -5810,11 +6160,11 @@ Open it once in DecoDXLog to bring it up to date.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>DecoDXLog logs (*.sqlite)</source>
-        <translation type="unfinished">DecoDXLog logs (*.sqlite)</translation>
+        <source>All files (*)</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>All files (*)</source>
+        <source>DecoDXLog backups (*.sqlite *.bundle)</source>
         <translation type="unfinished"></translation>
     </message>
     <message numerus="yes">
@@ -7208,6 +7558,10 @@ Open it once in DecoDXLog to bring it up to date.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Radio 1 is the one above; radio 2 is connected here. In the contest entry the radio with the focus gets the band, the tuning and the CW: Ctrl+← and Ctrl+→ choose radio 1 or 2, Pause swaps them, ` (backquote) toggles stereo listening. The SO2R box (MK2R, SO2RDuino, YCCC…) follows through OTRSP: TX1/TX2 for the transmitter, RX1/RX2 or RX1S/RX2S for the headphones. Software focus is not an RF interlock: use the hardware interlock and verify the actual station wiring before transmitting.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Antenna rotor</source>
         <translation type="unfinished"></translation>
     </message>
@@ -7733,10 +8087,6 @@ Open it once in DecoDXLog to bring it up to date.</source>
     </message>
     <message>
         <source>SO2R box port not open</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Radio 1 is the one above; radio 2 is connected here. In the contest entry the radio with the focus gets the band, the tuning and the CW: Ctrl+← and Ctrl+→ choose radio 1 or 2, Pause swaps them, ` (backquote) toggles stereo listening. The SO2R box (MK2R, SO2RDuino, YCCC…) follows through OTRSP: TX1/TX2 for the transmitter, RX1/RX2 or RX1S/RX2S for the headphones.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -9248,6 +9598,10 @@ Open it once in DecoDXLog to bring it up to date.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Cabrillo export is unavailable: this contest has no verified rule sheet</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Nothing to write</source>
         <translation type="unfinished"></translation>
     </message>
@@ -9752,6 +10106,10 @@ Open it once in DecoDXLog to bring it up to date.</source>
         <translation>no callbook is set up: Setup -&gt; Callbook</translation>
     </message>
     <message>
+        <source>Could not record provenance for QSO %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>radio (CAT)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -9889,6 +10247,114 @@ Open it once in DecoDXLog to bring it up to date.</source>
             <numerusform></numerusform>
             <numerusform></numerusform>
         </translation>
+    </message>
+    <message>
+        <source>Cannot read attachment: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Choose at least one QSO and a non-empty file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot store QSL attachment</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Attached %1 to %n QSO(s)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Attachment not found</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot write attachment</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Receive</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Decodium connection is active</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>No Decodium client is connected</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Parse</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>ADIF parser is available</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Deduplicate</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Duplicate protection is enabled</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Save</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Local log is open</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>No local log is open</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>QSL</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1 QSL service(s) ready; diagnostic mode never uploads</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Choose a file first</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot write diagnostic report: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot save diagnostic report</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>No QSL manager is recorded for this QSO</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>entered in the QSO</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>no unconfirmed service is recorded</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>potentially useful for: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Manager %1 may be outdated; verify the route before sending; %2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Manager %1 could resolve the paper QSL for this QSO; %2; review and approve the route</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>This column cannot be edited here: open the QSO card</source>
@@ -10193,7 +10659,19 @@ Open it once in DecoDXLog to bring it up to date.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>%1: %2 new, %3 duplicates, %4 rejected</source>
+        <source>%1: %2 read, %3 new, %4 duplicates, %5 rejected, %6 with QSL status</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1 record(s) had no complete UTC date/time</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Preserved unmapped ADIF fields: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Undid the last import: %1 QSO(s) moved to the recycle history.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -10514,6 +10992,10 @@ Open it once in DecoDXLog to bring it up to date.</source>
         <source>%1 joined the network</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Serial collision detected: %1 was already assigned locally; verify the contest log</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>decolog::app::QslCardController</name>
@@ -10800,6 +11282,14 @@ Open it once in DecoDXLog to bring it up to date.</source>
             <numerusform></numerusform>
             <numerusform></numerusform>
         </translation>
+    </message>
+    <message>
+        <source>not configured</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>active station</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>no credentials: Setup → QSL services</source>

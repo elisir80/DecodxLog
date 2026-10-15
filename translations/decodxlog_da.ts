@@ -91,6 +91,14 @@
 <context>
     <name>ActivationController</name>
     <message>
+        <source>Activation references cannot contain empty items</source>
+        <translation>Aktiveringsreferencer må ikke indeholde tomme elementer</translation>
+    </message>
+    <message>
+        <source>Activation references cannot contain duplicates: %1</source>
+        <translation>Aktiveringsreferencer må ikke indeholde dubletter: %1</translation>
+    </message>
+    <message>
         <source>Zones</source>
         <translation>Zoner</translation>
     </message>
@@ -348,6 +356,10 @@
         <translation>Gitre</translation>
     </message>
     <message>
+        <source>Grid statistics</source>
+        <translation>Locator-statistik</translation>
+    </message>
+    <message>
         <source>Diploma: 30 castles in 5 different regions (20 for stations outside Italy), at least one in the province of Cuneo. So far: %1 in %2 regions, Cuneo %3.</source>
         <translation>Diplom: 30 borge i 5 forskellige regioner (20 for stationer uden for Italien), mindst én i provinsen Cuneo. Indtil nu: %1 i %2 regioner, Cuneo %3.</translation>
     </message>
@@ -376,6 +388,10 @@
         <translation>Referencen læses fra SIG/SIG_INFO (SIG = %1) eller fra en kommentar som &quot;%1 LI-001&quot;.</translation>
     </message>
     <message>
+        <source>Official WAC counts six continents; Antarctica is shown but not counted.</source>
+        <translation>Det officielle WAC tæller seks kontinenter; Antarktis vises, men tælles ikke med.</translation>
+    </message>
+    <message>
         <source>QSOs on 60 m are counted here, but the ARRL does not accept them: for the official count switch off &quot;60 m&quot;.</source>
         <translation>QSO&apos;er på 60 m tælles med her, men ARRL accepterer dem ikke: slå &quot;60 m&quot; fra for den officielle optælling.</translation>
     </message>
@@ -393,6 +409,10 @@
             <numerusform>%n QSO med slettede entiteter eller operationer, som ARRL ikke anerkender (Club Log), udelades.</numerusform>
             <numerusform>%n QSO&apos;er med slettede entiteter eller operationer, som ARRL ikke anerkender (Club Log), udelades.</numerusform>
         </translation>
+    </message>
+    <message>
+        <source>Satellite QSOs stay in the log but are excluded from terrestrial DXCC/WAS credit.</source>
+        <translation>Satellit-QSO&apos;er bliver i loggen, men er udelukket fra den terrestriske DXCC/WAS-kredit.</translation>
     </message>
     <message>
         <source>Diploma: 75 provinces for Italian stations, 60 for the others.</source>
@@ -430,8 +450,24 @@
         <translation>mål %1</translation>
     </message>
     <message>
+        <source>statistics · rules not verified</source>
+        <translation>statistik · regler ikke verificeret</translation>
+    </message>
+    <message>
+        <source>Create claim (%1)</source>
+        <translation>Opret krav (%1)</translation>
+    </message>
+    <message>
         <source>worked %1</source>
         <translation>kørt %1</translation>
+    </message>
+    <message>
+        <source>official rules</source>
+        <translation>officielle regler</translation>
+    </message>
+    <message>
+        <source>personal · 60 m</source>
+        <translation>personlig · 60 m</translation>
     </message>
     <message>
         <source>band slots %1 / %2</source>
@@ -486,14 +522,6 @@
         <translation>Kort</translation>
     </message>
     <message>
-        <source>60 m</source>
-        <translation>60 m</translation>
-    </message>
-    <message>
-        <source>Count QSOs on 60 m in DXCC, DXCC Challenge and WAS too. The ARRL does not accept them: switch off for the official count.</source>
-        <translation>Tæl også QSO&apos;er på 60 m med i DXCC, DXCC Challenge og WAS. ARRL accepterer dem ikke: slå fra for den officielle optælling.</translation>
-    </message>
-    <message>
         <source>All stations</source>
         <translation>Alle stationer</translation>
     </message>
@@ -502,8 +530,48 @@
         <translation>Alle mærkater</translation>
     </message>
     <message>
+        <source>Claims</source>
+        <translation>Krav</translation>
+    </message>
+    <message>
+        <source>Outcome / note</source>
+        <translation>Udfald / note</translation>
+    </message>
+    <message>
+        <source>Evidence or external reference</source>
+        <translation>Bevis eller ekstern reference</translation>
+    </message>
+    <message>
+        <source>Submit</source>
+        <translation>Indsend</translation>
+    </message>
+    <message>
+        <source>Verify</source>
+        <translation>Verificér</translation>
+    </message>
+    <message>
+        <source>Reject</source>
+        <translation>Afvis</translation>
+    </message>
+    <message>
+        <source>Credit</source>
+        <translation>Godskriv</translation>
+    </message>
+    <message>
         <source>Valid for %1</source>
         <translation>Gælder for %1</translation>
+    </message>
+    <message>
+        <source>60 m · personal</source>
+        <translation>60 m · personlig</translation>
+    </message>
+    <message>
+        <source>60 m · official</source>
+        <translation>60 m · officiel</translation>
+    </message>
+    <message>
+        <source>The official ARRL count excludes 60 m. Enable it only for a personal count.</source>
+        <translation>Den officielle ARRL-optælling udelukker 60 m. Slå det kun til for en personlig optælling.</translation>
     </message>
     <message>
         <source>chosen by you</source>
@@ -697,6 +765,26 @@
         <translation>Tjeneste</translation>
     </message>
     <message>
+        <source>Account / profile</source>
+        <translation>Konto / profil</translation>
+    </message>
+    <message>
+        <source>not configured</source>
+        <translation>ikke indstillet</translation>
+    </message>
+    <message>
+        <source>active station</source>
+        <translation>aktiv station</translation>
+    </message>
+    <message>
+        <source>Integration diagnostics…</source>
+        <translation>Diagnose af integrationer…</translation>
+    </message>
+    <message>
+        <source>Runs locally; no test QSO is uploaded</source>
+        <translation>Kører lokalt; der uploades ingen test-QSO</translation>
+    </message>
+    <message>
         <source>Download LoTW confirmations</source>
         <translation>Hent LoTW-bekræftelser</translation>
     </message>
@@ -731,6 +819,30 @@
     <message>
         <source>LoTW: TQSL signs and sends, and the confirmations come back here.</source>
         <translation>LoTW: TQSL signerer og sender, og bekræftelserne kommer tilbage hertil.</translation>
+    </message>
+    <message>
+        <source>Integration diagnostics</source>
+        <translation>Diagnose af integrationer</translation>
+    </message>
+    <message>
+        <source>The checks stay on this computer. The support report is redacted and is saved only after confirmation.</source>
+        <translation>Kontrollerne bliver på denne computer. Supportrapporten censureres og gemmes først efter bekræftelse.</translation>
+    </message>
+    <message>
+        <source>Approve and save report…</source>
+        <translation>Godkend og gem rapporten…</translation>
+    </message>
+    <message>
+        <source>Save diagnostic support report</source>
+        <translation>Gem diagnoserapport til support</translation>
+    </message>
+    <message>
+        <source>Text files (*.txt)</source>
+        <translation>Tekstfiler (*.txt)</translation>
+    </message>
+    <message>
+        <source>All files (*)</source>
+        <translation>Alle filer (*)</translation>
     </message>
     <message>
         <source>Sent</source>
@@ -2924,6 +3036,73 @@ I Decodium: Settings → Reporting → UDP Server 127.0.0.1, port %1, og &quot;A
     </message>
 </context>
 <context>
+    <name>FirstRunGuide</name>
+    <message>
+        <source>Start with DecoDXLog</source>
+        <translation>Kom i gang med DecoDXLog</translation>
+    </message>
+    <message>
+        <source>A short path to your first contact</source>
+        <translation>En kort vej til din første forbindelse</translation>
+    </message>
+    <message>
+        <source>You can use DecoDXLog without a radio. Configure CAT only if you want the log to read the frequency and mode automatically.</source>
+        <translation>Du kan bruge DecoDXLog uden radio. Indstil kun CAT, hvis loggen selv skal læse frekvens og mode.</translation>
+    </message>
+    <message>
+        <source>1  Station profile</source>
+        <translation>1  Stationsprofil</translation>
+    </message>
+    <message>
+        <source>Set your callsign, grid and station details in the profile dialog.</source>
+        <translation>Angiv dit kaldesignal, locator og stationsdata i profildialogen.</translation>
+    </message>
+    <message>
+        <source>2  Radio (optional)</source>
+        <translation>2  Radio (valgfri)</translation>
+    </message>
+    <message>
+        <source>In Setup → Radio (CAT), choose the model and connection, then use Find the radio. For a shared CAT connection, enter its host and port instead of opening a second serial connection.</source>
+        <translation>Vælg model og forbindelse under Indstillinger → Radio (CAT), og brug derefter Find radioen. Til en delt CAT-forbindelse angiver du dens vært og port i stedet for at åbne en ekstra seriel forbindelse.</translation>
+    </message>
+    <message>
+        <source>3  First QSO</source>
+        <translation>3  Første QSO</translation>
+    </message>
+    <message>
+        <source>Open New QSO, enter a callsign and the required fields, then press Ctrl+Enter or Register. The local log remains usable if CAT or an online service is unavailable.</source>
+        <translation>Åbn Nyt QSO, skriv et kaldesignal og de nødvendige felter, og tryk på Ctrl+Enter eller Registrér. Den lokale log kan bruges, selv om CAT eller en onlinetjeneste ikke er tilgængelig.</translation>
+    </message>
+    <message>
+        <source>This guide appears once when the log is empty; the normal setup and New QSO shortcuts remain available afterwards.</source>
+        <translation>Denne vejledning vises kun én gang, når loggen er tom; derefter er de sædvanlige genveje til indstillinger og Nyt QSO stadig tilgængelige.</translation>
+    </message>
+    <message>
+        <source>Configure radio</source>
+        <translation>Indstil radio</translation>
+    </message>
+    <message>
+        <source>Open radio and CAT setup</source>
+        <translation>Åbn radio- og CAT-indstillinger</translation>
+    </message>
+    <message>
+        <source>Open New QSO</source>
+        <translation>Åbn Nyt QSO</translation>
+    </message>
+    <message>
+        <source>Open the new QSO form</source>
+        <translation>Åbn formularen til et nyt QSO</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation>Luk</translation>
+    </message>
+    <message>
+        <source>Close the first-run guide</source>
+        <translation>Luk vejledningen til første start</translation>
+    </message>
+</context>
+<context>
     <name>FlrigControl</name>
     <message>
         <source>connecting to flrig at %1…</source>
@@ -3063,6 +3242,70 @@ I Decodium: Settings → Reporting → UDP Server 127.0.0.1, port %1, og &quot;A
     <message>
         <source>The backup could not take the place of the log; the log as it was is back.</source>
         <translation>Kopien kunne ikke tage loggens plads; loggen, som den var, er tilbage.</translation>
+    </message>
+    <message>
+        <source>The SQLite copy cannot be included: %1</source>
+        <translation>SQLite-kopien kan ikke medtages: %1</translation>
+    </message>
+    <message>
+        <source>The bundle destination already exists.</source>
+        <translation>Pakkens destination findes allerede.</translation>
+    </message>
+    <message>
+        <source>The SQLite copy could not be copied into the bundle.</source>
+        <translation>SQLite-kopien kunne ikke kopieres ind i pakken.</translation>
+    </message>
+    <message>
+        <source>Portable settings could not be written to the backup bundle.</source>
+        <translation>De bærbare indstillinger kunne ikke skrives til sikkerhedskopipakken.</translation>
+    </message>
+    <message>
+        <source>Unsafe resource path in backup bundle: %1</source>
+        <translation>Usikker ressourcesti i sikkerhedskopipakken: %1</translation>
+    </message>
+    <message>
+        <source>Resource could not be copied into the bundle: %1</source>
+        <translation>Ressourcen kunne ikke kopieres ind i pakken: %1</translation>
+    </message>
+    <message>
+        <source>The backup bundle manifest could not be written.</source>
+        <translation>Manifestet for sikkerhedskopipakken kunne ikke skrives.</translation>
+    </message>
+    <message>
+        <source>The backup bundle could not be committed atomically.</source>
+        <translation>Sikkerhedskopipakken kunne ikke gennemføres atomisk.</translation>
+    </message>
+    <message>
+        <source>The backup bundle has no readable manifest.</source>
+        <translation>Sikkerhedskopipakken har intet læsbart manifest.</translation>
+    </message>
+    <message>
+        <source>The backup bundle format is not supported.</source>
+        <translation>Formatet for sikkerhedskopipakken understøttes ikke.</translation>
+    </message>
+    <message>
+        <source>The backup bundle manifest is incomplete.</source>
+        <translation>Manifestet for sikkerhedskopipakken er ufuldstændigt.</translation>
+    </message>
+    <message>
+        <source>The bundle resources could not be staged.</source>
+        <translation>Pakkens ressourcer kunne ikke klargøres.</translation>
+    </message>
+    <message>
+        <source>The bundle resource is missing: %1</source>
+        <translation>Pakkens ressource mangler: %1</translation>
+    </message>
+    <message>
+        <source>Portable settings could not be read from the backup bundle.</source>
+        <translation>De bærbare indstillinger kunne ikke læses fra sikkerhedskopipakken.</translation>
+    </message>
+    <message>
+        <source>The bundle resource could not be staged: %1</source>
+        <translation>Pakkens ressource kunne ikke klargøres: %1</translation>
+    </message>
+    <message>
+        <source>The bundle resource could not be restored: %1</source>
+        <translation>Pakkens ressource kunne ikke gendannes: %1</translation>
     </message>
     <message>
         <source>DecoDXLog did not close in time: the log was not touched.</source>
@@ -3846,6 +4089,26 @@ Open it once in DecoDXLog to bring it up to date.</source>
         <translation>sat fast</translation>
     </message>
     <message>
+        <source>Beginner</source>
+        <translation>Begynder</translation>
+    </message>
+    <message>
+        <source>DX</source>
+        <translation>DX</translation>
+    </message>
+    <message>
+        <source>Digital</source>
+        <translation>Digital</translation>
+    </message>
+    <message>
+        <source>Contest</source>
+        <translation>Contest</translation>
+    </message>
+    <message>
+        <source>Portable</source>
+        <translation>Portabel</translation>
+    </message>
+    <message>
         <source>Import a log</source>
         <translation>Importér en log</translation>
     </message>
@@ -3870,6 +4133,36 @@ Open it once in DecoDXLog to bring it up to date.</source>
         <translation>Alle filer (*)</translation>
     </message>
     <message>
+        <source>Import preview</source>
+        <translation>Forhåndsvisning af import</translation>
+    </message>
+    <message>
+        <source>%1 records read from %2.
+Estimated result: %3 new · %4 duplicates · %5 rejected.
+QSL status: %6 · incomplete UTC: %7.
+Extra fields are preserved: %8</source>
+        <translation>%1 poster læst fra %2.
+Estimeret resultat: %3 nye · %4 dubletter · %5 afvist.
+QSL-status: %6 · ufuldstændig UTC: %7.
+Ekstra felter bevares: %8</translation>
+    </message>
+    <message>
+        <source>none</source>
+        <translation>ingen</translation>
+    </message>
+    <message>
+        <source>Cannot preview this import: %1</source>
+        <translation>Kan ikke vise forhåndsvisning af denne import: %1</translation>
+    </message>
+    <message>
+        <source>unknown error</source>
+        <translation>ukendt fejl</translation>
+    </message>
+    <message>
+        <source>Records with incomplete UTC will be rejected during import.</source>
+        <translation>Poster med ufuldstændig UTC afvises ved import.</translation>
+    </message>
+    <message>
         <source>Export ADIF</source>
         <translation>Eksportér ADIF</translation>
     </message>
@@ -3892,6 +4185,14 @@ Open it once in DecoDXLog to bring it up to date.</source>
     <message>
         <source>Detach it into its own window</source>
         <translation>Riv det ud i sit eget vindue</translation>
+    </message>
+    <message>
+        <source>Operational presets</source>
+        <translation>Driftsforudindstillinger</translation>
+    </message>
+    <message>
+        <source>Choose a starting layout; your current layout is changed only after selection.</source>
+        <translation>Vælg et startlayout; dit nuværende layout ændres først efter valget.</translation>
     </message>
     <message>
         <source>Restore the default layout</source>
@@ -5261,6 +5562,18 @@ Open it once in DecoDXLog to bring it up to date.</source>
         <translation>ADIF-filer (*.adi)</translation>
     </message>
     <message>
+        <source>Import received QSL scan or image</source>
+        <translation>Importér scanning eller billede af en modtaget QSL</translation>
+    </message>
+    <message>
+        <source>Images and documents (*.png *.jpg *.jpeg *.webp *.pdf)</source>
+        <translation>Billeder og dokumenter (*.png *.jpg *.jpeg *.webp *.pdf)</translation>
+    </message>
+    <message>
+        <source>All files (*)</source>
+        <translation>Alle filer (*)</translation>
+    </message>
+    <message>
         <source>Delete %1? The QSO stays in the history and can be recovered.</source>
         <translation>Slet %1? QSO&apos;et bliver i historikken og kan hentes tilbage.</translation>
     </message>
@@ -5499,6 +5812,46 @@ Open it once in DecoDXLog to bring it up to date.</source>
     <message>
         <source>QSL status · per service</source>
         <translation>QSL-status · pr. tjeneste</translation>
+    </message>
+    <message>
+        <source>Received QSL archive</source>
+        <translation>Arkiv over modtagne QSL&apos;er</translation>
+    </message>
+    <message>
+        <source>QSL manager: %1 · %2 · %3</source>
+        <translation>QSL-manager: %1 · %2 · %3</translation>
+    </message>
+    <message>
+        <source>unknown source</source>
+        <translation>ukendt kilde</translation>
+    </message>
+    <message>
+        <source>Import scan or image…</source>
+        <translation>Importér scanning eller billede…</translation>
+    </message>
+    <message>
+        <source>Not a confirmation by itself</source>
+        <translation>Ikke en bekræftelse i sig selv</translation>
+    </message>
+    <message>
+        <source>%1 KB</source>
+        <translation>%1 KB</translation>
+    </message>
+    <message>
+        <source>Data provenance</source>
+        <translation>Dataenes oprindelse</translation>
+    </message>
+    <message>
+        <source>empty</source>
+        <translation>tom</translation>
+    </message>
+    <message>
+        <source>Undo</source>
+        <translation>Fortryd</translation>
+    </message>
+    <message>
+        <source>No enriched fields recorded.</source>
+        <translation>Ingen berigede felter registreret.</translation>
     </message>
     <message>
         <source>Award impact</source>
@@ -5814,12 +6167,12 @@ Open it once in DecoDXLog to bring it up to date.</source>
         <translation>Vælg en sikkerhedskopi</translation>
     </message>
     <message>
-        <source>DecoDXLog logs (*.sqlite)</source>
-        <translation>DecoDXLog-logge (*.sqlite)</translation>
-    </message>
-    <message>
         <source>All files (*)</source>
         <translation>Alle filer (*)</translation>
+    </message>
+    <message>
+        <source>DecoDXLog backups (*.sqlite *.bundle)</source>
+        <translation>DecoDXLog-sikkerhedskopier (*.sqlite *.bundle)</translation>
     </message>
     <message numerus="yes">
         <source>Log now: %1 · %n QSO · last %2</source>
@@ -7212,6 +7565,10 @@ Open it once in DecoDXLog to bring it up to date.</source>
         <translation>Til venstre hvad tasten viser, til højre hvad der sendes ({CALL}, {MYCALL}, {RST}, {NR}, {EXCH}). De første tolv ligger på F1-F12, Esc stopper. De findes også i CW-panelet (Makroer… eller højreklik på en tast).</translation>
     </message>
     <message>
+        <source>Radio 1 is the one above; radio 2 is connected here. In the contest entry the radio with the focus gets the band, the tuning and the CW: Ctrl+← and Ctrl+→ choose radio 1 or 2, Pause swaps them, ` (backquote) toggles stereo listening. The SO2R box (MK2R, SO2RDuino, YCCC…) follows through OTRSP: TX1/TX2 for the transmitter, RX1/RX2 or RX1S/RX2S for the headphones. Software focus is not an RF interlock: use the hardware interlock and verify the actual station wiring before transmitting.</source>
+        <translation>Radio 1 er den øverste; radio 2 er tilsluttet her. I contest-indtastningen får radioen med fokus båndet, indstillingen og CW: Ctrl+← og Ctrl+→ vælger radio 1 eller 2, Pause bytter dem, ` (backquote) skifter stereolytning. SO2R-boksen (MK2R, SO2RDuino, YCCC…) følger via OTRSP: TX1/TX2 til senderen, RX1/RX2 eller RX1S/RX2S til hovedtelefonerne. Softwarefokus er ikke en RF-spærring: brug hardwarespærringen, og kontrollér stationens faktiske ledningsføring, før du sender.</translation>
+    </message>
+    <message>
         <source>Antenna rotor</source>
         <translation>Antennerotor</translation>
     </message>
@@ -7738,10 +8095,6 @@ Open it once in DecoDXLog to bring it up to date.</source>
     <message>
         <source>SO2R box port not open</source>
         <translation>SO2R-boksens port er ikke åben</translation>
-    </message>
-    <message>
-        <source>Radio 1 is the one above; radio 2 is connected here. In the contest entry the radio with the focus gets the band, the tuning and the CW: Ctrl+← and Ctrl+→ choose radio 1 or 2, Pause swaps them, ` (backquote) toggles stereo listening. The SO2R box (MK2R, SO2RDuino, YCCC…) follows through OTRSP: TX1/TX2 for the transmitter, RX1/RX2 or RX1S/RX2S for the headphones.</source>
-        <translation>Radio 1 er den ovenfor; radio 2 forbindes her. I contest-indtastningen får radioen med fokus båndet, indstillingen og CW: Ctrl+← og Ctrl+→ vælger radio 1 eller 2, Pause bytter dem, ` (accent grave) slår stereolytning til og fra. SO2R-boksen (MK2R, SO2RDuino, YCCC…) følger via OTRSP: TX1/TX2 for senderen, RX1/RX2 eller RX1S/RX2S for hovedtelefonerne.</translation>
     </message>
     <message>
         <source>The control box, directly (built-in gateway)</source>
@@ -9252,6 +9605,10 @@ Open it once in DecoDXLog to bring it up to date.</source>
         <translation>Endnu ingen QSO i denne session</translation>
     </message>
     <message>
+        <source>Cabrillo export is unavailable: this contest has no verified rule sheet</source>
+        <translation>Cabrillo-eksport er ikke tilgængelig: denne contest har intet verificeret regelsæt</translation>
+    </message>
+    <message>
         <source>Nothing to write</source>
         <translation>Intet at skrive</translation>
     </message>
@@ -9756,6 +10113,10 @@ Open it once in DecoDXLog to bring it up to date.</source>
         <translation>der er ingen kaldebog sat op: Opsætning → Kaldebog</translation>
     </message>
     <message>
+        <source>Could not record provenance for QSO %1</source>
+        <translation>Kunne ikke registrere oprindelsen for QSO %1</translation>
+    </message>
+    <message>
         <source>radio (CAT)</source>
         <translation>radio (CAT)</translation>
     </message>
@@ -9893,6 +10254,114 @@ Open it once in DecoDXLog to bring it up to date.</source>
             <numerusform>Allerede i loggen (inden for %n minut)</numerusform>
             <numerusform>Allerede i loggen (inden for %n minutter)</numerusform>
         </translation>
+    </message>
+    <message>
+        <source>Cannot read attachment: %1</source>
+        <translation>Kan ikke læse bilaget: %1</translation>
+    </message>
+    <message>
+        <source>Choose at least one QSO and a non-empty file</source>
+        <translation>Vælg mindst ét QSO og en fil, der ikke er tom</translation>
+    </message>
+    <message>
+        <source>Cannot store QSL attachment</source>
+        <translation>Kan ikke gemme QSL-bilaget</translation>
+    </message>
+    <message>
+        <source>Attached %1 to %n QSO(s)</source>
+        <translation>%1 vedhæftet %n QSO</translation>
+    </message>
+    <message>
+        <source>Attachment not found</source>
+        <translation>Bilaget blev ikke fundet</translation>
+    </message>
+    <message>
+        <source>Cannot write attachment</source>
+        <translation>Kan ikke skrive bilaget</translation>
+    </message>
+    <message>
+        <source>Receive</source>
+        <translation>Modtag</translation>
+    </message>
+    <message>
+        <source>Decodium connection is active</source>
+        <translation>Forbindelsen til Decodium er aktiv</translation>
+    </message>
+    <message>
+        <source>No Decodium client is connected</source>
+        <translation>Ingen Decodium-klient er forbundet</translation>
+    </message>
+    <message>
+        <source>Parse</source>
+        <translation>Læs</translation>
+    </message>
+    <message>
+        <source>ADIF parser is available</source>
+        <translation>ADIF-parseren er tilgængelig</translation>
+    </message>
+    <message>
+        <source>Deduplicate</source>
+        <translation>Dubletter</translation>
+    </message>
+    <message>
+        <source>Duplicate protection is enabled</source>
+        <translation>Beskyttelse mod dubletter er slået til</translation>
+    </message>
+    <message>
+        <source>Save</source>
+        <translation>Gem</translation>
+    </message>
+    <message>
+        <source>Local log is open</source>
+        <translation>Den lokale log er åben</translation>
+    </message>
+    <message>
+        <source>No local log is open</source>
+        <translation>Ingen lokal log er åben</translation>
+    </message>
+    <message>
+        <source>QSL</source>
+        <translation>QSL</translation>
+    </message>
+    <message>
+        <source>%1 QSL service(s) ready; diagnostic mode never uploads</source>
+        <translation>%1 QSL-tjeneste(r) klar; diagnosetilstanden uploader aldrig noget</translation>
+    </message>
+    <message>
+        <source>Choose a file first</source>
+        <translation>Vælg først en fil</translation>
+    </message>
+    <message>
+        <source>Cannot write diagnostic report: %1</source>
+        <translation>Kan ikke skrive diagnoserapporten: %1</translation>
+    </message>
+    <message>
+        <source>Cannot save diagnostic report</source>
+        <translation>Kan ikke gemme diagnoserapporten</translation>
+    </message>
+    <message>
+        <source>No QSL manager is recorded for this QSO</source>
+        <translation>Ingen QSL-manager er registreret for dette QSO</translation>
+    </message>
+    <message>
+        <source>entered in the QSO</source>
+        <translation>angivet i QSO&apos;et</translation>
+    </message>
+    <message>
+        <source>no unconfirmed service is recorded</source>
+        <translation>ingen ubekræftet tjeneste er registreret</translation>
+    </message>
+    <message>
+        <source>potentially useful for: %1</source>
+        <translation>potentielt nyttig for: %1</translation>
+    </message>
+    <message>
+        <source>Manager %1 may be outdated; verify the route before sending; %2</source>
+        <translation>Manager %1 er måske forældet; kontrollér ruten, før du sender; %2</translation>
+    </message>
+    <message>
+        <source>Manager %1 could resolve the paper QSL for this QSO; %2; review and approve the route</source>
+        <translation>Manager %1 kan muligvis klare papir-QSL&apos;en for dette QSO; %2; gennemgå og godkend ruten</translation>
     </message>
     <message>
         <source>This column cannot be edited here: open the QSO card</source>
@@ -10197,8 +10666,20 @@ Open it once in DecoDXLog to bring it up to date.</source>
         <translation>Importerer %1…</translation>
     </message>
     <message>
-        <source>%1: %2 new, %3 duplicates, %4 rejected</source>
-        <translation>%1: %2 nye, %3 dubletter, %4 afvist</translation>
+        <source>%1: %2 read, %3 new, %4 duplicates, %5 rejected, %6 with QSL status</source>
+        <translation>%1: %2 læst, %3 nye, %4 dubletter, %5 afvist, %6 med QSL-status</translation>
+    </message>
+    <message>
+        <source>%1 record(s) had no complete UTC date/time</source>
+        <translation>%1 post(er) uden fuldstændig UTC-dato/-tid</translation>
+    </message>
+    <message>
+        <source>Preserved unmapped ADIF fields: %1</source>
+        <translation>Ikke-tilknyttede ADIF-felter bevares: %1</translation>
+    </message>
+    <message>
+        <source>Undid the last import: %1 QSO(s) moved to the recycle history.</source>
+        <translation>Seneste import fortrudt: %1 QSO&apos;er flyttet til papirkurvens historik.</translation>
     </message>
     <message>
         <source>Cannot write %1: %2</source>
@@ -10518,6 +10999,10 @@ Open it once in DecoDXLog to bring it up to date.</source>
         <source>%1 joined the network</source>
         <translation>%1 kom på netværket</translation>
     </message>
+    <message>
+        <source>Serial collision detected: %1 was already assigned locally; verify the contest log</source>
+        <translation>Fortløbende nummer i konflikt: %1 var allerede tildelt lokalt; kontrollér contest-loggen</translation>
+    </message>
 </context>
 <context>
     <name>decolog::app::QslCardController</name>
@@ -10804,6 +11289,14 @@ Open it once in DecoDXLog to bring it up to date.</source>
             <numerusform>TQSL klar · %n station location</numerusform>
             <numerusform>TQSL klar · %n station locations</numerusform>
         </translation>
+    </message>
+    <message>
+        <source>not configured</source>
+        <translation>ikke indstillet</translation>
+    </message>
+    <message>
+        <source>active station</source>
+        <translation>aktiv station</translation>
     </message>
     <message>
         <source>no credentials: Setup → QSL services</source>

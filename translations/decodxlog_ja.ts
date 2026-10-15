@@ -91,6 +91,14 @@
 <context>
     <name>ActivationController</name>
     <message>
+        <source>Activation references cannot contain empty items</source>
+        <translation>アクティベーション参照に空の項目は含められません</translation>
+    </message>
+    <message>
+        <source>Activation references cannot contain duplicates: %1</source>
+        <translation>アクティベーション参照に重複は含められません: %1</translation>
+    </message>
+    <message>
         <source>Zones</source>
         <translation>ゾーン</translation>
     </message>
@@ -347,6 +355,10 @@
         <translation>グリッド</translation>
     </message>
     <message>
+        <source>Grid statistics</source>
+        <translation>グリッドの統計</translation>
+    </message>
+    <message>
         <source>Diploma: 30 castles in 5 different regions (20 for stations outside Italy), at least one in the province of Cuneo. So far: %1 in %2 regions, Cuneo %3.</source>
         <translation>ディプロマ: 5 つの異なる州にある 30 の城（イタリア国外の局は 20）、うち少なくとも 1 つはクネオ県。現在: %2 州で %1、クネオ %3。</translation>
     </message>
@@ -375,6 +387,10 @@
         <translation>リファレンスは SIG/SIG_INFO (SIG = %1) か「%1 LI-001」のようなコメントから読み取ります。</translation>
     </message>
     <message>
+        <source>Official WAC counts six continents; Antarctica is shown but not counted.</source>
+        <translation>公式の WAC は 6 大陸を数えます。南極大陸は表示されますが数えません。</translation>
+    </message>
+    <message>
         <source>QSOs on 60 m are counted here, but the ARRL does not accept them: for the official count switch off &quot;60 m&quot;.</source>
         <translation>ここでは 60 m の QSO も数えますが、ARRL は認めていません。公式の集計には「60 m」をオフにしてください。</translation>
     </message>
@@ -391,6 +407,10 @@
         <translation>
             <numerusform>削除されたエンティティや ARRL が認めない運用（Club Log）の QSO %n 件は除外しています。</numerusform>
         </translation>
+    </message>
+    <message>
+        <source>Satellite QSOs stay in the log but are excluded from terrestrial DXCC/WAS credit.</source>
+        <translation>衛星経由の QSO はログに残りますが、地上の DXCC/WAS のクレジットからは除外されます。</translation>
     </message>
     <message>
         <source>Diploma: 75 provinces for Italian stations, 60 for the others.</source>
@@ -428,8 +448,24 @@
         <translation>目標 %1</translation>
     </message>
     <message>
+        <source>statistics · rules not verified</source>
+        <translation>統計 · ルール未確認</translation>
+    </message>
+    <message>
+        <source>Create claim (%1)</source>
+        <translation>クレームを作成 (%1)</translation>
+    </message>
+    <message>
         <source>worked %1</source>
         <translation>交信済み %1</translation>
+    </message>
+    <message>
+        <source>official rules</source>
+        <translation>公式ルール</translation>
+    </message>
+    <message>
+        <source>personal · 60 m</source>
+        <translation>個人 · 60 m</translation>
     </message>
     <message>
         <source>band slots %1 / %2</source>
@@ -484,14 +520,6 @@
         <translation>カード</translation>
     </message>
     <message>
-        <source>60 m</source>
-        <translation>60 m</translation>
-    </message>
-    <message>
-        <source>Count QSOs on 60 m in DXCC, DXCC Challenge and WAS too. The ARRL does not accept them: switch off for the official count.</source>
-        <translation>60 m の QSO も DXCC、DXCC Challenge、WAS に数えます。ARRL は認めていないので、公式の集計にはオフにしてください。</translation>
-    </message>
-    <message>
         <source>All stations</source>
         <translation>すべての局</translation>
     </message>
@@ -500,8 +528,48 @@
         <translation>すべてのタグ</translation>
     </message>
     <message>
+        <source>Claims</source>
+        <translation>クレーム</translation>
+    </message>
+    <message>
+        <source>Outcome / note</source>
+        <translation>結果 / メモ</translation>
+    </message>
+    <message>
+        <source>Evidence or external reference</source>
+        <translation>証拠または外部参照</translation>
+    </message>
+    <message>
+        <source>Submit</source>
+        <translation>提出</translation>
+    </message>
+    <message>
+        <source>Verify</source>
+        <translation>確認</translation>
+    </message>
+    <message>
+        <source>Reject</source>
+        <translation>却下</translation>
+    </message>
+    <message>
+        <source>Credit</source>
+        <translation>クレジット</translation>
+    </message>
+    <message>
         <source>Valid for %1</source>
         <translation>%1 に有効</translation>
+    </message>
+    <message>
+        <source>60 m · personal</source>
+        <translation>60 m · 個人</translation>
+    </message>
+    <message>
+        <source>60 m · official</source>
+        <translation>60 m · 公式</translation>
+    </message>
+    <message>
+        <source>The official ARRL count excludes 60 m. Enable it only for a personal count.</source>
+        <translation>ARRL の公式カウントでは 60 m は除外されます。個人用のカウントにだけ有効にしてください。</translation>
     </message>
     <message>
         <source>chosen by you</source>
@@ -693,6 +761,26 @@
         <translation>サービス</translation>
     </message>
     <message>
+        <source>Account / profile</source>
+        <translation>アカウント / プロファイル</translation>
+    </message>
+    <message>
+        <source>not configured</source>
+        <translation>未設定</translation>
+    </message>
+    <message>
+        <source>active station</source>
+        <translation>アクティブな局</translation>
+    </message>
+    <message>
+        <source>Integration diagnostics…</source>
+        <translation>連携の診断…</translation>
+    </message>
+    <message>
+        <source>Runs locally; no test QSO is uploaded</source>
+        <translation>ローカルで実行します。テスト用 QSO はアップロードされません</translation>
+    </message>
+    <message>
         <source>Download LoTW confirmations</source>
         <translation>LoTW の確認を取り込む</translation>
     </message>
@@ -727,6 +815,30 @@
     <message>
         <source>LoTW: TQSL signs and sends, and the confirmations come back here.</source>
         <translation>LoTW: TQSL が署名して送り、確認はここに戻ってきます。</translation>
+    </message>
+    <message>
+        <source>Integration diagnostics</source>
+        <translation>連携の診断</translation>
+    </message>
+    <message>
+        <source>The checks stay on this computer. The support report is redacted and is saved only after confirmation.</source>
+        <translation>チェックはこのコンピューター内で行われます。サポート用レポートは伏せ字処理され、確認後にのみ保存されます。</translation>
+    </message>
+    <message>
+        <source>Approve and save report…</source>
+        <translation>承認してレポートを保存…</translation>
+    </message>
+    <message>
+        <source>Save diagnostic support report</source>
+        <translation>サポート用の診断レポートを保存</translation>
+    </message>
+    <message>
+        <source>Text files (*.txt)</source>
+        <translation>テキストファイル (*.txt)</translation>
+    </message>
+    <message>
+        <source>All files (*)</source>
+        <translation>すべてのファイル (*)</translation>
     </message>
     <message>
         <source>Sent</source>
@@ -2915,6 +3027,73 @@ Decodium で: Settings → Reporting → UDP Server 127.0.0.1、ポート %1、�
     </message>
 </context>
 <context>
+    <name>FirstRunGuide</name>
+    <message>
+        <source>Start with DecoDXLog</source>
+        <translation>DecoDXLog を始める</translation>
+    </message>
+    <message>
+        <source>A short path to your first contact</source>
+        <translation>最初の交信までの短い道のり</translation>
+    </message>
+    <message>
+        <source>You can use DecoDXLog without a radio. Configure CAT only if you want the log to read the frequency and mode automatically.</source>
+        <translation>DecoDXLog は無線機がなくても使えます。ログに周波数とモードを自動で読ませたい場合だけ CAT を設定してください。</translation>
+    </message>
+    <message>
+        <source>1  Station profile</source>
+        <translation>1  局プロファイル</translation>
+    </message>
+    <message>
+        <source>Set your callsign, grid and station details in the profile dialog.</source>
+        <translation>プロファイルのダイアログでコールサイン、グリッド、局の情報を設定します。</translation>
+    </message>
+    <message>
+        <source>2  Radio (optional)</source>
+        <translation>2  無線機 (任意)</translation>
+    </message>
+    <message>
+        <source>In Setup → Radio (CAT), choose the model and connection, then use Find the radio. For a shared CAT connection, enter its host and port instead of opening a second serial connection.</source>
+        <translation>設定 → 無線機 (CAT) でモデルと接続を選び、「無線機を検索」を使います。共有の CAT 接続を使う場合は、2 つ目のシリアル接続を開かずに、そのホストとポートを入力します。</translation>
+    </message>
+    <message>
+        <source>3  First QSO</source>
+        <translation>3  最初の QSO</translation>
+    </message>
+    <message>
+        <source>Open New QSO, enter a callsign and the required fields, then press Ctrl+Enter or Register. The local log remains usable if CAT or an online service is unavailable.</source>
+        <translation>「新規 QSO」を開き、コールサインと必須項目を入力して、Ctrl+Enter か「登録」を押します。CAT やオンラインサービスが使えなくても、ローカルのログは使えます。</translation>
+    </message>
+    <message>
+        <source>This guide appears once when the log is empty; the normal setup and New QSO shortcuts remain available afterwards.</source>
+        <translation>このガイドはログが空のときに一度だけ表示されます。その後も通常の設定や「新規 QSO」のショートカットは使えます。</translation>
+    </message>
+    <message>
+        <source>Configure radio</source>
+        <translation>無線機を設定</translation>
+    </message>
+    <message>
+        <source>Open radio and CAT setup</source>
+        <translation>無線機と CAT の設定を開く</translation>
+    </message>
+    <message>
+        <source>Open New QSO</source>
+        <translation>新規 QSO を開く</translation>
+    </message>
+    <message>
+        <source>Open the new QSO form</source>
+        <translation>新規 QSO のフォームを開く</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation>閉じる</translation>
+    </message>
+    <message>
+        <source>Close the first-run guide</source>
+        <translation>初回起動ガイドを閉じる</translation>
+    </message>
+</context>
+<context>
     <name>FlrigControl</name>
     <message>
         <source>connecting to flrig at %1…</source>
@@ -3054,6 +3233,70 @@ Decodium で: Settings → Reporting → UDP Server 127.0.0.1、ポート %1、�
     <message>
         <source>The backup could not take the place of the log; the log as it was is back.</source>
         <translation>バックアップをログと置き換えられませんでした; 元のログに戻しました。</translation>
+    </message>
+    <message>
+        <source>The SQLite copy cannot be included: %1</source>
+        <translation>SQLite のコピーを含められません: %1</translation>
+    </message>
+    <message>
+        <source>The bundle destination already exists.</source>
+        <translation>パッケージの保存先はすでに存在します。</translation>
+    </message>
+    <message>
+        <source>The SQLite copy could not be copied into the bundle.</source>
+        <translation>SQLite のコピーをパッケージにコピーできませんでした。</translation>
+    </message>
+    <message>
+        <source>Portable settings could not be written to the backup bundle.</source>
+        <translation>ポータブル設定をバックアップパッケージに書き込めませんでした。</translation>
+    </message>
+    <message>
+        <source>Unsafe resource path in backup bundle: %1</source>
+        <translation>バックアップパッケージ内のリソースパスが安全ではありません: %1</translation>
+    </message>
+    <message>
+        <source>Resource could not be copied into the bundle: %1</source>
+        <translation>リソースをパッケージにコピーできませんでした: %1</translation>
+    </message>
+    <message>
+        <source>The backup bundle manifest could not be written.</source>
+        <translation>バックアップパッケージのマニフェストを書き込めませんでした。</translation>
+    </message>
+    <message>
+        <source>The backup bundle could not be committed atomically.</source>
+        <translation>バックアップパッケージをアトミックに確定できませんでした。</translation>
+    </message>
+    <message>
+        <source>The backup bundle has no readable manifest.</source>
+        <translation>バックアップパッケージに読み取れるマニフェストがありません。</translation>
+    </message>
+    <message>
+        <source>The backup bundle format is not supported.</source>
+        <translation>バックアップパッケージの形式には対応していません。</translation>
+    </message>
+    <message>
+        <source>The backup bundle manifest is incomplete.</source>
+        <translation>バックアップパッケージのマニフェストが不完全です。</translation>
+    </message>
+    <message>
+        <source>The bundle resources could not be staged.</source>
+        <translation>パッケージのリソースを準備できませんでした。</translation>
+    </message>
+    <message>
+        <source>The bundle resource is missing: %1</source>
+        <translation>パッケージのリソースがありません: %1</translation>
+    </message>
+    <message>
+        <source>Portable settings could not be read from the backup bundle.</source>
+        <translation>ポータブル設定をバックアップパッケージから読み取れませんでした。</translation>
+    </message>
+    <message>
+        <source>The bundle resource could not be staged: %1</source>
+        <translation>パッケージのリソースを準備できませんでした: %1</translation>
+    </message>
+    <message>
+        <source>The bundle resource could not be restored: %1</source>
+        <translation>パッケージのリソースを復元できませんでした: %1</translation>
     </message>
     <message>
         <source>DecoDXLog did not close in time: the log was not touched.</source>
@@ -3835,6 +4078,26 @@ DecoDXLog で一度開いて更新してください。</translation>
         <translation>はめ込み</translation>
     </message>
     <message>
+        <source>Beginner</source>
+        <translation>初心者</translation>
+    </message>
+    <message>
+        <source>DX</source>
+        <translation>DX</translation>
+    </message>
+    <message>
+        <source>Digital</source>
+        <translation>デジタル</translation>
+    </message>
+    <message>
+        <source>Contest</source>
+        <translation>コンテスト</translation>
+    </message>
+    <message>
+        <source>Portable</source>
+        <translation>ポータブル</translation>
+    </message>
+    <message>
         <source>Import a log</source>
         <translation>ログをインポート</translation>
     </message>
@@ -3859,6 +4122,36 @@ DecoDXLog で一度開いて更新してください。</translation>
         <translation>すべてのファイル (*)</translation>
     </message>
     <message>
+        <source>Import preview</source>
+        <translation>インポートのプレビュー</translation>
+    </message>
+    <message>
+        <source>%1 records read from %2.
+Estimated result: %3 new · %4 duplicates · %5 rejected.
+QSL status: %6 · incomplete UTC: %7.
+Extra fields are preserved: %8</source>
+        <translation>%2 から %1 件のレコードを読み込みました。
+推定結果: 新規 %3 · 重複 %4 · 却下 %5。
+QSL の状態: %6 · UTC が不完全: %7。
+追加フィールドは保持されます: %8</translation>
+    </message>
+    <message>
+        <source>none</source>
+        <translation>なし</translation>
+    </message>
+    <message>
+        <source>Cannot preview this import: %1</source>
+        <translation>このインポートをプレビューできません: %1</translation>
+    </message>
+    <message>
+        <source>unknown error</source>
+        <translation>不明なエラー</translation>
+    </message>
+    <message>
+        <source>Records with incomplete UTC will be rejected during import.</source>
+        <translation>UTC が不完全なレコードはインポート時に却下されます。</translation>
+    </message>
+    <message>
         <source>Export ADIF</source>
         <translation>ADIF を書き出す</translation>
     </message>
@@ -3881,6 +4174,14 @@ DecoDXLog で一度開いて更新してください。</translation>
     <message>
         <source>Detach it into its own window</source>
         <translation>別の窓に切り離す</translation>
+    </message>
+    <message>
+        <source>Operational presets</source>
+        <translation>運用プリセット</translation>
+    </message>
+    <message>
+        <source>Choose a starting layout; your current layout is changed only after selection.</source>
+        <translation>開始時のレイアウトを選んでください。選択するまで現在のレイアウトは変わりません。</translation>
     </message>
     <message>
         <source>Restore the default layout</source>
@@ -5247,6 +5548,18 @@ DecoDXLog で一度開いて更新してください。</translation>
         <translation>ADIF ファイル (*.adi)</translation>
     </message>
     <message>
+        <source>Import received QSL scan or image</source>
+        <translation>受信した QSL のスキャンまたは画像をインポート</translation>
+    </message>
+    <message>
+        <source>Images and documents (*.png *.jpg *.jpeg *.webp *.pdf)</source>
+        <translation>画像とドキュメント (*.png *.jpg *.jpeg *.webp *.pdf)</translation>
+    </message>
+    <message>
+        <source>All files (*)</source>
+        <translation>すべてのファイル (*)</translation>
+    </message>
+    <message>
         <source>Delete %1? The QSO stays in the history and can be recovered.</source>
         <translation>%1 を削除しますか。QSO は履歴に残り、あとで戻せます。</translation>
     </message>
@@ -5485,6 +5798,46 @@ DecoDXLog で一度開いて更新してください。</translation>
     <message>
         <source>QSL status · per service</source>
         <translation>QSL の状態 · サービスごと</translation>
+    </message>
+    <message>
+        <source>Received QSL archive</source>
+        <translation>受信した QSL のアーカイブ</translation>
+    </message>
+    <message>
+        <source>QSL manager: %1 · %2 · %3</source>
+        <translation>QSL マネージャー: %1 · %2 · %3</translation>
+    </message>
+    <message>
+        <source>unknown source</source>
+        <translation>不明なソース</translation>
+    </message>
+    <message>
+        <source>Import scan or image…</source>
+        <translation>スキャンまたは画像をインポート…</translation>
+    </message>
+    <message>
+        <source>Not a confirmation by itself</source>
+        <translation>それだけでは確認になりません</translation>
+    </message>
+    <message>
+        <source>%1 KB</source>
+        <translation>%1 KB</translation>
+    </message>
+    <message>
+        <source>Data provenance</source>
+        <translation>データの出所</translation>
+    </message>
+    <message>
+        <source>empty</source>
+        <translation>空</translation>
+    </message>
+    <message>
+        <source>Undo</source>
+        <translation>元に戻す</translation>
+    </message>
+    <message>
+        <source>No enriched fields recorded.</source>
+        <translation>補完されたフィールドは記録されていません。</translation>
     </message>
     <message>
         <source>Award impact</source>
@@ -5799,12 +6152,12 @@ DecoDXLog で一度開いて更新してください。</translation>
         <translation>バックアップを選択</translation>
     </message>
     <message>
-        <source>DecoDXLog logs (*.sqlite)</source>
-        <translation>DecoDXLog ログ (*.sqlite)</translation>
-    </message>
-    <message>
         <source>All files (*)</source>
         <translation>すべてのファイル (*)</translation>
+    </message>
+    <message>
+        <source>DecoDXLog backups (*.sqlite *.bundle)</source>
+        <translation>DecoDXLog のバックアップ (*.sqlite *.bundle)</translation>
     </message>
     <message numerus="yes">
         <source>Log now: %1 · %n QSO · last %2</source>
@@ -7190,6 +7543,10 @@ DecoDXLog で一度開いて更新してください。</translation>
         <translation>左はキーの表示、右は送信する内容（{CALL}、{MYCALL}、{RST}、{NR}、{EXCH}）。最初の 12 個は F1-F12 キー、Esc で停止。CW パネルにもあります（マクロ… またはキーを右クリック）。</translation>
     </message>
     <message>
+        <source>Radio 1 is the one above; radio 2 is connected here. In the contest entry the radio with the focus gets the band, the tuning and the CW: Ctrl+← and Ctrl+→ choose radio 1 or 2, Pause swaps them, ` (backquote) toggles stereo listening. The SO2R box (MK2R, SO2RDuino, YCCC…) follows through OTRSP: TX1/TX2 for the transmitter, RX1/RX2 or RX1S/RX2S for the headphones. Software focus is not an RF interlock: use the hardware interlock and verify the actual station wiring before transmitting.</source>
+        <translation>無線機 1 は上のもの、無線機 2 はここに接続されています。コンテスト入力では、フォーカスのある無線機がバンド、同調、CW を受け持ちます。Ctrl+← と Ctrl+→ で無線機 1 か 2 を選び、Pause で入れ替え、` (バッククォート) でステレオ受信を切り替えます。SO2R ボックス (MK2R、SO2RDuino、YCCC…) は OTRSP で追従します。送信機は TX1/TX2、ヘッドホンは RX1/RX2 または RX1S/RX2S です。ソフトウェアのフォーカスは RF インターロックではありません。ハードウェアのインターロックを使い、送信前に局の実際の配線を確認してください。</translation>
+    </message>
+    <message>
         <source>Antenna rotor</source>
         <translation>アンテナのローテーター</translation>
     </message>
@@ -7716,10 +8073,6 @@ DecoDXLog で一度開いて更新してください。</translation>
     <message>
         <source>SO2R box port not open</source>
         <translation>SO2R ボックスのポートが開いていません</translation>
-    </message>
-    <message>
-        <source>Radio 1 is the one above; radio 2 is connected here. In the contest entry the radio with the focus gets the band, the tuning and the CW: Ctrl+← and Ctrl+→ choose radio 1 or 2, Pause swaps them, ` (backquote) toggles stereo listening. The SO2R box (MK2R, SO2RDuino, YCCC…) follows through OTRSP: TX1/TX2 for the transmitter, RX1/RX2 or RX1S/RX2S for the headphones.</source>
-        <translation>無線機1は上の設定、無線機2はここで接続します。コンテスト入力ではフォーカスのある無線機にバンド・同調・CW が行きます。Ctrl+← と Ctrl+→ で無線機1/2を選び、Pause で入れ替え、`（バッククォート）でステレオ受信を切り替えます。SO2R ボックス（MK2R、SO2RDuino、YCCC…）は OTRSP で追従します: 送信機は TX1/TX2、ヘッドホンは RX1/RX2 または RX1S/RX2S。</translation>
     </message>
     <message>
         <source>The control box, directly (built-in gateway)</source>
@@ -9228,6 +9581,10 @@ DecoDXLog で一度開いて更新してください。</translation>
         <translation>このセッションにはまだ QSO がありません</translation>
     </message>
     <message>
+        <source>Cabrillo export is unavailable: this contest has no verified rule sheet</source>
+        <translation>Cabrillo のエクスポートは利用できません: このコンテストには検証済みのルールシートがありません</translation>
+    </message>
+    <message>
         <source>Nothing to write</source>
         <translation>書くものがありません</translation>
     </message>
@@ -9720,6 +10077,10 @@ DecoDXLog で一度開いて更新してください。</translation>
         <translation>コールブックが設定されていません。設定 → コールブック</translation>
     </message>
     <message>
+        <source>Could not record provenance for QSO %1</source>
+        <translation>QSO %1 の出所を記録できませんでした</translation>
+    </message>
+    <message>
         <source>radio (CAT)</source>
         <translation>無線機 (CAT)</translation>
     </message>
@@ -9855,6 +10216,114 @@ DecoDXLog で一度開いて更新してください。</translation>
         <translation>
             <numerusform>すでにログにあります (%n 分のうち)</numerusform>
         </translation>
+    </message>
+    <message>
+        <source>Cannot read attachment: %1</source>
+        <translation>添付ファイルを読み取れません: %1</translation>
+    </message>
+    <message>
+        <source>Choose at least one QSO and a non-empty file</source>
+        <translation>QSO を 1 件以上と、空でないファイルを選んでください</translation>
+    </message>
+    <message>
+        <source>Cannot store QSL attachment</source>
+        <translation>QSL の添付ファイルを保存できません</translation>
+    </message>
+    <message>
+        <source>Attached %1 to %n QSO(s)</source>
+        <translation>%1 を %n 件の QSO に添付しました</translation>
+    </message>
+    <message>
+        <source>Attachment not found</source>
+        <translation>添付ファイルが見つかりません</translation>
+    </message>
+    <message>
+        <source>Cannot write attachment</source>
+        <translation>添付ファイルを書き込めません</translation>
+    </message>
+    <message>
+        <source>Receive</source>
+        <translation>受信</translation>
+    </message>
+    <message>
+        <source>Decodium connection is active</source>
+        <translation>Decodium との接続は有効です</translation>
+    </message>
+    <message>
+        <source>No Decodium client is connected</source>
+        <translation>Decodium クライアントが接続されていません</translation>
+    </message>
+    <message>
+        <source>Parse</source>
+        <translation>解析</translation>
+    </message>
+    <message>
+        <source>ADIF parser is available</source>
+        <translation>ADIF パーサーは利用できます</translation>
+    </message>
+    <message>
+        <source>Deduplicate</source>
+        <translation>重複排除</translation>
+    </message>
+    <message>
+        <source>Duplicate protection is enabled</source>
+        <translation>重複保護は有効です</translation>
+    </message>
+    <message>
+        <source>Save</source>
+        <translation>保存</translation>
+    </message>
+    <message>
+        <source>Local log is open</source>
+        <translation>ローカルログが開いています</translation>
+    </message>
+    <message>
+        <source>No local log is open</source>
+        <translation>ローカルログが開かれていません</translation>
+    </message>
+    <message>
+        <source>QSL</source>
+        <translation>QSL</translation>
+    </message>
+    <message>
+        <source>%1 QSL service(s) ready; diagnostic mode never uploads</source>
+        <translation>QSL サービス %1 件が準備完了。診断モードは何もアップロードしません</translation>
+    </message>
+    <message>
+        <source>Choose a file first</source>
+        <translation>先にファイルを選んでください</translation>
+    </message>
+    <message>
+        <source>Cannot write diagnostic report: %1</source>
+        <translation>診断レポートを書き込めません: %1</translation>
+    </message>
+    <message>
+        <source>Cannot save diagnostic report</source>
+        <translation>診断レポートを保存できません</translation>
+    </message>
+    <message>
+        <source>No QSL manager is recorded for this QSO</source>
+        <translation>この QSO には QSL マネージャーが記録されていません</translation>
+    </message>
+    <message>
+        <source>entered in the QSO</source>
+        <translation>QSO に入力済み</translation>
+    </message>
+    <message>
+        <source>no unconfirmed service is recorded</source>
+        <translation>未確認のサービスは記録されていません</translation>
+    </message>
+    <message>
+        <source>potentially useful for: %1</source>
+        <translation>次の用途に役立つ可能性があります: %1</translation>
+    </message>
+    <message>
+        <source>Manager %1 may be outdated; verify the route before sending; %2</source>
+        <translation>マネージャー %1 は古い可能性があります。送る前に経路を確認してください。%2</translation>
+    </message>
+    <message>
+        <source>Manager %1 could resolve the paper QSL for this QSO; %2; review and approve the route</source>
+        <translation>マネージャー %1 がこの QSO の紙の QSL を処理できる可能性があります。%2。経路を確認して承認してください</translation>
     </message>
     <message>
         <source>This column cannot be edited here: open the QSO card</source>
@@ -10157,8 +10626,20 @@ DecoDXLog で一度開いて更新してください。</translation>
         <translation>%1 をインポート中…</translation>
     </message>
     <message>
-        <source>%1: %2 new, %3 duplicates, %4 rejected</source>
-        <translation>%1: 新しいもの %2、重複 %3、受け付けなかったもの %4</translation>
+        <source>%1: %2 read, %3 new, %4 duplicates, %5 rejected, %6 with QSL status</source>
+        <translation>%1: 読み込み %2、新規 %3、重複 %4、却下 %5、QSL 状態あり %6</translation>
+    </message>
+    <message>
+        <source>%1 record(s) had no complete UTC date/time</source>
+        <translation>UTC の日付・時刻が完全でないレコード: %1 件</translation>
+    </message>
+    <message>
+        <source>Preserved unmapped ADIF fields: %1</source>
+        <translation>対応付けできなかった ADIF フィールドを保持しました: %1</translation>
+    </message>
+    <message>
+        <source>Undid the last import: %1 QSO(s) moved to the recycle history.</source>
+        <translation>直前のインポートを取り消しました。%1 件の QSO をごみ箱の履歴へ移動しました。</translation>
     </message>
     <message>
         <source>Cannot write %1: %2</source>
@@ -10470,6 +10951,10 @@ DecoDXLog で一度開いて更新してください。</translation>
         <source>%1 joined the network</source>
         <translation>%1 がネットワークに参加しました</translation>
     </message>
+    <message>
+        <source>Serial collision detected: %1 was already assigned locally; verify the contest log</source>
+        <translation>通し番号の衝突を検出: %1 はすでにローカルで割り当て済みです。コンテストログを確認してください</translation>
+    </message>
 </context>
 <context>
     <name>decolog::app::QslCardController</name>
@@ -10745,6 +11230,14 @@ DecoDXLog で一度開いて更新してください。</translation>
         <translation>
             <numerusform>TQSL の用意ができました · station location %n 件</numerusform>
         </translation>
+    </message>
+    <message>
+        <source>not configured</source>
+        <translation>未設定</translation>
+    </message>
+    <message>
+        <source>active station</source>
+        <translation>アクティブな局</translation>
     </message>
     <message>
         <source>no credentials: Setup → QSL services</source>

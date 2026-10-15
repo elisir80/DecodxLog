@@ -91,6 +91,14 @@
 <context>
     <name>ActivationController</name>
     <message>
+        <source>Activation references cannot contain empty items</source>
+        <translation>Ссылки активации не могут содержать пустых элементов</translation>
+    </message>
+    <message>
+        <source>Activation references cannot contain duplicates: %1</source>
+        <translation>Ссылки активации не могут содержать дубликатов: %1</translation>
+    </message>
+    <message>
         <source>Zones</source>
         <translation>Зоны</translation>
     </message>
@@ -349,6 +357,10 @@
         <translation>Квадраты</translation>
     </message>
     <message>
+        <source>Grid statistics</source>
+        <translation>Статистика по локаторам</translation>
+    </message>
+    <message>
         <source>Diploma: 30 castles in 5 different regions (20 for stations outside Italy), at least one in the province of Cuneo. So far: %1 in %2 regions, Cuneo %3.</source>
         <translation>Диплом: 30 замков в 5 разных регионах (20 для станций за пределами Италии), хотя бы один в провинции Кунео. Пока: %1 в %2 регионах, Кунео %3.</translation>
     </message>
@@ -377,6 +389,10 @@
         <translation>Референс берётся из SIG/SIG_INFO (SIG = %1) или из комментария вида «%1 LI-001».</translation>
     </message>
     <message>
+        <source>Official WAC counts six continents; Antarctica is shown but not counted.</source>
+        <translation>Официальный WAC считает шесть континентов; Антарктида показана, но не учитывается.</translation>
+    </message>
+    <message>
         <source>QSOs on 60 m are counted here, but the ARRL does not accept them: for the official count switch off &quot;60 m&quot;.</source>
         <translation>Здесь QSO на 60 м учитываются, но ARRL их не принимает: для официального зачёта выключите «60 м».</translation>
     </message>
@@ -395,6 +411,10 @@
             <numerusform>%n QSO с удалёнными территориями или не признанными ARRL операциями (Club Log) не учтены.</numerusform>
             <numerusform>%n QSO с удалёнными территориями или не признанными ARRL операциями (Club Log) не учтено.</numerusform>
         </translation>
+    </message>
+    <message>
+        <source>Satellite QSOs stay in the log but are excluded from terrestrial DXCC/WAS credit.</source>
+        <translation>Спутниковые QSO остаются в журнале, но не засчитываются в наземные DXCC/WAS.</translation>
     </message>
     <message>
         <source>Diploma: 75 provinces for Italian stations, 60 for the others.</source>
@@ -432,8 +452,24 @@
         <translation>цель %1</translation>
     </message>
     <message>
+        <source>statistics · rules not verified</source>
+        <translation>статистика · правила не проверены</translation>
+    </message>
+    <message>
+        <source>Create claim (%1)</source>
+        <translation>Создать заявку (%1)</translation>
+    </message>
+    <message>
         <source>worked %1</source>
         <translation>проведено %1</translation>
+    </message>
+    <message>
+        <source>official rules</source>
+        <translation>официальные правила</translation>
+    </message>
+    <message>
+        <source>personal · 60 m</source>
+        <translation>личный зачёт · 60 м</translation>
     </message>
     <message>
         <source>band slots %1 / %2</source>
@@ -488,14 +524,6 @@
         <translation>Карточка</translation>
     </message>
     <message>
-        <source>60 m</source>
-        <translation>60 м</translation>
-    </message>
-    <message>
-        <source>Count QSOs on 60 m in DXCC, DXCC Challenge and WAS too. The ARRL does not accept them: switch off for the official count.</source>
-        <translation>Учитывать QSO на 60 м также в DXCC, DXCC Challenge и WAS. ARRL их не принимает: выключите для официального зачёта.</translation>
-    </message>
-    <message>
         <source>All stations</source>
         <translation>Все станции</translation>
     </message>
@@ -504,8 +532,48 @@
         <translation>Все метки</translation>
     </message>
     <message>
+        <source>Claims</source>
+        <translation>Заявки</translation>
+    </message>
+    <message>
+        <source>Outcome / note</source>
+        <translation>Итог / примечание</translation>
+    </message>
+    <message>
+        <source>Evidence or external reference</source>
+        <translation>Доказательство или внешняя ссылка</translation>
+    </message>
+    <message>
+        <source>Submit</source>
+        <translation>Отправить</translation>
+    </message>
+    <message>
+        <source>Verify</source>
+        <translation>Проверить</translation>
+    </message>
+    <message>
+        <source>Reject</source>
+        <translation>Отклонить</translation>
+    </message>
+    <message>
+        <source>Credit</source>
+        <translation>Засчитать</translation>
+    </message>
+    <message>
         <source>Valid for %1</source>
         <translation>Действуют для %1</translation>
+    </message>
+    <message>
+        <source>60 m · personal</source>
+        <translation>60 м · личный зачёт</translation>
+    </message>
+    <message>
+        <source>60 m · official</source>
+        <translation>60 м · официально</translation>
+    </message>
+    <message>
+        <source>The official ARRL count excludes 60 m. Enable it only for a personal count.</source>
+        <translation>Официальный подсчёт ARRL исключает 60 м. Включайте только для личного подсчёта.</translation>
     </message>
     <message>
         <source>chosen by you</source>
@@ -701,6 +769,26 @@
         <translation>Служба</translation>
     </message>
     <message>
+        <source>Account / profile</source>
+        <translation>Аккаунт / профиль</translation>
+    </message>
+    <message>
+        <source>not configured</source>
+        <translation>не настроено</translation>
+    </message>
+    <message>
+        <source>active station</source>
+        <translation>активная станция</translation>
+    </message>
+    <message>
+        <source>Integration diagnostics…</source>
+        <translation>Диагностика интеграций…</translation>
+    </message>
+    <message>
+        <source>Runs locally; no test QSO is uploaded</source>
+        <translation>Выполняется локально; тестовые QSO не отправляются</translation>
+    </message>
+    <message>
         <source>Download LoTW confirmations</source>
         <translation>Скачать подтверждения LoTW</translation>
     </message>
@@ -735,6 +823,30 @@
     <message>
         <source>LoTW: TQSL signs and sends, and the confirmations come back here.</source>
         <translation>LoTW: TQSL подписывает и отправляет, а подтверждения возвращаются сюда.</translation>
+    </message>
+    <message>
+        <source>Integration diagnostics</source>
+        <translation>Диагностика интеграций</translation>
+    </message>
+    <message>
+        <source>The checks stay on this computer. The support report is redacted and is saved only after confirmation.</source>
+        <translation>Проверки выполняются на этом компьютере. Отчёт для поддержки очищается от секретов и сохраняется только после подтверждения.</translation>
+    </message>
+    <message>
+        <source>Approve and save report…</source>
+        <translation>Утвердить и сохранить отчёт…</translation>
+    </message>
+    <message>
+        <source>Save diagnostic support report</source>
+        <translation>Сохранить диагностический отчёт для поддержки</translation>
+    </message>
+    <message>
+        <source>Text files (*.txt)</source>
+        <translation>Текстовые файлы (*.txt)</translation>
+    </message>
+    <message>
+        <source>All files (*)</source>
+        <translation>Все файлы (*)</translation>
     </message>
     <message>
         <source>Sent</source>
@@ -2933,6 +3045,73 @@ In Decodium: Settings → Reporting → UDP Server 127.0.0.1, port %1, and &quot
     </message>
 </context>
 <context>
+    <name>FirstRunGuide</name>
+    <message>
+        <source>Start with DecoDXLog</source>
+        <translation>Начало работы с DecoDXLog</translation>
+    </message>
+    <message>
+        <source>A short path to your first contact</source>
+        <translation>Короткий путь к первой связи</translation>
+    </message>
+    <message>
+        <source>You can use DecoDXLog without a radio. Configure CAT only if you want the log to read the frequency and mode automatically.</source>
+        <translation>DecoDXLog можно использовать без трансивера. Настраивайте CAT, только если хотите, чтобы журнал сам считывал частоту и режим.</translation>
+    </message>
+    <message>
+        <source>1  Station profile</source>
+        <translation>1  Профиль станции</translation>
+    </message>
+    <message>
+        <source>Set your callsign, grid and station details in the profile dialog.</source>
+        <translation>Укажите позывной, локатор и данные станции в окне профиля.</translation>
+    </message>
+    <message>
+        <source>2  Radio (optional)</source>
+        <translation>2  Трансивер (необязательно)</translation>
+    </message>
+    <message>
+        <source>In Setup → Radio (CAT), choose the model and connection, then use Find the radio. For a shared CAT connection, enter its host and port instead of opening a second serial connection.</source>
+        <translation>В Настройки → Радио (CAT) выберите модель и подключение, затем нажмите «Найти радио». Для общего CAT-подключения укажите его хост и порт, а не открывайте второе последовательное соединение.</translation>
+    </message>
+    <message>
+        <source>3  First QSO</source>
+        <translation>3  Первое QSO</translation>
+    </message>
+    <message>
+        <source>Open New QSO, enter a callsign and the required fields, then press Ctrl+Enter or Register. The local log remains usable if CAT or an online service is unavailable.</source>
+        <translation>Откройте «Новое QSO», введите позывной и обязательные поля, затем нажмите Ctrl+Enter или «Записать». Локальный журнал остаётся доступным, даже если CAT или онлайн-сервис недоступен.</translation>
+    </message>
+    <message>
+        <source>This guide appears once when the log is empty; the normal setup and New QSO shortcuts remain available afterwards.</source>
+        <translation>Это руководство появляется один раз, когда журнал пуст; потом остаются обычные пути к настройкам и «Новое QSO».</translation>
+    </message>
+    <message>
+        <source>Configure radio</source>
+        <translation>Настроить радио</translation>
+    </message>
+    <message>
+        <source>Open radio and CAT setup</source>
+        <translation>Открыть настройки радио и CAT</translation>
+    </message>
+    <message>
+        <source>Open New QSO</source>
+        <translation>Открыть «Новое QSO»</translation>
+    </message>
+    <message>
+        <source>Open the new QSO form</source>
+        <translation>Открыть форму нового QSO</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation>Закрыть</translation>
+    </message>
+    <message>
+        <source>Close the first-run guide</source>
+        <translation>Закрыть руководство первого запуска</translation>
+    </message>
+</context>
+<context>
     <name>FlrigControl</name>
     <message>
         <source>connecting to flrig at %1…</source>
@@ -3072,6 +3251,70 @@ In Decodium: Settings → Reporting → UDP Server 127.0.0.1, port %1, and &quot
     <message>
         <source>The backup could not take the place of the log; the log as it was is back.</source>
         <translation>Копия не смогла занять место лога; прежний лог вернулся.</translation>
+    </message>
+    <message>
+        <source>The SQLite copy cannot be included: %1</source>
+        <translation>Копию SQLite нельзя включить: %1</translation>
+    </message>
+    <message>
+        <source>The bundle destination already exists.</source>
+        <translation>Место назначения пакета уже существует.</translation>
+    </message>
+    <message>
+        <source>The SQLite copy could not be copied into the bundle.</source>
+        <translation>Не удалось скопировать копию SQLite в пакет.</translation>
+    </message>
+    <message>
+        <source>Portable settings could not be written to the backup bundle.</source>
+        <translation>Не удалось записать переносимые настройки в пакет резервной копии.</translation>
+    </message>
+    <message>
+        <source>Unsafe resource path in backup bundle: %1</source>
+        <translation>Небезопасный путь ресурса в пакете резервной копии: %1</translation>
+    </message>
+    <message>
+        <source>Resource could not be copied into the bundle: %1</source>
+        <translation>Не удалось скопировать ресурс в пакет: %1</translation>
+    </message>
+    <message>
+        <source>The backup bundle manifest could not be written.</source>
+        <translation>Не удалось записать манифест пакета резервной копии.</translation>
+    </message>
+    <message>
+        <source>The backup bundle could not be committed atomically.</source>
+        <translation>Не удалось атомарно завершить пакет резервной копии.</translation>
+    </message>
+    <message>
+        <source>The backup bundle has no readable manifest.</source>
+        <translation>В пакете резервной копии нет читаемого манифеста.</translation>
+    </message>
+    <message>
+        <source>The backup bundle format is not supported.</source>
+        <translation>Формат пакета резервной копии не поддерживается.</translation>
+    </message>
+    <message>
+        <source>The backup bundle manifest is incomplete.</source>
+        <translation>Манифест пакета резервной копии неполный.</translation>
+    </message>
+    <message>
+        <source>The bundle resources could not be staged.</source>
+        <translation>Не удалось подготовить ресурсы пакета.</translation>
+    </message>
+    <message>
+        <source>The bundle resource is missing: %1</source>
+        <translation>Отсутствует ресурс пакета: %1</translation>
+    </message>
+    <message>
+        <source>Portable settings could not be read from the backup bundle.</source>
+        <translation>Не удалось прочитать переносимые настройки из пакета резервной копии.</translation>
+    </message>
+    <message>
+        <source>The bundle resource could not be staged: %1</source>
+        <translation>Не удалось подготовить ресурс пакета: %1</translation>
+    </message>
+    <message>
+        <source>The bundle resource could not be restored: %1</source>
+        <translation>Не удалось восстановить ресурс пакета: %1</translation>
     </message>
     <message>
         <source>DecoDXLog did not close in time: the log was not touched.</source>
@@ -3857,6 +4100,26 @@ Open it once in DecoDXLog to bring it up to date.</source>
         <translation>в окне программы</translation>
     </message>
     <message>
+        <source>Beginner</source>
+        <translation>Начинающий</translation>
+    </message>
+    <message>
+        <source>DX</source>
+        <translation>DX</translation>
+    </message>
+    <message>
+        <source>Digital</source>
+        <translation>Цифровые</translation>
+    </message>
+    <message>
+        <source>Contest</source>
+        <translation>Соревнование</translation>
+    </message>
+    <message>
+        <source>Portable</source>
+        <translation>Портативный</translation>
+    </message>
+    <message>
         <source>Import a log</source>
         <translation>Импортировать журнал</translation>
     </message>
@@ -3881,6 +4144,36 @@ Open it once in DecoDXLog to bring it up to date.</source>
         <translation>Все файлы (*)</translation>
     </message>
     <message>
+        <source>Import preview</source>
+        <translation>Предпросмотр импорта</translation>
+    </message>
+    <message>
+        <source>%1 records read from %2.
+Estimated result: %3 new · %4 duplicates · %5 rejected.
+QSL status: %6 · incomplete UTC: %7.
+Extra fields are preserved: %8</source>
+        <translation>Прочитано записей из %2: %1.
+Ожидаемый результат: %3 новых · %4 дубликатов · %5 отклонено.
+Статус QSL: %6 · неполное UTC: %7.
+Дополнительные поля сохраняются: %8</translation>
+    </message>
+    <message>
+        <source>none</source>
+        <translation>нет</translation>
+    </message>
+    <message>
+        <source>Cannot preview this import: %1</source>
+        <translation>Не удалось показать предпросмотр этого импорта: %1</translation>
+    </message>
+    <message>
+        <source>unknown error</source>
+        <translation>неизвестная ошибка</translation>
+    </message>
+    <message>
+        <source>Records with incomplete UTC will be rejected during import.</source>
+        <translation>Записи с неполным UTC будут отклонены при импорте.</translation>
+    </message>
+    <message>
         <source>Export ADIF</source>
         <translation>Экспорт ADIF</translation>
     </message>
@@ -3903,6 +4196,14 @@ Open it once in DecoDXLog to bring it up to date.</source>
     <message>
         <source>Detach it into its own window</source>
         <translation>Отделить в своё окно</translation>
+    </message>
+    <message>
+        <source>Operational presets</source>
+        <translation>Рабочие пресеты</translation>
+    </message>
+    <message>
+        <source>Choose a starting layout; your current layout is changed only after selection.</source>
+        <translation>Выберите начальную раскладку; текущая изменится только после выбора.</translation>
     </message>
     <message>
         <source>Restore the default layout</source>
@@ -5275,6 +5576,18 @@ Open it once in DecoDXLog to bring it up to date.</source>
         <translation>Файлы ADIF (*.adi)</translation>
     </message>
     <message>
+        <source>Import received QSL scan or image</source>
+        <translation>Импортировать скан или изображение полученной QSL</translation>
+    </message>
+    <message>
+        <source>Images and documents (*.png *.jpg *.jpeg *.webp *.pdf)</source>
+        <translation>Изображения и документы (*.png *.jpg *.jpeg *.webp *.pdf)</translation>
+    </message>
+    <message>
+        <source>All files (*)</source>
+        <translation>Все файлы (*)</translation>
+    </message>
+    <message>
         <source>Delete %1? The QSO stays in the history and can be recovered.</source>
         <translation>Удалить %1? QSO остаётся в истории, его можно вернуть.</translation>
     </message>
@@ -5513,6 +5826,46 @@ Open it once in DecoDXLog to bring it up to date.</source>
     <message>
         <source>QSL status · per service</source>
         <translation>Состояние QSL · по службам</translation>
+    </message>
+    <message>
+        <source>Received QSL archive</source>
+        <translation>Архив полученных QSL</translation>
+    </message>
+    <message>
+        <source>QSL manager: %1 · %2 · %3</source>
+        <translation>QSL-менеджер: %1 · %2 · %3</translation>
+    </message>
+    <message>
+        <source>unknown source</source>
+        <translation>неизвестный источник</translation>
+    </message>
+    <message>
+        <source>Import scan or image…</source>
+        <translation>Импортировать скан или изображение…</translation>
+    </message>
+    <message>
+        <source>Not a confirmation by itself</source>
+        <translation>Само по себе не подтверждение</translation>
+    </message>
+    <message>
+        <source>%1 KB</source>
+        <translation>%1 КБ</translation>
+    </message>
+    <message>
+        <source>Data provenance</source>
+        <translation>Происхождение данных</translation>
+    </message>
+    <message>
+        <source>empty</source>
+        <translation>пусто</translation>
+    </message>
+    <message>
+        <source>Undo</source>
+        <translation>Отменить</translation>
+    </message>
+    <message>
+        <source>No enriched fields recorded.</source>
+        <translation>Обогащённые поля не записаны.</translation>
     </message>
     <message>
         <source>Award impact</source>
@@ -5829,12 +6182,12 @@ Open it once in DecoDXLog to bring it up to date.</source>
         <translation>Выбрать резервную копию</translation>
     </message>
     <message>
-        <source>DecoDXLog logs (*.sqlite)</source>
-        <translation>Логи DecoDXLog (*.sqlite)</translation>
-    </message>
-    <message>
         <source>All files (*)</source>
         <translation>Все файлы (*)</translation>
+    </message>
+    <message>
+        <source>DecoDXLog backups (*.sqlite *.bundle)</source>
+        <translation>Резервные копии DecoDXLog (*.sqlite *.bundle)</translation>
     </message>
     <message numerus="yes">
         <source>Log now: %1 · %n QSO · last %2</source>
@@ -7234,6 +7587,10 @@ Open it once in DecoDXLog to bring it up to date.</source>
         <translation>Слева то, что показывает клавиша, справа то, что уходит в эфир ({CALL}, {MYCALL}, {RST}, {NR}, {EXCH}). Первые двенадцать на клавишах F1-F12, Esc останавливает. Они есть и в панели CW («Макросы…» или правый щелчок по клавише).</translation>
     </message>
     <message>
+        <source>Radio 1 is the one above; radio 2 is connected here. In the contest entry the radio with the focus gets the band, the tuning and the CW: Ctrl+← and Ctrl+→ choose radio 1 or 2, Pause swaps them, ` (backquote) toggles stereo listening. The SO2R box (MK2R, SO2RDuino, YCCC…) follows through OTRSP: TX1/TX2 for the transmitter, RX1/RX2 or RX1S/RX2S for the headphones. Software focus is not an RF interlock: use the hardware interlock and verify the actual station wiring before transmitting.</source>
+        <translation>Радио 1 — верхнее; радио 2 подключено здесь. В окне ввода соревнования радио с фокусом получает диапазон, настройку и CW: Ctrl+← и Ctrl+→ выбирают радио 1 или 2, Pause меняет их местами, ` (обратный апостроф) включает или выключает стереопрослушивание. Коробка SO2R (MK2R, SO2RDuino, YCCC…) следует через OTRSP: TX1/TX2 для передатчика, RX1/RX2 или RX1S/RX2S для наушников. Программный фокус не является ВЧ-блокировкой: используйте аппаратную блокировку и проверяйте фактическую разводку станции перед передачей.</translation>
+    </message>
+    <message>
         <source>Antenna rotor</source>
         <translation>Поворотное устройство</translation>
     </message>
@@ -7760,10 +8117,6 @@ Open it once in DecoDXLog to bring it up to date.</source>
     <message>
         <source>SO2R box port not open</source>
         <translation>Порт коробки SO2R не открыт</translation>
-    </message>
-    <message>
-        <source>Radio 1 is the one above; radio 2 is connected here. In the contest entry the radio with the focus gets the band, the tuning and the CW: Ctrl+← and Ctrl+→ choose radio 1 or 2, Pause swaps them, ` (backquote) toggles stereo listening. The SO2R box (MK2R, SO2RDuino, YCCC…) follows through OTRSP: TX1/TX2 for the transmitter, RX1/RX2 or RX1S/RX2S for the headphones.</source>
-        <translation>Радио 1 — то, что выше; радио 2 подключается здесь. Во вводе соревнования радио с фокусом получает диапазон, настройку и CW: Ctrl+← и Ctrl+→ выбирают радио 1 или 2, Pause меняет их, ` (обратный апостроф) переключает стерео-прослушивание. Коробка SO2R (MK2R, SO2RDuino, YCCC…) следует по OTRSP: TX1/TX2 для передатчика, RX1/RX2 или RX1S/RX2S для наушников.</translation>
     </message>
     <message>
         <source>The control box, directly (built-in gateway)</source>
@@ -9276,6 +9629,10 @@ Open it once in DecoDXLog to bring it up to date.</source>
         <translation>В этом сеансе ещё нет QSO</translation>
     </message>
     <message>
+        <source>Cabrillo export is unavailable: this contest has no verified rule sheet</source>
+        <translation>Экспорт Cabrillo недоступен: для этого соревнования нет проверенных правил</translation>
+    </message>
+    <message>
         <source>Nothing to write</source>
         <translation>Записывать нечего</translation>
     </message>
@@ -9792,6 +10149,10 @@ Open it once in DecoDXLog to bring it up to date.</source>
         <translation>справочник не настроен: Настройки → Справочник</translation>
     </message>
     <message>
+        <source>Could not record provenance for QSO %1</source>
+        <translation>Не удалось записать происхождение QSO %1</translation>
+    </message>
+    <message>
         <source>radio (CAT)</source>
         <translation>трансивер (CAT)</translation>
     </message>
@@ -9931,6 +10292,114 @@ Open it once in DecoDXLog to bring it up to date.</source>
             <numerusform>Уже есть в журнале (в пределах %n минут)</numerusform>
             <numerusform>Уже есть в журнале (в пределах %n минут)</numerusform>
         </translation>
+    </message>
+    <message>
+        <source>Cannot read attachment: %1</source>
+        <translation>Не удалось прочитать вложение: %1</translation>
+    </message>
+    <message>
+        <source>Choose at least one QSO and a non-empty file</source>
+        <translation>Выберите хотя бы одно QSO и непустой файл</translation>
+    </message>
+    <message>
+        <source>Cannot store QSL attachment</source>
+        <translation>Не удалось сохранить вложение QSL</translation>
+    </message>
+    <message>
+        <source>Attached %1 to %n QSO(s)</source>
+        <translation>%1 прикреплено к %n QSO</translation>
+    </message>
+    <message>
+        <source>Attachment not found</source>
+        <translation>Вложение не найдено</translation>
+    </message>
+    <message>
+        <source>Cannot write attachment</source>
+        <translation>Не удалось записать вложение</translation>
+    </message>
+    <message>
+        <source>Receive</source>
+        <translation>Приём</translation>
+    </message>
+    <message>
+        <source>Decodium connection is active</source>
+        <translation>Соединение с Decodium активно</translation>
+    </message>
+    <message>
+        <source>No Decodium client is connected</source>
+        <translation>Ни один клиент Decodium не подключён</translation>
+    </message>
+    <message>
+        <source>Parse</source>
+        <translation>Чтение</translation>
+    </message>
+    <message>
+        <source>ADIF parser is available</source>
+        <translation>Разборщик ADIF доступен</translation>
+    </message>
+    <message>
+        <source>Deduplicate</source>
+        <translation>Дубликаты</translation>
+    </message>
+    <message>
+        <source>Duplicate protection is enabled</source>
+        <translation>Защита от дубликатов включена</translation>
+    </message>
+    <message>
+        <source>Save</source>
+        <translation>Сохранить</translation>
+    </message>
+    <message>
+        <source>Local log is open</source>
+        <translation>Локальный журнал открыт</translation>
+    </message>
+    <message>
+        <source>No local log is open</source>
+        <translation>Локальный журнал не открыт</translation>
+    </message>
+    <message>
+        <source>QSL</source>
+        <translation>QSL</translation>
+    </message>
+    <message>
+        <source>%1 QSL service(s) ready; diagnostic mode never uploads</source>
+        <translation>Готово QSL-сервисов: %1; диагностический режим ничего не отправляет</translation>
+    </message>
+    <message>
+        <source>Choose a file first</source>
+        <translation>Сначала выберите файл</translation>
+    </message>
+    <message>
+        <source>Cannot write diagnostic report: %1</source>
+        <translation>Не удалось записать диагностический отчёт: %1</translation>
+    </message>
+    <message>
+        <source>Cannot save diagnostic report</source>
+        <translation>Не удалось сохранить диагностический отчёт</translation>
+    </message>
+    <message>
+        <source>No QSL manager is recorded for this QSO</source>
+        <translation>Для этого QSO не записан QSL-менеджер</translation>
+    </message>
+    <message>
+        <source>entered in the QSO</source>
+        <translation>указано в QSO</translation>
+    </message>
+    <message>
+        <source>no unconfirmed service is recorded</source>
+        <translation>неподтверждённых сервисов не записано</translation>
+    </message>
+    <message>
+        <source>potentially useful for: %1</source>
+        <translation>потенциально полезно для: %1</translation>
+    </message>
+    <message>
+        <source>Manager %1 may be outdated; verify the route before sending; %2</source>
+        <translation>Менеджер %1 может быть устаревшим; проверьте маршрут перед отправкой; %2</translation>
+    </message>
+    <message>
+        <source>Manager %1 could resolve the paper QSL for this QSO; %2; review and approve the route</source>
+        <translation>Менеджер %1 мог бы обработать бумажную QSL для этого QSO; %2; проверьте и утвердите маршрут</translation>
     </message>
     <message>
         <source>This column cannot be edited here: open the QSO card</source>
@@ -10237,8 +10706,20 @@ Open it once in DecoDXLog to bring it up to date.</source>
         <translation>Импорт %1…</translation>
     </message>
     <message>
-        <source>%1: %2 new, %3 duplicates, %4 rejected</source>
-        <translation>%1: новых %2, дублей %3, отклонено %4</translation>
+        <source>%1: %2 read, %3 new, %4 duplicates, %5 rejected, %6 with QSL status</source>
+        <translation>%1: прочитано %2, новых %3, дубликатов %4, отклонено %5, со статусом QSL %6</translation>
+    </message>
+    <message>
+        <source>%1 record(s) had no complete UTC date/time</source>
+        <translation>Записей без полной даты/времени UTC: %1</translation>
+    </message>
+    <message>
+        <source>Preserved unmapped ADIF fields: %1</source>
+        <translation>Несопоставленные поля ADIF сохранены: %1</translation>
+    </message>
+    <message>
+        <source>Undid the last import: %1 QSO(s) moved to the recycle history.</source>
+        <translation>Последний импорт отменён: QSO перемещено в историю корзины: %1.</translation>
     </message>
     <message>
         <source>Cannot write %1: %2</source>
@@ -10566,6 +11047,10 @@ Open it once in DecoDXLog to bring it up to date.</source>
         <source>%1 joined the network</source>
         <translation>%1 подключился к сети</translation>
     </message>
+    <message>
+        <source>Serial collision detected: %1 was already assigned locally; verify the contest log</source>
+        <translation>Обнаружен конфликт порядкового номера: %1 уже назначен локально; проверьте журнал соревнования</translation>
+    </message>
 </context>
 <context>
     <name>decolog::app::QslCardController</name>
@@ -10863,6 +11348,14 @@ Open it once in DecoDXLog to bring it up to date.</source>
             <numerusform>TQSL готов · %n station location</numerusform>
             <numerusform>TQSL готов · %n station location</numerusform>
         </translation>
+    </message>
+    <message>
+        <source>not configured</source>
+        <translation>не настроено</translation>
+    </message>
+    <message>
+        <source>active station</source>
+        <translation>активная станция</translation>
     </message>
     <message>
         <source>no credentials: Setup → QSL services</source>

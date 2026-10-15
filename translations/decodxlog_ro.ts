@@ -91,6 +91,14 @@
 <context>
     <name>ActivationController</name>
     <message>
+        <source>Activation references cannot contain empty items</source>
+        <translation>Referințele de activare nu pot conține elemente goale</translation>
+    </message>
+    <message>
+        <source>Activation references cannot contain duplicates: %1</source>
+        <translation>Referințele de activare nu pot conține duplicate: %1</translation>
+    </message>
+    <message>
         <source>Zones</source>
         <translation>Zone</translation>
     </message>
@@ -349,6 +357,10 @@
         <translation>Locatoare</translation>
     </message>
     <message>
+        <source>Grid statistics</source>
+        <translation>Statistici de locatori</translation>
+    </message>
+    <message>
         <source>Diploma: 30 castles in 5 different regions (20 for stations outside Italy), at least one in the province of Cuneo. So far: %1 in %2 regions, Cuneo %3.</source>
         <translation>Diplomă: 30 de castele din 5 regiuni diferite (20 pentru stațiile din afara Italiei), cel puțin unul din provincia Cuneo. Până acum: %1 în %2 regiuni, Cuneo %3.</translation>
     </message>
@@ -377,6 +389,10 @@
         <translation>Referința se citește din SIG/SIG_INFO (SIG = %1) sau dintr-un comentariu ca &quot;%1 LI-001&quot;.</translation>
     </message>
     <message>
+        <source>Official WAC counts six continents; Antarctica is shown but not counted.</source>
+        <translation>WAC oficial numără șase continente; Antarctica este afișată, dar nu este numărată.</translation>
+    </message>
+    <message>
         <source>QSOs on 60 m are counted here, but the ARRL does not accept them: for the official count switch off &quot;60 m&quot;.</source>
         <translation>Aici QSO-urile pe 60 m se numără, dar ARRL nu le acceptă: pentru socoteala oficială oprește „60 m”.</translation>
     </message>
@@ -395,6 +411,10 @@
             <numerusform>%n QSO-uri cu entități șterse sau operațiuni neacceptate de ARRL (Club Log) rămân deoparte.</numerusform>
             <numerusform>%n de QSO-uri cu entități șterse sau operațiuni neacceptate de ARRL (Club Log) rămân deoparte.</numerusform>
         </translation>
+    </message>
+    <message>
+        <source>Satellite QSOs stay in the log but are excluded from terrestrial DXCC/WAS credit.</source>
+        <translation>QSO-urile prin satelit rămân în jurnal, dar sunt excluse din creditul DXCC/WAS terestru.</translation>
     </message>
     <message>
         <source>Diploma: 75 provinces for Italian stations, 60 for the others.</source>
@@ -432,8 +452,24 @@
         <translation>țintă %1</translation>
     </message>
     <message>
+        <source>statistics · rules not verified</source>
+        <translation>statistici · reguli neverificate</translation>
+    </message>
+    <message>
+        <source>Create claim (%1)</source>
+        <translation>Creează cererea (%1)</translation>
+    </message>
+    <message>
         <source>worked %1</source>
         <translation>lucrate %1</translation>
+    </message>
+    <message>
+        <source>official rules</source>
+        <translation>reguli oficiale</translation>
+    </message>
+    <message>
+        <source>personal · 60 m</source>
+        <translation>personal · 60 m</translation>
     </message>
     <message>
         <source>band slots %1 / %2</source>
@@ -488,14 +524,6 @@
         <translation>Carte</translation>
     </message>
     <message>
-        <source>60 m</source>
-        <translation>60 m</translation>
-    </message>
-    <message>
-        <source>Count QSOs on 60 m in DXCC, DXCC Challenge and WAS too. The ARRL does not accept them: switch off for the official count.</source>
-        <translation>Numără QSO-urile pe 60 m și la DXCC, DXCC Challenge și WAS. ARRL nu le acceptă: oprește pentru socoteala oficială.</translation>
-    </message>
-    <message>
         <source>All stations</source>
         <translation>Toate stațiile</translation>
     </message>
@@ -504,8 +532,48 @@
         <translation>Toate etichetele</translation>
     </message>
     <message>
+        <source>Claims</source>
+        <translation>Cereri</translation>
+    </message>
+    <message>
+        <source>Outcome / note</source>
+        <translation>Rezultat / notă</translation>
+    </message>
+    <message>
+        <source>Evidence or external reference</source>
+        <translation>Dovadă sau referință externă</translation>
+    </message>
+    <message>
+        <source>Submit</source>
+        <translation>Trimite</translation>
+    </message>
+    <message>
+        <source>Verify</source>
+        <translation>Verifică</translation>
+    </message>
+    <message>
+        <source>Reject</source>
+        <translation>Respinge</translation>
+    </message>
+    <message>
+        <source>Credit</source>
+        <translation>Creditează</translation>
+    </message>
+    <message>
         <source>Valid for %1</source>
         <translation>Valabile pentru %1</translation>
+    </message>
+    <message>
+        <source>60 m · personal</source>
+        <translation>60 m · personal</translation>
+    </message>
+    <message>
+        <source>60 m · official</source>
+        <translation>60 m · oficial</translation>
+    </message>
+    <message>
+        <source>The official ARRL count excludes 60 m. Enable it only for a personal count.</source>
+        <translation>Numărătoarea oficială ARRL exclude 60 m. Activeaz-o doar pentru o numărătoare personală.</translation>
     </message>
     <message>
         <source>chosen by you</source>
@@ -701,6 +769,26 @@
         <translation>Serviciu</translation>
     </message>
     <message>
+        <source>Account / profile</source>
+        <translation>Cont / profil</translation>
+    </message>
+    <message>
+        <source>not configured</source>
+        <translation>neconfigurat</translation>
+    </message>
+    <message>
+        <source>active station</source>
+        <translation>stație activă</translation>
+    </message>
+    <message>
+        <source>Integration diagnostics…</source>
+        <translation>Diagnosticul integrărilor…</translation>
+    </message>
+    <message>
+        <source>Runs locally; no test QSO is uploaded</source>
+        <translation>Rulează local; nu se încarcă niciun QSO de test</translation>
+    </message>
+    <message>
         <source>Download LoTW confirmations</source>
         <translation>Descarcă confirmările LoTW</translation>
     </message>
@@ -735,6 +823,30 @@
     <message>
         <source>LoTW: TQSL signs and sends, and the confirmations come back here.</source>
         <translation>LoTW: TQSL semnează și trimite, iar confirmările se întorc aici.</translation>
+    </message>
+    <message>
+        <source>Integration diagnostics</source>
+        <translation>Diagnosticul integrărilor</translation>
+    </message>
+    <message>
+        <source>The checks stay on this computer. The support report is redacted and is saved only after confirmation.</source>
+        <translation>Verificările rămân pe acest calculator. Raportul pentru asistență este anonimizat și se salvează doar după confirmare.</translation>
+    </message>
+    <message>
+        <source>Approve and save report…</source>
+        <translation>Aprobă și salvează raportul…</translation>
+    </message>
+    <message>
+        <source>Save diagnostic support report</source>
+        <translation>Salvează raportul de diagnostic pentru asistență</translation>
+    </message>
+    <message>
+        <source>Text files (*.txt)</source>
+        <translation>Fișiere text (*.txt)</translation>
+    </message>
+    <message>
+        <source>All files (*)</source>
+        <translation>Toate fișierele (*)</translation>
     </message>
     <message>
         <source>Sent</source>
@@ -2933,6 +3045,73 @@ In Decodium: Settings → Reporting → UDP Server 127.0.0.1, port %1, and &quot
     </message>
 </context>
 <context>
+    <name>FirstRunGuide</name>
+    <message>
+        <source>Start with DecoDXLog</source>
+        <translation>Începe cu DecoDXLog</translation>
+    </message>
+    <message>
+        <source>A short path to your first contact</source>
+        <translation>Un drum scurt spre primul tău contact</translation>
+    </message>
+    <message>
+        <source>You can use DecoDXLog without a radio. Configure CAT only if you want the log to read the frequency and mode automatically.</source>
+        <translation>Poți folosi DecoDXLog fără stație radio. Configurează CAT doar dacă vrei ca jurnalul să citească singur frecvența și modul.</translation>
+    </message>
+    <message>
+        <source>1  Station profile</source>
+        <translation>1  Profilul stației</translation>
+    </message>
+    <message>
+        <source>Set your callsign, grid and station details in the profile dialog.</source>
+        <translation>Introdu indicativul, locatorul și datele stației în fereastra profilului.</translation>
+    </message>
+    <message>
+        <source>2  Radio (optional)</source>
+        <translation>2  Stație radio (opțional)</translation>
+    </message>
+    <message>
+        <source>In Setup → Radio (CAT), choose the model and connection, then use Find the radio. For a shared CAT connection, enter its host and port instead of opening a second serial connection.</source>
+        <translation>În Setări → Radio (CAT) alege modelul și conexiunea, apoi folosește Găsește radioul. Pentru o conexiune CAT partajată, introdu gazda și portul ei în loc să deschizi o a doua conexiune serială.</translation>
+    </message>
+    <message>
+        <source>3  First QSO</source>
+        <translation>3  Primul QSO</translation>
+    </message>
+    <message>
+        <source>Open New QSO, enter a callsign and the required fields, then press Ctrl+Enter or Register. The local log remains usable if CAT or an online service is unavailable.</source>
+        <translation>Deschide QSO nou, introdu un indicativ și câmpurile necesare, apoi apasă Ctrl+Enter sau Înregistrează. Jurnalul local rămâne utilizabil chiar dacă CAT sau un serviciu online nu este disponibil.</translation>
+    </message>
+    <message>
+        <source>This guide appears once when the log is empty; the normal setup and New QSO shortcuts remain available afterwards.</source>
+        <translation>Acest ghid apare o singură dată, când jurnalul este gol; apoi rămân disponibile scurtăturile obișnuite spre setări și QSO nou.</translation>
+    </message>
+    <message>
+        <source>Configure radio</source>
+        <translation>Configurează radioul</translation>
+    </message>
+    <message>
+        <source>Open radio and CAT setup</source>
+        <translation>Deschide setările de radio și CAT</translation>
+    </message>
+    <message>
+        <source>Open New QSO</source>
+        <translation>Deschide QSO nou</translation>
+    </message>
+    <message>
+        <source>Open the new QSO form</source>
+        <translation>Deschide formularul pentru un QSO nou</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation>Închide</translation>
+    </message>
+    <message>
+        <source>Close the first-run guide</source>
+        <translation>Închide ghidul de prima pornire</translation>
+    </message>
+</context>
+<context>
     <name>FlrigControl</name>
     <message>
         <source>connecting to flrig at %1…</source>
@@ -3072,6 +3251,70 @@ In Decodium: Settings → Reporting → UDP Server 127.0.0.1, port %1, and &quot
     <message>
         <source>The backup could not take the place of the log; the log as it was is back.</source>
         <translation>Copia nu a putut lua locul logului; logul de dinainte a revenit.</translation>
+    </message>
+    <message>
+        <source>The SQLite copy cannot be included: %1</source>
+        <translation>Copia SQLite nu poate fi inclusă: %1</translation>
+    </message>
+    <message>
+        <source>The bundle destination already exists.</source>
+        <translation>Destinația pachetului există deja.</translation>
+    </message>
+    <message>
+        <source>The SQLite copy could not be copied into the bundle.</source>
+        <translation>Copia SQLite nu a putut fi copiată în pachet.</translation>
+    </message>
+    <message>
+        <source>Portable settings could not be written to the backup bundle.</source>
+        <translation>Setările portabile nu au putut fi scrise în pachetul de rezervă.</translation>
+    </message>
+    <message>
+        <source>Unsafe resource path in backup bundle: %1</source>
+        <translation>Cale de resursă nesigură în pachetul de rezervă: %1</translation>
+    </message>
+    <message>
+        <source>Resource could not be copied into the bundle: %1</source>
+        <translation>Resursa nu a putut fi copiată în pachet: %1</translation>
+    </message>
+    <message>
+        <source>The backup bundle manifest could not be written.</source>
+        <translation>Manifestul pachetului de rezervă nu a putut fi scris.</translation>
+    </message>
+    <message>
+        <source>The backup bundle could not be committed atomically.</source>
+        <translation>Pachetul de rezervă nu a putut fi finalizat atomic.</translation>
+    </message>
+    <message>
+        <source>The backup bundle has no readable manifest.</source>
+        <translation>Pachetul de rezervă nu are un manifest lizibil.</translation>
+    </message>
+    <message>
+        <source>The backup bundle format is not supported.</source>
+        <translation>Formatul pachetului de rezervă nu este acceptat.</translation>
+    </message>
+    <message>
+        <source>The backup bundle manifest is incomplete.</source>
+        <translation>Manifestul pachetului de rezervă este incomplet.</translation>
+    </message>
+    <message>
+        <source>The bundle resources could not be staged.</source>
+        <translation>Resursele pachetului nu au putut fi pregătite.</translation>
+    </message>
+    <message>
+        <source>The bundle resource is missing: %1</source>
+        <translation>Lipsește resursa pachetului: %1</translation>
+    </message>
+    <message>
+        <source>Portable settings could not be read from the backup bundle.</source>
+        <translation>Setările portabile nu au putut fi citite din pachetul de rezervă.</translation>
+    </message>
+    <message>
+        <source>The bundle resource could not be staged: %1</source>
+        <translation>Resursa pachetului nu a putut fi pregătită: %1</translation>
+    </message>
+    <message>
+        <source>The bundle resource could not be restored: %1</source>
+        <translation>Resursa pachetului nu a putut fi restaurată: %1</translation>
     </message>
     <message>
         <source>DecoDXLog did not close in time: the log was not touched.</source>
@@ -3857,6 +4100,26 @@ Deschide-l o dată în DecoDXLog ca să-l actualizezi.</translation>
         <translation>andocat</translation>
     </message>
     <message>
+        <source>Beginner</source>
+        <translation>Începător</translation>
+    </message>
+    <message>
+        <source>DX</source>
+        <translation>DX</translation>
+    </message>
+    <message>
+        <source>Digital</source>
+        <translation>Digital</translation>
+    </message>
+    <message>
+        <source>Contest</source>
+        <translation>Concurs</translation>
+    </message>
+    <message>
+        <source>Portable</source>
+        <translation>Portabil</translation>
+    </message>
+    <message>
         <source>Import a log</source>
         <translation>Importă un log</translation>
     </message>
@@ -3881,6 +4144,36 @@ Deschide-l o dată în DecoDXLog ca să-l actualizezi.</translation>
         <translation>Toate fișierele (*)</translation>
     </message>
     <message>
+        <source>Import preview</source>
+        <translation>Previzualizarea importului</translation>
+    </message>
+    <message>
+        <source>%1 records read from %2.
+Estimated result: %3 new · %4 duplicates · %5 rejected.
+QSL status: %6 · incomplete UTC: %7.
+Extra fields are preserved: %8</source>
+        <translation>%1 înregistrări citite din %2.
+Rezultat estimat: %3 noi · %4 duplicate · %5 respinse.
+Stare QSL: %6 · UTC incomplet: %7.
+Câmpuri suplimentare păstrate: %8</translation>
+    </message>
+    <message>
+        <source>none</source>
+        <translation>niciunul</translation>
+    </message>
+    <message>
+        <source>Cannot preview this import: %1</source>
+        <translation>Nu se poate previzualiza acest import: %1</translation>
+    </message>
+    <message>
+        <source>unknown error</source>
+        <translation>eroare necunoscută</translation>
+    </message>
+    <message>
+        <source>Records with incomplete UTC will be rejected during import.</source>
+        <translation>Înregistrările cu UTC incomplet vor fi respinse la import.</translation>
+    </message>
+    <message>
         <source>Export ADIF</source>
         <translation>Exportă ADIF</translation>
     </message>
@@ -3903,6 +4196,14 @@ Deschide-l o dată în DecoDXLog ca să-l actualizezi.</translation>
     <message>
         <source>Detach it into its own window</source>
         <translation>Desprinde-l într-o fereastră proprie</translation>
+    </message>
+    <message>
+        <source>Operational presets</source>
+        <translation>Presetări operaționale</translation>
+    </message>
+    <message>
+        <source>Choose a starting layout; your current layout is changed only after selection.</source>
+        <translation>Alege o aranjare de pornire; aranjarea curentă se schimbă abia după alegere.</translation>
     </message>
     <message>
         <source>Restore the default layout</source>
@@ -5275,6 +5576,18 @@ Deschide-l o dată în DecoDXLog ca să-l actualizezi.</translation>
         <translation>Fișiere ADIF (*.adi)</translation>
     </message>
     <message>
+        <source>Import received QSL scan or image</source>
+        <translation>Importă scanarea sau imaginea unei QSL primite</translation>
+    </message>
+    <message>
+        <source>Images and documents (*.png *.jpg *.jpeg *.webp *.pdf)</source>
+        <translation>Imagini și documente (*.png *.jpg *.jpeg *.webp *.pdf)</translation>
+    </message>
+    <message>
+        <source>All files (*)</source>
+        <translation>Toate fișierele (*)</translation>
+    </message>
+    <message>
         <source>Delete %1? The QSO stays in the history and can be recovered.</source>
         <translation>Ștergi %1? QSO-ul rămâne în istoric și poate fi recuperat.</translation>
     </message>
@@ -5513,6 +5826,46 @@ Deschide-l o dată în DecoDXLog ca să-l actualizezi.</translation>
     <message>
         <source>QSL status · per service</source>
         <translation>Starea QSL · pe serviciu</translation>
+    </message>
+    <message>
+        <source>Received QSL archive</source>
+        <translation>Arhiva QSL-urilor primite</translation>
+    </message>
+    <message>
+        <source>QSL manager: %1 · %2 · %3</source>
+        <translation>Manager QSL: %1 · %2 · %3</translation>
+    </message>
+    <message>
+        <source>unknown source</source>
+        <translation>sursă necunoscută</translation>
+    </message>
+    <message>
+        <source>Import scan or image…</source>
+        <translation>Importă o scanare sau o imagine…</translation>
+    </message>
+    <message>
+        <source>Not a confirmation by itself</source>
+        <translation>Nu este o confirmare în sine</translation>
+    </message>
+    <message>
+        <source>%1 KB</source>
+        <translation>%1 KB</translation>
+    </message>
+    <message>
+        <source>Data provenance</source>
+        <translation>Proveniența datelor</translation>
+    </message>
+    <message>
+        <source>empty</source>
+        <translation>gol</translation>
+    </message>
+    <message>
+        <source>Undo</source>
+        <translation>Anulează</translation>
+    </message>
+    <message>
+        <source>No enriched fields recorded.</source>
+        <translation>Nu sunt înregistrate câmpuri îmbogățite.</translation>
     </message>
     <message>
         <source>Award impact</source>
@@ -5829,12 +6182,12 @@ Deschide-l o dată în DecoDXLog ca să-l actualizezi.</translation>
         <translation>Alege o copie de siguranță</translation>
     </message>
     <message>
-        <source>DecoDXLog logs (*.sqlite)</source>
-        <translation>Loguri DecoDXLog (*.sqlite)</translation>
-    </message>
-    <message>
         <source>All files (*)</source>
         <translation>Toate fișierele (*)</translation>
+    </message>
+    <message>
+        <source>DecoDXLog backups (*.sqlite *.bundle)</source>
+        <translation>Copii de siguranță DecoDXLog (*.sqlite *.bundle)</translation>
     </message>
     <message numerus="yes">
         <source>Log now: %1 · %n QSO · last %2</source>
@@ -7234,6 +7587,10 @@ Deschide-l o dată în DecoDXLog ca să-l actualizezi.</translation>
         <translation>În stânga ce arată tasta, în dreapta ce pleacă în aer ({CALL}, {MYCALL}, {RST}, {NR}, {EXCH}). Primele douăsprezece sunt pe tastele F1-F12, Esc oprește. Sunt și în panoul CW (Macro-uri…, sau clic dreapta pe o tastă).</translation>
     </message>
     <message>
+        <source>Radio 1 is the one above; radio 2 is connected here. In the contest entry the radio with the focus gets the band, the tuning and the CW: Ctrl+← and Ctrl+→ choose radio 1 or 2, Pause swaps them, ` (backquote) toggles stereo listening. The SO2R box (MK2R, SO2RDuino, YCCC…) follows through OTRSP: TX1/TX2 for the transmitter, RX1/RX2 or RX1S/RX2S for the headphones. Software focus is not an RF interlock: use the hardware interlock and verify the actual station wiring before transmitting.</source>
+        <translation>Radioul 1 este cel de sus; radioul 2 este conectat aici. În introducerea de concurs, radioul cu focus primește banda, acordul și CW-ul: Ctrl+← și Ctrl+→ aleg radioul 1 sau 2, Pause le schimbă între ele, ` (backquote) comută ascultarea stereo. Cutia SO2R (MK2R, SO2RDuino, YCCC…) urmărește prin OTRSP: TX1/TX2 pentru emițător, RX1/RX2 sau RX1S/RX2S pentru căști. Focusul software nu este un interblocaj RF: folosește interblocajul hardware și verifică cablarea reală a stației înainte de a transmite.</translation>
+    </message>
+    <message>
         <source>Antenna rotor</source>
         <translation>Rotor de antenă</translation>
     </message>
@@ -7760,10 +8117,6 @@ Deschide-l o dată în DecoDXLog ca să-l actualizezi.</translation>
     <message>
         <source>SO2R box port not open</source>
         <translation>Portul cutiei SO2R nu e deschis</translation>
-    </message>
-    <message>
-        <source>Radio 1 is the one above; radio 2 is connected here. In the contest entry the radio with the focus gets the band, the tuning and the CW: Ctrl+← and Ctrl+→ choose radio 1 or 2, Pause swaps them, ` (backquote) toggles stereo listening. The SO2R box (MK2R, SO2RDuino, YCCC…) follows through OTRSP: TX1/TX2 for the transmitter, RX1/RX2 or RX1S/RX2S for the headphones.</source>
-        <translation>Stația 1 este cea de mai sus; stația 2 se conectează aici. În introducerea concursului stația cu focus primește banda, acordul și CW-ul: Ctrl+← și Ctrl+→ aleg stația 1 sau 2, Pause le schimbă, ` (accent grav) comută ascultarea stereo. Cutia SO2R (MK2R, SO2RDuino, YCCC…) urmează prin OTRSP: TX1/TX2 pentru emițător, RX1/RX2 sau RX1S/RX2S pentru căști.</translation>
     </message>
     <message>
         <source>The control box, directly (built-in gateway)</source>
@@ -9276,6 +9629,10 @@ Deschide-l o dată în DecoDXLog ca să-l actualizezi.</translation>
         <translation>Încă niciun QSO în această sesiune</translation>
     </message>
     <message>
+        <source>Cabrillo export is unavailable: this contest has no verified rule sheet</source>
+        <translation>Exportul Cabrillo nu este disponibil: acest concurs nu are un regulament verificat</translation>
+    </message>
+    <message>
         <source>Nothing to write</source>
         <translation>Nimic de scris</translation>
     </message>
@@ -9792,6 +10149,10 @@ Deschide-l o dată în DecoDXLog ca să-l actualizezi.</translation>
         <translation>niciun callbook setat: Setări → Callbook</translation>
     </message>
     <message>
+        <source>Could not record provenance for QSO %1</source>
+        <translation>Nu s-a putut înregistra proveniența pentru QSO-ul %1</translation>
+    </message>
+    <message>
         <source>radio (CAT)</source>
         <translation>radio (CAT)</translation>
     </message>
@@ -9931,6 +10292,114 @@ Deschide-l o dată în DecoDXLog ca să-l actualizezi.</translation>
             <numerusform>Este deja în jurnal (în %n minute)</numerusform>
             <numerusform>Este deja în jurnal (în %n de minute)</numerusform>
         </translation>
+    </message>
+    <message>
+        <source>Cannot read attachment: %1</source>
+        <translation>Nu se poate citi atașamentul: %1</translation>
+    </message>
+    <message>
+        <source>Choose at least one QSO and a non-empty file</source>
+        <translation>Alege cel puțin un QSO și un fișier care nu este gol</translation>
+    </message>
+    <message>
+        <source>Cannot store QSL attachment</source>
+        <translation>Nu se poate stoca atașamentul QSL</translation>
+    </message>
+    <message>
+        <source>Attached %1 to %n QSO(s)</source>
+        <translation>%1 atașat la %n QSO</translation>
+    </message>
+    <message>
+        <source>Attachment not found</source>
+        <translation>Atașamentul nu a fost găsit</translation>
+    </message>
+    <message>
+        <source>Cannot write attachment</source>
+        <translation>Nu se poate scrie atașamentul</translation>
+    </message>
+    <message>
+        <source>Receive</source>
+        <translation>Recepție</translation>
+    </message>
+    <message>
+        <source>Decodium connection is active</source>
+        <translation>Conexiunea Decodium este activă</translation>
+    </message>
+    <message>
+        <source>No Decodium client is connected</source>
+        <translation>Niciun client Decodium nu este conectat</translation>
+    </message>
+    <message>
+        <source>Parse</source>
+        <translation>Citire</translation>
+    </message>
+    <message>
+        <source>ADIF parser is available</source>
+        <translation>Analizorul ADIF este disponibil</translation>
+    </message>
+    <message>
+        <source>Deduplicate</source>
+        <translation>Duplicate</translation>
+    </message>
+    <message>
+        <source>Duplicate protection is enabled</source>
+        <translation>Protecția împotriva duplicatelor este activată</translation>
+    </message>
+    <message>
+        <source>Save</source>
+        <translation>Salvează</translation>
+    </message>
+    <message>
+        <source>Local log is open</source>
+        <translation>Jurnalul local este deschis</translation>
+    </message>
+    <message>
+        <source>No local log is open</source>
+        <translation>Niciun jurnal local nu este deschis</translation>
+    </message>
+    <message>
+        <source>QSL</source>
+        <translation>QSL</translation>
+    </message>
+    <message>
+        <source>%1 QSL service(s) ready; diagnostic mode never uploads</source>
+        <translation>%1 serviciu(i) QSL pregătit(e); modul de diagnostic nu încarcă niciodată nimic</translation>
+    </message>
+    <message>
+        <source>Choose a file first</source>
+        <translation>Alege mai întâi un fișier</translation>
+    </message>
+    <message>
+        <source>Cannot write diagnostic report: %1</source>
+        <translation>Nu se poate scrie raportul de diagnostic: %1</translation>
+    </message>
+    <message>
+        <source>Cannot save diagnostic report</source>
+        <translation>Nu se poate salva raportul de diagnostic</translation>
+    </message>
+    <message>
+        <source>No QSL manager is recorded for this QSO</source>
+        <translation>Nu este înregistrat niciun manager QSL pentru acest QSO</translation>
+    </message>
+    <message>
+        <source>entered in the QSO</source>
+        <translation>introdus în QSO</translation>
+    </message>
+    <message>
+        <source>no unconfirmed service is recorded</source>
+        <translation>nu este înregistrat niciun serviciu neconfirmat</translation>
+    </message>
+    <message>
+        <source>potentially useful for: %1</source>
+        <translation>potențial util pentru: %1</translation>
+    </message>
+    <message>
+        <source>Manager %1 may be outdated; verify the route before sending; %2</source>
+        <translation>Managerul %1 poate fi depășit; verifică ruta înainte de trimitere; %2</translation>
+    </message>
+    <message>
+        <source>Manager %1 could resolve the paper QSL for this QSO; %2; review and approve the route</source>
+        <translation>Managerul %1 ar putea rezolva QSL-ul pe hârtie pentru acest QSO; %2; verifică și aprobă ruta</translation>
     </message>
     <message>
         <source>This column cannot be edited here: open the QSO card</source>
@@ -10237,8 +10706,20 @@ Deschide-l o dată în DecoDXLog ca să-l actualizezi.</translation>
         <translation>Import %1…</translation>
     </message>
     <message>
-        <source>%1: %2 new, %3 duplicates, %4 rejected</source>
-        <translation>%1: %2 noi, %3 dubluri, %4 respinse</translation>
+        <source>%1: %2 read, %3 new, %4 duplicates, %5 rejected, %6 with QSL status</source>
+        <translation>%1: %2 citite, %3 noi, %4 duplicate, %5 respinse, %6 cu stare QSL</translation>
+    </message>
+    <message>
+        <source>%1 record(s) had no complete UTC date/time</source>
+        <translation>%1 înregistrare/înregistrări fără dată/oră UTC completă</translation>
+    </message>
+    <message>
+        <source>Preserved unmapped ADIF fields: %1</source>
+        <translation>Câmpuri ADIF nemapate păstrate: %1</translation>
+    </message>
+    <message>
+        <source>Undid the last import: %1 QSO(s) moved to the recycle history.</source>
+        <translation>Ultimul import a fost anulat: %1 QSO-uri mutate în istoricul coșului.</translation>
     </message>
     <message>
         <source>Cannot write %1: %2</source>
@@ -10566,6 +11047,10 @@ Deschide-l o dată în DecoDXLog ca să-l actualizezi.</translation>
         <source>%1 joined the network</source>
         <translation>%1 a intrat în rețea</translation>
     </message>
+    <message>
+        <source>Serial collision detected: %1 was already assigned locally; verify the contest log</source>
+        <translation>Coliziune de număr de serie detectată: %1 era deja atribuit local; verifică jurnalul de concurs</translation>
+    </message>
 </context>
 <context>
     <name>decolog::app::QslCardController</name>
@@ -10863,6 +11348,14 @@ Deschide-l o dată în DecoDXLog ca să-l actualizezi.</translation>
             <numerusform>TQSL gata · %n station locations</numerusform>
             <numerusform>TQSL gata · %n de station locations</numerusform>
         </translation>
+    </message>
+    <message>
+        <source>not configured</source>
+        <translation>neconfigurat</translation>
+    </message>
+    <message>
+        <source>active station</source>
+        <translation>stație activă</translation>
     </message>
     <message>
         <source>no credentials: Setup → QSL services</source>

@@ -155,9 +155,9 @@ struct AwardFilter {
     qint64 stationProfileId{0}; // 0 = tutti i profili
     QString tag;                // etichetta dei QSO che contano, vuota = tutti
     // I 60 metri nel DXCC, nel DXCC Challenge e nel WAS. Per l'ARRL non
-    // valgono. Il profilo nuovo e' ufficiale; una preferenza gia' salvata a
-    // true resta personale e viene mantenuta dal controller.
-    bool count60m{false};
+    // valgono; di serie si contano lo stesso (lo chiedono gli operatori, e il
+    // conto e' il loro), e chi vuole il conto ufficiale li spegne.
+    bool count60m{true};
     // Le conferme scelte dall'operatore per un diploma ("dxcc" → lotw, card):
     // vincono sulle regole del diploma e sulle scelte generali.
     QHash<QString, QStringList> credits;

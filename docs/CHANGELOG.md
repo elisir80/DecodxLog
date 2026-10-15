@@ -3,6 +3,42 @@
 Le date sono quelle del lavoro, non di una pubblicazione: DecoDXLog cresce mentre lo si usa
 in stazione.
 
+## 1.17.20 — 15 ottobre 2026
+
+**Allineata alla 1.17.20 di elisir80.** La storia di elisir80 ripartiva dalla nostra 1.17.15, quindi
+l'allineamento e' lineare, senza conflitti. Quel che porta:
+
+- **Guida al primo avvio**: a log vuoto compare una volta una guida in tre passi (profilo stazione,
+  radio facoltativa, primo QSO); il log si usa anche senza radio.
+- **Diplomi**: richieste ufficiali («claims») con esito, prova e nota invece di un credito
+  automatico dalla sola conferma; i QSO via satellite restano nel log ma non contano per il
+  DXCC/WAS terrestre; il WAC mostra l'Antartide senza contarla; statistiche per locatore; il
+  profilo stazione dei diplomi parte, a installazione nuova, da quello attivo.
+- **Backup**: oltre al file SQLite, un pacchetto portatile (`.bundle`) con le risorse e le
+  impostazioni portatili, scritto in modo atomico; il ripristino rifiuta percorsi non sicuri.
+- **Importazione ADIF**: anteprima prima di importare (nuovi, duplicati, scartati, UTC incompleto)
+  e annullamento dell'ultima importazione; i campi ADIF non mappati si conservano.
+- **QSL**: allegati ricevuti (scansioni e immagini) collegati a uno o piu' QSO e conservati nel
+  backup; suggerimento del manager QSL per il QSO; provenienza dei campi arricchiti dal callbook,
+  con «annulla» per campo. Lo schema del database passa alla versione 8 (migrazione automatica).
+- **Diagnostica delle integrazioni**: controlli locali (Decodium, parser ADIF, protezione dai
+  duplicati, servizi QSL) e un rapporto per l'assistenza con i segreti oscurati, salvato solo dopo
+  conferma. Nessun QSO di prova viene inviato.
+- **Attivazioni e Cabrillo**: i riferimenti POTA/SOTA/WWFF/IOTA senza voci vuote ne' doppie; la
+  categoria Cabrillo e' controllata prima di scrivere il file; l'esportazione dalle attivazioni
+  contest chiede un regolamento verificato.
+- **Rilascio**: manifesto delle funzioni (`decodxlog-capabilities.json`), controllo di coerenza
+  delle versioni nei documenti e «release gate» (test + eseguibile) nei workflow di pacchetto di
+  elisir80; sezione docs/ di audit.
+- **Server cloud**: ambito delle impostazioni sincronizzate (portatili, di stazione, del
+  dispositivo), errori di sincronizzazione piu' chiari.
+- **Nostra scelta mantenuta: i 60 metri contano di serie.** elisir80 ha reso ufficiale (60 m
+  esclusi) il conto di partenza di DXCC/Challenge/WAS; qui resta com'era (60 m inclusi, con
+  l'interruttore «60 m» per il conto ARRL), perche' e' la scelta fatta in stazione. L'interruttore
+  ora dice «60 m · personale» o «60 m · ufficiale».
+
+Traduzioni: 117 stringhe nuove in tutte e 14 le lingue.
+
 ## 1.17.15 — 13 ottobre 2026
 
 **Le righe del log si scelgono trascinando il mouse.** Si preme su una riga e si scende (o si

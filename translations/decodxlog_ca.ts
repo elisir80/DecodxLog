@@ -91,6 +91,14 @@
 <context>
     <name>ActivationController</name>
     <message>
+        <source>Activation references cannot contain empty items</source>
+        <translation>Les referències d&apos;activació no poden contenir elements buits</translation>
+    </message>
+    <message>
+        <source>Activation references cannot contain duplicates: %1</source>
+        <translation>Les referències d&apos;activació no poden contenir duplicats: %1</translation>
+    </message>
+    <message>
         <source>Zones</source>
         <translation>Zones</translation>
     </message>
@@ -348,6 +356,10 @@
         <translation>Graelles</translation>
     </message>
     <message>
+        <source>Grid statistics</source>
+        <translation>Estadístiques de locators</translation>
+    </message>
+    <message>
         <source>Diploma: 30 castles in 5 different regions (20 for stations outside Italy), at least one in the province of Cuneo. So far: %1 in %2 regions, Cuneo %3.</source>
         <translation>Diploma: 30 castells en 5 regions diferents (20 per a estacions de fora d&apos;Itàlia), com a mínim un de la província de Cuneo. Fins ara: %1 en %2 regions, Cuneo %3.</translation>
     </message>
@@ -376,6 +388,10 @@
         <translation>La referència es llegeix de SIG/SIG_INFO (SIG = %1) o d&apos;un comentari com &quot;%1 LI-001&quot;.</translation>
     </message>
     <message>
+        <source>Official WAC counts six continents; Antarctica is shown but not counted.</source>
+        <translation>El WAC oficial compta sis continents; l&apos;Antàrtida es mostra però no es compta.</translation>
+    </message>
+    <message>
         <source>QSOs on 60 m are counted here, but the ARRL does not accept them: for the official count switch off &quot;60 m&quot;.</source>
         <translation>Aquí els QSO en 60 m es compten, però l&apos;ARRL no els accepta: per al compte oficial apaga «60 m».</translation>
     </message>
@@ -393,6 +409,10 @@
             <numerusform>%n QSO amb entitats suprimides o operacions no acceptades per l&apos;ARRL (Club Log) queda fora.</numerusform>
             <numerusform>%n QSO amb entitats suprimides o operacions no acceptades per l&apos;ARRL (Club Log) queden fora.</numerusform>
         </translation>
+    </message>
+    <message>
+        <source>Satellite QSOs stay in the log but are excluded from terrestrial DXCC/WAS credit.</source>
+        <translation>Els QSO per satèl·lit queden al registre, però no compten per al crèdit DXCC/WAS terrestre.</translation>
     </message>
     <message>
         <source>Diploma: 75 provinces for Italian stations, 60 for the others.</source>
@@ -430,8 +450,24 @@
         <translation>objectiu %1</translation>
     </message>
     <message>
+        <source>statistics · rules not verified</source>
+        <translation>estadístiques · regles sense verificar</translation>
+    </message>
+    <message>
+        <source>Create claim (%1)</source>
+        <translation>Crea la reclamació (%1)</translation>
+    </message>
+    <message>
         <source>worked %1</source>
         <translation>treballats %1</translation>
+    </message>
+    <message>
+        <source>official rules</source>
+        <translation>regles oficials</translation>
+    </message>
+    <message>
+        <source>personal · 60 m</source>
+        <translation>personal · 60 m</translation>
     </message>
     <message>
         <source>band slots %1 / %2</source>
@@ -486,14 +522,6 @@
         <translation>Targeta</translation>
     </message>
     <message>
-        <source>60 m</source>
-        <translation>60 m</translation>
-    </message>
-    <message>
-        <source>Count QSOs on 60 m in DXCC, DXCC Challenge and WAS too. The ARRL does not accept them: switch off for the official count.</source>
-        <translation>Compta els QSO en 60 m també al DXCC, al DXCC Challenge i al WAS. L&apos;ARRL no els accepta: apaga-ho per al compte oficial.</translation>
-    </message>
-    <message>
         <source>All stations</source>
         <translation>Totes les estacions</translation>
     </message>
@@ -502,8 +530,48 @@
         <translation>Totes les etiquetes</translation>
     </message>
     <message>
+        <source>Claims</source>
+        <translation>Reclamacions</translation>
+    </message>
+    <message>
+        <source>Outcome / note</source>
+        <translation>Resultat / nota</translation>
+    </message>
+    <message>
+        <source>Evidence or external reference</source>
+        <translation>Prova o referència externa</translation>
+    </message>
+    <message>
+        <source>Submit</source>
+        <translation>Envia</translation>
+    </message>
+    <message>
+        <source>Verify</source>
+        <translation>Verifica</translation>
+    </message>
+    <message>
+        <source>Reject</source>
+        <translation>Rebutja</translation>
+    </message>
+    <message>
+        <source>Credit</source>
+        <translation>Acredita</translation>
+    </message>
+    <message>
         <source>Valid for %1</source>
         <translation>Vàlides per a %1</translation>
+    </message>
+    <message>
+        <source>60 m · personal</source>
+        <translation>60 m · personal</translation>
+    </message>
+    <message>
+        <source>60 m · official</source>
+        <translation>60 m · oficial</translation>
+    </message>
+    <message>
+        <source>The official ARRL count excludes 60 m. Enable it only for a personal count.</source>
+        <translation>El recompte oficial de l&apos;ARRL exclou els 60 m. Activa&apos;l només per a un recompte personal.</translation>
     </message>
     <message>
         <source>chosen by you</source>
@@ -697,6 +765,26 @@
         <translation>Servei</translation>
     </message>
     <message>
+        <source>Account / profile</source>
+        <translation>Compte / perfil</translation>
+    </message>
+    <message>
+        <source>not configured</source>
+        <translation>sense configurar</translation>
+    </message>
+    <message>
+        <source>active station</source>
+        <translation>estació activa</translation>
+    </message>
+    <message>
+        <source>Integration diagnostics…</source>
+        <translation>Diagnòstic d&apos;integracions…</translation>
+    </message>
+    <message>
+        <source>Runs locally; no test QSO is uploaded</source>
+        <translation>S&apos;executa en local; no es puja cap QSO de prova</translation>
+    </message>
+    <message>
         <source>Download LoTW confirmations</source>
         <translation>Baixa les confirmacions de LoTW</translation>
     </message>
@@ -731,6 +819,30 @@
     <message>
         <source>LoTW: TQSL signs and sends, and the confirmations come back here.</source>
         <translation>LoTW: el TQSL signa i envia, i les confirmacions tornen aquí.</translation>
+    </message>
+    <message>
+        <source>Integration diagnostics</source>
+        <translation>Diagnòstic d&apos;integracions</translation>
+    </message>
+    <message>
+        <source>The checks stay on this computer. The support report is redacted and is saved only after confirmation.</source>
+        <translation>Les comprovacions es queden en aquest ordinador. L&apos;informe de suport s&apos;ofusca i només es desa després de confirmar.</translation>
+    </message>
+    <message>
+        <source>Approve and save report…</source>
+        <translation>Aprova i desa l&apos;informe…</translation>
+    </message>
+    <message>
+        <source>Save diagnostic support report</source>
+        <translation>Desa l&apos;informe de diagnòstic per al suport</translation>
+    </message>
+    <message>
+        <source>Text files (*.txt)</source>
+        <translation>Fitxers de text (*.txt)</translation>
+    </message>
+    <message>
+        <source>All files (*)</source>
+        <translation>Tots els fitxers (*)</translation>
     </message>
     <message>
         <source>Sent</source>
@@ -2924,6 +3036,73 @@ A Decodium: Settings → Reporting → UDP Server 127.0.0.1, port %1, i &quot;Ac
     </message>
 </context>
 <context>
+    <name>FirstRunGuide</name>
+    <message>
+        <source>Start with DecoDXLog</source>
+        <translation>Comença amb DecoDXLog</translation>
+    </message>
+    <message>
+        <source>A short path to your first contact</source>
+        <translation>Un camí curt fins al teu primer contacte</translation>
+    </message>
+    <message>
+        <source>You can use DecoDXLog without a radio. Configure CAT only if you want the log to read the frequency and mode automatically.</source>
+        <translation>Pots fer servir DecoDXLog sense ràdio. Configura el CAT només si vols que el registre llegeixi sol la freqüència i el mode.</translation>
+    </message>
+    <message>
+        <source>1  Station profile</source>
+        <translation>1  Perfil d&apos;estació</translation>
+    </message>
+    <message>
+        <source>Set your callsign, grid and station details in the profile dialog.</source>
+        <translation>Indica l&apos;indicatiu, el locator i les dades de l&apos;estació al diàleg del perfil.</translation>
+    </message>
+    <message>
+        <source>2  Radio (optional)</source>
+        <translation>2  Ràdio (opcional)</translation>
+    </message>
+    <message>
+        <source>In Setup → Radio (CAT), choose the model and connection, then use Find the radio. For a shared CAT connection, enter its host and port instead of opening a second serial connection.</source>
+        <translation>A Configuració → Ràdio (CAT), tria el model i la connexió i fes servir Troba la ràdio. Per a una connexió CAT compartida, escriu-ne el host i el port en lloc d&apos;obrir una segona connexió sèrie.</translation>
+    </message>
+    <message>
+        <source>3  First QSO</source>
+        <translation>3  Primer QSO</translation>
+    </message>
+    <message>
+        <source>Open New QSO, enter a callsign and the required fields, then press Ctrl+Enter or Register. The local log remains usable if CAT or an online service is unavailable.</source>
+        <translation>Obre Nou QSO, escriu un indicatiu i els camps necessaris i prem Ctrl+Retorn o Registra. El registre local continua sent utilitzable encara que el CAT o un servei en línia no estigui disponible.</translation>
+    </message>
+    <message>
+        <source>This guide appears once when the log is empty; the normal setup and New QSO shortcuts remain available afterwards.</source>
+        <translation>Aquesta guia apareix una sola vegada, quan el registre és buit; després continuen disponibles els accessos habituals a la configuració i a Nou QSO.</translation>
+    </message>
+    <message>
+        <source>Configure radio</source>
+        <translation>Configura la ràdio</translation>
+    </message>
+    <message>
+        <source>Open radio and CAT setup</source>
+        <translation>Obre la configuració de ràdio i CAT</translation>
+    </message>
+    <message>
+        <source>Open New QSO</source>
+        <translation>Obre Nou QSO</translation>
+    </message>
+    <message>
+        <source>Open the new QSO form</source>
+        <translation>Obre el formulari del nou QSO</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation>Tanca</translation>
+    </message>
+    <message>
+        <source>Close the first-run guide</source>
+        <translation>Tanca la guia del primer inici</translation>
+    </message>
+</context>
+<context>
     <name>FlrigControl</name>
     <message>
         <source>connecting to flrig at %1…</source>
@@ -3063,6 +3242,70 @@ A Decodium: Settings → Reporting → UDP Server 127.0.0.1, port %1, i &quot;Ac
     <message>
         <source>The backup could not take the place of the log; the log as it was is back.</source>
         <translation>La còpia no ha pogut ocupar el lloc del log; el log d&apos;abans ha tornat.</translation>
+    </message>
+    <message>
+        <source>The SQLite copy cannot be included: %1</source>
+        <translation>No es pot incloure la còpia SQLite: %1</translation>
+    </message>
+    <message>
+        <source>The bundle destination already exists.</source>
+        <translation>La destinació del paquet ja existeix.</translation>
+    </message>
+    <message>
+        <source>The SQLite copy could not be copied into the bundle.</source>
+        <translation>No s&apos;ha pogut copiar la còpia SQLite al paquet.</translation>
+    </message>
+    <message>
+        <source>Portable settings could not be written to the backup bundle.</source>
+        <translation>No s&apos;ha pogut escriure la configuració portàtil al paquet de còpia.</translation>
+    </message>
+    <message>
+        <source>Unsafe resource path in backup bundle: %1</source>
+        <translation>Camí de recurs insegur al paquet de còpia: %1</translation>
+    </message>
+    <message>
+        <source>Resource could not be copied into the bundle: %1</source>
+        <translation>No s&apos;ha pogut copiar el recurs al paquet: %1</translation>
+    </message>
+    <message>
+        <source>The backup bundle manifest could not be written.</source>
+        <translation>No s&apos;ha pogut escriure el manifest del paquet de còpia.</translation>
+    </message>
+    <message>
+        <source>The backup bundle could not be committed atomically.</source>
+        <translation>No s&apos;ha pogut confirmar el paquet de còpia de manera atòmica.</translation>
+    </message>
+    <message>
+        <source>The backup bundle has no readable manifest.</source>
+        <translation>El paquet de còpia no té un manifest llegible.</translation>
+    </message>
+    <message>
+        <source>The backup bundle format is not supported.</source>
+        <translation>No s&apos;admet el format del paquet de còpia.</translation>
+    </message>
+    <message>
+        <source>The backup bundle manifest is incomplete.</source>
+        <translation>El manifest del paquet de còpia és incomplet.</translation>
+    </message>
+    <message>
+        <source>The bundle resources could not be staged.</source>
+        <translation>No s&apos;han pogut preparar els recursos del paquet.</translation>
+    </message>
+    <message>
+        <source>The bundle resource is missing: %1</source>
+        <translation>Falta el recurs del paquet: %1</translation>
+    </message>
+    <message>
+        <source>Portable settings could not be read from the backup bundle.</source>
+        <translation>No s&apos;ha pogut llegir la configuració portàtil del paquet de còpia.</translation>
+    </message>
+    <message>
+        <source>The bundle resource could not be staged: %1</source>
+        <translation>No s&apos;ha pogut preparar el recurs del paquet: %1</translation>
+    </message>
+    <message>
+        <source>The bundle resource could not be restored: %1</source>
+        <translation>No s&apos;ha pogut restaurar el recurs del paquet: %1</translation>
     </message>
     <message>
         <source>DecoDXLog did not close in time: the log was not touched.</source>
@@ -3846,6 +4089,26 @@ Obre&apos;l una vegada a DecoDXLog per actualitzar-lo.</translation>
         <translation>encaixat</translation>
     </message>
     <message>
+        <source>Beginner</source>
+        <translation>Principiant</translation>
+    </message>
+    <message>
+        <source>DX</source>
+        <translation>DX</translation>
+    </message>
+    <message>
+        <source>Digital</source>
+        <translation>Digital</translation>
+    </message>
+    <message>
+        <source>Contest</source>
+        <translation>Contest</translation>
+    </message>
+    <message>
+        <source>Portable</source>
+        <translation>Portàtil</translation>
+    </message>
+    <message>
         <source>Import a log</source>
         <translation>Importa un log</translation>
     </message>
@@ -3870,6 +4133,36 @@ Obre&apos;l una vegada a DecoDXLog per actualitzar-lo.</translation>
         <translation>Tots els fitxers (*)</translation>
     </message>
     <message>
+        <source>Import preview</source>
+        <translation>Previsualització de la importació</translation>
+    </message>
+    <message>
+        <source>%1 records read from %2.
+Estimated result: %3 new · %4 duplicates · %5 rejected.
+QSL status: %6 · incomplete UTC: %7.
+Extra fields are preserved: %8</source>
+        <translation>%1 registres llegits de %2.
+Resultat estimat: %3 nous · %4 duplicats · %5 rebutjats.
+Estat QSL: %6 · UTC incomplet: %7.
+Camps extra conservats: %8</translation>
+    </message>
+    <message>
+        <source>none</source>
+        <translation>cap</translation>
+    </message>
+    <message>
+        <source>Cannot preview this import: %1</source>
+        <translation>No es pot previsualitzar aquesta importació: %1</translation>
+    </message>
+    <message>
+        <source>unknown error</source>
+        <translation>error desconegut</translation>
+    </message>
+    <message>
+        <source>Records with incomplete UTC will be rejected during import.</source>
+        <translation>Els registres amb UTC incomplet es rebutjaran en importar.</translation>
+    </message>
+    <message>
         <source>Export ADIF</source>
         <translation>Exportar ADIF</translation>
     </message>
@@ -3892,6 +4185,14 @@ Obre&apos;l una vegada a DecoDXLog per actualitzar-lo.</translation>
     <message>
         <source>Detach it into its own window</source>
         <translation>Separa&apos;l en una finestra pròpia</translation>
+    </message>
+    <message>
+        <source>Operational presets</source>
+        <translation>Predefinits operatius</translation>
+    </message>
+    <message>
+        <source>Choose a starting layout; your current layout is changed only after selection.</source>
+        <translation>Tria una disposició de partida; l&apos;actual només canvia després de triar.</translation>
     </message>
     <message>
         <source>Restore the default layout</source>
@@ -5261,6 +5562,18 @@ Obre&apos;l una vegada a DecoDXLog per actualitzar-lo.</translation>
         <translation>Fitxers ADIF (*.adi)</translation>
     </message>
     <message>
+        <source>Import received QSL scan or image</source>
+        <translation>Importa l&apos;escaneig o la imatge d&apos;una QSL rebuda</translation>
+    </message>
+    <message>
+        <source>Images and documents (*.png *.jpg *.jpeg *.webp *.pdf)</source>
+        <translation>Imatges i documents (*.png *.jpg *.jpeg *.webp *.pdf)</translation>
+    </message>
+    <message>
+        <source>All files (*)</source>
+        <translation>Tots els fitxers (*)</translation>
+    </message>
+    <message>
         <source>Delete %1? The QSO stays in the history and can be recovered.</source>
         <translation>Esborrar %1? El QSO es queda a l&apos;historial i es pot recuperar.</translation>
     </message>
@@ -5499,6 +5812,46 @@ Obre&apos;l una vegada a DecoDXLog per actualitzar-lo.</translation>
     <message>
         <source>QSL status · per service</source>
         <translation>Estat de la QSL · per servei</translation>
+    </message>
+    <message>
+        <source>Received QSL archive</source>
+        <translation>Arxiu de QSL rebudes</translation>
+    </message>
+    <message>
+        <source>QSL manager: %1 · %2 · %3</source>
+        <translation>Gestor QSL: %1 · %2 · %3</translation>
+    </message>
+    <message>
+        <source>unknown source</source>
+        <translation>origen desconegut</translation>
+    </message>
+    <message>
+        <source>Import scan or image…</source>
+        <translation>Importa un escaneig o una imatge…</translation>
+    </message>
+    <message>
+        <source>Not a confirmation by itself</source>
+        <translation>No és una confirmació per si sola</translation>
+    </message>
+    <message>
+        <source>%1 KB</source>
+        <translation>%1 KB</translation>
+    </message>
+    <message>
+        <source>Data provenance</source>
+        <translation>Procedència de les dades</translation>
+    </message>
+    <message>
+        <source>empty</source>
+        <translation>buit</translation>
+    </message>
+    <message>
+        <source>Undo</source>
+        <translation>Desfés</translation>
+    </message>
+    <message>
+        <source>No enriched fields recorded.</source>
+        <translation>No hi ha camps enriquits registrats.</translation>
     </message>
     <message>
         <source>Award impact</source>
@@ -5814,12 +6167,12 @@ Obre&apos;l una vegada a DecoDXLog per actualitzar-lo.</translation>
         <translation>Tria una còpia</translation>
     </message>
     <message>
-        <source>DecoDXLog logs (*.sqlite)</source>
-        <translation>Logs de DecoDXLog (*.sqlite)</translation>
-    </message>
-    <message>
         <source>All files (*)</source>
         <translation>Tots els fitxers (*)</translation>
+    </message>
+    <message>
+        <source>DecoDXLog backups (*.sqlite *.bundle)</source>
+        <translation>Còpies de seguretat de DecoDXLog (*.sqlite *.bundle)</translation>
     </message>
     <message numerus="yes">
         <source>Log now: %1 · %n QSO · last %2</source>
@@ -7212,6 +7565,10 @@ Obre&apos;l una vegada a DecoDXLog per actualitzar-lo.</translation>
         <translation>A l&apos;esquerra el que mostra la tecla, a la dreta el que surt a l&apos;aire ({CALL}, {MYCALL}, {RST}, {NR}, {EXCH}). Les dotze primeres van a F1-F12, Esc atura. També són al tauler CW (Macros…, o clic dret en una tecla).</translation>
     </message>
     <message>
+        <source>Radio 1 is the one above; radio 2 is connected here. In the contest entry the radio with the focus gets the band, the tuning and the CW: Ctrl+← and Ctrl+→ choose radio 1 or 2, Pause swaps them, ` (backquote) toggles stereo listening. The SO2R box (MK2R, SO2RDuino, YCCC…) follows through OTRSP: TX1/TX2 for the transmitter, RX1/RX2 or RX1S/RX2S for the headphones. Software focus is not an RF interlock: use the hardware interlock and verify the actual station wiring before transmitting.</source>
+        <translation>La ràdio 1 és la de dalt; la ràdio 2 està connectada aquí. A l&apos;entrada del contest, la ràdio amb el focus rep la banda, la sintonia i el CW: Ctrl+← i Ctrl+→ trien la ràdio 1 o 2, Pausa les intercanvia i ` (accent greu) activa o desactiva l&apos;escolta en estèreo. La caixa SO2R (MK2R, SO2RDuino, YCCC…) segueix mitjançant OTRSP: TX1/TX2 per al transmissor, RX1/RX2 o RX1S/RX2S per als auriculars. El focus del programari no és un bloqueig de RF: fes servir el bloqueig per maquinari i verifica el cablejat real de l&apos;estació abans de transmetre.</translation>
+    </message>
+    <message>
         <source>Antenna rotor</source>
         <translation>Rotor d&apos;antena</translation>
     </message>
@@ -7738,10 +8095,6 @@ Obre&apos;l una vegada a DecoDXLog per actualitzar-lo.</translation>
     <message>
         <source>SO2R box port not open</source>
         <translation>Port de la caixa SO2R no obert</translation>
-    </message>
-    <message>
-        <source>Radio 1 is the one above; radio 2 is connected here. In the contest entry the radio with the focus gets the band, the tuning and the CW: Ctrl+← and Ctrl+→ choose radio 1 or 2, Pause swaps them, ` (backquote) toggles stereo listening. The SO2R box (MK2R, SO2RDuino, YCCC…) follows through OTRSP: TX1/TX2 for the transmitter, RX1/RX2 or RX1S/RX2S for the headphones.</source>
-        <translation>La ràdio 1 és la de dalt; la ràdio 2 es connecta aquí. A l&apos;entrada del concurs la ràdio amb el focus rep la banda, la sintonia i el CW: Ctrl+← i Ctrl+→ trien la ràdio 1 o 2, Pausa les intercanvia, ` (accent greu) activa l&apos;escolta estèreo. La caixa SO2R (MK2R, SO2RDuino, YCCC…) segueix per OTRSP: TX1/TX2 per al transmissor, RX1/RX2 o RX1S/RX2S per als auriculars.</translation>
     </message>
     <message>
         <source>The control box, directly (built-in gateway)</source>
@@ -9252,6 +9605,10 @@ Obre&apos;l una vegada a DecoDXLog per actualitzar-lo.</translation>
         <translation>Encara no hi ha cap QSO en aquesta sessió</translation>
     </message>
     <message>
+        <source>Cabrillo export is unavailable: this contest has no verified rule sheet</source>
+        <translation>L&apos;exportació Cabrillo no està disponible: aquest contest no té unes bases verificades</translation>
+    </message>
+    <message>
         <source>Nothing to write</source>
         <translation>Res per escriure</translation>
     </message>
@@ -9756,6 +10113,10 @@ Obre&apos;l una vegada a DecoDXLog per actualitzar-lo.</translation>
         <translation>no hi ha cap callbook configurat: Configuració → Callbook</translation>
     </message>
     <message>
+        <source>Could not record provenance for QSO %1</source>
+        <translation>No s&apos;ha pogut registrar la procedència del QSO %1</translation>
+    </message>
+    <message>
         <source>radio (CAT)</source>
         <translation>ràdio (CAT)</translation>
     </message>
@@ -9893,6 +10254,114 @@ Obre&apos;l una vegada a DecoDXLog per actualitzar-lo.</translation>
             <numerusform>Ja és al quadern (dins d&apos;%n minut)</numerusform>
             <numerusform>Ja és al quadern (dins de %n minuts)</numerusform>
         </translation>
+    </message>
+    <message>
+        <source>Cannot read attachment: %1</source>
+        <translation>No es pot llegir l&apos;adjunt: %1</translation>
+    </message>
+    <message>
+        <source>Choose at least one QSO and a non-empty file</source>
+        <translation>Tria almenys un QSO i un fitxer no buit</translation>
+    </message>
+    <message>
+        <source>Cannot store QSL attachment</source>
+        <translation>No es pot desar l&apos;adjunt QSL</translation>
+    </message>
+    <message>
+        <source>Attached %1 to %n QSO(s)</source>
+        <translation>%1 adjuntat a %n QSO</translation>
+    </message>
+    <message>
+        <source>Attachment not found</source>
+        <translation>No s&apos;ha trobat l&apos;adjunt</translation>
+    </message>
+    <message>
+        <source>Cannot write attachment</source>
+        <translation>No es pot escriure l&apos;adjunt</translation>
+    </message>
+    <message>
+        <source>Receive</source>
+        <translation>Recepció</translation>
+    </message>
+    <message>
+        <source>Decodium connection is active</source>
+        <translation>La connexió amb Decodium és activa</translation>
+    </message>
+    <message>
+        <source>No Decodium client is connected</source>
+        <translation>No hi ha cap client Decodium connectat</translation>
+    </message>
+    <message>
+        <source>Parse</source>
+        <translation>Lectura</translation>
+    </message>
+    <message>
+        <source>ADIF parser is available</source>
+        <translation>L&apos;analitzador ADIF està disponible</translation>
+    </message>
+    <message>
+        <source>Deduplicate</source>
+        <translation>Duplicats</translation>
+    </message>
+    <message>
+        <source>Duplicate protection is enabled</source>
+        <translation>La protecció contra duplicats està activada</translation>
+    </message>
+    <message>
+        <source>Save</source>
+        <translation>Desa</translation>
+    </message>
+    <message>
+        <source>Local log is open</source>
+        <translation>El registre local està obert</translation>
+    </message>
+    <message>
+        <source>No local log is open</source>
+        <translation>No hi ha cap registre local obert</translation>
+    </message>
+    <message>
+        <source>QSL</source>
+        <translation>QSL</translation>
+    </message>
+    <message>
+        <source>%1 QSL service(s) ready; diagnostic mode never uploads</source>
+        <translation>%1 servei(s) QSL a punt; el mode de diagnòstic no puja mai res</translation>
+    </message>
+    <message>
+        <source>Choose a file first</source>
+        <translation>Tria primer un fitxer</translation>
+    </message>
+    <message>
+        <source>Cannot write diagnostic report: %1</source>
+        <translation>No es pot escriure l&apos;informe de diagnòstic: %1</translation>
+    </message>
+    <message>
+        <source>Cannot save diagnostic report</source>
+        <translation>No es pot desar l&apos;informe de diagnòstic</translation>
+    </message>
+    <message>
+        <source>No QSL manager is recorded for this QSO</source>
+        <translation>No hi ha cap gestor QSL registrat per a aquest QSO</translation>
+    </message>
+    <message>
+        <source>entered in the QSO</source>
+        <translation>indicat al QSO</translation>
+    </message>
+    <message>
+        <source>no unconfirmed service is recorded</source>
+        <translation>no hi ha cap servei sense confirmar registrat</translation>
+    </message>
+    <message>
+        <source>potentially useful for: %1</source>
+        <translation>potencialment útil per a: %1</translation>
+    </message>
+    <message>
+        <source>Manager %1 may be outdated; verify the route before sending; %2</source>
+        <translation>El gestor %1 pot estar desactualitzat; verifica la via abans d&apos;enviar; %2</translation>
+    </message>
+    <message>
+        <source>Manager %1 could resolve the paper QSL for this QSO; %2; review and approve the route</source>
+        <translation>El gestor %1 podria resoldre la QSL en paper d&apos;aquest QSO; %2; revisa i aprova la via</translation>
     </message>
     <message>
         <source>This column cannot be edited here: open the QSO card</source>
@@ -10197,8 +10666,20 @@ Obre&apos;l una vegada a DecoDXLog per actualitzar-lo.</translation>
         <translation>Important %1…</translation>
     </message>
     <message>
-        <source>%1: %2 new, %3 duplicates, %4 rejected</source>
-        <translation>%1: %2 nous, %3 duplicats, %4 rebutjats</translation>
+        <source>%1: %2 read, %3 new, %4 duplicates, %5 rejected, %6 with QSL status</source>
+        <translation>%1: %2 llegits, %3 nous, %4 duplicats, %5 rebutjats, %6 amb estat QSL</translation>
+    </message>
+    <message>
+        <source>%1 record(s) had no complete UTC date/time</source>
+        <translation>%1 registre(s) sense data/hora UTC completa</translation>
+    </message>
+    <message>
+        <source>Preserved unmapped ADIF fields: %1</source>
+        <translation>Camps ADIF sense assignar conservats: %1</translation>
+    </message>
+    <message>
+        <source>Undid the last import: %1 QSO(s) moved to the recycle history.</source>
+        <translation>Última importació desfeta: %1 QSO moguts a l&apos;historial de la paperera.</translation>
     </message>
     <message>
         <source>Cannot write %1: %2</source>
@@ -10518,6 +10999,10 @@ Obre&apos;l una vegada a DecoDXLog per actualitzar-lo.</translation>
         <source>%1 joined the network</source>
         <translation>%1 s&apos;ha unit a la xarxa</translation>
     </message>
+    <message>
+        <source>Serial collision detected: %1 was already assigned locally; verify the contest log</source>
+        <translation>Col·lisió de número de sèrie detectada: %1 ja estava assignat en local; revisa el registre del contest</translation>
+    </message>
 </context>
 <context>
     <name>decolog::app::QslCardController</name>
@@ -10804,6 +11289,14 @@ Obre&apos;l una vegada a DecoDXLog per actualitzar-lo.</translation>
             <numerusform>TQSL a punt · %n station location</numerusform>
             <numerusform>TQSL a punt · %n station locations</numerusform>
         </translation>
+    </message>
+    <message>
+        <source>not configured</source>
+        <translation>sense configurar</translation>
+    </message>
+    <message>
+        <source>active station</source>
+        <translation>estació activa</translation>
     </message>
     <message>
         <source>no credentials: Setup → QSL services</source>

@@ -91,6 +91,14 @@
 <context>
     <name>ActivationController</name>
     <message>
+        <source>Activation references cannot contain empty items</source>
+        <translation>Az aktiválási hivatkozások nem tartalmazhatnak üres elemeket</translation>
+    </message>
+    <message>
+        <source>Activation references cannot contain duplicates: %1</source>
+        <translation>Az aktiválási hivatkozások nem tartalmazhatnak duplikátumokat: %1</translation>
+    </message>
+    <message>
         <source>Zones</source>
         <translation>Zónák</translation>
     </message>
@@ -347,6 +355,10 @@
         <translation>Gridek</translation>
     </message>
     <message>
+        <source>Grid statistics</source>
+        <translation>Lokátorstatisztika</translation>
+    </message>
+    <message>
         <source>Diploma: 30 castles in 5 different regions (20 for stations outside Italy), at least one in the province of Cuneo. So far: %1 in %2 regions, Cuneo %3.</source>
         <translation>Oklevél: 30 vár 5 különböző régióban (Olaszországon kívüli állomásoknak 20), közülük legalább egy Cuneo tartományból. Eddig: %1 vár %2 régióban, Cuneo %3.</translation>
     </message>
@@ -375,6 +387,10 @@
         <translation>A hivatkozás a SIG/SIG_INFO mezőből (SIG = %1) vagy egy &quot;%1 LI-001&quot; formájú megjegyzésből jön.</translation>
     </message>
     <message>
+        <source>Official WAC counts six continents; Antarctica is shown but not counted.</source>
+        <translation>A hivatalos WAC hat kontinenst számol; az Antarktisz látszik, de nem számít bele.</translation>
+    </message>
+    <message>
         <source>QSOs on 60 m are counted here, but the ARRL does not accept them: for the official count switch off &quot;60 m&quot;.</source>
         <translation>A 60 m-es QSO-k itt beszámítanak, de az ARRL nem fogadja el őket: a hivatalos számításhoz kapcsold ki a &quot;60 m&quot;-t.</translation>
     </message>
@@ -391,6 +407,10 @@
         <translation>
             <numerusform>%n QSO törölt entitásokkal vagy az ARRL által el nem fogadott működéssel (Club Log) kimarad.</numerusform>
         </translation>
+    </message>
+    <message>
+        <source>Satellite QSOs stay in the log but are excluded from terrestrial DXCC/WAS credit.</source>
+        <translation>A műholdas QSO-k a naplóban maradnak, de nem számítanak a földi DXCC/WAS jóváírásba.</translation>
     </message>
     <message>
         <source>Diploma: 75 provinces for Italian stations, 60 for the others.</source>
@@ -428,8 +448,24 @@
         <translation>cél %1</translation>
     </message>
     <message>
+        <source>statistics · rules not verified</source>
+        <translation>statisztika · szabályok nincsenek ellenőrizve</translation>
+    </message>
+    <message>
+        <source>Create claim (%1)</source>
+        <translation>Igény létrehozása (%1)</translation>
+    </message>
+    <message>
         <source>worked %1</source>
         <translation>meglévő %1</translation>
+    </message>
+    <message>
+        <source>official rules</source>
+        <translation>hivatalos szabályok</translation>
+    </message>
+    <message>
+        <source>personal · 60 m</source>
+        <translation>személyes · 60 m</translation>
     </message>
     <message>
         <source>band slots %1 / %2</source>
@@ -484,14 +520,6 @@
         <translation>Kártya</translation>
     </message>
     <message>
-        <source>60 m</source>
-        <translation>60 m</translation>
-    </message>
-    <message>
-        <source>Count QSOs on 60 m in DXCC, DXCC Challenge and WAS too. The ARRL does not accept them: switch off for the official count.</source>
-        <translation>A 60 m-es QSO-k beszámítása a DXCC-be, a DXCC Challenge-be és a WAS-ba is. Az ARRL nem fogadja el őket: a hivatalos számításhoz kapcsold ki.</translation>
-    </message>
-    <message>
         <source>All stations</source>
         <translation>Minden állomás</translation>
     </message>
@@ -500,8 +528,48 @@
         <translation>Minden címke</translation>
     </message>
     <message>
+        <source>Claims</source>
+        <translation>Igények</translation>
+    </message>
+    <message>
+        <source>Outcome / note</source>
+        <translation>Eredmény / megjegyzés</translation>
+    </message>
+    <message>
+        <source>Evidence or external reference</source>
+        <translation>Bizonyíték vagy külső hivatkozás</translation>
+    </message>
+    <message>
+        <source>Submit</source>
+        <translation>Beküldés</translation>
+    </message>
+    <message>
+        <source>Verify</source>
+        <translation>Ellenőrzés</translation>
+    </message>
+    <message>
+        <source>Reject</source>
+        <translation>Elutasítás</translation>
+    </message>
+    <message>
+        <source>Credit</source>
+        <translation>Jóváírás</translation>
+    </message>
+    <message>
         <source>Valid for %1</source>
         <translation>Érvényes: %1</translation>
+    </message>
+    <message>
+        <source>60 m · personal</source>
+        <translation>60 m · személyes</translation>
+    </message>
+    <message>
+        <source>60 m · official</source>
+        <translation>60 m · hivatalos</translation>
+    </message>
+    <message>
+        <source>The official ARRL count excludes 60 m. Enable it only for a personal count.</source>
+        <translation>A hivatalos ARRL-számolás kizárja a 60 m-t. Csak személyes számoláshoz kapcsolja be.</translation>
     </message>
     <message>
         <source>chosen by you</source>
@@ -693,6 +761,26 @@
         <translation>Szolgáltatás</translation>
     </message>
     <message>
+        <source>Account / profile</source>
+        <translation>Fiók / profil</translation>
+    </message>
+    <message>
+        <source>not configured</source>
+        <translation>nincs beállítva</translation>
+    </message>
+    <message>
+        <source>active station</source>
+        <translation>aktív állomás</translation>
+    </message>
+    <message>
+        <source>Integration diagnostics…</source>
+        <translation>Integrációk diagnosztikája…</translation>
+    </message>
+    <message>
+        <source>Runs locally; no test QSO is uploaded</source>
+        <translation>Helyben fut; nem tölt fel próba-QSO-t</translation>
+    </message>
+    <message>
         <source>Download LoTW confirmations</source>
         <translation>LoTW-igazolások letöltése</translation>
     </message>
@@ -727,6 +815,30 @@
     <message>
         <source>LoTW: TQSL signs and sends, and the confirmations come back here.</source>
         <translation>LoTW: a TQSL aláír és elküld, az igazolások pedig ide jönnek vissza.</translation>
+    </message>
+    <message>
+        <source>Integration diagnostics</source>
+        <translation>Integrációk diagnosztikája</translation>
+    </message>
+    <message>
+        <source>The checks stay on this computer. The support report is redacted and is saved only after confirmation.</source>
+        <translation>Az ellenőrzések ezen a számítógépen maradnak. A támogatási jelentés kitakart, és csak megerősítés után kerül mentésre.</translation>
+    </message>
+    <message>
+        <source>Approve and save report…</source>
+        <translation>Jelentés jóváhagyása és mentése…</translation>
+    </message>
+    <message>
+        <source>Save diagnostic support report</source>
+        <translation>Diagnosztikai jelentés mentése a támogatáshoz</translation>
+    </message>
+    <message>
+        <source>Text files (*.txt)</source>
+        <translation>Szövegfájlok (*.txt)</translation>
+    </message>
+    <message>
+        <source>All files (*)</source>
+        <translation>Minden fájl (*)</translation>
     </message>
     <message>
         <source>Sent</source>
@@ -2915,6 +3027,73 @@ A Decodiumban: Settings → Reporting → UDP Server 127.0.0.1, port: %1, és &q
     </message>
 </context>
 <context>
+    <name>FirstRunGuide</name>
+    <message>
+        <source>Start with DecoDXLog</source>
+        <translation>Első lépések a DecoDXLoggal</translation>
+    </message>
+    <message>
+        <source>A short path to your first contact</source>
+        <translation>Rövid út az első összeköttetésig</translation>
+    </message>
+    <message>
+        <source>You can use DecoDXLog without a radio. Configure CAT only if you want the log to read the frequency and mode automatically.</source>
+        <translation>A DecoDXLog rádió nélkül is használható. A CAT-ot csak akkor állítsa be, ha azt szeretné, hogy a napló magától olvassa a frekvenciát és az üzemmódot.</translation>
+    </message>
+    <message>
+        <source>1  Station profile</source>
+        <translation>1  Állomásprofil</translation>
+    </message>
+    <message>
+        <source>Set your callsign, grid and station details in the profile dialog.</source>
+        <translation>Adja meg a hívójelét, lokátorát és az állomás adatait a profilablakban.</translation>
+    </message>
+    <message>
+        <source>2  Radio (optional)</source>
+        <translation>2  Rádió (nem kötelező)</translation>
+    </message>
+    <message>
+        <source>In Setup → Radio (CAT), choose the model and connection, then use Find the radio. For a shared CAT connection, enter its host and port instead of opening a second serial connection.</source>
+        <translation>A Beállítások → Rádió (CAT) alatt válassza ki a típust és a kapcsolatot, majd használja a Rádió keresése gombot. Megosztott CAT-kapcsolathoz adja meg annak gazdagépét és portját ahelyett, hogy második soros kapcsolatot nyitna.</translation>
+    </message>
+    <message>
+        <source>3  First QSO</source>
+        <translation>3  Első QSO</translation>
+    </message>
+    <message>
+        <source>Open New QSO, enter a callsign and the required fields, then press Ctrl+Enter or Register. The local log remains usable if CAT or an online service is unavailable.</source>
+        <translation>Nyissa meg az Új QSO-t, adjon meg egy hívójelet és a kötelező mezőket, majd nyomja meg a Ctrl+Entert vagy a Rögzítés gombot. A helyi napló akkor is használható, ha a CAT vagy egy online szolgáltatás nem érhető el.</translation>
+    </message>
+    <message>
+        <source>This guide appears once when the log is empty; the normal setup and New QSO shortcuts remain available afterwards.</source>
+        <translation>Ez az útmutató csak egyszer jelenik meg, amikor a napló üres; utána a szokásos beállítási és Új QSO gyorsítók továbbra is elérhetők.</translation>
+    </message>
+    <message>
+        <source>Configure radio</source>
+        <translation>Rádió beállítása</translation>
+    </message>
+    <message>
+        <source>Open radio and CAT setup</source>
+        <translation>Rádió- és CAT-beállítások megnyitása</translation>
+    </message>
+    <message>
+        <source>Open New QSO</source>
+        <translation>Új QSO megnyitása</translation>
+    </message>
+    <message>
+        <source>Open the new QSO form</source>
+        <translation>Az új QSO űrlap megnyitása</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation>Bezárás</translation>
+    </message>
+    <message>
+        <source>Close the first-run guide</source>
+        <translation>Az első indítási útmutató bezárása</translation>
+    </message>
+</context>
+<context>
     <name>FlrigControl</name>
     <message>
         <source>connecting to flrig at %1…</source>
@@ -3054,6 +3233,70 @@ A Decodiumban: Settings → Reporting → UDP Server 127.0.0.1, port: %1, és &q
     <message>
         <source>The backup could not take the place of the log; the log as it was is back.</source>
         <translation>A másolat nem tudta átvenni a napló helyét; a korábbi napló visszakerült.</translation>
+    </message>
+    <message>
+        <source>The SQLite copy cannot be included: %1</source>
+        <translation>Az SQLite-másolat nem vehető fel: %1</translation>
+    </message>
+    <message>
+        <source>The bundle destination already exists.</source>
+        <translation>A csomag célhelye már létezik.</translation>
+    </message>
+    <message>
+        <source>The SQLite copy could not be copied into the bundle.</source>
+        <translation>Az SQLite-másolatot nem sikerült a csomagba másolni.</translation>
+    </message>
+    <message>
+        <source>Portable settings could not be written to the backup bundle.</source>
+        <translation>A hordozható beállításokat nem sikerült a mentéscsomagba írni.</translation>
+    </message>
+    <message>
+        <source>Unsafe resource path in backup bundle: %1</source>
+        <translation>Nem biztonságos erőforrás-útvonal a mentéscsomagban: %1</translation>
+    </message>
+    <message>
+        <source>Resource could not be copied into the bundle: %1</source>
+        <translation>Az erőforrást nem sikerült a csomagba másolni: %1</translation>
+    </message>
+    <message>
+        <source>The backup bundle manifest could not be written.</source>
+        <translation>A mentéscsomag jegyzékét nem sikerült megírni.</translation>
+    </message>
+    <message>
+        <source>The backup bundle could not be committed atomically.</source>
+        <translation>A mentéscsomagot nem sikerült atomi módon véglegesíteni.</translation>
+    </message>
+    <message>
+        <source>The backup bundle has no readable manifest.</source>
+        <translation>A mentéscsomagnak nincs olvasható jegyzéke.</translation>
+    </message>
+    <message>
+        <source>The backup bundle format is not supported.</source>
+        <translation>A mentéscsomag formátuma nem támogatott.</translation>
+    </message>
+    <message>
+        <source>The backup bundle manifest is incomplete.</source>
+        <translation>A mentéscsomag jegyzéke hiányos.</translation>
+    </message>
+    <message>
+        <source>The bundle resources could not be staged.</source>
+        <translation>A csomag erőforrásait nem sikerült előkészíteni.</translation>
+    </message>
+    <message>
+        <source>The bundle resource is missing: %1</source>
+        <translation>A csomag erőforrása hiányzik: %1</translation>
+    </message>
+    <message>
+        <source>Portable settings could not be read from the backup bundle.</source>
+        <translation>A hordozható beállításokat nem sikerült beolvasni a mentéscsomagból.</translation>
+    </message>
+    <message>
+        <source>The bundle resource could not be staged: %1</source>
+        <translation>A csomag erőforrását nem sikerült előkészíteni: %1</translation>
+    </message>
+    <message>
+        <source>The bundle resource could not be restored: %1</source>
+        <translation>A csomag erőforrását nem sikerült visszaállítani: %1</translation>
     </message>
     <message>
         <source>DecoDXLog did not close in time: the log was not touched.</source>
@@ -3835,6 +4078,26 @@ Nyisd meg egyszer a DecoDXLog-ban a frissítéshez.</translation>
         <translation>beépítve</translation>
     </message>
     <message>
+        <source>Beginner</source>
+        <translation>Kezdő</translation>
+    </message>
+    <message>
+        <source>DX</source>
+        <translation>DX</translation>
+    </message>
+    <message>
+        <source>Digital</source>
+        <translation>Digitális</translation>
+    </message>
+    <message>
+        <source>Contest</source>
+        <translation>Verseny</translation>
+    </message>
+    <message>
+        <source>Portable</source>
+        <translation>Hordozható</translation>
+    </message>
+    <message>
         <source>Import a log</source>
         <translation>Napló importálása</translation>
     </message>
@@ -3859,6 +4122,36 @@ Nyisd meg egyszer a DecoDXLog-ban a frissítéshez.</translation>
         <translation>Minden fájl (*)</translation>
     </message>
     <message>
+        <source>Import preview</source>
+        <translation>Importálás előnézete</translation>
+    </message>
+    <message>
+        <source>%1 records read from %2.
+Estimated result: %3 new · %4 duplicates · %5 rejected.
+QSL status: %6 · incomplete UTC: %7.
+Extra fields are preserved: %8</source>
+        <translation>%1 rekord beolvasva innen: %2.
+Becsült eredmény: %3 új · %4 duplikátum · %5 elutasítva.
+QSL-állapot: %6 · hiányos UTC: %7.
+A további mezők megmaradnak: %8</translation>
+    </message>
+    <message>
+        <source>none</source>
+        <translation>nincs</translation>
+    </message>
+    <message>
+        <source>Cannot preview this import: %1</source>
+        <translation>Az importálás előnézete nem készíthető el: %1</translation>
+    </message>
+    <message>
+        <source>unknown error</source>
+        <translation>ismeretlen hiba</translation>
+    </message>
+    <message>
+        <source>Records with incomplete UTC will be rejected during import.</source>
+        <translation>A hiányos UTC-jű rekordokat az importálás elutasítja.</translation>
+    </message>
+    <message>
         <source>Export ADIF</source>
         <translation>ADIF exportálás</translation>
     </message>
@@ -3881,6 +4174,14 @@ Nyisd meg egyszer a DecoDXLog-ban a frissítéshez.</translation>
     <message>
         <source>Detach it into its own window</source>
         <translation>Leválasztás saját ablakba</translation>
+    </message>
+    <message>
+        <source>Operational presets</source>
+        <translation>Üzemeltetési előbeállítások</translation>
+    </message>
+    <message>
+        <source>Choose a starting layout; your current layout is changed only after selection.</source>
+        <translation>Válasszon kiindulási elrendezést; a jelenlegi csak a választás után változik.</translation>
     </message>
     <message>
         <source>Restore the default layout</source>
@@ -5247,6 +5548,18 @@ Nyisd meg egyszer a DecoDXLog-ban a frissítéshez.</translation>
         <translation>ADIF-fájlok (*.adi)</translation>
     </message>
     <message>
+        <source>Import received QSL scan or image</source>
+        <translation>Kapott QSL szkennelésének vagy képének importálása</translation>
+    </message>
+    <message>
+        <source>Images and documents (*.png *.jpg *.jpeg *.webp *.pdf)</source>
+        <translation>Képek és dokumentumok (*.png *.jpg *.jpeg *.webp *.pdf)</translation>
+    </message>
+    <message>
+        <source>All files (*)</source>
+        <translation>Minden fájl (*)</translation>
+    </message>
+    <message>
         <source>Delete %1? The QSO stays in the history and can be recovered.</source>
         <translation>Törlöd ezt: %1? A QSO az előzményekben marad, és vissza lehet hozni.</translation>
     </message>
@@ -5485,6 +5798,46 @@ Nyisd meg egyszer a DecoDXLog-ban a frissítéshez.</translation>
     <message>
         <source>QSL status · per service</source>
         <translation>QSL-állapot · szolgáltatásonként</translation>
+    </message>
+    <message>
+        <source>Received QSL archive</source>
+        <translation>Kapott QSL-ek archívuma</translation>
+    </message>
+    <message>
+        <source>QSL manager: %1 · %2 · %3</source>
+        <translation>QSL-menedzser: %1 · %2 · %3</translation>
+    </message>
+    <message>
+        <source>unknown source</source>
+        <translation>ismeretlen forrás</translation>
+    </message>
+    <message>
+        <source>Import scan or image…</source>
+        <translation>Szkennelés vagy kép importálása…</translation>
+    </message>
+    <message>
+        <source>Not a confirmation by itself</source>
+        <translation>Önmagában nem visszaigazolás</translation>
+    </message>
+    <message>
+        <source>%1 KB</source>
+        <translation>%1 KB</translation>
+    </message>
+    <message>
+        <source>Data provenance</source>
+        <translation>Az adatok eredete</translation>
+    </message>
+    <message>
+        <source>empty</source>
+        <translation>üres</translation>
+    </message>
+    <message>
+        <source>Undo</source>
+        <translation>Visszavonás</translation>
+    </message>
+    <message>
+        <source>No enriched fields recorded.</source>
+        <translation>Nincs rögzített gazdagított mező.</translation>
     </message>
     <message>
         <source>Award impact</source>
@@ -5799,12 +6152,12 @@ Nyisd meg egyszer a DecoDXLog-ban a frissítéshez.</translation>
         <translation>Mentés kiválasztása</translation>
     </message>
     <message>
-        <source>DecoDXLog logs (*.sqlite)</source>
-        <translation>DecoDXLog naplók (*.sqlite)</translation>
-    </message>
-    <message>
         <source>All files (*)</source>
         <translation>Minden fájl (*)</translation>
+    </message>
+    <message>
+        <source>DecoDXLog backups (*.sqlite *.bundle)</source>
+        <translation>DecoDXLog-mentések (*.sqlite *.bundle)</translation>
     </message>
     <message numerus="yes">
         <source>Log now: %1 · %n QSO · last %2</source>
@@ -7190,6 +7543,10 @@ Nyisd meg egyszer a DecoDXLog-ban a frissítéshez.</translation>
         <translation>Balra az, amit a gomb mutat, jobbra az, ami adásba megy ({CALL}, {MYCALL}, {RST}, {NR}, {EXCH}). Az első tizenkettő az F1-F12 gombokon van, az Esc leállít. A CW panelen is megtalálhatók (Makrók… vagy jobb kattintás egy gombon).</translation>
     </message>
     <message>
+        <source>Radio 1 is the one above; radio 2 is connected here. In the contest entry the radio with the focus gets the band, the tuning and the CW: Ctrl+← and Ctrl+→ choose radio 1 or 2, Pause swaps them, ` (backquote) toggles stereo listening. The SO2R box (MK2R, SO2RDuino, YCCC…) follows through OTRSP: TX1/TX2 for the transmitter, RX1/RX2 or RX1S/RX2S for the headphones. Software focus is not an RF interlock: use the hardware interlock and verify the actual station wiring before transmitting.</source>
+        <translation>Az 1. rádió a fenti; a 2. rádió itt csatlakozik. A versenybevitelben a fókuszban lévő rádió kapja a sávot, a hangolást és a CW-t: a Ctrl+← és a Ctrl+→ az 1. vagy 2. rádiót választja, a Pause felcseréli őket, a ` (visszafelé aposztróf) a sztereó hallgatást kapcsolja. Az SO2R-doboz (MK2R, SO2RDuino, YCCC…) OTRSP-n keresztül követ: TX1/TX2 az adóhoz, RX1/RX2 vagy RX1S/RX2S a fejhallgatóhoz. A szoftveres fókusz nem RF-reteszelés: használja a hardveres reteszelést, és adás előtt ellenőrizze az állomás tényleges bekötését.</translation>
+    </message>
+    <message>
         <source>Antenna rotor</source>
         <translation>Antennaforgató</translation>
     </message>
@@ -7716,10 +8073,6 @@ Nyisd meg egyszer a DecoDXLog-ban a frissítéshez.</translation>
     <message>
         <source>SO2R box port not open</source>
         <translation>Az SO2R doboz portja nincs nyitva</translation>
-    </message>
-    <message>
-        <source>Radio 1 is the one above; radio 2 is connected here. In the contest entry the radio with the focus gets the band, the tuning and the CW: Ctrl+← and Ctrl+→ choose radio 1 or 2, Pause swaps them, ` (backquote) toggles stereo listening. The SO2R box (MK2R, SO2RDuino, YCCC…) follows through OTRSP: TX1/TX2 for the transmitter, RX1/RX2 or RX1S/RX2S for the headphones.</source>
-        <translation>Az 1. rádió a fenti; a 2. rádiót itt kell csatlakoztatni. A verseny-bevitelben a fókuszban lévő rádió kapja a sávot, a hangolást és a CW-t: Ctrl+← és Ctrl+→ választja az 1. vagy 2. rádiót, a Pause felcseréli, a ` (tompa ékezet) kapcsolja a sztereó hallgatást. Az SO2R doboz (MK2R, SO2RDuino, YCCC…) OTRSP-vel követi: TX1/TX2 az adónak, RX1/RX2 vagy RX1S/RX2S a fejhallgatónak.</translation>
     </message>
     <message>
         <source>The control box, directly (built-in gateway)</source>
@@ -9228,6 +9581,10 @@ Nyisd meg egyszer a DecoDXLog-ban a frissítéshez.</translation>
         <translation>Ebben a munkamenetben még nincs QSO</translation>
     </message>
     <message>
+        <source>Cabrillo export is unavailable: this contest has no verified rule sheet</source>
+        <translation>A Cabrillo-exportálás nem érhető el: ehhez a versenyhez nincs ellenőrzött szabálylap</translation>
+    </message>
+    <message>
         <source>Nothing to write</source>
         <translation>Nincs mit írni</translation>
     </message>
@@ -9720,6 +10077,10 @@ Nyisd meg egyszer a DecoDXLog-ban a frissítéshez.</translation>
         <translation>nincs beállítva hívójelkönyv: Beállítások → Hívójelkönyv</translation>
     </message>
     <message>
+        <source>Could not record provenance for QSO %1</source>
+        <translation>A(z) %1 QSO eredetét nem sikerült rögzíteni</translation>
+    </message>
+    <message>
         <source>radio (CAT)</source>
         <translation>rádió (CAT)</translation>
     </message>
@@ -9855,6 +10216,114 @@ Nyisd meg egyszer a DecoDXLog-ban a frissítéshez.</translation>
         <translation>
             <numerusform>Már a naplóban van (%n percen belül)</numerusform>
         </translation>
+    </message>
+    <message>
+        <source>Cannot read attachment: %1</source>
+        <translation>A melléklet nem olvasható: %1</translation>
+    </message>
+    <message>
+        <source>Choose at least one QSO and a non-empty file</source>
+        <translation>Válasszon legalább egy QSO-t és egy nem üres fájlt</translation>
+    </message>
+    <message>
+        <source>Cannot store QSL attachment</source>
+        <translation>A QSL-melléklet nem tárolható</translation>
+    </message>
+    <message>
+        <source>Attached %1 to %n QSO(s)</source>
+        <translation>%1 csatolva %n QSO-hoz</translation>
+    </message>
+    <message>
+        <source>Attachment not found</source>
+        <translation>A melléklet nem található</translation>
+    </message>
+    <message>
+        <source>Cannot write attachment</source>
+        <translation>A melléklet nem írható</translation>
+    </message>
+    <message>
+        <source>Receive</source>
+        <translation>Fogadás</translation>
+    </message>
+    <message>
+        <source>Decodium connection is active</source>
+        <translation>A Decodium-kapcsolat aktív</translation>
+    </message>
+    <message>
+        <source>No Decodium client is connected</source>
+        <translation>Nincs Decodium-kliens csatlakoztatva</translation>
+    </message>
+    <message>
+        <source>Parse</source>
+        <translation>Olvasás</translation>
+    </message>
+    <message>
+        <source>ADIF parser is available</source>
+        <translation>Az ADIF-értelmező elérhető</translation>
+    </message>
+    <message>
+        <source>Deduplicate</source>
+        <translation>Duplikátumok</translation>
+    </message>
+    <message>
+        <source>Duplicate protection is enabled</source>
+        <translation>A duplikátumvédelem be van kapcsolva</translation>
+    </message>
+    <message>
+        <source>Save</source>
+        <translation>Mentés</translation>
+    </message>
+    <message>
+        <source>Local log is open</source>
+        <translation>A helyi napló meg van nyitva</translation>
+    </message>
+    <message>
+        <source>No local log is open</source>
+        <translation>Nincs megnyitott helyi napló</translation>
+    </message>
+    <message>
+        <source>QSL</source>
+        <translation>QSL</translation>
+    </message>
+    <message>
+        <source>%1 QSL service(s) ready; diagnostic mode never uploads</source>
+        <translation>%1 QSL-szolgáltatás kész; a diagnosztikai mód soha nem tölt fel semmit</translation>
+    </message>
+    <message>
+        <source>Choose a file first</source>
+        <translation>Először válasszon fájlt</translation>
+    </message>
+    <message>
+        <source>Cannot write diagnostic report: %1</source>
+        <translation>A diagnosztikai jelentés nem írható: %1</translation>
+    </message>
+    <message>
+        <source>Cannot save diagnostic report</source>
+        <translation>A diagnosztikai jelentés nem menthető</translation>
+    </message>
+    <message>
+        <source>No QSL manager is recorded for this QSO</source>
+        <translation>Ehhez a QSO-hoz nincs rögzített QSL-menedzser</translation>
+    </message>
+    <message>
+        <source>entered in the QSO</source>
+        <translation>a QSO-ban megadva</translation>
+    </message>
+    <message>
+        <source>no unconfirmed service is recorded</source>
+        <translation>nincs rögzített visszaigazolatlan szolgáltatás</translation>
+    </message>
+    <message>
+        <source>potentially useful for: %1</source>
+        <translation>potenciálisan hasznos ehhez: %1</translation>
+    </message>
+    <message>
+        <source>Manager %1 may be outdated; verify the route before sending; %2</source>
+        <translation>A(z) %1 menedzser adatai elavultak lehetnek; küldés előtt ellenőrizze az útvonalat; %2</translation>
+    </message>
+    <message>
+        <source>Manager %1 could resolve the paper QSL for this QSO; %2; review and approve the route</source>
+        <translation>A(z) %1 menedzser intézhetné ennek a QSO-nak a papír QSL-jét; %2; nézze át és hagyja jóvá az útvonalat</translation>
     </message>
     <message>
         <source>This column cannot be edited here: open the QSO card</source>
@@ -10157,8 +10626,20 @@ Nyisd meg egyszer a DecoDXLog-ban a frissítéshez.</translation>
         <translation>%1 importálása…</translation>
     </message>
     <message>
-        <source>%1: %2 new, %3 duplicates, %4 rejected</source>
-        <translation>%1: %2 új, %3 duplikátum, %4 elutasítva</translation>
+        <source>%1: %2 read, %3 new, %4 duplicates, %5 rejected, %6 with QSL status</source>
+        <translation>%1: %2 beolvasva, %3 új, %4 duplikátum, %5 elutasítva, %6 QSL-állapottal</translation>
+    </message>
+    <message>
+        <source>%1 record(s) had no complete UTC date/time</source>
+        <translation>%1 rekordnak nincs teljes UTC dátuma/ideje</translation>
+    </message>
+    <message>
+        <source>Preserved unmapped ADIF fields: %1</source>
+        <translation>Meg nem feleltetett ADIF-mezők megőrizve: %1</translation>
+    </message>
+    <message>
+        <source>Undid the last import: %1 QSO(s) moved to the recycle history.</source>
+        <translation>Az utolsó importálás visszavonva: %1 QSO átkerült a kuka előzményeibe.</translation>
     </message>
     <message>
         <source>Cannot write %1: %2</source>
@@ -10470,6 +10951,10 @@ Nyisd meg egyszer a DecoDXLog-ban a frissítéshez.</translation>
         <source>%1 joined the network</source>
         <translation>%1 csatlakozott a hálózathoz</translation>
     </message>
+    <message>
+        <source>Serial collision detected: %1 was already assigned locally; verify the contest log</source>
+        <translation>Sorszám-ütközés: a(z) %1 már ki volt osztva helyben; ellenőrizze a versenynaplót</translation>
+    </message>
 </context>
 <context>
     <name>decolog::app::QslCardController</name>
@@ -10745,6 +11230,14 @@ Nyisd meg egyszer a DecoDXLog-ban a frissítéshez.</translation>
         <translation>
             <numerusform>TQSL kész · %n station location</numerusform>
         </translation>
+    </message>
+    <message>
+        <source>not configured</source>
+        <translation>nincs beállítva</translation>
+    </message>
+    <message>
+        <source>active station</source>
+        <translation>aktív állomás</translation>
     </message>
     <message>
         <source>no credentials: Setup → QSL services</source>

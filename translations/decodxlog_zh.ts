@@ -91,6 +91,14 @@
 <context>
     <name>ActivationController</name>
     <message>
+        <source>Activation references cannot contain empty items</source>
+        <translation>激活引用不能包含空项</translation>
+    </message>
+    <message>
+        <source>Activation references cannot contain duplicates: %1</source>
+        <translation>激活引用不能包含重复项：%1</translation>
+    </message>
+    <message>
         <source>Zones</source>
         <translation>分区</translation>
     </message>
@@ -347,6 +355,10 @@
         <translation>网格</translation>
     </message>
     <message>
+        <source>Grid statistics</source>
+        <translation>网格统计</translation>
+    </message>
+    <message>
         <source>Diploma: 30 castles in 5 different regions (20 for stations outside Italy), at least one in the province of Cuneo. So far: %1 in %2 regions, Cuneo %3.</source>
         <translation>证书：5 个不同大区的 30 座城堡（意大利境外电台为 20 座），其中至少一座在库内奥省。目前：%2 个大区共 %1 座，库内奥 %3。</translation>
     </message>
@@ -375,6 +387,10 @@
         <translation>参考编号取自 SIG/SIG_INFO（SIG = %1）或类似“%1 LI-001”的备注。</translation>
     </message>
     <message>
+        <source>Official WAC counts six continents; Antarctica is shown but not counted.</source>
+        <translation>官方 WAC 统计六个大洲；南极洲会显示，但不计入。</translation>
+    </message>
+    <message>
         <source>QSOs on 60 m are counted here, but the ARRL does not accept them: for the official count switch off &quot;60 m&quot;.</source>
         <translation>这里也计入 60 米的 QSO，但 ARRL 不承认：要按官方方式统计，请关闭“60 m”。</translation>
     </message>
@@ -391,6 +407,10 @@
         <translation>
             <numerusform>已排除 %n 个属于已删除实体或 ARRL 不承认的运作（Club Log）的 QSO。</numerusform>
         </translation>
+    </message>
+    <message>
+        <source>Satellite QSOs stay in the log but are excluded from terrestrial DXCC/WAS credit.</source>
+        <translation>卫星 QSO 保留在日志中，但不计入地面 DXCC/WAS 积分。</translation>
     </message>
     <message>
         <source>Diploma: 75 provinces for Italian stations, 60 for the others.</source>
@@ -428,8 +448,24 @@
         <translation>目标 %1</translation>
     </message>
     <message>
+        <source>statistics · rules not verified</source>
+        <translation>统计 · 规则未验证</translation>
+    </message>
+    <message>
+        <source>Create claim (%1)</source>
+        <translation>创建申请 (%1)</translation>
+    </message>
+    <message>
         <source>worked %1</source>
         <translation>已通联 %1</translation>
+    </message>
+    <message>
+        <source>official rules</source>
+        <translation>官方规则</translation>
+    </message>
+    <message>
+        <source>personal · 60 m</source>
+        <translation>个人 · 60 m</translation>
     </message>
     <message>
         <source>band slots %1 / %2</source>
@@ -484,14 +520,6 @@
         <translation>卡片</translation>
     </message>
     <message>
-        <source>60 m</source>
-        <translation>60 m</translation>
-    </message>
-    <message>
-        <source>Count QSOs on 60 m in DXCC, DXCC Challenge and WAS too. The ARRL does not accept them: switch off for the official count.</source>
-        <translation>60 米的 QSO 也计入 DXCC、DXCC Challenge 和 WAS。ARRL 不承认它们：要官方统计请关闭。</translation>
-    </message>
-    <message>
         <source>All stations</source>
         <translation>所有电台</translation>
     </message>
@@ -500,8 +528,48 @@
         <translation>所有标签</translation>
     </message>
     <message>
+        <source>Claims</source>
+        <translation>申请</translation>
+    </message>
+    <message>
+        <source>Outcome / note</source>
+        <translation>结果 / 备注</translation>
+    </message>
+    <message>
+        <source>Evidence or external reference</source>
+        <translation>证据或外部引用</translation>
+    </message>
+    <message>
+        <source>Submit</source>
+        <translation>提交</translation>
+    </message>
+    <message>
+        <source>Verify</source>
+        <translation>验证</translation>
+    </message>
+    <message>
+        <source>Reject</source>
+        <translation>拒绝</translation>
+    </message>
+    <message>
+        <source>Credit</source>
+        <translation>记入</translation>
+    </message>
+    <message>
         <source>Valid for %1</source>
         <translation>适用于 %1</translation>
+    </message>
+    <message>
+        <source>60 m · personal</source>
+        <translation>60 m · 个人</translation>
+    </message>
+    <message>
+        <source>60 m · official</source>
+        <translation>60 m · 官方</translation>
+    </message>
+    <message>
+        <source>The official ARRL count excludes 60 m. Enable it only for a personal count.</source>
+        <translation>ARRL 官方计数不包含 60 m。仅在个人计数时启用。</translation>
     </message>
     <message>
         <source>chosen by you</source>
@@ -693,6 +761,26 @@
         <translation>服务</translation>
     </message>
     <message>
+        <source>Account / profile</source>
+        <translation>账户 / 配置</translation>
+    </message>
+    <message>
+        <source>not configured</source>
+        <translation>未配置</translation>
+    </message>
+    <message>
+        <source>active station</source>
+        <translation>当前电台</translation>
+    </message>
+    <message>
+        <source>Integration diagnostics…</source>
+        <translation>集成诊断…</translation>
+    </message>
+    <message>
+        <source>Runs locally; no test QSO is uploaded</source>
+        <translation>在本地运行；不会上传测试 QSO</translation>
+    </message>
+    <message>
         <source>Download LoTW confirmations</source>
         <translation>下载 LoTW 确认</translation>
     </message>
@@ -727,6 +815,30 @@
     <message>
         <source>LoTW: TQSL signs and sends, and the confirmations come back here.</source>
         <translation>LoTW：由 TQSL 签名并发送，确认回到这里。</translation>
+    </message>
+    <message>
+        <source>Integration diagnostics</source>
+        <translation>集成诊断</translation>
+    </message>
+    <message>
+        <source>The checks stay on this computer. The support report is redacted and is saved only after confirmation.</source>
+        <translation>检查只在本机进行。支持报告会经过脱敏，确认后才会保存。</translation>
+    </message>
+    <message>
+        <source>Approve and save report…</source>
+        <translation>批准并保存报告…</translation>
+    </message>
+    <message>
+        <source>Save diagnostic support report</source>
+        <translation>保存用于支持的诊断报告</translation>
+    </message>
+    <message>
+        <source>Text files (*.txt)</source>
+        <translation>文本文件 (*.txt)</translation>
+    </message>
+    <message>
+        <source>All files (*)</source>
+        <translation>所有文件 (*)</translation>
     </message>
     <message>
         <source>Sent</source>
@@ -2915,6 +3027,73 @@ In Decodium: Settings → Reporting → UDP Server 127.0.0.1, port %1, and &quot
     </message>
 </context>
 <context>
+    <name>FirstRunGuide</name>
+    <message>
+        <source>Start with DecoDXLog</source>
+        <translation>开始使用 DecoDXLog</translation>
+    </message>
+    <message>
+        <source>A short path to your first contact</source>
+        <translation>通往第一次通联的捷径</translation>
+    </message>
+    <message>
+        <source>You can use DecoDXLog without a radio. Configure CAT only if you want the log to read the frequency and mode automatically.</source>
+        <translation>没有电台也可以使用 DecoDXLog。只有希望日志自动读取频率和模式时，才需要配置 CAT。</translation>
+    </message>
+    <message>
+        <source>1  Station profile</source>
+        <translation>1  电台配置</translation>
+    </message>
+    <message>
+        <source>Set your callsign, grid and station details in the profile dialog.</source>
+        <translation>在配置对话框中填写呼号、网格和电台信息。</translation>
+    </message>
+    <message>
+        <source>2  Radio (optional)</source>
+        <translation>2  电台设备（可选）</translation>
+    </message>
+    <message>
+        <source>In Setup → Radio (CAT), choose the model and connection, then use Find the radio. For a shared CAT connection, enter its host and port instead of opening a second serial connection.</source>
+        <translation>在 设置 → 电台 (CAT) 中选择型号和连接，然后点击“查找电台”。如果使用共享的 CAT 连接，请填写它的主机和端口，而不要再打开第二个串口连接。</translation>
+    </message>
+    <message>
+        <source>3  First QSO</source>
+        <translation>3  第一次 QSO</translation>
+    </message>
+    <message>
+        <source>Open New QSO, enter a callsign and the required fields, then press Ctrl+Enter or Register. The local log remains usable if CAT or an online service is unavailable.</source>
+        <translation>打开“新建 QSO”，输入呼号和必填字段，然后按 Ctrl+Enter 或点击“登记”。即使 CAT 或在线服务不可用，本地日志仍可使用。</translation>
+    </message>
+    <message>
+        <source>This guide appears once when the log is empty; the normal setup and New QSO shortcuts remain available afterwards.</source>
+        <translation>此向导仅在日志为空时出现一次；之后仍可使用常规的设置和“新建 QSO”快捷方式。</translation>
+    </message>
+    <message>
+        <source>Configure radio</source>
+        <translation>配置电台</translation>
+    </message>
+    <message>
+        <source>Open radio and CAT setup</source>
+        <translation>打开电台和 CAT 设置</translation>
+    </message>
+    <message>
+        <source>Open New QSO</source>
+        <translation>打开新建 QSO</translation>
+    </message>
+    <message>
+        <source>Open the new QSO form</source>
+        <translation>打开新建 QSO 表单</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation>关闭</translation>
+    </message>
+    <message>
+        <source>Close the first-run guide</source>
+        <translation>关闭首次运行向导</translation>
+    </message>
+</context>
+<context>
     <name>FlrigControl</name>
     <message>
         <source>connecting to flrig at %1…</source>
@@ -3054,6 +3233,70 @@ In Decodium: Settings → Reporting → UDP Server 127.0.0.1, port %1, and &quot
     <message>
         <source>The backup could not take the place of the log; the log as it was is back.</source>
         <translation>备份无法替换日志；原来的日志已恢复。</translation>
+    </message>
+    <message>
+        <source>The SQLite copy cannot be included: %1</source>
+        <translation>无法包含 SQLite 副本：%1</translation>
+    </message>
+    <message>
+        <source>The bundle destination already exists.</source>
+        <translation>包的目标位置已存在。</translation>
+    </message>
+    <message>
+        <source>The SQLite copy could not be copied into the bundle.</source>
+        <translation>无法将 SQLite 副本复制到包中。</translation>
+    </message>
+    <message>
+        <source>Portable settings could not be written to the backup bundle.</source>
+        <translation>无法将便携设置写入备份包。</translation>
+    </message>
+    <message>
+        <source>Unsafe resource path in backup bundle: %1</source>
+        <translation>备份包中的资源路径不安全：%1</translation>
+    </message>
+    <message>
+        <source>Resource could not be copied into the bundle: %1</source>
+        <translation>无法将资源复制到包中：%1</translation>
+    </message>
+    <message>
+        <source>The backup bundle manifest could not be written.</source>
+        <translation>无法写入备份包的清单。</translation>
+    </message>
+    <message>
+        <source>The backup bundle could not be committed atomically.</source>
+        <translation>无法以原子方式提交备份包。</translation>
+    </message>
+    <message>
+        <source>The backup bundle has no readable manifest.</source>
+        <translation>备份包没有可读取的清单。</translation>
+    </message>
+    <message>
+        <source>The backup bundle format is not supported.</source>
+        <translation>不支持该备份包格式。</translation>
+    </message>
+    <message>
+        <source>The backup bundle manifest is incomplete.</source>
+        <translation>备份包的清单不完整。</translation>
+    </message>
+    <message>
+        <source>The bundle resources could not be staged.</source>
+        <translation>无法准备包中的资源。</translation>
+    </message>
+    <message>
+        <source>The bundle resource is missing: %1</source>
+        <translation>缺少包中的资源：%1</translation>
+    </message>
+    <message>
+        <source>Portable settings could not be read from the backup bundle.</source>
+        <translation>无法从备份包读取便携设置。</translation>
+    </message>
+    <message>
+        <source>The bundle resource could not be staged: %1</source>
+        <translation>无法准备包中的资源：%1</translation>
+    </message>
+    <message>
+        <source>The bundle resource could not be restored: %1</source>
+        <translation>无法恢复包中的资源：%1</translation>
     </message>
     <message>
         <source>DecoDXLog did not close in time: the log was not touched.</source>
@@ -3835,6 +4078,26 @@ Open it once in DecoDXLog to bring it up to date.</source>
         <translation>已嵌入</translation>
     </message>
     <message>
+        <source>Beginner</source>
+        <translation>入门</translation>
+    </message>
+    <message>
+        <source>DX</source>
+        <translation>DX</translation>
+    </message>
+    <message>
+        <source>Digital</source>
+        <translation>数字</translation>
+    </message>
+    <message>
+        <source>Contest</source>
+        <translation>竞赛</translation>
+    </message>
+    <message>
+        <source>Portable</source>
+        <translation>便携</translation>
+    </message>
+    <message>
         <source>Import a log</source>
         <translation>导入日志</translation>
     </message>
@@ -3859,6 +4122,36 @@ Open it once in DecoDXLog to bring it up to date.</source>
         <translation>所有文件 (*)</translation>
     </message>
     <message>
+        <source>Import preview</source>
+        <translation>导入预览</translation>
+    </message>
+    <message>
+        <source>%1 records read from %2.
+Estimated result: %3 new · %4 duplicates · %5 rejected.
+QSL status: %6 · incomplete UTC: %7.
+Extra fields are preserved: %8</source>
+        <translation>从 %2 读取了 %1 条记录。
+预计结果：%3 条新增 · %4 条重复 · %5 条被拒绝。
+QSL 状态：%6 · UTC 不完整：%7。
+额外字段将保留：%8</translation>
+    </message>
+    <message>
+        <source>none</source>
+        <translation>无</translation>
+    </message>
+    <message>
+        <source>Cannot preview this import: %1</source>
+        <translation>无法预览此次导入：%1</translation>
+    </message>
+    <message>
+        <source>unknown error</source>
+        <translation>未知错误</translation>
+    </message>
+    <message>
+        <source>Records with incomplete UTC will be rejected during import.</source>
+        <translation>UTC 不完整的记录在导入时会被拒绝。</translation>
+    </message>
+    <message>
         <source>Export ADIF</source>
         <translation>导出 ADIF</translation>
     </message>
@@ -3881,6 +4174,14 @@ Open it once in DecoDXLog to bring it up to date.</source>
     <message>
         <source>Detach it into its own window</source>
         <translation>拆到独立窗口</translation>
+    </message>
+    <message>
+        <source>Operational presets</source>
+        <translation>运行预设</translation>
+    </message>
+    <message>
+        <source>Choose a starting layout; your current layout is changed only after selection.</source>
+        <translation>选择一个起始布局；只有选择之后才会改变当前布局。</translation>
     </message>
     <message>
         <source>Restore the default layout</source>
@@ -5247,6 +5548,18 @@ Open it once in DecoDXLog to bring it up to date.</source>
         <translation>ADIF 文件 (*.adi)</translation>
     </message>
     <message>
+        <source>Import received QSL scan or image</source>
+        <translation>导入收到的 QSL 扫描件或图片</translation>
+    </message>
+    <message>
+        <source>Images and documents (*.png *.jpg *.jpeg *.webp *.pdf)</source>
+        <translation>图片和文档 (*.png *.jpg *.jpeg *.webp *.pdf)</translation>
+    </message>
+    <message>
+        <source>All files (*)</source>
+        <translation>所有文件 (*)</translation>
+    </message>
+    <message>
         <source>Delete %1? The QSO stays in the history and can be recovered.</source>
         <translation>删除 %1？这个 QSO 留在历史里，还能找回来。</translation>
     </message>
@@ -5485,6 +5798,46 @@ Open it once in DecoDXLog to bring it up to date.</source>
     <message>
         <source>QSL status · per service</source>
         <translation>QSL 状态 · 按服务</translation>
+    </message>
+    <message>
+        <source>Received QSL archive</source>
+        <translation>收到的 QSL 存档</translation>
+    </message>
+    <message>
+        <source>QSL manager: %1 · %2 · %3</source>
+        <translation>QSL 经理：%1 · %2 · %3</translation>
+    </message>
+    <message>
+        <source>unknown source</source>
+        <translation>未知来源</translation>
+    </message>
+    <message>
+        <source>Import scan or image…</source>
+        <translation>导入扫描件或图片…</translation>
+    </message>
+    <message>
+        <source>Not a confirmation by itself</source>
+        <translation>本身不构成确认</translation>
+    </message>
+    <message>
+        <source>%1 KB</source>
+        <translation>%1 KB</translation>
+    </message>
+    <message>
+        <source>Data provenance</source>
+        <translation>数据来源</translation>
+    </message>
+    <message>
+        <source>empty</source>
+        <translation>空</translation>
+    </message>
+    <message>
+        <source>Undo</source>
+        <translation>撤销</translation>
+    </message>
+    <message>
+        <source>No enriched fields recorded.</source>
+        <translation>未记录任何补全字段。</translation>
     </message>
     <message>
         <source>Award impact</source>
@@ -5799,12 +6152,12 @@ Open it once in DecoDXLog to bring it up to date.</source>
         <translation>选择备份</translation>
     </message>
     <message>
-        <source>DecoDXLog logs (*.sqlite)</source>
-        <translation>DecoDXLog 日志 (*.sqlite)</translation>
-    </message>
-    <message>
         <source>All files (*)</source>
         <translation>所有文件 (*)</translation>
+    </message>
+    <message>
+        <source>DecoDXLog backups (*.sqlite *.bundle)</source>
+        <translation>DecoDXLog 备份 (*.sqlite *.bundle)</translation>
     </message>
     <message numerus="yes">
         <source>Log now: %1 · %n QSO · last %2</source>
@@ -7190,6 +7543,10 @@ Open it once in DecoDXLog to bring it up to date.</source>
         <translation>左边是按键显示的文字，右边是发送的内容（{CALL}、{MYCALL}、{RST}、{NR}、{EXCH}）。前十二个对应 F1-F12 键，Esc 停止。CW 面板中也有（宏… 或在按键上点右键）。</translation>
     </message>
     <message>
+        <source>Radio 1 is the one above; radio 2 is connected here. In the contest entry the radio with the focus gets the band, the tuning and the CW: Ctrl+← and Ctrl+→ choose radio 1 or 2, Pause swaps them, ` (backquote) toggles stereo listening. The SO2R box (MK2R, SO2RDuino, YCCC…) follows through OTRSP: TX1/TX2 for the transmitter, RX1/RX2 or RX1S/RX2S for the headphones. Software focus is not an RF interlock: use the hardware interlock and verify the actual station wiring before transmitting.</source>
+        <translation>电台 1 是上方的那台；电台 2 连接在这里。在竞赛录入中，拥有焦点的电台负责波段、调谐和 CW：Ctrl+← 和 Ctrl+→ 选择电台 1 或 2，Pause 互换，` (反引号) 切换立体声监听。SO2R 盒 (MK2R、SO2RDuino、YCCC…) 通过 OTRSP 跟随：TX1/TX2 对应发射机，RX1/RX2 或 RX1S/RX2S 对应耳机。软件焦点不是射频互锁：请使用硬件互锁，并在发射前核实电台的实际接线。</translation>
+    </message>
+    <message>
         <source>Antenna rotor</source>
         <translation>天线旋转器</translation>
     </message>
@@ -7716,10 +8073,6 @@ Open it once in DecoDXLog to bring it up to date.</source>
     <message>
         <source>SO2R box port not open</source>
         <translation>SO2R 控制盒端口未打开</translation>
-    </message>
-    <message>
-        <source>Radio 1 is the one above; radio 2 is connected here. In the contest entry the radio with the focus gets the band, the tuning and the CW: Ctrl+← and Ctrl+→ choose radio 1 or 2, Pause swaps them, ` (backquote) toggles stereo listening. The SO2R box (MK2R, SO2RDuino, YCCC…) follows through OTRSP: TX1/TX2 for the transmitter, RX1/RX2 or RX1S/RX2S for the headphones.</source>
-        <translation>电台 1 是上面设置的那部；电台 2 在此连接。在比赛录入中，拥有焦点的电台接收波段、调谐和 CW：Ctrl+← 和 Ctrl+→ 选择电台 1 或 2，Pause 交换，`（反引号）切换立体声收听。SO2R 控制盒（MK2R、SO2RDuino、YCCC…）通过 OTRSP 跟随：TX1/TX2 控制发射机，RX1/RX2 或 RX1S/RX2S 控制耳机。</translation>
     </message>
     <message>
         <source>The control box, directly (built-in gateway)</source>
@@ -9228,6 +9581,10 @@ Open it once in DecoDXLog to bring it up to date.</source>
         <translation>这次会话里还没有 QSO</translation>
     </message>
     <message>
+        <source>Cabrillo export is unavailable: this contest has no verified rule sheet</source>
+        <translation>Cabrillo 导出不可用：此竞赛没有经过验证的规则表</translation>
+    </message>
+    <message>
         <source>Nothing to write</source>
         <translation>没有可写的</translation>
     </message>
@@ -9720,6 +10077,10 @@ Open it once in DecoDXLog to bring it up to date.</source>
         <translation>没有设置呼号簿：设置 → 呼号簿</translation>
     </message>
     <message>
+        <source>Could not record provenance for QSO %1</source>
+        <translation>无法记录 QSO %1 的来源</translation>
+    </message>
+    <message>
         <source>radio (CAT)</source>
         <translation>电台 (CAT)</translation>
     </message>
@@ -9855,6 +10216,114 @@ Open it once in DecoDXLog to bring it up to date.</source>
         <translation>
             <numerusform>日志里已经有了（%n 分钟以内）</numerusform>
         </translation>
+    </message>
+    <message>
+        <source>Cannot read attachment: %1</source>
+        <translation>无法读取附件：%1</translation>
+    </message>
+    <message>
+        <source>Choose at least one QSO and a non-empty file</source>
+        <translation>请至少选择一个 QSO 和一个非空文件</translation>
+    </message>
+    <message>
+        <source>Cannot store QSL attachment</source>
+        <translation>无法保存 QSL 附件</translation>
+    </message>
+    <message>
+        <source>Attached %1 to %n QSO(s)</source>
+        <translation>已将 %1 附加到 %n 个 QSO</translation>
+    </message>
+    <message>
+        <source>Attachment not found</source>
+        <translation>未找到附件</translation>
+    </message>
+    <message>
+        <source>Cannot write attachment</source>
+        <translation>无法写入附件</translation>
+    </message>
+    <message>
+        <source>Receive</source>
+        <translation>接收</translation>
+    </message>
+    <message>
+        <source>Decodium connection is active</source>
+        <translation>与 Decodium 的连接处于活动状态</translation>
+    </message>
+    <message>
+        <source>No Decodium client is connected</source>
+        <translation>没有已连接的 Decodium 客户端</translation>
+    </message>
+    <message>
+        <source>Parse</source>
+        <translation>解析</translation>
+    </message>
+    <message>
+        <source>ADIF parser is available</source>
+        <translation>ADIF 解析器可用</translation>
+    </message>
+    <message>
+        <source>Deduplicate</source>
+        <translation>去重</translation>
+    </message>
+    <message>
+        <source>Duplicate protection is enabled</source>
+        <translation>重复保护已启用</translation>
+    </message>
+    <message>
+        <source>Save</source>
+        <translation>保存</translation>
+    </message>
+    <message>
+        <source>Local log is open</source>
+        <translation>本地日志已打开</translation>
+    </message>
+    <message>
+        <source>No local log is open</source>
+        <translation>没有打开的本地日志</translation>
+    </message>
+    <message>
+        <source>QSL</source>
+        <translation>QSL</translation>
+    </message>
+    <message>
+        <source>%1 QSL service(s) ready; diagnostic mode never uploads</source>
+        <translation>%1 个 QSL 服务已就绪；诊断模式绝不会上传</translation>
+    </message>
+    <message>
+        <source>Choose a file first</source>
+        <translation>请先选择文件</translation>
+    </message>
+    <message>
+        <source>Cannot write diagnostic report: %1</source>
+        <translation>无法写入诊断报告：%1</translation>
+    </message>
+    <message>
+        <source>Cannot save diagnostic report</source>
+        <translation>无法保存诊断报告</translation>
+    </message>
+    <message>
+        <source>No QSL manager is recorded for this QSO</source>
+        <translation>此 QSO 没有记录 QSL 经理</translation>
+    </message>
+    <message>
+        <source>entered in the QSO</source>
+        <translation>已在 QSO 中填写</translation>
+    </message>
+    <message>
+        <source>no unconfirmed service is recorded</source>
+        <translation>没有记录未确认的服务</translation>
+    </message>
+    <message>
+        <source>potentially useful for: %1</source>
+        <translation>可能适用于：%1</translation>
+    </message>
+    <message>
+        <source>Manager %1 may be outdated; verify the route before sending; %2</source>
+        <translation>经理 %1 的信息可能已过时；发送前请核实路线；%2</translation>
+    </message>
+    <message>
+        <source>Manager %1 could resolve the paper QSL for this QSO; %2; review and approve the route</source>
+        <translation>经理 %1 可能可以处理此 QSO 的纸质 QSL；%2；请检查并批准路线</translation>
     </message>
     <message>
         <source>This column cannot be edited here: open the QSO card</source>
@@ -10157,8 +10626,20 @@ Open it once in DecoDXLog to bring it up to date.</source>
         <translation>正在导入 %1…</translation>
     </message>
     <message>
-        <source>%1: %2 new, %3 duplicates, %4 rejected</source>
-        <translation>%1：新的 %2 条，重复 %3 条，拒绝 %4 条</translation>
+        <source>%1: %2 read, %3 new, %4 duplicates, %5 rejected, %6 with QSL status</source>
+        <translation>%1：读取 %2，新增 %3，重复 %4，拒绝 %5，含 QSL 状态 %6</translation>
+    </message>
+    <message>
+        <source>%1 record(s) had no complete UTC date/time</source>
+        <translation>%1 条记录没有完整的 UTC 日期/时间</translation>
+    </message>
+    <message>
+        <source>Preserved unmapped ADIF fields: %1</source>
+        <translation>已保留未映射的 ADIF 字段：%1</translation>
+    </message>
+    <message>
+        <source>Undid the last import: %1 QSO(s) moved to the recycle history.</source>
+        <translation>已撤销上次导入：%1 个 QSO 已移入回收历史。</translation>
     </message>
     <message>
         <source>Cannot write %1: %2</source>
@@ -10470,6 +10951,10 @@ Open it once in DecoDXLog to bring it up to date.</source>
         <source>%1 joined the network</source>
         <translation>%1 加入了网络</translation>
     </message>
+    <message>
+        <source>Serial collision detected: %1 was already assigned locally; verify the contest log</source>
+        <translation>检测到序号冲突：%1 已在本地分配；请检查竞赛日志</translation>
+    </message>
 </context>
 <context>
     <name>decolog::app::QslCardController</name>
@@ -10745,6 +11230,14 @@ Open it once in DecoDXLog to bring it up to date.</source>
         <translation>
             <numerusform>TQSL 就绪 · %n 个 station location</numerusform>
         </translation>
+    </message>
+    <message>
+        <source>not configured</source>
+        <translation>未配置</translation>
+    </message>
+    <message>
+        <source>active station</source>
+        <translation>当前电台</translation>
     </message>
     <message>
         <source>no credentials: Setup → QSL services</source>
