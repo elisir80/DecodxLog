@@ -360,10 +360,13 @@ private slots:
     void theLocalInterfaceLogsAndAnswers()
     {
         QNetworkAccessManager net;
-        auto request = [&](const QByteArray& method, const QString& path, const QByteArray& body = {}) {
+        auto request = [&](const QByteArray& method, const QString& path, const QByteArray& body = {},
+                           const QByteArray& idempotencyKey = QByteArray()) {
             QNetworkRequest r(QUrl(QStringLiteral("http://127.0.0.1:%1%2").arg(m_apiPort).arg(path)));
             r.setRawHeader("X-DecoDXLog-Token", "0123456789abcdef0123456789abcdef");
             r.setRawHeader("X-App", "tester");
+            if (!idempotencyKey.isEmpty())
+                r.setRawHeader("Idempotency-Key", idempotencyKey);
             r.setHeader(QNetworkRequest::ContentTypeHeader, QStringLiteral("text/plain"));
             QNetworkReply* reply = net.sendCustomRequest(r, method, body);
             QSignalSpy done(reply, &QNetworkReply::finished);
@@ -385,6 +388,20 @@ private slots:
         // Lo stesso di nuovo: doppione.
         QCOMPARE(request("POST", QStringLiteral("/api/v1/qso"),
                          "<CALL:5>VK2AB<QSO_DATE:8>20260917<TIME_ON:4>0900<BAND:3>20m<MODE:3>FT8<EOR>").first, 409);
+        // Un retry con chiave idempotente restituisce la stessa risposta senza
+        // creare un secondo QSO; riusare la chiave con un corpo diverso e'
+        // invece un conflitto esplicito.
+        const QByteArray retryBody =
+            "<CALL:5>W8IDM<QSO_DATE:8>20260917<TIME_ON:4>0910<BAND:3>20m<MODE:3>FT8<EOR>";
+        const auto firstRetry = request("POST", QStringLiteral("/api/v1/qso"), retryBody, "retry-1");
+        const auto secondRetry = request("POST", QStringLiteral("/api/v1/qso"), retryBody, "retry-1");
+        QCOMPARE(firstRetry.first, 201);
+        QCOMPARE(secondRetry.first, 201);
+        QCOMPARE(secondRetry.second, firstRetry.second);
+        QCOMPARE(countCall(QStringLiteral("W8IDM")), 1);
+        QCOMPARE(request("POST", QStringLiteral("/api/v1/qso"),
+                         "<CALL:5>W8DIFF<QSO_DATE:8>20260917<TIME_ON:4>0911<BAND:3>20m<MODE:3>FT8<EOR>",
+                         "retry-1").first, 409);
         const auto diagnostic = request("POST", QStringLiteral("/api/v1/qso"),
                                        "<CALL:9>DIAG-TEST<QSO_DATE:8>20000101<TIME_ON:6>000000<BAND:2>2m<MODE:4>TEST"
                                        "<APP_DECOLOG_DIAGNOSTIC:1>1<EOR>");
