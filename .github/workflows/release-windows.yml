@@ -76,7 +76,7 @@ jobs:
       - name: Release gate
         env:
           QT_QPA_PLATFORM: offscreen
-        run: bash scripts/release-gate.sh build-rel build-rel/DecoDXLog.exe
+        run: bash scripts/release-gate.sh build-rel build-rel/DecoDXLog.exe build-rel/decodxlog-capabilities.json
 
       - name: Package with the tested MinGW procedure
         run: MINGW=/mingw64 BUILD="$PWD/build-rel" bash scripts/installer.sh

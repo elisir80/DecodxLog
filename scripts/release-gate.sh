@@ -5,8 +5,9 @@ set -euo pipefail
 
 BUILD_DIR="${1:?build directory required}"
 EXECUTABLE="${2:?executable path required}"
+MANIFEST_FILE="${3:-$BUILD_DIR/decodxlog-capabilities.json}"
 ROOT_DIR="$(cd "$(dirname "$0")/.." && pwd)"
-"$ROOT_DIR/scripts/check-doc-version.sh" "$ROOT_DIR"
+"$ROOT_DIR/scripts/check-doc-version.sh" "$ROOT_DIR" "$MANIFEST_FILE"
 
 cmake --build "$BUILD_DIR"
 ctest --test-dir "$BUILD_DIR" --output-on-failure
