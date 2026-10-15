@@ -2,6 +2,7 @@
 
 #include <QCoreApplication>
 #include <QDateTime>
+#include <QSet>
 
 namespace decolog::core::cabrillo {
 
@@ -30,6 +31,38 @@ void addLine(QByteArray& out, const QString& keyword, const QString& text)
     if (text.trimmed().isEmpty())
         return;
     out += (keyword + QStringLiteral(": ") + text.trimmed() + QLatin1Char('\n')).toUtf8();
+}
+
+bool categoryValue(const QString& value, const QSet<QString>& allowed)
+{
+    return allowed.contains(value.trimmed().toUpper());
+}
+
+QString categoryError(const Info& info)
+{
+    if (!categoryValue(info.categoryOperator,
+                       {QStringLiteral("SINGLE-OP"), QStringLiteral("MULTI-ONE"),
+                        QStringLiteral("MULTI-TWO"), QStringLiteral("CHECKLOG")}))
+        return QStringLiteral("Unsupported CATEGORY-OPERATOR");
+    if (!categoryValue(info.categoryAssisted,
+                       {QStringLiteral("ASSISTED"), QStringLiteral("NON-ASSISTED")}))
+        return QStringLiteral("Unsupported CATEGORY-ASSISTED");
+    if (!categoryValue(info.categoryBand,
+                       {QStringLiteral("ALL"), QStringLiteral("160M"), QStringLiteral("80M"),
+                        QStringLiteral("40M"), QStringLiteral("20M"), QStringLiteral("15M"),
+                        QStringLiteral("10M"), QStringLiteral("6M"), QStringLiteral("2M")}))
+        return QStringLiteral("Unsupported CATEGORY-BAND");
+    if (!categoryValue(info.categoryMode,
+                       {QStringLiteral("MIXED"), QStringLiteral("CW"), QStringLiteral("SSB"),
+                        QStringLiteral("DIGITAL")}))
+        return QStringLiteral("Unsupported CATEGORY-MODE");
+    if (!categoryValue(info.categoryPower,
+                       {QStringLiteral("HIGH"), QStringLiteral("LOW"), QStringLiteral("QRP")}))
+        return QStringLiteral("Unsupported CATEGORY-POWER");
+    if (!categoryValue(info.categoryTransmitter,
+                       {QStringLiteral("ONE"), QStringLiteral("TWO")}))
+        return QStringLiteral("Unsupported CATEGORY-TRANSMITTER");
+    return {};
 }
 
 } // namespace
@@ -121,6 +154,12 @@ QByteArray write(const Info& info, const QList<AdifRecord>& qsos, QString* error
     if (info.contest.trimmed().isEmpty()) {
         if (error)
             *error = QCoreApplication::translate("Cabrillo", "The contest name is missing");
+        return {};
+    }
+    const QString invalidCategory = categoryError(info);
+    if (!invalidCategory.isEmpty()) {
+        if (error)
+            *error = invalidCategory;
         return {};
     }
 

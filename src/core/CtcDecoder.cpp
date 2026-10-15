@@ -20,17 +20,19 @@ constexpr int    HOP   = 40;              // -> 200 Hz frame (come il training)
 constexpr int    BAND  = 13;
 constexpr int    FBINS = 2 * BAND + 1;    // 27
 constexpr double BINHZ = double(FS8K) / NFFT;
-constexpr int    TIME_DS = 2;             // downsampling temporale della CNN (->100 Hz)
 constexpr int    WLEN   = 1024;           // finestra di inferenza (~5.1 s)
+constexpr int    KEEPFR = WLEN + 128;     // frame di striscia tenuti
+constexpr double PI = 3.14159265358979323846;
+#ifdef HAVE_ONNXRUNTIME
+constexpr int    TIME_DS = 2;             // downsampling temporale della CNN (->100 Hz)
 constexpr int    TAIL   = 160;            // coda instabile non emessa (~0.8 s)
 constexpr int    MIN_EMIT = 100;          // nuova inferenza ogni ~0.5 s di frame
-constexpr int    KEEPFR = WLEN + 128;     // frame di striscia tenuti
 constexpr int    FLUSH_SIL = 400;         // silenzio (frame) che chiude l'ultimo carattere
-constexpr double PI = 3.14159265358979323846;
 // classi CTC per-ELEMENTO del training (train_ctc.py):
 // 0=blank, 1=dit, 2=dah, 3=gap-carattere, 4=gap-parola.
 // La conversione elementi -> lettere la fa la tabella Morse (decodeFuzzy).
 constexpr int kDit = 1, kDah = 2, kCharGap = 3, kWordGap = 4;
+#endif
 
 // ---- ANTI-ALIAS PRIMA DELLA DECIMAZIONE A 8 kHz ---------------------------
 // L'interpolazione lineare da sola NON filtra: il rumore sopra i 4 kHz si
@@ -90,6 +92,7 @@ struct AntiAliasLp {
     }
 };
 
+#ifdef HAVE_ONNXRUNTIME
 // ---- PREFIX BEAM SEARCH CTC ------------------------------------------------
 // Il greedy argmax decide frame per frame: un dit affogato nel QSB sparisce
 // in silenzio e il carattere si trasforma in un ALTRO carattere valido.
@@ -181,6 +184,7 @@ void ctcBeamSearch(const float *logp, int T, int C,
     labels = best->labels;
     times  = best->times;
 }
+#endif
 }
 
 struct CtcDecoder::Impl {
@@ -378,6 +382,9 @@ void CtcDecoder::computeFrames()
 
 void CtcDecoder::infer(QString &out, bool force)
 {
+#ifndef HAVE_ONNXRUNTIME
+    Q_UNUSED(force);
+#endif
 #ifdef HAVE_ONNXRUNTIME
     if (!loaded_ || !d_->session) return;
     auto &I = *d_;

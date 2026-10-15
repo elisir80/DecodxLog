@@ -18,6 +18,38 @@
 
 namespace decolog::app {
 
+namespace {
+
+QString normalizeReferenceList(QString value, QString* error)
+{
+    value = value.trimmed().toUpper();
+    if (value.isEmpty())
+        return {};
+
+    QStringList normalized;
+    QSet<QString> seen;
+    for (const QString& raw : value.split(QLatin1Char(','))) {
+        const QString ref = raw.trimmed();
+        if (ref.isEmpty()) {
+            if (error)
+                *error = QCoreApplication::translate("ActivationController",
+                                                      "Activation references cannot contain empty items");
+            return {};
+        }
+        if (seen.contains(ref)) {
+            if (error)
+                *error = QCoreApplication::translate("ActivationController",
+                                                      "Activation references cannot contain duplicates: %1").arg(ref);
+            return {};
+        }
+        seen.insert(ref);
+        normalized << ref;
+    }
+    return normalized.join(QLatin1Char(','));
+}
+
+} // namespace
+
 using namespace decolog::core;
 
 namespace {
@@ -93,6 +125,13 @@ QString ActivationController::start(const QVariantMap& map)
         || session.kind == Activation::Kind::Wwff || session.kind == Activation::Kind::Iota;
     if (needsReference && session.reference.isEmpty())
         return tr("A %1 activation needs its reference").arg(Activation::kindId(session.kind).toUpper());
+    if (!session.reference.isEmpty()) {
+        QString referenceError;
+        const QString normalized = normalizeReferenceList(session.reference, &referenceError);
+        if (!referenceError.isEmpty())
+            return referenceError;
+        session.reference = normalized;
+    }
     if (session.kind == Activation::Kind::Contest && session.contestId.isEmpty())
         return tr("A contest needs its name (CONTEST_ID)");
 
@@ -123,6 +162,16 @@ void ActivationController::update(const QVariantMap& map)
     const QDateTime started = m_session.startedAt;
     Activation session = Activation::fromMap(map);
     session.active = true;
+    if (!session.reference.isEmpty()) {
+        QString referenceError;
+        const QString normalized = normalizeReferenceList(session.reference, &referenceError);
+        if (!referenceError.isEmpty()) {
+            if (m_ctx.activity)
+                m_ctx.activity(QStringLiteral("ACT"), referenceError, QStringLiteral("error"));
+            return;
+        }
+        session.reference = normalized;
+    }
     session.startedAt = started.isValid() ? started : QDateTime::currentDateTimeUtc();
     m_session = session;
     save();
@@ -531,8 +580,11 @@ QString ActivationController::exportCabrillo(const QUrl& url, const QVariantMap&
         return tr("No QSO in this session yet");
 
     auto text = [&info](const char* key) { return info.value(QLatin1String(key)).toString().trimmed(); };
+    const QString contestId = text("contest").isEmpty() ? m_session.contestId : text("contest");
+    if (m_session.kind == Activation::Kind::Contest && !contestrules::forId(contestId).valid)
+        return tr("Cabrillo export is unavailable: this contest has no verified rule sheet");
     cabrillo::Info header;
-    header.contest = text("contest");
+    header.contest = contestId;
     header.callsign = text("callsign");
     if (header.callsign.isEmpty() && m_ctx.stationCall)
         header.callsign = m_ctx.stationCall();

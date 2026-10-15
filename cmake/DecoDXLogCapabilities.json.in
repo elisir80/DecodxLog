@@ -1,0 +1,16 @@
+{
+  "application": "DecoDXLog",
+  "version": "@PROJECT_VERSION@",
+  "platform": "@CMAKE_SYSTEM_NAME@",
+  "architecture": "@CMAKE_SYSTEM_PROCESSOR@",
+  "capabilities": {
+    "local_logbook": true,
+    "udp_qso": true,
+    "cloud_sync": true,
+    "cw_decoder_ggmorse": true,
+    "cw_decoder_ctc_onnx": @DECODXLOG_CTC_ONNX_JSON@
+  },
+  "optional_dependencies": {
+    "onnx_runtime": @DECODXLOG_CTC_ONNX_JSON@
+  }
+}

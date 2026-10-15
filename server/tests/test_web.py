@@ -144,6 +144,21 @@ def test_export_gives_back_adif(client):
     assert reply.text.rstrip().endswith("<EOR>")
 
 
+def test_export_can_select_the_station_profile(client):
+    headers = account(client)
+    client.post("/v1/sync/push", json={"qsos": [
+        qso("u1", "DL9ZZT", STATION_CALLSIGN="IU8LMC"),
+        qso("u2", "W1AW", STATION_CALLSIGN="IU8LMC/P"),
+    ]}, headers=headers)
+    sign_in(client)
+
+    reply = client.get("/export.adi", params={"profile": "IU8LMC/P"})
+    assert reply.status_code == 200
+    assert "IU8LMC/P-cloud.adi" in reply.headers["content-disposition"]
+    assert "<CALL:4>W1AW" in reply.text
+    assert "DL9ZZT" not in reply.text
+
+
 def test_one_account_does_not_see_another(client):
     mine = account(client, "IU8LMC")
     account(client, "DL9ZZT")
@@ -532,7 +547,7 @@ def test_the_contest_page_counts_the_score(client):
     headers = account(client)
     # Le ultime ore davvero: con una data fissa la prova smetteva di passare
     # una settimana dopo.
-    now = dt.datetime.now(dt.UTC).replace(microsecond=0)
+    now = dt.datetime.now(dt.timezone.utc).replace(microsecond=0)
     first = (now - dt.timedelta(hours=2)).isoformat().replace("+00:00", "Z")
     second = (now - dt.timedelta(hours=1, minutes=50)).isoformat().replace("+00:00", "Z")
     client.post("/v1/sync/push", headers=headers, json={"qsos": [

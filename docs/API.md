@@ -26,7 +26,7 @@ Tutte le risposte sono JSON.
 
 ### `GET /api/v1/status`
 
-    {"app":"DecoDXLog","version":"1.16.35","log":"decodxlog","qsos":26497,
+    {"app":"DecoDXLog","version":"1.17.15","log":"decodxlog","qsos":26497,
      "station":"IU8LMC","decodium":true}
 
 ### `GET /api/v1/worked?call=K1ABC&band=20m&mode=FT8`
@@ -63,3 +63,15 @@ Risposta `201` se almeno un QSO e' stato registrato, `409` se no (doppioni o err
 
 Il QSO passa dallo stesso percorso di quelli che arrivano da Decodium: entita' DXCC,
 profilo di stazione, attivazione aperta, doppioni, callbook e invio QSL automatico.
+
+### Retry e idempotenza
+
+Per i retry del client si può aggiungere `Idempotency-Key` (massimo 128 caratteri)
+alla POST. La stessa chiave e lo stesso corpo restituiscono la stessa risposta e
+non creano un secondo QSO. Riutilizzare la chiave con un corpo diverso restituisce
+`409`. Anche senza la chiave, la deduplicazione normale del log impedisce che lo
+stesso contatto venga registrato due volte; contatti distinti restano distinti.
+
+Le chiavi sono mantenute solo in memoria, fino a 512, e decadono al riavvio.
+L'API resta spenta per impostazione predefinita e, quando attiva, ascolta solo su
+`127.0.0.1`.

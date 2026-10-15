@@ -88,6 +88,7 @@ RoundedWindow {
         // spostano. Si mette e si toglie col tasto destro sulla testata di un
         // pannello qualsiasi.
         property bool layoutLocked: false
+        property bool firstRunGuideSeen: false
         // Chi sta in quale casella: "casella=pannello", separati da virgola.
         // Vuoto vuol dire la disposizione di partenza.
         property string panelSlots: ""
@@ -306,6 +307,35 @@ RoundedWindow {
         layout.hiddenPanels = ""
         layout.detachedPanels = ""
         layout.layoutLocked = false
+        mainBoard.resetLayout()
+        window.syncDetachedWindows()
+        window.finishPanelStateTransition()
+    }
+
+    // Preset operativi: non vengono applicati automaticamente. Sono profili
+    // di visibilita' verificabili e reversibili, utili alla prima
+    // configurazione senza cancellare la disposizione personale dell'utente.
+    readonly property var operationalPresets: [
+        { key: "beginner", title: qsTr("Beginner"), panels: ["newqso", "logbook", "callinfo", "tabs", "map"] },
+        { key: "dx", title: qsTr("DX"), panels: ["newqso", "logbook", "callinfo", "rotor", "map", "tabs"] },
+        { key: "digital", title: qsTr("Digital"), panels: ["newqso", "logbook", "callinfo", "ft2", "tabs", "decfull", "decsig"] },
+        { key: "contest", title: qsTr("Contest"), panels: ["newqso", "logbook", "callinfo", "cw", "tabs", "map"] },
+        { key: "portable", title: qsTr("Portable"), panels: ["newqso", "logbook", "tabs"] }
+    ]
+    function applyOperationalPreset(preset) {
+        if (!preset || !preset.panels)
+            return
+        if (window.contestModeOn) {
+            contestLayout.resetLayout()
+            for (const key of contestLayout.allKeys)
+                contestLayout.setShown(key, preset.panels.indexOf(key) >= 0)
+            return
+        }
+        window.panelStateTransition = true
+        layout.detachedPanels = ""
+        layout.hiddenPanels = window.boardKeys.filter(function (key) {
+            return preset.panels.indexOf(key) < 0
+        }).join(",")
         mainBoard.resetLayout()
         window.syncDetachedWindows()
         window.finishPanelStateTransition()
@@ -912,6 +942,8 @@ RoundedWindow {
             layout.hiddenPanels = hidden.join(",")
             layout.decodiumWindowsIntroduced = true
         }
+        if (!layout.firstRunGuideSeen && decolog.qsoCount === 0)
+            Qt.callLater(firstRunGuide.open)
         const what = startupShow.split(":")
         if (what[0] === "contestdesk") window.openContestDesk()
         // Il banco della gara con la finestra dei moltiplicatori.
@@ -1351,6 +1383,21 @@ RoundedWindow {
         onUpdateRequested: updateDialog.open()
         onRestoreRequested: restoreDialog.openDialog()
     }
+    FirstRunGuide {
+        id: firstRunGuide
+        onSetupRequested: {
+            layout.firstRunGuideSeen = true
+            close()
+            setupDialog.page = 6
+            setupDialog.open()
+        }
+        onNewQsoRequested: {
+            layout.firstRunGuideSeen = true
+            close()
+            mainBoard.raiseKey("newqso")
+        }
+        onClosed: layout.firstRunGuideSeen = true
+    }
     RestoreBackupDialog { id: restoreDialog }
 
     // Gli avvisi DX che chiedono il riquadro: sopra a tutto, in alto a destra.
@@ -1511,7 +1558,43 @@ RoundedWindow {
         nameFilters: [qsTr("Logs (*.adi *.adif *.csv *.tsv *.s3db)"), qsTr("ADIF files (*.adi *.adif)"),
                       qsTr("Spreadsheets (*.csv *.tsv)"), qsTr("N1MM Logger+ databases (*.s3db)"),
                       qsTr("All files (*)")]
-        onAccepted: decolog.importAdif(selectedFile)
+        onAccepted: {
+            pendingImport = selectedFile
+            importPreview = decolog.previewImport(selectedFile)
+            importPreviewDialog.open()
+        }
+    }
+    property url pendingImport
+    property var importPreview: ({})
+    Dialog {
+        id: importPreviewDialog
+        title: qsTr("Import preview")
+        modal: true
+        standardButtons: Dialog.Cancel | Dialog.Ok
+        onAccepted: decolog.importAdif(root.pendingImport)
+        contentItem: ColumnLayout {
+            spacing: 8
+            Text {
+                Layout.preferredWidth: 520
+                wrapMode: Text.Wrap
+                text: window.importPreview.ok
+                      ? qsTr("%1 records read from %2.\nEstimated result: %3 new · %4 duplicates · %5 rejected.\nQSL status: %6 · incomplete UTC: %7.\nExtra fields are preserved: %8")
+                          .arg(window.importPreview.read).arg(window.importPreview.kind || "file")
+                          .arg(window.importPreview.estimatedInserted || 0)
+                          .arg(window.importPreview.estimatedDuplicates || 0)
+                          .arg(window.importPreview.estimatedInvalid || 0)
+                          .arg(window.importPreview.qslRecords).arg(window.importPreview.missingUtc)
+                          .arg((window.importPreview.extraFields || []).join(", ") || qsTr("none"))
+                      : qsTr("Cannot preview this import: %1").arg(window.importPreview.error || qsTr("unknown error"))
+                color: Theme.textPrimary
+            }
+            Text {
+                visible: window.importPreview.ok && window.importPreview.missingUtc > 0
+                text: qsTr("Records with incomplete UTC will be rejected during import.")
+                color: Theme.warningColor
+                wrapMode: Text.Wrap
+            }
+        }
     }
     FileDialog {
         id: exportDialog
@@ -1895,6 +1978,36 @@ RoundedWindow {
                 }
             }
 
+            Rectangle { Layout.fillWidth: true; implicitHeight: 1; color: Theme.borderSoft }
+            Text {
+                Layout.fillWidth: true
+                text: qsTr("Operational presets")
+                color: Theme.secondaryColor
+                font.family: Theme.monoFamily
+                font.pixelSize: 11
+                font.bold: true
+            }
+            Text {
+                Layout.fillWidth: true
+                text: qsTr("Choose a starting layout; your current layout is changed only after selection.")
+                color: Theme.textSecondary
+                font.pixelSize: 10
+                wrapMode: Text.Wrap
+            }
+            Repeater {
+                model: window.operationalPresets
+                delegate: GlassButton {
+                    required property var modelData
+                    Layout.fillWidth: true
+                    text: modelData.title
+                    buttonHeight: 23
+                    fontPixelSize: 10
+                    onClicked: {
+                        window.applyOperationalPreset(modelData)
+                        panelsPopup.close()
+                    }
+                }
+            }
             Rectangle { Layout.fillWidth: true; implicitHeight: 1; color: Theme.borderSoft }
             GlassButton {
                 Layout.alignment: Qt.AlignRight

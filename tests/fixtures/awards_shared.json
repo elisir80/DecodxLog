@@ -1,0 +1,8 @@
+{
+  "format": "decodxlog-awards-fixture-1",
+  "qsos": [
+    {"CALL":"DL1AAA","QSO_DATE":"20260101","TIME_ON":"120000","BAND":"20m","MODE":"CW","DXCC":"230","CONT":"EU","CQZ":"14","LOTW_QSL_SENT":"Y","LOTW_QSL_RCVD":"Y"},
+    {"CALL":"W1AW","QSO_DATE":"20260102","TIME_ON":"120000","BAND":"40m","MODE":"FT8","DXCC":"291","CONT":"NA","CQZ":"5","STATE":"CT"}
+  ],
+  "expected": {"dxcc_worked":2,"dxcc_confirmed":1,"wac_worked":2,"waz_worked":2,"20m_dxcc":1,"cw_dxcc":1,"qsos":2,"20m_qsos":1,"40m_qsos":1,"lotw_sent":1,"lotw_confirmed":1}
+}

@@ -10,6 +10,14 @@
 
 namespace {
 
+QString readFile(const QString& path)
+{
+    QFile file(path);
+    if (!file.open(QIODevice::ReadOnly))
+        return {};
+    return QString::fromUtf8(file.readAll());
+}
+
 // Cio' che fa scrivere: i campi di testo e i pezzi che li contengono.
 const QRegularExpression kTextInputs(
     QStringLiteral(R"(\b(StyledTextField|TextField|TextArea|LotwRangeRow|DatePeriodFields|NumberField)\b)"));
@@ -112,6 +120,95 @@ private slots:
         const QList<Block> b = windowPopups(with);
         QCOMPARE(b.size(), 1);
         QVERIFY(declaresFocus(b.first().body));
+    }
+
+    void mainKeyboardEntryPointsRemainAvailable()
+    {
+        const QDir dir(QStringLiteral(QML_DIR));
+        QFile main(dir.filePath(QStringLiteral("Main.qml")));
+        QVERIFY(main.open(QIODevice::ReadOnly));
+        const QString text = QString::fromUtf8(main.readAll());
+        for (const QString& shortcut : {QStringLiteral("Ctrl+N"), QStringLiteral("Ctrl+F"),
+                                        QStringLiteral("Ctrl+I"), QStringLiteral("Ctrl+E"),
+                                        QStringLiteral("Ctrl+K"), QStringLiteral("Ctrl+T"),
+                                        QStringLiteral("Ctrl+Shift+T"), QStringLiteral("Ctrl+R")})
+            QVERIFY2(text.contains(QStringLiteral("sequence: \"") + shortcut + QStringLiteral("\"")),
+                     qPrintable(QStringLiteral("shortcut mancante: ") + shortcut));
+
+        QFile qso(dir.filePath(QStringLiteral("NewQsoDialog.qml")));
+        QVERIFY(qso.open(QIODevice::ReadOnly));
+        const QString qsoText = QString::fromUtf8(qso.readAll());
+        QVERIFY(qsoText.contains(QStringLiteral("Ctrl+Return")));
+        QVERIFY(qsoText.contains(QStringLiteral("Ctrl+Enter")));
+    }
+
+    void operationalPresetsRemainExposed()
+    {
+        const QDir dir(QStringLiteral(QML_DIR));
+        QFile main(dir.filePath(QStringLiteral("Main.qml")));
+        QVERIFY(main.open(QIODevice::ReadOnly));
+        const QString text = QString::fromUtf8(main.readAll());
+        for (const QString& preset : {QStringLiteral("Beginner"), QStringLiteral("DX"),
+                                      QStringLiteral("Digital"), QStringLiteral("Contest"),
+                                      QStringLiteral("Portable")})
+            QVERIFY2(text.contains(QStringLiteral("qsTr(\"") + preset + QStringLiteral("\")")),
+                     qPrintable(QStringLiteral("preset mancante: ") + preset));
+        QVERIFY(text.contains(QStringLiteral("function applyOperationalPreset")));
+        QVERIFY(text.contains(QStringLiteral("layout.detachedPanels = \"\"")));
+        QVERIFY(text.contains(QStringLiteral("mainBoard.resetLayout()")));
+    }
+
+    void firstRunGuideExplainsRadioAndFirstQso()
+    {
+        const QDir dir(QStringLiteral(QML_DIR));
+        QFile guide(dir.filePath(QStringLiteral("FirstRunGuide.qml")));
+        QVERIFY(guide.open(QIODevice::ReadOnly));
+        const QString text = QString::fromUtf8(guide.readAll());
+        QVERIFY(text.contains(QStringLiteral("Station profile")));
+        QVERIFY(text.contains(QStringLiteral("Radio (CAT)")));
+        QVERIFY(text.contains(QStringLiteral("First QSO")));
+        QVERIFY(text.contains(QStringLiteral("Ctrl+Enter")));
+        QVERIFY(text.contains(QStringLiteral("signal setupRequested")));
+        QVERIFY(text.contains(QStringLiteral("signal newQsoRequested")));
+        QVERIFY(text.contains(QStringLiteral("activeFocusOnTab: true")));
+        QVERIFY(text.contains(QStringLiteral("KeyNavigation.tab: newQsoButton")));
+        QVERIFY(text.contains(QStringLiteral("KeyNavigation.tab: closeButton")));
+        QVERIFY(text.contains(QStringLiteral("Accessible.description")));
+
+        const QString main = readFile(dir.filePath(QStringLiteral("Main.qml")));
+        QVERIFY(main.contains(QStringLiteral("firstRunGuideSeen")));
+        QVERIFY(main.contains(QStringLiteral("decolog.qsoCount === 0")));
+        QVERIFY(main.contains(QStringLiteral("FirstRunGuide")));
+    }
+
+    void unverifiedAwardResultsAreLabelledAsStatistics()
+    {
+        const QDir dir(QStringLiteral(QML_DIR));
+        QFile awards(dir.filePath(QStringLiteral("AwardsDialog.qml")));
+        QVERIFY(awards.open(QIODevice::ReadOnly));
+        const QString text = QString::fromUtf8(awards.readAll());
+        QVERIFY(text.contains(QStringLiteral("root.current.officialRules === false")));
+        QVERIFY(text.contains(QStringLiteral("statistics · rules not verified")));
+    }
+
+    void importPreviewRequiresBeforeAfterCounts()
+    {
+        const QDir qmlDir(QStringLiteral(QML_DIR));
+        const QString source = readFile(qmlDir.filePath(QStringLiteral("Main.qml")));
+        QVERIFY(source.contains(QStringLiteral("estimatedInserted")));
+        QVERIFY(source.contains(QStringLiteral("estimatedDuplicates")));
+        QVERIFY(source.contains(QStringLiteral("estimatedInvalid")));
+        QVERIFY(source.contains(QStringLiteral("Estimated result")));
+    }
+
+    void qslManagerSuggestionShowsApprovalAndPotentialCredits()
+    {
+        const QDir qmlDir(QStringLiteral(QML_DIR));
+        const QString source = readFile(qmlDir.filePath(QStringLiteral("../../src/app/DecoLogController.cpp")));
+        QVERIFY(source.contains(QStringLiteral("potentialCredits")));
+        QVERIFY(source.contains(QStringLiteral("requiresApproval")));
+        QVERIFY(source.contains(QStringLiteral("automaticSend")));
+        QVERIFY(source.contains(QStringLiteral("verify the route before sending")));
     }
 };
 

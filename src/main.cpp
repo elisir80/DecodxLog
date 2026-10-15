@@ -647,7 +647,8 @@ int main(int argc, char* argv[])
     if (parser.isSet(restoreOption)) {
         restored = decolog::core::logbackup::restoreAfterExit(parser.value(restorePidOption).toLongLong(),
                                                               parser.value(restoreOption), dbPath,
-                                                              controller.backupDir());
+                                                              controller.backupDir(),
+                                                              QStandardPaths::writableLocation(QStandardPaths::AppDataLocation));
     }
     controller.openDatabase(dbPath);
     if (restored)

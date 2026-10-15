@@ -1,6 +1,8 @@
 #include "app/DecoLogController.h"
 
 #include "core/NetworkError.h"
+#include "core/Diagnostics.h"
+#include "core/CloudSettings.h"
 #include "core/QslUpload.h"
 #include "core/LogMigration.h"
 #include "../StartupTrace.h"
@@ -24,6 +26,8 @@
 #include <QMouseEvent>
 #include <QWindow>
 #include <QFileInfo>
+#include <QMimeDatabase>
+#include <QSaveFile>
 #include <QHostAddress>
 #include <QLocale>
 #include <QJsonArray>
@@ -69,6 +73,13 @@ QString serviceLabel(const QString& service)
     if (service == QLatin1String("eqsl"))    return QStringLiteral("eQSL");
     if (service == QLatin1String("card"))    return QStringLiteral("Card");
     return service;
+}
+
+QList<core::awards::AwardRulePackage> localAwardRulePackages()
+{
+    const QString directory = QDir(QStandardPaths::writableLocation(QStandardPaths::AppLocalDataLocation))
+                                  .filePath(QStringLiteral("awards"));
+    return core::awards::AwardRuleCatalog::loadDirectory(directory).packages();
 }
 
 const QStringList kServices{QStringLiteral("lotw"), QStringLiteral("qrz"), QStringLiteral("clublog"),
@@ -330,8 +341,16 @@ DecoLogController::DecoLogController(QObject* parent)
     m_awardFilter.confirmLotw = s.value(QStringLiteral("awards/confirmLotw"), true).toBool();
     m_awardFilter.confirmCard = s.value(QStringLiteral("awards/confirmCard"), true).toBool();
     m_awardFilter.confirmEqsl = s.value(QStringLiteral("awards/confirmEqsl"), false).toBool();
-    m_awardFilter.count60m = s.value(QStringLiteral("awards/count60m"), true).toBool();
-    m_awardFilter.stationProfileId = s.value(QStringLiteral("awards/profile"), 0).toLongLong();
+    // Assenza della preferenza = profilo ufficiale ARRL. Se la chiave esiste,
+    // manteniamo esplicitamente la scelta personale dell'utente.
+    m_awardFilter.count60m = s.value(QStringLiteral("awards/count60m"), false).toBool();
+    // Un account DXCC ufficiale non deve sommare automaticamente casa,
+    // portatile e altri nominativi. Per una nuova installazione si parte dal
+    // profilo attivo; una scelta gia' salvata (anche "All stations" = 0) e'
+    // invece una decisione esplicita dell'operatore e viene rispettata.
+    m_awardFilter.stationProfileId = s.contains(QStringLiteral("awards/profile"))
+        ? s.value(QStringLiteral("awards/profile")).toLongLong()
+        : (m_profiles ? m_profiles->activeProfileId() : 0);
     m_awardFilter.tag = s.value(QStringLiteral("awards/tag")).toString();
     // Le conferme scelte per i singoli diplomi.
     s.beginGroup(QStringLiteral("awards/credits"));
@@ -841,6 +860,9 @@ bool DecoLogController::openDatabase(const QString& path)
     };
     qslCtx.stationCallsign = [this] {
         return m_profiles->activeProfile().value(QStringLiteral("stationCallsign")).toString();
+    };
+    qslCtx.stationProfileName = [this] {
+        return m_profiles->activeProfile().value(QStringLiteral("name")).toString();
     };
     qslCtx.activity = [this](const QString& category, const QString& text, const QString& level) {
         addActivity(category, text, level);
@@ -1738,6 +1760,17 @@ QStringList DecoLogController::applyCallbookToQso(qint64 id, const QVariantMap& 
     if (r.status != InsertResult::Status::Inserted)
         return {};
 
+    QList<EnrichmentEntry> provenance;
+    const QString acquiredAt = QDateTime::currentDateTimeUtc().toString(Qt::ISODateWithMs);
+    for (const QString& field : filled) {
+        provenance << EnrichmentEntry{id, field, current->value(field), updated.value(field),
+                                      QStringLiteral("callbook"), QStringLiteral("inferred"), acquiredAt,
+                                      current->value(QStringLiteral("QSO_DATE")), QString()};
+    }
+    if (!m_db.recordEnrichment(provenance))
+        addActivity(QStringLiteral("CALLBOOK"), tr("Could not record provenance for QSO %1").arg(id),
+                    QStringLiteral("warning"));
+
     m_model->refreshQso(id);
     m_cloud->qsoLogged();
     emit logChanged();
@@ -1961,6 +1994,7 @@ AwardCalculator DecoLogController::awardCalculator(const QHash<int, QString>& na
         const CtyEntity* e = cty.entity(dxcc);
         return e ? e->name : QString();
     });
+    calc.setRulePackages(localAwardRulePackages());
     if (!cty.isEmpty()) {
         AwardCalculator::DxccRules rules;
         rules.invalid = [cty](const QString& call, const QDateTime& when) { return cty.lookup(call, when).invalid; };
@@ -2249,16 +2283,20 @@ QVariantList DecoLogController::awardSummary() const
     QVariantList out;
     const QStringList bands = awardBands();
     for (const AwardResult& r : awardResults()) {
+        const bool officialOnly = r.id == QLatin1String("wac");
         int slotsWorked = 0, slotsConfirmed = 0;
-        for (const BandTotal& t : r.bandTotals(bands)) {
+        for (const BandTotal& t : r.bandTotals(bands, officialOnly)) {
             slotsWorked += t.worked;
             slotsConfirmed += t.confirmed;
         }
         out << QVariantMap{
             {QStringLiteral("id"), r.id},
             {QStringLiteral("title"), r.title},
-            {QStringLiteral("worked"), r.worked()},
-            {QStringLiteral("confirmed"), r.confirmed()},
+            {QStringLiteral("officialRules"), r.officialRules},
+            {QStringLiteral("rulesSource"), r.rulesSource},
+            {QStringLiteral("verifier"), r.verifier},
+            {QStringLiteral("worked"), r.worked(officialOnly)},
+            {QStringLiteral("confirmed"), r.confirmed(officialOnly)},
             // Il traguardo del WAAC non e' un numero inventato: sono tutte le
             // entita' africane che il cty.csv conosce.
             {QStringLiteral("target"), r.id == QLatin1String("waac") && africanEntities() > 0
@@ -2268,6 +2306,12 @@ QVariantList DecoLogController::awardSummary() const
                                           : r.id == QLatin1String("waac") ? africanEntities() : r.total},
             {QStringLiteral("slotsWorked"), slotsWorked},
             {QStringLiteral("slotsConfirmed"), slotsConfirmed},
+            {QStringLiteral("official60m"),
+             (r.id == QLatin1String("dxcc") || r.id == QLatin1String("challenge")
+              || r.id == QLatin1String("was")) && !m_awardFilter.count60m},
+            {QStringLiteral("personal60m"),
+             (r.id == QLatin1String("dxcc") || r.id == QLatin1String("challenge")
+              || r.id == QLatin1String("was")) && m_awardFilter.count60m},
             // Quello che il regolamento chiede oltre al numero: vuoto per quasi
             // tutti, una riga per chi ne ha (il DCI vuole anche le regioni).
             {QStringLiteral("requirement"), r.requirement},
@@ -2343,7 +2387,7 @@ QVariantList DecoLogController::awardBandTotals(const QString& awardId) const
     for (const AwardResult& r : awardResults()) {
         if (r.id != awardId)
             continue;
-        for (const BandTotal& t : r.bandTotals(awardBands())) {
+        for (const BandTotal& t : r.bandTotals(awardBands(), r.id == QLatin1String("wac"))) {
             out << QVariantMap{{QStringLiteral("band"), t.band},
                                {QStringLiteral("worked"), t.worked},
                                {QStringLiteral("confirmed"), t.confirmed}};
@@ -2498,6 +2542,77 @@ void DecoLogController::resetAwardCredits(const QString& awardId)
     emit awardsChanged();
 }
 
+QVariantList DecoLogController::awardClaims() const
+{
+    QString error;
+    const QList<core::awards::AwardClaim> claims = core::awards::AwardClaimStore::load(m_db, &error);
+    QVariantList out;
+    for (const auto& claim : claims) {
+        QVariantMap item{
+            {QStringLiteral("id"), claim.id},
+            {QStringLiteral("awardId"), claim.awardId},
+            {QStringLiteral("ruleVersion"), claim.ruleVersion},
+            {QStringLiteral("state"), core::awards::AwardClaim::stateName(claim.state)},
+            {QStringLiteral("createdAt"), claim.createdAt.toUTC().toString(Qt::ISODateWithMs)},
+            {QStringLiteral("submittedAt"), claim.submittedAt.isValid() ? claim.submittedAt.toUTC().toString(Qt::ISODateWithMs) : QString()},
+            {QStringLiteral("decidedAt"), claim.decidedAt.isValid() ? claim.decidedAt.toUTC().toString(Qt::ISODateWithMs) : QString()},
+            {QStringLiteral("qsoIds"), QVariant::fromValue(claim.qsoIds)},
+            {QStringLiteral("outcome"), claim.outcome},
+            {QStringLiteral("evidence"), claim.evidence}};
+        out << item;
+    }
+    return out;
+}
+
+QString DecoLogController::createAwardClaim(const QString& awardId, const QString& ruleVersion,
+                                             const QVariantList& qsoIds)
+{
+    if (awardId.trimmed().isEmpty() || ruleVersion.trimmed().isEmpty() || qsoIds.isEmpty())
+        return {};
+    core::awards::AwardClaim claim;
+    claim.id = QUuid::createUuid().toString(QUuid::WithoutBraces);
+    claim.awardId = awardId.trimmed();
+    claim.ruleVersion = ruleVersion.trimmed();
+    claim.createdAt = QDateTime::currentDateTimeUtc();
+    for (const QVariant& value : qsoIds) {
+        const qint64 id = value.toLongLong();
+        if (id > 0)
+            claim.qsoIds << id;
+    }
+    if (claim.qsoIds.isEmpty())
+        return {};
+    QString error;
+    auto claims = core::awards::AwardClaimStore::load(m_db, &error);
+    claims << claim;
+    if (!core::awards::AwardClaimStore::save(m_db, claims, &error))
+        return {};
+    emit awardsChanged();
+    return claim.id;
+}
+
+bool DecoLogController::transitionAwardClaim(const QString& claimId, const QString& state,
+                                              const QString& note, const QString& evidence)
+{
+    const auto target = core::awards::AwardClaim::stateFromName(state);
+    if (!target)
+        return false;
+    QString error;
+    auto claims = core::awards::AwardClaimStore::load(m_db, &error);
+    for (auto& claim : claims) {
+        if (claim.id != claimId)
+            continue;
+        if (!claim.transitionTo(*target, QDateTime::currentDateTimeUtc(), note, &error))
+            return false;
+        if (!evidence.isEmpty())
+            claim.evidence = evidence;
+        if (!core::awards::AwardClaimStore::save(m_db, claims, &error))
+            return false;
+        emit awardsChanged();
+        return true;
+    }
+    return false;
+}
+
 void DecoLogController::setAwardConfirmLotw(bool on)
 {
     if (on == m_awardFilter.confirmLotw) return;
@@ -2596,6 +2711,12 @@ void DecoLogController::applyProfile(AdifRecord& record, qint64 profileId) const
 
 InsertResult DecoLogController::onQsoReceived(const AdifRecord& input, const QString& source, const QString& sourceApp)
 {
+    if (input.value(QStringLiteral("APP_DECOLOG_DIAGNOSTIC")) == QLatin1String("1")) {
+        InsertResult isolated;
+        isolated.status = InsertResult::Status::Invalid;
+        isolated.message = QStringLiteral("diagnostic QSO is isolated and is not written to the log");
+        return isolated;
+    }
     // Il profilo lo indica il nominativo di stazione del QSO; se non corrisponde a
     // nessuno, vale quello attivo. I campi del profilo non si aggiungono: il QSO
     // resta come l'ha mandato Decodium.
@@ -2822,6 +2943,17 @@ HttpResponse DecoLogController::handleApi(const HttpRequest& request)
     if (path == QLatin1String("/api/v1/qso")) {
         if (request.method != "POST")
             return HttpResponse::error(405, QStringLiteral("use POST"));
+        const QString idempotencyKey = QString::fromUtf8(request.headers.value("idempotency-key")).trimmed();
+        if (idempotencyKey.size() > 128)
+            return HttpResponse::error(400, QStringLiteral("idempotency key is too long"));
+        if (!idempotencyKey.isEmpty()) {
+            const auto previous = m_apiIdempotency.constFind(idempotencyKey);
+            if (previous != m_apiIdempotency.cend()) {
+                if (previous->first != request.body)
+                    return HttpResponse::error(409, QStringLiteral("idempotency key was used with a different body"));
+                return previous->second;
+            }
+        }
         // ADIF nel corpo, o JSON {"adif": "..."}.
         QByteArray adifText = request.body;
         if (request.headers.value("content-type").contains("json")) {
@@ -2846,7 +2978,14 @@ HttpResponse DecoLogController::handleApi(const HttpRequest& request)
             results << QJsonObject{{QStringLiteral("status"), status}, {QStringLiteral("id"), r.id},
                                    {QStringLiteral("message"), r.message}};
         }
-        return HttpResponse::json(saved > 0 ? 201 : 409, QJsonObject{{QStringLiteral("results"), results}});
+        const HttpResponse response = HttpResponse::json(saved > 0 ? 201 : 409,
+                                                          QJsonObject{{QStringLiteral("results"), results}});
+        if (!idempotencyKey.isEmpty()) {
+            m_apiIdempotency.insert(idempotencyKey, qMakePair(request.body, response));
+            while (m_apiIdempotency.size() > 512)
+                m_apiIdempotency.erase(m_apiIdempotency.begin());
+        }
+        return response;
     }
 
     return HttpResponse::error(404, QStringLiteral("unknown path: see /api/v1/status, /worked, /qsos, /qso"));
@@ -3148,12 +3287,19 @@ QVariantMap DecoLogController::qsoDetail(qint64 id) const
         };
     }
 
+    QVariantList attachments;
+    for (const QslAttachment& a : m_db.qslAttachments(id))
+        attachments << QVariantMap{{QStringLiteral("id"), a.id}, {QStringLiteral("sha256"), a.sha256},
+                                   {QStringLiteral("filename"), a.filename}, {QStringLiteral("mime"), a.mime},
+                                   {QStringLiteral("size"), a.size}, {QStringLiteral("createdAt"), a.createdAt}};
+
     QVariantMap detail{
         {QStringLiteral("id"), id},
         {QStringLiteral("fields"), fields},
         {QStringLiteral("extra"), extra},
         {QStringLiteral("qsl"), qsl},
         {QStringLiteral("history"), history},
+        {QStringLiteral("attachments"), attachments},
         {QStringLiteral("uuid"), meta->uuid},
         {QStringLiteral("revision"), meta->revision},
         {QStringLiteral("source"), meta->source},
@@ -3179,6 +3325,142 @@ QVariantMap DecoLogController::qsoDetail(qint64 id) const
         detail[QStringLiteral("ft2DxccWorked")] = ft2Award().value(QStringLiteral("dxccWorked")).toInt();
     }
     return detail;
+}
+
+QString DecoLogController::importQslAttachment(const QVariantList& qsoIds, const QUrl& file)
+{
+    const QString path = file.isLocalFile() ? file.toLocalFile() : file.toString();
+    QFile input(path);
+    if (!input.open(QIODevice::ReadOnly))
+        return tr("Cannot read attachment: %1").arg(input.errorString());
+    const QByteArray data = input.readAll();
+    QList<qint64> ids;
+    for (const QVariant& value : qsoIds) {
+        const qint64 id = value.toLongLong();
+        if (id > 0 && m_db.record(id))
+            ids << id;
+    }
+    if (ids.isEmpty() || data.isEmpty())
+        return tr("Choose at least one QSO and a non-empty file");
+    const QFileInfo info(path);
+    const qint64 id = m_db.addQslAttachment(data, info.fileName(), QMimeDatabase().mimeTypeForFile(info).name(), ids);
+    if (id <= 0)
+        return tr("Cannot store QSL attachment");
+    addActivity(QStringLiteral("QSL"), tr("Attached %1 to %n QSO(s)").arg(info.fileName()).arg(ids.size()), QStringLiteral("info"));
+    emit logChanged();
+    return {};
+}
+
+QString DecoLogController::saveQslAttachment(qint64 attachmentId, const QUrl& file) const
+{
+    const QByteArray data = m_db.qslAttachmentData(attachmentId);
+    const QString path = file.isLocalFile() ? file.toLocalFile() : file.toString();
+    if (data.isEmpty() || path.isEmpty())
+        return tr("Attachment not found");
+    QSaveFile output(path);
+    if (!output.open(QIODevice::WriteOnly) || output.write(data) != data.size() || !output.commit())
+        return tr("Cannot write attachment");
+    return {};
+}
+
+QVariantList DecoLogController::integrationDiagnostics() const
+{
+    const bool logOpen = m_db.isOpen();
+    const bool decodium = clientConnected();
+    const QVariantList qslServices = m_qsl ? m_qsl->services() : QVariantList{};
+    int qslReady = 0;
+    for (const QVariant& item : qslServices)
+        qslReady += item.toMap().value(QStringLiteral("ready")).toBool() ? 1 : 0;
+    return {
+        QVariantMap{{QStringLiteral("id"), QStringLiteral("receive")}, {QStringLiteral("label"), tr("Receive")},
+                    {QStringLiteral("state"), decodium ? QStringLiteral("ok") : QStringLiteral("warning")},
+                    {QStringLiteral("detail"), decodium ? tr("Decodium connection is active") : tr("No Decodium client is connected")}},
+        QVariantMap{{QStringLiteral("id"), QStringLiteral("parse")}, {QStringLiteral("label"), tr("Parse")},
+                    {QStringLiteral("state"), QStringLiteral("ok")},
+                    {QStringLiteral("detail"), tr("ADIF parser is available")}},
+        QVariantMap{{QStringLiteral("id"), QStringLiteral("dedupe")}, {QStringLiteral("label"), tr("Deduplicate")},
+                    {QStringLiteral("state"), QStringLiteral("ok")},
+                    {QStringLiteral("detail"), tr("Duplicate protection is enabled")}},
+        QVariantMap{{QStringLiteral("id"), QStringLiteral("save")}, {QStringLiteral("label"), tr("Save")},
+                    {QStringLiteral("state"), logOpen ? QStringLiteral("ok") : QStringLiteral("error")},
+                    {QStringLiteral("detail"), logOpen ? tr("Local log is open") : tr("No local log is open")}},
+        QVariantMap{{QStringLiteral("id"), QStringLiteral("qsl")}, {QStringLiteral("label"), tr("QSL")},
+                    {QStringLiteral("state"), qslReady > 0 ? QStringLiteral("ok") : QStringLiteral("info")},
+                    {QStringLiteral("detail"), tr("%1 QSL service(s) ready; diagnostic mode never uploads").arg(qslReady)}}
+    };
+}
+
+QString DecoLogController::diagnosticSupportText() const
+{
+    QStringList lines;
+    lines << QStringLiteral("DecoDXLog diagnostic summary")
+          << QStringLiteral("version=%1").arg(QCoreApplication::applicationVersion())
+          << QStringLiteral("log_open=%1").arg(m_db.isOpen() ? QStringLiteral("yes") : QStringLiteral("no"));
+    for (const QVariant& item : integrationDiagnostics()) {
+        const QVariantMap row = item.toMap();
+        lines << QStringLiteral("%1: %2 — %3").arg(row.value(QStringLiteral("label")).toString(),
+                                                   row.value(QStringLiteral("state")).toString(),
+                                                   row.value(QStringLiteral("detail")).toString());
+    }
+    return diagnostics::redactSecrets(lines.join(QLatin1Char('\n')));
+}
+
+QString DecoLogController::saveDiagnosticReport(const QUrl& file) const
+{
+    const QString path = file.isLocalFile() ? file.toLocalFile() : file.toString();
+    if (path.isEmpty())
+        return tr("Choose a file first");
+    QSaveFile output(path);
+    if (!output.open(QIODevice::WriteOnly))
+        return tr("Cannot write diagnostic report: %1").arg(output.errorString());
+    const QByteArray text = diagnosticSupportText().toUtf8();
+    if (output.write(text) != text.size() || !output.commit())
+        return tr("Cannot save diagnostic report");
+    return {};
+}
+
+QVariantMap DecoLogController::qslManagerSuggestion(qint64 qsoId) const
+{
+    const auto record = m_db.record(qsoId);
+    if (!record)
+        return {};
+    const QString via = record->value(QStringLiteral("QSL_VIA")).trimmed().toUpper();
+    QVariantMap out{{QStringLiteral("available"), !via.isEmpty()},
+                    {QStringLiteral("manager"), via},
+                    {QStringLiteral("requiresApproval"), true},
+                    {QStringLiteral("automaticSend"), false}};
+    if (via.isEmpty()) {
+        out.insert(QStringLiteral("message"), tr("No QSL manager is recorded for this QSO"));
+        return out;
+    }
+    QStringList potentialCredits;
+    for (const QslState& state : m_db.qslStatus(qsoId)) {
+        if (state.rcvd.trimmed().isEmpty() || state.rcvd == QLatin1String("N"))
+            potentialCredits << state.service;
+    }
+    potentialCredits.removeDuplicates();
+    out.insert(QStringLiteral("potentialCredits"), potentialCredits);
+    QString source = tr("entered in the QSO");
+    QString acquired;
+    for (const EnrichmentEntry& e : m_db.enrichments(qsoId)) {
+        if (e.field == QLatin1String("QSL_VIA") && e.value.trimmed().compare(via, Qt::CaseInsensitive) == 0) {
+            source = e.source;
+            acquired = e.acquiredAt;
+        }
+    }
+    const QDateTime seen = QDateTime::fromString(acquired, Qt::ISODate);
+    const bool stale = seen.isValid() && seen.daysTo(QDateTime::currentDateTimeUtc()) > 180;
+    out.insert(QStringLiteral("source"), source);
+    out.insert(QStringLiteral("acquiredAt"), acquired);
+    out.insert(QStringLiteral("stale"), stale);
+    const QString credits = potentialCredits.isEmpty()
+        ? tr("no unconfirmed service is recorded")
+        : tr("potentially useful for: %1").arg(potentialCredits.join(QStringLiteral(", ")));
+    out.insert(QStringLiteral("message"), stale
+                   ? tr("Manager %1 may be outdated; verify the route before sending; %2").arg(via, credits)
+                   : tr("Manager %1 could resolve the paper QSL for this QSO; %2; review and approve the route")
+                         .arg(via, credits));
+    return out;
 }
 
 namespace {
@@ -3877,13 +4159,81 @@ void DecoLogController::importAdif(const QUrl& url)
     });
 }
 
+QVariantMap DecoLogController::previewImport(const QUrl& url) const
+{
+    const QString path = url.isLocalFile() ? url.toLocalFile() : url.toString();
+    QFile file(path);
+    QVariantMap out{{QStringLiteral("path"), path}, {QStringLiteral("ok"), false}};
+    if (!file.open(QIODevice::ReadOnly)) {
+        out.insert(QStringLiteral("error"), file.errorString());
+        return out;
+    }
+    QString error;
+    QString kind;
+    const QByteArray adif = migration::asAdif(path, &error, &kind);
+    if (adif.isEmpty()) {
+        out.insert(QStringLiteral("error"), error);
+        return out;
+    }
+    const AdifDocument doc = adif::parse(adif);
+    int missingUtc = 0;
+    int qsl = 0;
+    QSet<QString> extra;
+    const QSet<QString> known{QStringLiteral("CALL"), QStringLiteral("QSO_DATE"), QStringLiteral("TIME_ON"),
+                              QStringLiteral("BAND"), QStringLiteral("MODE"), QStringLiteral("SUBMODE"),
+                              QStringLiteral("LOTW_QSL_RCVD"), QStringLiteral("EQSL_QSL_RCVD"),
+                              QStringLiteral("QSL_RCVD"), QStringLiteral("QSL_VIA"), QStringLiteral("DXCC"),
+                              QStringLiteral("CQZ"), QStringLiteral("STATE"), QStringLiteral("GRIDSQUARE"),
+                              QStringLiteral("RST_SENT"), QStringLiteral("RST_RCVD"), QStringLiteral("NAME"),
+                              QStringLiteral("QTH"), QStringLiteral("COMMENT"), QStringLiteral("NOTES")};
+    for (const AdifRecord& record : doc.records) {
+        if (!record.contains(QStringLiteral("QSO_DATE")) || !record.contains(QStringLiteral("TIME_ON")))
+            ++missingUtc;
+        if (record.contains(QStringLiteral("LOTW_QSL_RCVD")) || record.contains(QStringLiteral("EQSL_QSL_RCVD"))
+            || record.contains(QStringLiteral("QSL_RCVD")))
+            ++qsl;
+        for (const AdifField& field : record.fields())
+            if (!known.contains(field.name) && !field.name.startsWith(QStringLiteral("APP_")))
+                extra.insert(field.name);
+    }
+    out.insert(QStringLiteral("ok"), true);
+    out.insert(QStringLiteral("kind"), kind);
+    out.insert(QStringLiteral("read"), doc.records.size());
+    out.insert(QStringLiteral("missingUtc"), missingUtc);
+    out.insert(QStringLiteral("qslRecords"), qsl);
+    out.insert(QStringLiteral("extraFields"), QStringList(extra.values()));
+
+    // Dry-run against a private in-memory copy of the current log.  This gives
+    // the operator a before/after comparison without writing the real log.
+    LogDatabase probe;
+    if (probe.open(QStringLiteral(":memory:"))) {
+        probe.setDedupWindows(m_db.dedupWindowSeconds(false), m_db.dedupWindowSeconds(true));
+        const ImportResult existing = probe.importAdif(m_db.exportAdif(), QStringLiteral("preview"));
+        Q_UNUSED(existing);
+        const ImportResult estimate = probe.importAdif(adif, QStringLiteral("preview"), 0);
+        out.insert(QStringLiteral("estimatedInserted"), estimate.inserted);
+        out.insert(QStringLiteral("estimatedDuplicates"), estimate.duplicates);
+        out.insert(QStringLiteral("estimatedInvalid"), estimate.invalid);
+    }
+    return out;
+}
+
 void DecoLogController::finishImport(const QString& path, const ImportResult& r)
 {
+    m_lastImportIds = r.insertedIds;
     m_importProgress = -1;
     emit importChanged();
-    addActivity(QStringLiteral("IMPORT"), tr("%1: %2 new, %3 duplicates, %4 rejected")
-                                              .arg(QFileInfo(path).fileName()).arg(r.inserted).arg(r.duplicates).arg(r.invalid),
+    addActivity(QStringLiteral("IMPORT"), tr("%1: %2 read, %3 new, %4 duplicates, %5 rejected, %6 with QSL status")
+                                              .arg(QFileInfo(path).fileName()).arg(r.read).arg(r.inserted)
+                                              .arg(r.duplicates).arg(r.invalid).arg(r.qslRecords),
                 r.invalid ? QStringLiteral("warning") : QStringLiteral("success"));
+    if (r.missingUtc > 0)
+        addActivity(QStringLiteral("IMPORT"), tr("%1 record(s) had no complete UTC date/time")
+                                                .arg(r.missingUtc), QStringLiteral("warning"));
+    if (!r.preservedExtraFields.isEmpty())
+        addActivity(QStringLiteral("IMPORT"), tr("Preserved unmapped ADIF fields: %1")
+                                                .arg(r.preservedExtraFields.join(QStringLiteral(", "))),
+                    QStringLiteral("info"));
     for (const QString& e : r.errors)
         addActivity(QStringLiteral("IMPORT"), QStringLiteral("  ") + e, QStringLiteral("warning"));
     timed(tr("reloading the log table"), [this] { m_model->reload(); });
@@ -3891,6 +4241,51 @@ void DecoLogController::finishImport(const QString& path, const ImportResult& r)
     emit logChanged();
     m_decoLink.resendSnapshot();
     refreshCallInfo();
+}
+
+bool DecoLogController::undoLastImport()
+{
+    if (m_importProgress >= 0 || m_lastImportIds.isEmpty())
+        return false;
+    int deleted = 0;
+    for (const qint64 id : std::as_const(m_lastImportIds))
+        if (m_db.softDeleteQso(id))
+            ++deleted;
+    if (deleted == 0)
+        return false;
+    addActivity(QStringLiteral("IMPORT"), tr("Undid the last import: %1 QSO(s) moved to the recycle history.")
+                                              .arg(deleted), QStringLiteral("warning"));
+    m_lastImportIds.clear();
+    m_model->reload();
+    m_profiles->reload();
+    emit logChanged();
+    m_decoLink.resendSnapshot();
+    refreshCallInfo();
+    return true;
+}
+
+QVariantList DecoLogController::qsoEnrichments(qint64 qsoId) const
+{
+    QVariantList out;
+    for (const EnrichmentEntry& e : m_db.enrichments(qsoId))
+        out << QVariantMap{{QStringLiteral("field"), e.field},
+                           {QStringLiteral("previousValue"), e.previousValue},
+                           {QStringLiteral("value"), e.value},
+                           {QStringLiteral("source"), e.source},
+                           {QStringLiteral("kind"), e.kind},
+                           {QStringLiteral("acquiredAt"), e.acquiredAt},
+                           {QStringLiteral("validFrom"), e.validFrom},
+                           {QStringLiteral("validTo"), e.validTo}};
+    return out;
+}
+
+bool DecoLogController::undoQsoEnrichment(qint64 qsoId, const QString& field)
+{
+    if (!m_db.undoEnrichment(qsoId, field))
+        return false;
+    m_model->refreshQso(qsoId);
+    emit logChanged();
+    return true;
 }
 
 void DecoLogController::exportAdif(const QUrl& url)
@@ -4054,29 +4449,79 @@ QString DecoLogController::lastBackupInfo() const
     return tr("%1 · %2 MB").arg(info.fileName()).arg(QString::number(info.size() / 1048576.0, 'f', 1));
 }
 
+namespace {
+
+QList<QPair<QString, QString>> stationBackupResources()
+{
+    const QString appData = QStandardPaths::writableLocation(QStandardPaths::AppDataLocation);
+    QList<QPair<QString, QString>> resources;
+    resources << qMakePair(QDir(appData).filePath(QStringLiteral("MASTER.SCP")),
+                           QStringLiteral("contest/MASTER.SCP"));
+    resources << qMakePair(QDir(appData).filePath(QStringLiteral("cty.csv")),
+                           QStringLiteral("countries/cty.csv"));
+    resources << qMakePair(QDir(appData).filePath(QStringLiteral("clublog-cty.xml")),
+                           QStringLiteral("countries/clublog-cty.xml"));
+    for (int i = 1; i <= 12; ++i)
+        resources << qMakePair(QDir(appData).filePath(QStringLiteral("dvk/F%1.wav").arg(i)),
+                               QStringLiteral("dvk/F%1.wav").arg(i));
+    return resources;
+}
+
+QString newStationBackupPath(const QString& backupDir)
+{
+    const QString stamp = QDateTime::currentDateTimeUtc().toString(QStringLiteral("yyyy-MM-ddTHHmmsszzz"));
+    QString stem = QStringLiteral("decolog-%1").arg(stamp);
+    int suffix = 0;
+    while (QFileInfo::exists(QDir(backupDir).filePath(stem + QStringLiteral(".sqlite")))
+           || QFileInfo::exists(QDir(backupDir).filePath(stem + QStringLiteral(".sqlite.partial")))
+           || QFileInfo::exists(QDir(backupDir).filePath(stem + QStringLiteral(".bundle")))
+           || QFileInfo::exists(QDir(backupDir).filePath(stem + QStringLiteral(".bundle.partial")))) {
+        stem = QStringLiteral("decolog-%1-%2").arg(stamp).arg(++suffix);
+    }
+    return QDir(backupDir).filePath(stem + QStringLiteral(".sqlite"));
+}
+
+} // namespace
+
 void DecoLogController::backupNow()
 {
     if (m_backupRunning)
         return;
     QDir().mkpath(m_backupDir);
-    const QString name = QStringLiteral("decolog-%1.sqlite")
-                             .arg(QDateTime::currentDateTimeUtc().toString(QStringLiteral("yyyy-MM-ddTHHmm")));
-    const QString path = QDir(m_backupDir).filePath(name);
+    const QString path = newStationBackupPath(m_backupDir);
+    const QString name = QFileInfo(path).fileName();
+    const QString bundle = QDir(m_backupDir).filePath(QFileInfo(name).completeBaseName() + QStringLiteral(".bundle"));
+    const auto resources = stationBackupResources();
+    QSettings settings;
+    const auto portableSettings = core::cloudsettings::collect(settings);
     const QString dbPath = m_db.path();
     // La copia si fa su un altro filo, con una sua connessione: VACUUM INTO di
     // un log da un milione sono secondi, e il programma non si deve fermare.
     if (dbPath.isEmpty() || dbPath == QLatin1String(":memory:")) {
-        finishBackup(path, m_db.backupTo(path) ? QString() : m_db.lastError());
+        QString error;
+        if (!m_db.backupTo(path))
+            error = m_db.lastError();
+        else {
+            const auto made = logbackup::createBundle(path, bundle, resources, portableSettings);
+            if (!made.ok)
+                error = made.error;
+        }
+        finishBackup(path, error);
         return;
     }
     m_backupRunning = true;
     QPointer<DecoLogController> self(this);
-    m_backupPool.start([self, dbPath, path] {
+    m_backupPool.start([self, dbPath, path, bundle, resources, portableSettings] {
         QString error;
         {
             LogDatabase db;
             if (!db.open(dbPath) || !db.backupTo(path))
                 error = db.lastError();
+            else {
+                const auto made = logbackup::createBundle(path, bundle, resources, portableSettings);
+                if (!made.ok)
+                    error = made.error;
+            }
         }
         QMetaObject::invokeMethod(
             self.data(), [self, path, error] {
@@ -4100,8 +4545,11 @@ void DecoLogController::finishBackup(const QString& path, const QString& error)
 
     // Solo le copie fatte da DecoDXLog, dalla piu' recente: le altre non si toccano.
     QFileInfoList copies = QDir(m_backupDir).entryInfoList({QStringLiteral("decolog-*.sqlite")}, QDir::Files, QDir::Name | QDir::Reversed);
-    for (qsizetype i = m_backupKeep; i < copies.size(); ++i)
+    for (qsizetype i = m_backupKeep; i < copies.size(); ++i) {
         QFile::remove(copies.at(i).absoluteFilePath());
+        QDir(QDir(copies.at(i).absolutePath()).filePath(copies.at(i).completeBaseName()
+                                                      + QStringLiteral(".bundle"))).removeRecursively();
+    }
 
     addActivity(QStringLiteral("BACKUP"), tr("%1 → %2 (%3 MB)")
                                               .arg(QFileInfo(m_db.path()).fileName(), path,
@@ -4129,6 +4577,11 @@ QVariantList DecoLogController::backupFiles() const
 {
     QVariantList out;
     for (const QFileInfo& f : logbackup::backupsIn(m_backupDir)) {
+        // Quando esiste il bundle completo, non mostrare anche il suo SQLite
+        // interno come una seconda copia selezionabile.
+        if (f.isFile() && f.suffix() == QLatin1String("sqlite")
+            && QFileInfo(QDir(f.absolutePath()).filePath(f.completeBaseName() + QStringLiteral(".bundle"))).isDir())
+            continue;
         out << QVariantMap{
             {QStringLiteral("path"), f.absoluteFilePath()},
             {QStringLiteral("name"), f.fileName()},
@@ -4158,7 +4611,9 @@ void DecoLogController::inspectBackup(const QString& pathOrUrl)
     const int current = m_db.qsoCount();
     QPointer<DecoLogController> self(this);
     m_backupPool.start([self, path, current] {
-        const logbackup::Snapshot s = logbackup::inspect(path);
+        const QString inspected = logbackup::isBundle(path)
+            ? QDir(path).filePath(QStringLiteral("log.sqlite")) : path;
+        const logbackup::Snapshot s = logbackup::inspect(inspected);
         const QVariantMap info{
             {QStringLiteral("path"), path},
             {QStringLiteral("name"), QFileInfo(path).fileName()},
@@ -4182,7 +4637,7 @@ void DecoLogController::inspectBackup(const QString& pathOrUrl)
 QString DecoLogController::restoreBackup(const QString& pathOrUrl)
 {
     const QString path = pathFromQml(pathOrUrl);
-    if (!QFileInfo(path).isFile())
+    if (!QFileInfo(path).isFile() && !logbackup::isBundle(path))
         return tr("%1 is not there.").arg(QDir::toNativeSeparators(path));
     if (m_db.path().isEmpty() || m_db.path() == QLatin1String(":memory:"))
         return tr("There is no log file to restore over.");
@@ -4433,6 +4888,8 @@ QSet<QString> DecoLogController::confirmedAwardKeys(const QString& awardId) cons
         if (r.id != awardId)
             continue;
         for (const AwardItem& i : r.items) {
+            if (awardId == QLatin1String("wac") && !i.countsForAward)
+                continue;
             if (i.confirmed())
                 keys.insert(i.key);
         }
@@ -4574,6 +5031,13 @@ DecoLogController::ConfirmTally DecoLogController::applyConfirmations(const QStr
             break;
         }
         case ConfirmationResult::Status::AlreadyConfirmed: ++t.already; break;
+        case ConfirmationResult::Status::Ambiguous: {
+            ++t.ambiguous;
+            const QVariantMap m = row(c, QStringLiteral("ambiguous"), r.message, 0);
+            if (!m.isEmpty())
+                t.rows << m;
+            break;
+        }
         case ConfirmationResult::Status::NotFound: {
             ++t.notFound;
             if (t.missing.size() < 10)
@@ -4620,6 +5084,7 @@ void DecoLogController::recordQslImport(const QString& label, const QString& ser
                         {QStringLiteral("whenText"), QDateTime::currentDateTime().toString(dates::shortFormat() + QStringLiteral(" HH:mm"))},
                         {QStringLiteral("confirmed"), t.confirmed},
                         {QStringLiteral("already"), t.already},
+                        {QStringLiteral("ambiguous"), t.ambiguous},
                         {QStringLiteral("notFound"), t.notFound},
                         {QStringLiteral("invalid"), t.invalid},
                         // Uno scarico non riuscito resta nel riepilogo, col motivo:
@@ -5557,7 +6022,7 @@ StatsFilter statsFilterFor(const QString& mode, int year)
     f.year = year;
     // Come nei diplomi: i 60 metri nel DXCC se l'operatore li conta. Si legge
     // dalle impostazioni perche' qui si arriva anche da un altro filo.
-    f.count60m = QSettings().value(QStringLiteral("awards/count60m"), true).toBool();
+    f.count60m = QSettings().value(QStringLiteral("awards/count60m"), false).toBool();
     return f;
 }
 

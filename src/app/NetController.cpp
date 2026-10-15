@@ -332,7 +332,14 @@ void NetController::onReceived(const QString& from, const QString& type, const Q
     } else if (type == QLatin1String("qso")) {
         const AdifDocument doc = adif::parse(body.value(QStringLiteral("adif")).toString().toUtf8());
         for (const AdifRecord& r : doc.records) {
-            noteSerial(r.value(QStringLiteral("STX")));
+            bool serialOk = false;
+            const int serial = r.value(QStringLiteral("STX")).trimmed().toInt(&serialOk);
+            const bool collision = serialOk && m_serials.noteRemote(serial);
+            if (collision && m_ctx.activity)
+                m_ctx.activity(QStringLiteral("NET"),
+                               tr("Serial collision detected: %1 was already assigned locally; verify the contest log")
+                                   .arg(serial),
+                               QStringLiteral("error"));
             if (m_ctx.insertRemote && m_ctx.insertRemote(r, name))
                 ++p.qsos;
         }

@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.21)
 
 project(DecoDXLog
-    VERSION 1.17.15
+    VERSION 1.17.20
     DESCRIPTION "Station logbook for the Decodium family"
     LANGUAGES C CXX)
 
@@ -20,6 +20,16 @@ option(DECODXLOG_BUILD_TOOLS "Build the command-line tools (UDP simulator)" ON)
 # default: il programma distribuito non lo include finche' non si decide di farlo.
 option(DECODXLOG_CTC_ONNX "Build the neural CW decoder (CTC, needs ONNX Runtime)" OFF)
 set(ONNXRUNTIME_DIR "" CACHE PATH "ONNX Runtime root (contains include/ and lib/), for DECODXLOG_CTC_ONNX")
+
+if(DECODXLOG_CTC_ONNX)
+    set(DECODXLOG_CTC_ONNX_JSON true)
+else()
+    set(DECODXLOG_CTC_ONNX_JSON false)
+endif()
+configure_file(
+    "${CMAKE_CURRENT_SOURCE_DIR}/cmake/DecoDXLogCapabilities.json.in"
+    "${CMAKE_CURRENT_BINARY_DIR}/decodxlog-capabilities.json"
+    @ONLY)
 
 find_package(Qt6 6.5 REQUIRED COMPONENTS Core Network Sql Gui Qml Quick QuickControls2 Multimedia WebSockets Positioning Location SerialPort LinguistTools)
 qt_standard_project_setup(REQUIRES 6.5)
@@ -89,6 +99,8 @@ add_library(decolog_core STATIC
     src/core/ClusterConnection.h
     src/core/ConnectionProbe.cpp
     src/core/ConnectionProbe.h
+    src/core/Diagnostics.cpp
+    src/core/Diagnostics.h
     src/core/CredentialStore.cpp
     src/core/CredentialStore.h
     src/core/MailSender.cpp
@@ -131,10 +143,6 @@ add_library(decolog_core STATIC
     src/core/Contests.cpp
     src/core/Contests.h
     src/core/NetworkError.h
-    src/core/QslCards.cpp
-    src/core/QslDesign.cpp
-    src/core/QslDesign.h
-    src/core/QslCards.h
     src/core/QslUpload.cpp
     src/core/QslUpload.h
     src/core/ReleaseSignature.cpp
@@ -333,12 +341,19 @@ qt_add_executable(decolog
     src/app/ActivationController.h
     src/app/QslCardController.cpp
     src/app/QslCardController.h
+    # QSL rendering is an application service: it uses QtGui/QPdfWriter and
+    # must not be part of the reusable log/award core sources.
+    src/core/QslCards.cpp
+    src/core/QslCards.h
+    src/core/QslDesign.cpp
+    src/core/QslDesign.h
     src/app/QslController.cpp
     src/app/QslController.h
 )
 
 set(DECODXLOG_QML_FILES
     qml/DecoDXLog/Main.qml
+    qml/DecoDXLog/FirstRunGuide.qml
     qml/DecoDXLog/TopBar.qml
     qml/DecoDXLog/VfoDisplay.qml
     qml/DecoDXLog/NewQsoPanel.qml
@@ -549,12 +564,15 @@ endif()
 if(DECODXLOG_BUILD_TESTS)
     enable_testing()
     find_package(Qt6 REQUIRED COMPONENTS Test)
-    foreach(name adif protocol database countries credentials callbook awards decolink lotw spots cluster qsl cabrillo solar rotor rig modes updates cw cwkeyer cloud cloudsettings vault mailsender dates tci rotorgateway worldclock propagation kstchat flrig supercheck contestnet winkeyer catshare logbackup qsldownload decodiumlog n1mm localapi clublogcty migration voacap connectionprobe ctcdecoder lexicon cwcalls cwskimmer slowop)
+    foreach(name adif protocol database countries credentials callbook awards decolink lotw spots cluster qsl cabrillo solar rotor rig modes updates cw cwkeyer cloud cloudsettings vault mailsender dates tci rotorgateway worldclock propagation kstchat flrig supercheck contestnet winkeyer catshare logbackup qsldownload decodiumlog n1mm localapi clublogcty migration voacap connectionprobe ctcdecoder lexicon cwcalls cwskimmer slowop diagnostics architecture)
         qt_add_executable(tst_${name} tests/tst_${name}.cpp)
         target_link_libraries(tst_${name} PRIVATE decolog_core Qt6::Test)
         set_target_properties(tst_${name} PROPERTIES WIN32_EXECUTABLE OFF)
         add_test(NAME ${name} COMMAND tst_${name})
     endforeach()
+    target_compile_definitions(tst_architecture PRIVATE CMAKE_SOURCE_DIR="${CMAKE_SOURCE_DIR}")
+    target_compile_definitions(tst_awards PRIVATE
+        DECO_DXLOG_SOURCE_DIR="${CMAKE_CURRENT_SOURCE_DIR}")
     # Il lettore della previsione legge gli esempi di voacapl; la previsione
     # vera si prova solo dove VOACAP e' stato costruito (Windows con gfortran).
     target_compile_definitions(tst_voacap PRIVATE
@@ -562,13 +580,13 @@ if(DECODXLOG_BUILD_TESTS)
         VOACAP_BUILD_DIR="${CMAKE_BINARY_DIR}/voacap")
     # Le etichette QSL disegnano davvero un PDF: serve una QGuiApplication, e
     # senza schermo va bene la piattaforma offscreen.
-    qt_add_executable(tst_qslcards tests/tst_qslcards.cpp)
+    qt_add_executable(tst_qslcards tests/tst_qslcards.cpp src/core/QslCards.cpp src/core/QslCards.h)
     target_link_libraries(tst_qslcards PRIVATE decolog_core Qt6::Test Qt6::Gui)
     set_target_properties(tst_qslcards PROPERTIES WIN32_EXECUTABLE OFF)
     add_test(NAME qslcards COMMAND tst_qslcards)
     set_tests_properties(qslcards PROPERTIES ENVIRONMENT "QT_QPA_PLATFORM=offscreen")
     # La cartolina QSL disegna sul serio: stessa storia, serve QtGui.
-    qt_add_executable(tst_qsldesign tests/tst_qsldesign.cpp)
+    qt_add_executable(tst_qsldesign tests/tst_qsldesign.cpp src/core/QslDesign.cpp src/core/QslDesign.h)
     target_link_libraries(tst_qsldesign PRIVATE decolog_core Qt6::Test Qt6::Gui)
     set_target_properties(tst_qsldesign PROPERTIES WIN32_EXECUTABLE OFF)
     add_test(NAME qsldesign COMMAND tst_qsldesign)
@@ -576,7 +594,9 @@ if(DECODXLOG_BUILD_TESTS)
     # I campi di serie della cartolina stanno nel controller: la prova guarda che
     # cadano dentro i riquadri della QSL, e che il pulsante non li sdoppi.
     qt_add_executable(tst_qslcardcontroller tests/tst_qslcardcontroller.cpp
-        src/app/QslCardController.cpp src/app/QslCardController.h)
+        src/app/QslCardController.cpp src/app/QslCardController.h
+        src/core/QslCards.cpp src/core/QslCards.h
+        src/core/QslDesign.cpp src/core/QslDesign.h)
     target_include_directories(tst_qslcardcontroller PRIVATE src)
     target_link_libraries(tst_qslcardcontroller PRIVATE decolog_core Qt6::Test Qt6::Gui)
     set_target_properties(tst_qslcardcontroller PROPERTIES WIN32_EXECUTABLE OFF)

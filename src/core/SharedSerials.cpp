@@ -10,11 +10,21 @@ void SharedSerials::note(int serial)
         m_max = serial;
 }
 
+bool SharedSerials::noteRemote(int serial)
+{
+    const bool collision = serial > 0 && m_issued.contains(serial);
+    if (collision)
+        m_collision = true;
+    note(serial);
+    return collision;
+}
+
 int SharedSerials::serve()
 {
     const int n = qMax(m_next, m_max + 1);
     m_next = n + 1;
     note(n);
+    m_issued.insert(n);
     return n;
 }
 
@@ -34,6 +44,7 @@ int SharedSerials::take(int localNext, bool server, bool online)
     int n = m_reserved > 0 ? m_reserved : qMax(localNext, m_max + 1);
     m_reserved = 0;
     note(n);
+    m_issued.insert(n);
     return n;
 }
 

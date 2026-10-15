@@ -25,6 +25,11 @@ QVector<Entry> all();
 // tutto il resto e' digitale — e serve alla griglia banda x modo.
 QString groupFor(const QString& mode);
 
+// Modo ADIF effettivo: quando ADIF usa un modo contenitore (per esempio MFSK)
+// e un sottomodo noto (FT4/FT8/FT2), il sottomodo guida i filtri; un sottomodo
+// sconosciuto non viene trasformato silenziosamente in un modo conosciuto.
+QString displayName(const QString& mode, const QString& submode = {});
+
 // Il nome che vuole Hamlib per questo modo. Un modo che non si conosce finisce
 // su USB, che e' la scelta che non fa danni.
 QString catFor(const QString& mode);

@@ -54,6 +54,7 @@ public:
         core::CredentialStore* credentials{nullptr};
         std::function<QString()> stationLocation;   // la station location del profilo attivo
         std::function<QString()> stationCallsign;   // il nominativo del profilo attivo
+        std::function<QString()> stationProfileName; // nome del profilo attivo
         std::function<void(const QString& category, const QString& text, const QString& level)> activity;
         std::function<void()> logChanged;
     };

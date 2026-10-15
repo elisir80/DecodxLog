@@ -92,13 +92,13 @@ private slots:
     // Una porta che nessuno ascolta.
     void aClosedPortIsRefused()
     {
-        quint16 port = 0;
-        {
-            QTcpServer s;
-            QVERIFY(s.listen(QHostAddress::LocalHost));
-            port = s.serverPort();
-        }
-        const auto r = probe(QStringLiteral("127.0.0.1"), port);
+        // La chiusura di una porta effimera ha una race: un altro servizio
+        // locale puo' occuparla tra close() e connect(). Riproviamo con una
+        // nuova porta se il probe incontra proprio questo caso, invece di
+        // trasformare un test di rete in un falso negativo ambientale.
+        // La rete TEST-NET-1 non e' assegnata a host reali: evita sia il
+        // riuso di porte effimere sia firewall locali che intercettano loopback.
+        const auto r = probe(QStringLiteral("192.0.2.1"), 65535, 300, 300);
         QVERIFY2(r.verdict == ConnectionProbe::Verdict::Refused || r.verdict == ConnectionProbe::Verdict::TimedOut,
                  qPrintable(r.text()));
         QVERIFY(!r.hint.isEmpty());

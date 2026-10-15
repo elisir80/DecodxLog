@@ -11,6 +11,7 @@
 
 #include <QString>
 #include <QStringList>
+#include <QSet>
 
 namespace decolog::core {
 
@@ -18,6 +19,9 @@ class SharedSerials {
 public:
     // Un progressivo visto in giro (un QSO della rete, uno dato a un altro).
     void note(int serial);
+    // Un progressivo arrivato da un altro nodo: torna vero se collide con uno
+    // gia' assegnato localmente durante una partizione.
+    bool noteRemote(int serial);
     // Il distributore: il prossimo numero, che da adesso e' preso.
     int serve();
     // Chi distribuisce: il piu' piccolo fra se' e gli altri presenti.
@@ -29,11 +33,14 @@ public:
     void reserve(int serial);
     bool hasReserved() const { return m_reserved > 0; }
     int highest() const { return m_max; }
+    bool collisionDetected() const { return m_collision; }
 
 private:
     int m_max{0};
     int m_reserved{0};
     int m_next{0};
+    QSet<int> m_issued;
+    bool m_collision{false};
 };
 
 } // namespace decolog::core

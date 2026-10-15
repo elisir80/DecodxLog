@@ -77,7 +77,7 @@ def notify(account: Account, ip: str) -> bool:
         log.info("avviso non mandato per %s: troppi tentativi da %s", account.callsign, ip)
         return False
     link = f"{settings.public_url}/admin/signup/{account.id}/{account.approval_token}"
-    when = account.created_at or dt.datetime.now(dt.UTC)
+    when = account.created_at or dt.datetime.now(dt.timezone.utc)
     body = (
         f"Qualcuno si e' registrato su DecoDXLog Cloud e aspetta il tuo via libera.\n"
         f"\n"
@@ -135,7 +135,7 @@ def decide(
     callsign = account.callsign
     if answer == "si":
         account.approved = True
-        account.approved_at = dt.datetime.now(dt.UTC)
+        account.approved_at = dt.datetime.now(dt.timezone.utc)
         account.approval_token = ""
         db.commit()
         log.info("account approvato: %s", callsign)

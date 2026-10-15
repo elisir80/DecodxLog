@@ -54,7 +54,7 @@ def session() -> Session:
 
 def issue_token(db: Session, account: Account, device: str) -> str:
     raw = new_token()
-    expires = dt.datetime.now(dt.UTC) + dt.timedelta(days=settings.token_days)
+    expires = dt.datetime.now(dt.timezone.utc) + dt.timedelta(days=settings.token_days)
     db.add(
         Token(
             account_id=account.id,
@@ -80,10 +80,10 @@ def current_account(
     if token.expires_at is not None:
         expires = token.expires_at
         if expires.tzinfo is None:
-            expires = expires.replace(tzinfo=dt.UTC)
-        if expires < dt.datetime.now(dt.UTC):
+            expires = expires.replace(tzinfo=dt.timezone.utc)
+        if expires < dt.datetime.now(dt.timezone.utc):
             raise HTTPException(status.HTTP_401_UNAUTHORIZED, "token scaduto")
-    token.last_seen = dt.datetime.now(dt.UTC)
+    token.last_seen = dt.datetime.now(dt.timezone.utc)
     db.commit()
     account = db.get(Account, token.account_id)
     if account is None:

@@ -2,9 +2,15 @@
 #include "../StartupTrace.h"
 
 #include "core/LogDatabase.h"
+#include "core/Modes.h"
 
 #include <QCoreApplication>
+#include <QDir>
 #include <QHash>
+#include <QFile>
+#include <QFileInfo>
+#include <QJsonDocument>
+#include <QCryptographicHash>
 #include <QRegularExpression>
 #include <QSqlQuery>
 #include <QTimeZone>
@@ -13,6 +19,278 @@
 namespace decolog::core {
 
 namespace awards {
+
+QString AwardClaim::stateName(State state)
+{
+    switch (state) {
+    case State::Draft: return QStringLiteral("draft");
+    case State::Submitted: return QStringLiteral("submitted");
+    case State::Verified: return QStringLiteral("verified");
+    case State::Credited: return QStringLiteral("credited");
+    case State::Rejected: return QStringLiteral("rejected");
+    }
+    return {};
+}
+
+std::optional<AwardClaim::State> AwardClaim::stateFromName(const QString& name)
+{
+    const QString value = name.trimmed().toLower();
+    for (const State state : {State::Draft, State::Submitted, State::Verified, State::Credited, State::Rejected})
+        if (stateName(state) == value)
+            return state;
+    return std::nullopt;
+}
+
+bool AwardClaim::transitionTo(State next, const QDateTime& when, const QString& note, QString* error)
+{
+    const bool allowed = (state == State::Draft && next == State::Submitted)
+                         || (state == State::Submitted && (next == State::Verified || next == State::Rejected))
+                         || (state == State::Verified && next == State::Credited);
+    if (!allowed) {
+        if (error)
+            *error = QStringLiteral("invalid award claim transition: %1 -> %2")
+                         .arg(stateName(state), stateName(next));
+        return false;
+    }
+    state = next;
+    if (next == State::Submitted)
+        submittedAt = when;
+    else
+        decidedAt = when;
+    if (!note.isEmpty())
+        outcome = note;
+    return true;
+}
+
+QJsonObject AwardClaim::toJson() const
+{
+    QJsonArray ids;
+    for (const qint64 idValue : qsoIds)
+        ids.append(static_cast<double>(idValue));
+    return {{QStringLiteral("id"), id},
+            {QStringLiteral("awardId"), awardId},
+            {QStringLiteral("ruleVersion"), ruleVersion},
+            {QStringLiteral("qsoIds"), ids},
+            {QStringLiteral("state"), stateName(state)},
+            {QStringLiteral("createdAt"), createdAt.toUTC().toString(Qt::ISODateWithMs)},
+            {QStringLiteral("submittedAt"), submittedAt.isValid() ? submittedAt.toUTC().toString(Qt::ISODateWithMs) : QString()},
+            {QStringLiteral("decidedAt"), decidedAt.isValid() ? decidedAt.toUTC().toString(Qt::ISODateWithMs) : QString()},
+            {QStringLiteral("outcome"), outcome},
+            {QStringLiteral("evidence"), evidence}};
+}
+
+std::optional<AwardClaim> AwardClaim::fromJson(const QJsonObject& object, QString* error)
+{
+    AwardClaim claim;
+    claim.id = object.value(QStringLiteral("id")).toString();
+    claim.awardId = object.value(QStringLiteral("awardId")).toString();
+    claim.ruleVersion = object.value(QStringLiteral("ruleVersion")).toString();
+    claim.createdAt = QDateTime::fromString(object.value(QStringLiteral("createdAt")).toString(), Qt::ISODateWithMs);
+    claim.submittedAt = QDateTime::fromString(object.value(QStringLiteral("submittedAt")).toString(), Qt::ISODateWithMs);
+    claim.decidedAt = QDateTime::fromString(object.value(QStringLiteral("decidedAt")).toString(), Qt::ISODateWithMs);
+    const auto state = stateFromName(object.value(QStringLiteral("state")).toString());
+    if (claim.id.isEmpty() || claim.awardId.isEmpty() || claim.ruleVersion.isEmpty() || !claim.createdAt.isValid() || !state) {
+        if (error)
+            *error = QStringLiteral("invalid award claim");
+        return std::nullopt;
+    }
+    claim.state = *state;
+    for (const QJsonValue& value : object.value(QStringLiteral("qsoIds")).toArray())
+        if (value.isDouble() && value.toDouble() > 0)
+            claim.qsoIds << static_cast<qint64>(value.toDouble());
+    claim.outcome = object.value(QStringLiteral("outcome")).toString();
+    claim.evidence = object.value(QStringLiteral("evidence")).toString();
+    return claim;
+}
+
+QList<AwardClaim> AwardClaimStore::load(const LogDatabase& db, QString* error)
+{
+    QList<AwardClaim> claims;
+    const QString encoded = db.setting(QStringLiteral("awards/claims"));
+    if (encoded.isEmpty())
+        return claims;
+    QJsonParseError parseError;
+    const QJsonDocument document = QJsonDocument::fromJson(encoded.toUtf8(), &parseError);
+    if (parseError.error != QJsonParseError::NoError || !document.isArray()) {
+        if (error)
+            *error = QStringLiteral("invalid persisted award claims: %1").arg(parseError.errorString());
+        return {};
+    }
+    for (const QJsonValue& value : document.array()) {
+        QString claimError;
+        const auto claim = AwardClaim::fromJson(value.toObject(), &claimError);
+        if (!claim) {
+            if (error)
+                *error = claimError;
+            return {};
+        }
+        claims << *claim;
+    }
+    return claims;
+}
+
+bool AwardClaimStore::save(LogDatabase& db, const QList<AwardClaim>& claims, QString* error)
+{
+    if (!db.isOpen()) {
+        if (error)
+            *error = QStringLiteral("the log database is not open");
+        return false;
+    }
+    QJsonArray values;
+    for (const AwardClaim& claim : claims)
+        values.append(claim.toJson());
+    db.setSetting(QStringLiteral("awards/claims"),
+                  QString::fromUtf8(QJsonDocument(values).toJson(QJsonDocument::Compact)));
+    return true;
+}
+
+namespace {
+
+const QSet<QString> kRuleFields{
+    QStringLiteral("DXCC"), QStringLiteral("STATE"), QStringLiteral("CQZ"),
+    QStringLiteral("GRID4"), QStringLiteral("BAND"), QStringLiteral("CALL_PREFIX")};
+
+void ruleError(QString* error, const QString& message)
+{
+    if (error)
+        *error = message;
+}
+
+} // namespace
+
+bool AwardRulePackage::isValid(QString* error) const
+{
+    static const QRegularExpression idRx(QStringLiteral("^[a-z][a-z0-9_-]{1,31}$"));
+    static const QRegularExpression versionRx(QStringLiteral("^[A-Za-z0-9][A-Za-z0-9._-]{0,31}$"));
+    if (!idRx.match(id).hasMatch()) {
+        ruleError(error, QStringLiteral("invalid package id"));
+        return false;
+    }
+    if (title.trimmed().isEmpty() || source.trimmed().isEmpty() || !versionRx.match(version).hasMatch()) {
+        ruleError(error, QStringLiteral("title, source and version are required"));
+        return false;
+    }
+    if (!kRuleFields.contains(keyField)) {
+        ruleError(error, QStringLiteral("unsupported key field"));
+        return false;
+    }
+    if (!validFrom.isValid() || !validTo.isValid() || validFrom > validTo) {
+        ruleError(error, QStringLiteral("invalid validity interval"));
+        return false;
+    }
+    if (target < 0 || total < 0 || (total > 0 && target > total)) {
+        ruleError(error, QStringLiteral("invalid target or total"));
+        return false;
+    }
+    return true;
+}
+
+std::optional<AwardRulePackage> AwardRulePackage::fromJson(const QByteArray& json, QString* error)
+{
+    QJsonParseError parseError;
+    const QJsonDocument document = QJsonDocument::fromJson(json, &parseError);
+    if (parseError.error != QJsonParseError::NoError || !document.isObject()) {
+        ruleError(error, QStringLiteral("invalid JSON rule package"));
+        return std::nullopt;
+    }
+    const QJsonObject object = document.object();
+    if (object.value(QStringLiteral("format")).toString() != QLatin1String("decodxlog-award-rule-1")) {
+        ruleError(error, QStringLiteral("unsupported rule package format"));
+        return std::nullopt;
+    }
+    AwardRulePackage package;
+    package.id = object.value(QStringLiteral("id")).toString();
+    package.title = object.value(QStringLiteral("title")).toString();
+    package.source = object.value(QStringLiteral("source")).toString();
+    package.version = object.value(QStringLiteral("version")).toString();
+    package.validFrom = QDate::fromString(object.value(QStringLiteral("validFrom")).toString(), Qt::ISODate);
+    package.validTo = QDate::fromString(object.value(QStringLiteral("validTo")).toString(), Qt::ISODate);
+    package.keyField = object.value(QStringLiteral("keyField")).toString().toUpper();
+    package.target = object.value(QStringLiteral("target")).toInt();
+    package.total = object.value(QStringLiteral("total")).toInt();
+    package.fingerprint = QString::fromLatin1(QCryptographicHash::hash(json, QCryptographicHash::Sha256).toHex());
+    if (!package.isValid(error))
+        return std::nullopt;
+    return package;
+}
+
+bool AwardRuleCatalog::add(const AwardRulePackage& package, QString* error)
+{
+    if (!package.isValid(error))
+        return false;
+    for (const AwardRulePackage& existing : m_packages) {
+        if (existing.id != package.id)
+            continue;
+        if (existing.version == package.version) {
+            if (existing.fingerprint == package.fingerprint)
+                return true;
+            ruleError(error, QStringLiteral("the same rule version has different content"));
+            return false;
+        }
+        if (existing.validFrom <= package.validTo && package.validFrom <= existing.validTo) {
+            ruleError(error, QStringLiteral("rule versions have overlapping validity intervals"));
+            return false;
+        }
+    }
+    m_packages << package;
+    return true;
+}
+
+AwardRuleCatalog AwardRuleCatalog::loadDirectory(const QString& directory, QStringList* errors)
+{
+    AwardRuleCatalog catalog;
+    const QDir root(directory);
+    const auto report = [errors](const QString& message) {
+        if (errors)
+            errors->append(message);
+    };
+    const auto load = [&catalog, &report](const QFileInfo& info) {
+        QFile file(info.absoluteFilePath());
+        if (!file.open(QIODevice::ReadOnly)) {
+            report(QStringLiteral("cannot read %1").arg(info.fileName()));
+            return;
+        }
+        QString error;
+        const auto package = AwardRulePackage::fromJson(file.readAll(), &error);
+        if (!package || !catalog.add(*package, &error))
+            report(QStringLiteral("%1: %2").arg(info.fileName(), error));
+    };
+
+    const QFileInfoList history = QDir(root.filePath(QStringLiteral(".history")))
+                                      .entryInfoList({QStringLiteral("*.json")}, QDir::Files, QDir::Name);
+    for (const QFileInfo& info : history)
+        load(info);
+
+    const QFileInfoList files = root.entryInfoList({QStringLiteral("*.json")}, QDir::Files, QDir::Name);
+    for (const QFileInfo& info : files) {
+        QFile file(info.absoluteFilePath());
+        if (!file.open(QIODevice::ReadOnly)) {
+            report(QStringLiteral("cannot read %1").arg(info.fileName()));
+            continue;
+        }
+        const QByteArray bytes = file.readAll();
+        QString error;
+        const auto package = AwardRulePackage::fromJson(bytes, &error);
+        if (!package || !catalog.add(*package, &error)) {
+            report(QStringLiteral("%1: %2").arg(info.fileName(), error));
+            continue;
+        }
+        const QString historyDir = root.filePath(QStringLiteral(".history"));
+        if (!QDir().mkpath(historyDir)) {
+            report(QStringLiteral("cannot create rule history directory"));
+            continue;
+        }
+        const QString archive = QDir(historyDir).filePath(
+            package->id + QStringLiteral("-") + package->version + QStringLiteral("-")
+            + package->fingerprint.left(16) + QStringLiteral(".json"));
+        if (!QFileInfo::exists(archive)) {
+            QFile archived(archive);
+            if (!archived.open(QIODevice::WriteOnly) || archived.write(bytes) != bytes.size())
+                report(QStringLiteral("cannot archive %1").arg(info.fileName()));
+        }
+    }
+    return catalog;
+}
 
 namespace {
 
@@ -360,18 +638,31 @@ bool isJapanGun(const QString& jarlCode)
 
 } // namespace awards
 
-int AwardResult::confirmed() const
+int AwardResult::worked(bool officialOnly) const
 {
-    return static_cast<int>(std::count_if(items.cbegin(), items.cend(), [](const AwardItem& i) { return i.confirmed(); }));
+    if (!officialOnly)
+        return static_cast<int>(items.size());
+    return static_cast<int>(std::count_if(items.cbegin(), items.cend(), [](const AwardItem& i) {
+        return i.countsForAward;
+    }));
 }
 
-QList<BandTotal> AwardResult::bandTotals(const QStringList& bands) const
+int AwardResult::confirmed(bool officialOnly) const
+{
+    return static_cast<int>(std::count_if(items.cbegin(), items.cend(), [officialOnly](const AwardItem& i) {
+        return (!officialOnly || i.countsForAward) && i.confirmed();
+    }));
+}
+
+QList<BandTotal> AwardResult::bandTotals(const QStringList& bands, bool officialOnly) const
 {
     QList<BandTotal> out;
     for (const QString& band : bands) {
         BandTotal t;
         t.band = band;
         for (const AwardItem& i : items) {
+            if (officialOnly && !i.countsForAward)
+                continue;
             if (i.bandsWorked.contains(band))
                 ++t.worked;
             if (i.bandsConfirmed.contains(band))
@@ -404,18 +695,17 @@ bool modeMatches(const QString& group, const QString& mode, const QString& submo
 {
     if (group.isEmpty())
         return true;
-    static const QSet<QString> phone{QStringLiteral("SSB"), QStringLiteral("AM"), QStringLiteral("FM"),
-                                     QStringLiteral("DIGITALVOICE"), QStringLiteral("DSTAR")};
+    const QString effective = modes::displayName(mode, submode);
     if (group == QLatin1String("FT2"))
-        return submode == QLatin1String("FT2");
+        return effective == QLatin1String("FT2");
     if (group == QLatin1String("FT8"))
-        return mode == QLatin1String("FT8");
+        return effective == QLatin1String("FT8");
     if (group == QLatin1String("CW"))
-        return mode == QLatin1String("CW");
+        return modes::groupFor(effective) == QLatin1String("CW");
     if (group == QLatin1String("PHONE"))
-        return phone.contains(mode);
+        return modes::groupFor(effective) == QLatin1String("PHONE");
     if (group == QLatin1String("DIGITAL"))
-        return mode != QLatin1String("CW") && !phone.contains(mode);
+        return modes::groupFor(effective) == QLatin1String("DATA");
     return true;
 }
 
@@ -512,6 +802,8 @@ QList<AwardResult> AwardCalculator::compute(const LogDatabase& db, const AwardFi
         b.result.total = total;
         builders.insert(b.result.id, b);
     };
+    QStringList allAwardIds = awardIds();
+    QHash<QString, awards::AwardRulePackage> rulePackages;
     define("dxcc", QStringLiteral("DXCC"), 100, 340);
     define("ft2", QStringLiteral("FT2 Award"), 100, 0);
     // I sei continenti dell'IARU. L'Antartide non fa numero per il WAC, ma chi
@@ -559,6 +851,23 @@ QList<AwardResult> AwardCalculator::compute(const LogDatabase& db, const AwardFi
     define("iia", QStringLiteral("IIA"), 20, 0);
     define("difi", QStringLiteral("DIFI"), 25, 0);
     define("dai", QStringLiteral("DAI"), 25, 0);
+    // A generic four-character locator count is useful, but it is not VUCC:
+    // VUCC additionally depends on band, station-location/account rules and
+    // award evidence. Keep that distinction visible to callers.
+    builders[QStringLiteral("grids")].result.title =
+        QCoreApplication::translate("Awards", "Grid statistics");
+    builders[QStringLiteral("grids")].result.rulesSource =
+        QStringLiteral("https://www.arrl.org/vucc");
+    builders[QStringLiteral("grids")].result.verifier =
+        QStringLiteral("ARRL VUCC award manager");
+    for (const awards::AwardRulePackage& package : m_rulePackages) {
+        QString error;
+        if (!package.isValid(&error) || allAwardIds.contains(package.id) || rulePackages.contains(package.id))
+            continue;
+        define(package.id.toUtf8().constData(), package.title, package.target, package.total);
+        rulePackages.insert(package.id, package);
+        allAwardIds << package.id;
+    }
 
     QSqlQuery q(db.connection());
     q.setForwardOnly(true);
@@ -566,20 +875,21 @@ QList<AwardResult> AwardCalculator::compute(const LogDatabase& db, const AwardFi
         "SELECT id, call, band, mode, IFNULL(submode, ''), dxcc, cqz, state, gridsquare, iota, pota_ref, sota_ref, "
         "wwff_ref, qso_datetime_on, IFNULL(station_profile_id, 0), IFNULL(tags, ''), "
         "IFNULL(cont, ''), IFNULL(cnty, ''), "
-        "IFNULL(sig, ''), IFNULL(sig_info, ''), IFNULL(comment, ''), IFNULL(notes, '') "
+        "IFNULL(sig, ''), IFNULL(sig_info, ''), IFNULL(comment, ''), IFNULL(notes, ''), "
+        "IFNULL(prop_mode, ''), IFNULL(sat_name, '') "
         "FROM qso NOT INDEXED WHERE deleted = 0 ORDER BY qso_datetime_on"));
     // Le conferme in un insieme per servizio, non una sottoquery per ogni QSO:
     // su un log da un milione era la meta' del tempo. Solo i servizi che
     // qualche diploma accetta.
     QHash<QString, QSet<qint64>> confirmedBy;
     QHash<QString, QList<const QSet<qint64>*>> creditSets;
-    for (const QString& award : awardIds()) {
+    for (const QString& award : allAwardIds) {
         for (const QString& service : awards::creditsFor(award, filter)) {
             if (!confirmedBy.contains(service))
                 confirmedBy.insert(service, db.confirmedIds(service));
         }
     }
-    for (const QString& award : awardIds()) {
+    for (const QString& award : allAwardIds) {
         QList<const QSet<qint64>*> sets;
         for (const QString& service : awards::creditsFor(award, filter))
             sets << &confirmedBy[service];
@@ -593,6 +903,19 @@ QList<AwardResult> AwardCalculator::compute(const LogDatabase& db, const AwardFi
         return false;
     };
 
+    // Inferred callbook/geocoding values are useful context, but a current
+    // residence must not silently become historical award evidence.
+    QHash<qint64, QSet<QString>> inferredFields;
+    {
+        QSqlQuery enrichmentQuery(db.connection());
+        enrichmentQuery.setForwardOnly(true);
+        if (enrichmentQuery.exec(QStringLiteral(
+                "SELECT qso_id, field FROM qso_enrichment WHERE kind = 'inferred'"))) {
+            while (enrichmentQuery.next())
+                inferredFields[enrichmentQuery.value(0).toLongLong()].insert(enrichmentQuery.value(1).toString());
+        }
+    }
+
     const QSet<int> usaEntities{291, 6, 110};   // USA, Alaska, Hawaii
     int dxccSkipped = 0;   // QSO fuori dal DXCC di adesso (cty.xml)
     static const QRegularExpression iotaRef(QStringLiteral("^(AF|AN|AS|EU|NA|OC|SA)-\\d{3}$"));
@@ -601,6 +924,9 @@ QList<AwardResult> AwardCalculator::compute(const LogDatabase& db, const AwardFi
         const QString band = q.value(2).toString();
         const QString mode = q.value(3).toString();
         const QString submode = q.value(4).toString();
+        const QString propagation = q.value(22).toString().trimmed().toUpper();
+        const QString satelliteName = q.value(23).toString().trimmed();
+        const bool satellite = propagation == QLatin1String("SAT") || !satelliteName.isEmpty();
         if (!filter.band.isEmpty() && band != filter.band)
             continue;
         if (!modeMatches(filter.modeGroup, mode, submode))
@@ -617,14 +943,19 @@ QList<AwardResult> AwardCalculator::compute(const LogDatabase& db, const AwardFi
 
         const qint64 id = q.value(0).toLongLong();
         const QString call = q.value(1).toString();
-        const int dxcc = q.value(5).toInt();
+        const QSet<QString> inferred = inferredFields.value(id);
+        const int dxcc = inferred.contains(QStringLiteral("DXCC")) ? 0 : q.value(5).toInt();
+        const int cqzValue = inferred.contains(QStringLiteral("CQZ")) ? 0 : q.value(6).toInt();
+        const QString stateValue = inferred.contains(QStringLiteral("STATE")) ? QString() : q.value(7).toString();
+        const QString gridValue = inferred.contains(QStringLiteral("GRIDSQUARE")) ? QString() : q.value(8).toString();
         const QDateTime on = QDateTime::fromString(q.value(13).toString(), Qt::ISODate).toUTC();
         // Le regole dell'ARRL: i QSO sui 60 metri non valgono per nessun suo
         // diploma, DXCC compreso (le conferme valide le dice creditsFor). Si
         // contano lo stesso se l'operatore lo vuole (count60m, di serie si').
         const bool arrlBand = filter.count60m || band.compare(QLatin1String("60m"), Qt::CaseInsensitive) != 0;
 
-        auto addAs = [&](const char* award, const QString& key, const QString& name, bool isConfirmed) {
+        auto addAs = [&](const char* award, const QString& key, const QString& name, bool isConfirmed,
+                         bool countsForAward = true) {
             if (key.isEmpty())
                 return;
             Builder& b = builders[QLatin1String(award)];
@@ -635,6 +966,7 @@ QList<AwardResult> AwardCalculator::compute(const LogDatabase& db, const AwardFi
                 item.first = on;
                 item.firstQsoId = id;
                 item.firstCall = call;
+                item.countsForAward = countsForAward;
             }
             item.last = on;
             ++item.qsoCount;
@@ -642,8 +974,28 @@ QList<AwardResult> AwardCalculator::compute(const LogDatabase& db, const AwardFi
             if (isConfirmed)
                 item.bandsConfirmed.insert(band);
         };
-        auto add = [&](const char* award, const QString& key, const QString& name) {
-            addAs(award, key, name, confirmedFor(QLatin1String(award), id));
+        auto add = [&](const char* award, const QString& key, const QString& name, bool countsForAward = true) {
+            addAs(award, key, name, confirmedFor(QLatin1String(award), id), countsForAward);
+        };
+
+        auto addRulePackage = [&](const awards::AwardRulePackage& package) {
+            if (on.date() < package.validFrom || on.date() > package.validTo)
+                return;
+            QString key;
+            if (package.keyField == QLatin1String("DXCC"))
+                key = dxcc > 0 ? QString::number(dxcc) : QString();
+            else if (package.keyField == QLatin1String("STATE"))
+                key = stateValue.trimmed().toUpper();
+            else if (package.keyField == QLatin1String("CQZ"))
+                key = cqzValue >= 1 && cqzValue <= 40 ? QString::number(cqzValue) : QString();
+            else if (package.keyField == QLatin1String("GRID4"))
+                key = gridValue.trimmed().toUpper().left(4);
+            else if (package.keyField == QLatin1String("BAND"))
+                key = band;
+            else if (package.keyField == QLatin1String("CALL_PREFIX"))
+                key = awards::wpxPrefix(call);
+            if (!key.isEmpty())
+                addAs(package.id.toUtf8().constData(), key, QString(), confirmedFor(package.id, id));
         };
 
         if (dxcc > 0) {
@@ -652,24 +1004,24 @@ QList<AwardResult> AwardCalculator::compute(const LogDatabase& db, const AwardFi
                                    && !(m_rules.deleted && m_rules.deleted(dxcc));
             if (!dxccValid)
                 ++dxccSkipped;
-            if (arrlBand && dxccValid)
+            if (arrlBand && !satellite && dxccValid)
                 add("dxcc", QString::number(dxcc), name);
             if (submode == QLatin1String("FT2"))
                 add("ft2", QString::number(dxcc), name);
         }
         const QString continent = q.value(16).toString().trimmed().toUpper();
         if (awards::continents().contains(continent))
-            add("wac", continent, awards::continents().value(continent));
+            add("wac", continent, awards::continents().value(continent), continent != QLatin1String("AN"));
         // Worked All Africa: un'entita' africana per volta, col suo nome.
         if (continent == QLatin1String("AF") && dxcc > 0) {
             add("waac", QString::number(dxcc),
                 m_dxccName ? m_dxccName(dxcc) : QString());
         }
-        const int cqz = q.value(6).toInt();
+        const int cqz = cqzValue;
         if (cqz >= 1 && cqz <= 40)
             add("waz", QString::number(cqz), QString());
-        const QString state = q.value(7).toString().trimmed().toUpper();
-        if (arrlBand && usaEntities.contains(dxcc) && awards::usStates().contains(state))
+        const QString state = stateValue.trimmed().toUpper();
+        if (arrlBand && !satellite && usaEntities.contains(dxcc) && awards::usStates().contains(state))
             add("was", state, awards::usStates().value(state));
         // Giappone: la prefettura sta in STATE (ADIF la scrive col numero,
         // "12" o "JA12"), il distretto e' la cifra del nominativo.
@@ -717,7 +1069,7 @@ QList<AwardResult> AwardCalculator::compute(const LogDatabase& db, const AwardFi
                 add("dcpc", castle, awards::italianRegions().value(province));
         }
         add("wpx", awards::wpxPrefix(call), QString());
-        const QString grid = q.value(8).toString().trimmed().toUpper();
+        const QString grid = gridValue.trimmed().toUpper();
         if (grid.size() >= 4)
             add("grids", grid.left(4), QString());
         const QString iota = q.value(9).toString().trimmed().toUpper();
@@ -726,10 +1078,12 @@ QList<AwardResult> AwardCalculator::compute(const LogDatabase& db, const AwardFi
         add("pota", q.value(10).toString().trimmed().toUpper(), QString());
         add("sota", q.value(11).toString().trimmed().toUpper(), QString());
         add("wwff", q.value(12).toString().trimmed().toUpper(), QString());
+        for (const awards::AwardRulePackage& package : std::as_const(rulePackages))
+            addRulePackage(package);
     }
 
     QList<AwardResult> out;
-    for (const QString& id : awardIds()) {
+    for (const QString& id : allAwardIds) {
         Builder& b = builders[id];
         b.result.items = b.items.values();
         std::sort(b.result.items.begin(), b.result.items.end(), keyLess);
@@ -770,6 +1124,9 @@ QList<AwardResult> AwardCalculator::compute(const LogDatabase& db, const AwardFi
             b.result.requirement = QCoreApplication::translate(
                 "Awards", "The reference is read from SIG/SIG_INFO (SIG = %1) or from a comment like \"%1 LI-001\".")
                                        .arg(b.result.title);
+        } else if (id == QLatin1String("wac")) {
+            b.result.requirement = QCoreApplication::translate(
+                "Awards", "Official WAC counts six continents; Antarctica is shown but not counted.");
         } else if (id == QLatin1String("dxcc") || id == QLatin1String("was")) {
             // Che cosa si conta dei 60 metri, detto ogni volta: il numero cambia.
             QStringList said;
@@ -783,6 +1140,8 @@ QList<AwardResult> AwardCalculator::compute(const LogDatabase& db, const AwardFi
                 said << QCoreApplication::translate(
                     "Awards", "%n QSO(s) with deleted entities or operations not accepted by the ARRL (Club Log) are left out.",
                     nullptr, dxccSkipped);
+            said << QCoreApplication::translate(
+                "Awards", "Satellite QSOs stay in the log but are excluded from terrestrial DXCC/WAS credit.");
             b.result.requirement = said.join(QLatin1Char(' '));
         } else if (id == QLatin1String("waip")) {
             b.result.requirement = QCoreApplication::translate(

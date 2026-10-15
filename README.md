@@ -22,7 +22,12 @@ Specifica di partenza: [`docs/FASE0_SPEC.md`](docs/FASE0_SPEC.md).
 Licenza: GPL-3.0. Dentro `libs/ggmorse` c'e' ggmorse di Georgi Gerganov, licenza MIT,
 con la sua `LICENSE` accanto.
 
-## Stato: 0.5.2
+## Stato: 1.17.20
+
+La versione e le funzioni descritte qui corrispondono al manifest di build
+`CMakeLists.txt` (1.17.20). Le note incrementali sono in
+[`docs/CHANGELOG.md`](docs/CHANGELOG.md); le opzioni sperimentali o opzionali
+sono indicate esplicitamente nelle sezioni relative.
 
 Dalla 0.3.1: il QSO appena scritto **si completa da solo** con quello che sa il callbook
 (nome, QTH, locatore, indirizzo), diplomi nuovi — **WAC**, **WAAC**, **WAJA**, **AJD**,
@@ -152,7 +157,29 @@ tools/udpsend.cpp   finge di essere Decodium, per provare senza radio
 scripts/deploy.sh   prepara la cartella distribuibile
 ```
 
-## Compilare (Windows, MSYS2 MinGW64)
+## Compilare (Windows, macOS e Linux)
+
+Su macOS e Linux, con Qt 6.5 o successivo installato:
+
+```sh
+cmake -S . -B build -G Ninja -DCMAKE_BUILD_TYPE=Release
+cmake --build build --parallel
+ctest --test-dir build --output-on-failure
+```
+
+Su macOS l'avvio dell'app compilata è:
+
+```sh
+./build/DecoDXLog.app/Contents/MacOS/DecoDXLog
+```
+
+Su Linux:
+
+```sh
+./build/DecoDXLog
+```
+
+Su Windows, con MSYS2 MinGW64:
 
 ```sh
 export PATH=/c/msys64/mingw64/bin:$PATH

@@ -6,6 +6,9 @@
 #include <QRegularExpression>
 #include <QSet>
 
+#include <algorithm>
+#include <utility>
+
 namespace decolog::core {
 namespace contestrules {
 
@@ -191,6 +194,20 @@ ContestRules withOverrides(ContestRules rules, const QVariantMap& o)
             if (!clean.isEmpty())
                 bands << clean;
         }
+        // Un'edizione puo' restringere le bande del regolamento, non crearne
+        // di nuove: altrimenti il calcolatore trasformerebbe una combinazione
+        // non prevista in un punteggio apparentemente valido.
+        QSet<QString> allowed;
+        for (const QString& b : std::as_const(rules.bands))
+            allowed.insert(b.toLower());
+        const bool supported = !bands.isEmpty()
+                               && std::all_of(bands.cbegin(), bands.cend(),
+                                              [&allowed](const QString& b) { return allowed.contains(b); });
+        if (!supported) {
+            rules.valid = false;
+            return rules;
+        }
+        bands.removeDuplicates();
         rules.bands = bands;
     }
     auto number = [&o](const char* key, int& target) {

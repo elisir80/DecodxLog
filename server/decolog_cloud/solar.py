@@ -98,7 +98,7 @@ def parse(xml: bytes) -> dict:
 
 def current(fetcher=None) -> dict:
     """L'ultimo dato buono, chiedendolo alla fonte non piu' di una volta all'ora."""
-    now = dt.datetime.now(dt.UTC)
+    now = dt.datetime.now(dt.timezone.utc)
     fresh = _cache["at"] is not None and now - _cache["at"] < FRESH_FOR
     if fresh and _cache["data"]:
         return dict(_cache["data"], fetchedAt=_cache["at"].strftime("%Y-%m-%d %H:%M"))

@@ -3,6 +3,12 @@
 #include "core/LogDatabase.h"
 
 #include <QElapsedTimer>
+#include <QJsonDocument>
+#include <QJsonObject>
+#include <QJsonArray>
+#include <QDir>
+#include <QFile>
+#include <QTemporaryDir>
 #include <QTest>
 
 #include <algorithm>
@@ -121,6 +127,82 @@ private slots:
         QCOMPARE(totals.at(3).worked, 0);
     }
 
+    void sharedFixtureMatchesCloudContract()
+    {
+        QFile file(QStringLiteral(DECO_DXLOG_SOURCE_DIR) + QStringLiteral("/tests/fixtures/awards_shared.json"));
+        QVERIFY2(file.open(QIODevice::ReadOnly), qPrintable(file.errorString()));
+        const QJsonObject root = QJsonDocument::fromJson(file.readAll()).object();
+        const QJsonArray qsos = root.value(QStringLiteral("qsos")).toArray();
+        LogDatabase db;
+        QVERIFY(db.open(":memory:"));
+        for (const auto value : qsos) {
+            const QJsonObject q = value.toObject();
+            AdifRecord r;
+            for (auto it = q.begin(); it != q.end(); ++it)
+                r.set(it.key(), it.value().toString());
+            QCOMPARE(db.insertQso(r, "shared-fixture").status, InsertResult::Status::Inserted);
+        }
+        const auto results = AwardCalculator().compute(db, AwardFilter{});
+        const auto expected = root.value(QStringLiteral("expected")).toObject();
+        QCOMPARE(find(results, "dxcc").worked(), expected.value("dxcc_worked").toInt());
+        QCOMPARE(find(results, "dxcc").confirmed(), expected.value("dxcc_confirmed").toInt());
+        QCOMPARE(find(results, "wac").worked(), expected.value("wac_worked").toInt());
+        QCOMPARE(find(results, "waz").worked(), expected.value("waz_worked").toInt());
+        AwardFilter band;
+        band.band = QStringLiteral("20m");
+        QCOMPARE(find(AwardCalculator().compute(db, band), "dxcc").worked(), expected.value("20m_dxcc").toInt());
+        AwardFilter mode;
+        mode.modeGroup = QStringLiteral("CW");
+        QCOMPARE(find(AwardCalculator().compute(db, mode), "dxcc").worked(), expected.value("cw_dxcc").toInt());
+        QCOMPARE(db.qsoCount(), expected.value("qsos").toInt());
+        const auto byBand = db.countByBand();
+        auto bandCount = [&byBand](const QString& band) {
+            for (const auto& row : byBand)
+                if (row.key == band)
+                    return row.count;
+            return 0;
+        };
+        QCOMPARE(bandCount(QStringLiteral("20m")), expected.value("20m_qsos").toInt());
+        QCOMPARE(bandCount(QStringLiteral("40m")), expected.value("40m_qsos").toInt());
+        const auto qsl = db.qslSummary();
+        const auto lotw = std::find_if(qsl.cbegin(), qsl.cend(), [](const QVariantMap& row) {
+            return row.value(QStringLiteral("service")).toString() == QLatin1String("lotw");
+        });
+        QVERIFY(lotw != qsl.cend());
+        QCOMPARE(lotw->value(QStringLiteral("sent")).toInt(), expected.value("lotw_sent").toInt());
+        QCOMPARE(lotw->value(QStringLiteral("confirmed")).toInt(), expected.value("lotw_confirmed").toInt());
+    }
+
+    void wacDoesNotCountAntarcticaAsAnOfficialContinent()
+    {
+        LogDatabase db;
+        QVERIFY(db.open(":memory:"));
+        const QStringList continents{"EU", "NA", "SA", "AS", "AF", "AN", "OC"};
+        int day = 1;
+        for (const QString& continent : continents) {
+            AdifRecord r{{"CALL", QStringLiteral("TEST%1").arg(day)},
+                         {"QSO_DATE", QStringLiteral("202601%1").arg(day, 2, 10, QLatin1Char('0'))},
+                         {"TIME_ON", "1200"}, {"BAND", "20m"}, {"MODE", "CW"}, {"CONT", continent}};
+            QCOMPARE(db.insertQso(r, "test").status, InsertResult::Status::Inserted);
+            ++day;
+        }
+
+        const AwardCalculator calc;
+        const AwardResult wac = find(calc.compute(db, AwardFilter{}), "wac");
+        // AN può restare visibile come elemento lavorato, ma non può aumentare
+        // il conteggio ufficiale WAC. OC completa invece il sesto continente.
+        QCOMPARE(wac.worked(), 7);
+        QCOMPARE(wac.worked(true), 6);
+        QCOMPARE(wac.confirmed(true), 0);
+        const auto totals = wac.bandTotals({QStringLiteral("20m")}, true);
+        QCOMPARE(totals.size(), 1);
+        QCOMPARE(totals.first().worked, 6);
+        const auto antarctica = std::find_if(wac.items.cbegin(), wac.items.cend(),
+                                             [](const AwardItem& item) { return item.key == QStringLiteral("AN"); });
+        QVERIFY(antarctica != wac.items.cend());
+        QCOMPARE(antarctica->countsForAward, false);
+    }
+
     void eachAwardHasItsConfirmations()
     {
         // Le regole del diploma dentro le scelte generali: DXCC e WAS solo
@@ -181,7 +263,9 @@ private slots:
         qso("K5XX", "60m", 291, 4, "TX");
 
         const AwardCalculator calc;
-        const auto counted = calc.compute(db, AwardFilter{});
+        AwardFilter personal;
+        personal.count60m = true;
+        const auto counted = calc.compute(db, personal);
         QCOMPARE(find(counted, "dxcc").worked(), 2);  // 291 e 230, anche dai 60
         QCOMPARE(find(counted, "dxcc").bandTotals({"60m"}).first().worked, 2);
         QCOMPARE(find(counted, "was").worked(), 2);   // CT e TX
@@ -197,6 +281,30 @@ private slots:
         QVERIFY(!dxcc.requirement.isEmpty());
         QCOMPARE(find(results, "was").worked(), 1);   // CT si', TX dai 60 no
         QCOMPARE(find(results, "waz").worked(), 3);   // il WAZ non e' dell'ARRL
+    }
+
+    void aNewAwardProfileUsesTheOfficialSixtyMeterRule()
+    {
+        const AwardFilter freshProfile;
+        QVERIFY(!freshProfile.count60m);
+    }
+
+    void satelliteQsosStayInTheLogButDoNotCountForTerrestrialDxccAwards()
+    {
+        LogDatabase db;
+        QVERIFY(db.open(QStringLiteral(":memory:")));
+        AdifRecord r{{"CALL", "AO-TEST"}, {"QSO_DATE", "20260303"}, {"TIME_ON", "1200"},
+                     {"BAND", "2m"}, {"MODE", "FM"}, {"DXCC", "291"}, {"STATE", "CT"},
+                     {"PROP_MODE", "SAT"}, {"SAT_NAME", "AO-91"}, {"LOTW_QSL_RCVD", "Y"}};
+        QCOMPARE(db.insertQso(r, QStringLiteral("import")).status, InsertResult::Status::Inserted);
+
+        const AwardCalculator calc;
+        const auto results = calc.compute(db, AwardFilter{});
+        QCOMPARE(find(results, "dxcc").worked(), 0);
+        QCOMPARE(find(results, "was").worked(), 0);
+        QVERIFY(find(results, "dxcc").requirement.contains(QStringLiteral("Satellite")));
+        // La validita' per il diploma non deve cancellare ne' alterare il QSO.
+        QCOMPARE(db.qsoCount(), 1);
     }
 
     void filterByProfileAndTag()
@@ -258,12 +366,44 @@ private slots:
         const auto wac = std::find_if(results.cbegin(), results.cend(),
                                       [](const AwardResult& r) { return r.id == QLatin1String("wac"); });
         QVERIFY(wac != results.cend());
-        QCOMPARE(wac->worked(), 7);      // sei continenti piu' l'Antartide
+        QCOMPARE(wac->worked(), 7);      // sei continenti piu' l'Antartide, visibili
+        QCOMPARE(wac->worked(true), 6);  // AN resta fuori dal conteggio ufficiale
         QCOMPARE(wac->target, 6);
         // Il WAC si fa banda per banda: il 20 metri ne ha cinque.
         const auto totals = wac->bandTotals({QStringLiteral("20m"), QStringLiteral("40m")});
         QCOMPARE(totals.at(0).worked, 5);
         QCOMPARE(totals.at(1).worked, 1);
+        const auto officialTotals = wac->bandTotals({QStringLiteral("20m"), QStringLiteral("40m")}, true);
+        QCOMPARE(officialTotals.at(0).worked, 4);
+        QCOMPARE(officialTotals.at(1).worked, 1);
+    }
+
+    void awardFiltersUseTheCanonicalModeGroups()
+    {
+        LogDatabase db;
+        QVERIFY(db.open(QStringLiteral(":memory:")));
+        auto add = [&db](const char* call, const char* mode, const char* submode, const char* dxcc) {
+            AdifRecord r{{"CALL", call}, {"QSO_DATE", "20260101"}, {"TIME_ON", "1200"},
+                         {"BAND", "20m"}, {"MODE", mode}, {"DXCC", dxcc}};
+            if (submode && *submode)
+                r.set(QStringLiteral("SUBMODE"), QString::fromLatin1(submode));
+            QCOMPARE(db.insertQso(r, QStringLiteral("test")).status, InsertResult::Status::Inserted);
+        };
+        add("FT8SUB", "MFSK", "FT8", "291");
+        add("C4FMSUB", "C4FM", "", "291");
+        add("DMRSUB", "DMR", "", "291");
+        add("UNKNOWN", "MFSK", "NOT-A-MODE", "230");
+
+        AwardCalculator calc;
+        AwardFilter ft8;
+        ft8.modeGroup = QStringLiteral("FT8");
+        QCOMPARE(find(calc.compute(db, ft8), "dxcc").worked(), 1);
+        AwardFilter phone;
+        phone.modeGroup = QStringLiteral("PHONE");
+        QCOMPARE(find(calc.compute(db, phone), "dxcc").worked(), 1);
+        AwardFilter digital;
+        digital.modeGroup = QStringLiteral("DIGITAL");
+        QCOMPARE(find(calc.compute(db, digital), "dxcc").worked(), 2);
     }
 
     void japanesePrefecturesAndDistricts()
@@ -357,6 +497,35 @@ private slots:
         const auto totals = waac->bandTotals({QStringLiteral("20m"), QStringLiteral("40m")});
         QCOMPARE(totals.at(0).worked, 2);
         QCOMPARE(totals.at(1).worked, 1);
+    }
+
+    void historicalDxccRulesExcludeOnlyTheInvalidOperation()
+    {
+        LogDatabase db;
+        QVERIFY(db.open(QStringLiteral(":memory:")));
+        auto add = [&db](const char* call, const char* date, int dxcc) {
+            AdifRecord r{{"CALL", call}, {"QSO_DATE", date}, {"TIME_ON", "1200"},
+                         {"BAND", "20m"}, {"MODE", "CW"}, {"DXCC", QString::number(dxcc)}};
+            QCOMPARE(db.insertQso(r, QStringLiteral("test")).status, InsertResult::Status::Inserted);
+        };
+        add("OLD1", "19900101", 291);
+        add("NEW1", "20260101", 291);
+        add("DELETED", "20260101", 999);
+
+        AwardCalculator calc;
+        calc.setDxccRules({
+            [](const QString& call, const QDateTime& when) {
+                return call == QLatin1String("OLD1") && when.date() < QDate(2000, 1, 1);
+            },
+            [](int dxcc) { return dxcc == 999; },
+        });
+        const AwardResult dxcc = find(calc.compute(db, AwardFilter{}), "dxcc");
+        QCOMPARE(dxcc.worked(), 1);
+        QVERIFY(std::none_of(dxcc.items.cbegin(), dxcc.items.cend(), [](const AwardItem& item) {
+            return item.key == QLatin1String("291") && item.qsoCount > 1;
+        }));
+        // Le righe restano nel log: le regole del diploma non cancellano dati.
+        QCOMPARE(db.qsoCount(), 3);
     }
 
     void japaneseCitiesAndGuns()
@@ -535,6 +704,91 @@ private slots:
         t.start();
         const auto results = calc.compute(db, AwardFilter{});
         qInfo() << "compute:" << t.elapsed() << "ms," << results.size() << "awards";
+    }
+
+    void editsAndDeletesMatchAFullRecompute()
+    {
+        const auto makeQso = [](const QString& call, const QString& band, const QString& dxcc) {
+            return AdifRecord{{QStringLiteral("CALL"), call},
+                              {QStringLiteral("QSO_DATE"), QStringLiteral("20260101")},
+                              {QStringLiteral("TIME_ON"), QStringLiteral("120000")},
+                              {QStringLiteral("BAND"), band},
+                              {QStringLiteral("MODE"), QStringLiteral("CW")},
+                              {QStringLiteral("DXCC"), dxcc},
+                              {QStringLiteral("CQZ"), QStringLiteral("5")}};
+        };
+        LogDatabase edited;
+        LogDatabase rebuilt;
+        QVERIFY(edited.open(QStringLiteral(":memory:")));
+        QVERIFY(rebuilt.open(QStringLiteral(":memory:")));
+
+        const AdifRecord first = makeQso(QStringLiteral("W1AW"), QStringLiteral("20m"), QStringLiteral("291"));
+        const AdifRecord second = makeQso(QStringLiteral("EA8XX"), QStringLiteral("40m"), QStringLiteral("29"));
+        const AdifRecord replacement = makeQso(QStringLiteral("KH6XX"), QStringLiteral("15m"), QStringLiteral("110"));
+        const auto a = edited.insertQso(first, QStringLiteral("test"));
+        const auto b = edited.insertQso(second, QStringLiteral("test"));
+        QVERIFY(a.status == InsertResult::Status::Inserted);
+        QVERIFY(b.status == InsertResult::Status::Inserted);
+        QVERIFY(edited.updateQso(a.id, replacement).status == InsertResult::Status::Inserted);
+        QVERIFY(edited.softDeleteQso(b.id));
+        QVERIFY(rebuilt.insertQso(replacement, QStringLiteral("rebuild")).status == InsertResult::Status::Inserted);
+
+        const auto actual = AwardCalculator().compute(edited, AwardFilter{});
+        const auto expected = AwardCalculator().compute(rebuilt, AwardFilter{});
+        QCOMPARE(actual.size(), expected.size());
+        for (int i = 0; i < actual.size(); ++i) {
+            QCOMPARE(actual.at(i).id, expected.at(i).id);
+            QCOMPARE(actual.at(i).worked(), expected.at(i).worked());
+            QCOMPARE(actual.at(i).confirmed(), expected.at(i).confirmed());
+            QCOMPARE(actual.at(i).target, expected.at(i).target);
+            QCOMPARE(actual.at(i).total, expected.at(i).total);
+            QCOMPARE(actual.at(i).requirement, expected.at(i).requirement);
+        }
+    }
+
+    // Benchmark riproducibile: DECODXLOG_BENCH_SYNTHETIC=10000,100000,1000000.
+    // Misura importazione, una query temporale rappresentativa e ricalcolo
+    // completo dei diplomi.
+    void benchSyntheticLog()
+    {
+        const QString setting = qEnvironmentVariable("DECODXLOG_BENCH_SYNTHETIC");
+        if (setting.isEmpty())
+            QSKIP("DECODXLOG_BENCH_SYNTHETIC not set");
+        for (const QString& token : setting.split(QLatin1Char(','), Qt::SkipEmptyParts)) {
+            bool ok = false;
+            const int count = token.trimmed().toInt(&ok);
+            if (!ok || count <= 0)
+                QFAIL(qPrintable(QStringLiteral("invalid synthetic size: %1").arg(token)));
+            LogDatabase db;
+            QVERIFY(db.open(":memory:"));
+            QElapsedTimer timer;
+            timer.start();
+            for (int i = 0; i < count; ++i) {
+                const int seconds = i % 86400;
+                const AdifRecord record{
+                    {"CALL", QStringLiteral("TEST%1AA").arg(i % 100000, 5, 10, QLatin1Char('0'))},
+                    {"QSO_DATE", QStringLiteral("202601%1").arg((i % 28) + 1, 2, 10, QLatin1Char('0'))},
+                    {"TIME_ON", QStringLiteral("%1%2%3").arg(seconds / 3600, 2, 10, QLatin1Char('0'))
+                                                            .arg((seconds / 60) % 60, 2, 10, QLatin1Char('0'))
+                                                            .arg(seconds % 60, 2, 10, QLatin1Char('0'))},
+                    {"BAND", (i % 2) ? "20m" : "40m"}, {"MODE", (i % 3) ? "FT8" : "CW"},
+                    {"DXCC", QString::number((i % 300) + 1)}, {"CQZ", QString::number((i % 40) + 1)}};
+                const auto inserted = db.insertQso(record, "synthetic");
+                QVERIFY2(inserted.status == InsertResult::Status::Inserted, qPrintable(inserted.message));
+            }
+            const qint64 importMs = timer.elapsed();
+            timer.restart();
+            const auto ids = db.qsoIdsBetween(QStringLiteral("2026-01-01T00:00:00"),
+                                              QStringLiteral("2026-12-31T23:59:59"));
+            const qint64 queryMs = timer.elapsed();
+            QCOMPARE(ids.size(), count);
+            timer.restart();
+            const auto results = AwardCalculator().compute(db, AwardFilter{});
+            const qint64 computeMs = timer.elapsed();
+            qInfo() << "synthetic:" << count << "qsos, import:" << importMs
+                    << "ms, query:" << queryMs << "ms, compute:" << computeMs
+                    << "ms, awards:" << results.size();
+        }
     }
 
     void italianRegionsAndSigAwards()
@@ -718,6 +972,198 @@ private slots:
         QVERIFY(awards::isJapanGun(QStringLiteral("25007")));
         QVERIFY(!awards::isJapanGun(QStringLiteral("1001")));
         QVERIFY(!awards::isJapanGun(QStringLiteral("100105")));
+    }
+
+    void declarativeRulePackageIsVersionedBoundedAndAddsAnAward()
+    {
+        QString error;
+        const auto package = awards::AwardRulePackage::fromJson(
+            R"({"format":"decodxlog-award-rule-1","id":"club_dx","title":"Club DX","source":"club.example/rules","version":"2026.1","validFrom":"2026-01-01","validTo":"2026-12-31","keyField":"DXCC","target":2,"total":340})",
+            &error);
+        QVERIFY2(package.has_value(), qPrintable(error));
+
+        const auto unsafe = awards::AwardRulePackage::fromJson(
+            R"({"format":"decodxlog-award-rule-1","id":"unsafe","title":"Unsafe","source":"x","version":"1","validFrom":"2026-01-01","validTo":"2026-12-31","keyField":"EXEC","target":1})",
+            &error);
+        QVERIFY(!unsafe.has_value());
+        const auto unsafeVersion = awards::AwardRulePackage::fromJson(
+            R"({"format":"decodxlog-award-rule-1","id":"unsafe_version","title":"Unsafe","source":"x","version":"../escape","validFrom":"2026-01-01","validTo":"2026-12-31","keyField":"DXCC","target":1})",
+            &error);
+        QVERIFY(!unsafeVersion.has_value());
+
+        awards::AwardRuleCatalog catalog;
+        QVERIFY(catalog.add(*package, &error));
+        QVERIFY(catalog.add(*package, &error)); // idempotente, stesso fingerprint
+        auto changedJson = QByteArray(
+            R"({"format":"decodxlog-award-rule-1","id":"club_dx","title":"Club DX changed","source":"club.example/rules","version":"2026.1","validFrom":"2026-01-01","validTo":"2026-12-31","keyField":"DXCC","target":2,"total":340})");
+        const auto changed = awards::AwardRulePackage::fromJson(changedJson, &error);
+        QVERIFY(changed.has_value());
+        QVERIFY(!catalog.add(*changed, &error));
+        QVERIFY(error.contains(QStringLiteral("same rule version")));
+
+        const auto overlapping = awards::AwardRulePackage::fromJson(
+            R"({"format":"decodxlog-award-rule-1","id":"club_dx","title":"Club DX 2026b","source":"club.example/rules","version":"2026.2","validFrom":"2026-06-01","validTo":"2027-06-30","keyField":"DXCC","target":3,"total":340})",
+            &error);
+        QVERIFY(overlapping.has_value());
+        QVERIFY(!catalog.add(*overlapping, &error));
+        QVERIFY(error.contains(QStringLiteral("overlapping")));
+
+        QTemporaryDir rulesDir;
+        QVERIFY(rulesDir.isValid());
+        const QByteArray originalJson =
+            R"({"format":"decodxlog-award-rule-1","id":"persisted","title":"Persisted","source":"club.example/rules","version":"1","validFrom":"2026-01-01","validTo":"2026-12-31","keyField":"DXCC","target":1,"total":340})";
+        const QString rulePath = QDir(rulesDir.path()).filePath(QStringLiteral("persisted.json"));
+        QFile ruleFile(rulePath);
+        QVERIFY(ruleFile.open(QIODevice::WriteOnly));
+        QCOMPARE(ruleFile.write(originalJson), originalJson.size());
+        ruleFile.close();
+        QStringList loadErrors;
+        const auto firstLoad = awards::AwardRuleCatalog::loadDirectory(rulesDir.path(), &loadErrors);
+        QVERIFY2(loadErrors.isEmpty(), qPrintable(loadErrors.join('\n')));
+        QCOMPARE(firstLoad.packages().size(), 1);
+        const QString originalFingerprint = firstLoad.packages().first().fingerprint;
+        QVERIFY(QFileInfo::exists(QDir(rulesDir.path()).filePath(QStringLiteral(".history/persisted-1-%1.json").arg(originalFingerprint.left(16)))));
+
+        QVERIFY(ruleFile.open(QIODevice::WriteOnly | QIODevice::Truncate));
+        QByteArray persistedChangedJson = originalJson;
+        persistedChangedJson.replace("Persisted", "Changed");
+        QCOMPARE(ruleFile.write(persistedChangedJson), persistedChangedJson.size());
+        ruleFile.close();
+        loadErrors.clear();
+        const auto secondLoad = awards::AwardRuleCatalog::loadDirectory(rulesDir.path(), &loadErrors);
+        QCOMPARE(secondLoad.packages().size(), 1);
+        QCOMPARE(secondLoad.packages().first().fingerprint, originalFingerprint);
+        QVERIFY(!loadErrors.isEmpty());
+
+        LogDatabase db;
+        QVERIFY(db.open(":memory:"));
+        const auto add = [&db](const char* call, const char* date, const char* dxcc) {
+            AdifRecord record{{"CALL", call}, {"QSO_DATE", date}, {"TIME_ON", "1200"},
+                              {"BAND", "20m"}, {"MODE", "CW"}, {"DXCC", dxcc}};
+            QCOMPARE(db.insertQso(record, "test").status, InsertResult::Status::Inserted);
+        };
+        add("W1AW", "20260102", "291");
+        add("DL1ABC", "20270102", "230"); // fuori dalla validita' del pacchetto
+
+        AwardCalculator calculator;
+        calculator.setRulePackages({*package});
+        const auto results = calculator.compute(db, AwardFilter{});
+        const auto club = find(results, QStringLiteral("club_dx"));
+        QCOMPARE(club.title, QStringLiteral("Club DX"));
+        QCOMPARE(club.worked(), 1);
+        QCOMPARE(club.target, 2);
+        QCOMPARE(club.total, 340);
+    }
+
+    void awardClaimSeparatesConfirmationFromSubmissionAndCredit()
+    {
+        awards::AwardClaim claim;
+        claim.id = QStringLiteral("claim-1");
+        claim.awardId = QStringLiteral("dxcc");
+        claim.ruleVersion = QStringLiteral("arrl-2026");
+        claim.qsoIds = {12, 34};
+        claim.createdAt = QDateTime::fromString(QStringLiteral("2026-10-15T12:00:00Z"), Qt::ISODate);
+        QString error;
+
+        // Una conferma LoTW può rendere un QSO eleggibile, ma non crea questa domanda.
+        QVERIFY(!claim.transitionTo(awards::AwardClaim::State::Credited, claim.createdAt, {}, &error));
+        QVERIFY(claim.transitionTo(awards::AwardClaim::State::Submitted, claim.createdAt, {}, &error));
+        QVERIFY(!claim.transitionTo(awards::AwardClaim::State::Credited, claim.createdAt, {}, &error));
+        QVERIFY(claim.transitionTo(awards::AwardClaim::State::Verified, claim.createdAt.addSecs(60),
+                                  QStringLiteral("official review"), &error));
+        QVERIFY(claim.transitionTo(awards::AwardClaim::State::Credited, claim.createdAt.addSecs(120),
+                                  QStringLiteral("credit granted"), &error));
+        QCOMPARE(claim.qsoIds, QList<qint64>({12, 34}));
+
+        const auto restored = awards::AwardClaim::fromJson(claim.toJson(), &error);
+        QVERIFY2(restored.has_value(), qPrintable(error));
+        QCOMPARE(restored->state, awards::AwardClaim::State::Credited);
+        QCOMPARE(restored->awardId, QStringLiteral("dxcc"));
+        QCOMPARE(restored->qsoIds, claim.qsoIds);
+        QCOMPARE(restored->outcome, QStringLiteral("credit granted"));
+        auto credited = *restored;
+        QVERIFY(!credited.transitionTo(awards::AwardClaim::State::Submitted,
+                                       claim.createdAt.addSecs(180), {}, &error));
+
+        LogDatabase db;
+        QVERIFY(db.open(":memory:"));
+        error.clear();
+        QVERIFY(awards::AwardClaimStore::save(db, {claim}, &error));
+        const auto persisted = awards::AwardClaimStore::load(db, &error);
+        QVERIFY2(error.isEmpty(), qPrintable(error));
+        QCOMPARE(persisted.size(), 1);
+        QCOMPARE(persisted.first().id, QStringLiteral("claim-1"));
+        QCOMPARE(persisted.first().state, awards::AwardClaim::State::Credited);
+        QCOMPARE(persisted.first().qsoIds, QList<qint64>({12, 34}));
+
+        awards::AwardClaim rejected;
+        rejected.id = QStringLiteral("claim-rejected");
+        rejected.awardId = QStringLiteral("was");
+        rejected.ruleVersion = QStringLiteral("arrl-2026");
+        rejected.qsoIds = {99};
+        rejected.createdAt = claim.createdAt;
+        QVERIFY(rejected.transitionTo(awards::AwardClaim::State::Submitted,
+                                      claim.createdAt, {}, &error));
+        rejected.evidence = QStringLiteral("https://example.invalid/review/99");
+        QVERIFY(rejected.transitionTo(awards::AwardClaim::State::Rejected,
+                                      claim.createdAt.addSecs(30), QStringLiteral("not eligible"), &error));
+        QVERIFY(!rejected.transitionTo(awards::AwardClaim::State::Credited,
+                                       claim.createdAt.addSecs(60), {}, &error));
+        const auto rejectedRestored = awards::AwardClaim::fromJson(rejected.toJson(), &error);
+        QVERIFY2(rejectedRestored.has_value(), qPrintable(error));
+        QCOMPARE(rejectedRestored->state, awards::AwardClaim::State::Rejected);
+        QCOMPARE(rejectedRestored->evidence, QStringLiteral("https://example.invalid/review/99"));
+    }
+
+    void gridCountIsExplicitlyStatisticalNotVucc()
+    {
+        LogDatabase db;
+        QVERIFY(db.open(":memory:"));
+        AwardCalculator calculator;
+        const auto results = calculator.compute(db, AwardFilter{});
+        const auto grids = find(results, QStringLiteral("grids"));
+        QVERIFY(!grids.officialRules);
+        QCOMPARE(grids.rulesSource, QStringLiteral("https://www.arrl.org/vucc"));
+        QCOMPARE(grids.verifier, QStringLiteral("ARRL VUCC award manager"));
+        QCOMPARE(grids.title, QStringLiteral("Grid statistics"));
+        QVERIFY(!AwardCalculator::awardIds().contains(QStringLiteral("vucc")));
+        QVERIFY(!AwardCalculator::awardIds().contains(QStringLiteral("cq_marathon")));
+    }
+
+    void unverifiedCountersNeverClaimOfficialEligibility()
+    {
+        LogDatabase db;
+        QVERIFY(db.open(":memory:"));
+        AwardCalculator calculator;
+        const auto results = calculator.compute(db, AwardFilter{});
+        QVERIFY(!results.isEmpty());
+        for (const AwardResult& result : results) {
+            if (!result.officialRules)
+                QVERIFY2(result.rulesSource.isEmpty() || !result.verifier.isEmpty(),
+                         qPrintable(result.id));
+        }
+    }
+
+    void inferredLocationDoesNotBecomeHistoricalAwardEvidence()
+    {
+        LogDatabase db;
+        QVERIFY(db.open(":memory:"));
+        const InsertResult inserted = db.insertQso(
+            AdifRecord{{"CALL", "K1ABC"}, {"QSO_DATE", "20260101"}, {"TIME_ON", "1200"},
+                       {"BAND", "20m"}, {"MODE", "CW"}, {"DXCC", "291"},
+                       {"CQZ", "5"}, {"STATE", "MA"}, {"GRIDSQUARE", "FN42"}},
+            QStringLiteral("manual"));
+        QVERIFY(inserted.id > 0);
+        QVERIFY(db.recordEnrichment({EnrichmentEntry{inserted.id, QStringLiteral("DXCC"), {}, QStringLiteral("291"),
+                                                     QStringLiteral("callbook"), QStringLiteral("inferred"),
+                                                     QStringLiteral("2026-10-15T12:00:00Z"), {}, {}}}));
+
+        AwardCalculator calculator;
+        const auto results = calculator.compute(db, AwardFilter{});
+        const auto dxcc = find(results, QStringLiteral("dxcc"));
+        QVERIFY(std::none_of(dxcc.items.cbegin(), dxcc.items.cend(), [](const AwardItem& item) {
+            return item.key == QStringLiteral("291");
+        }));
     }
 };
 

@@ -72,6 +72,54 @@ private slots:
         QCOMPARE(again.callHistory, QString("C:/x/cqww.txt"));
     }
 
+    void multipleActivationReferencesArePreserved()
+    {
+        Activation a;
+        a.active = true;
+        a.kind = Activation::Kind::Pota;
+        a.reference = QStringLiteral("IT-0001,IT-0002");
+        a.myGrid = QStringLiteral("JN70");
+
+        AdifRecord r{{"CALL", "K1ABC"}};
+        a.applyTo(r, 0);
+        QCOMPARE(r.value("MY_SIG_INFO"), QStringLiteral("IT-0001,IT-0002"));
+        QCOMPARE(r.value("MY_POTA_REF"), QStringLiteral("IT-0001,IT-0002"));
+
+        const Activation restored = Activation::fromMap(a.toMap());
+        QCOMPARE(restored.reference, a.reference);
+    }
+
+    void multipleActivationReferencesSurviveAdifExport()
+    {
+        LogDatabase db;
+        QVERIFY(db.open(QStringLiteral(":memory:")));
+
+        Activation a;
+        a.active = true;
+        a.kind = Activation::Kind::Pota;
+        a.reference = QStringLiteral("IT-0001,IT-0002");
+        a.myGrid = QStringLiteral("JN70");
+
+        AdifRecord first{{"CALL", "K1ABC"}, {"QSO_DATE", "20261015"}, {"TIME_ON", "101500"},
+                         {"BAND", "20m"}, {"MODE", "SSB"}};
+        AdifRecord second{{"CALL", "W1AW"}, {"QSO_DATE", "20261015"}, {"TIME_ON", "101600"},
+                          {"BAND", "40m"}, {"MODE", "CW"}};
+        a.applyTo(first, 0);
+        a.applyTo(second, 0);
+        const auto one = db.insertQso(first, QStringLiteral("manual"), {}, true);
+        const auto two = db.insertQso(second, QStringLiteral("manual"), {}, true);
+        QCOMPARE(one.status, InsertResult::Status::Inserted);
+        QCOMPARE(two.status, InsertResult::Status::Inserted);
+
+        const AdifDocument exported = adif::parse(db.exportAdif(QList<qint64>{one.id, two.id}));
+        QCOMPARE(exported.records.size(), 2);
+        for (const AdifRecord& record : exported.records) {
+            QCOMPARE(record.value(QStringLiteral("MY_SIG_INFO")), QStringLiteral("IT-0001,IT-0002"));
+            QCOMPARE(record.value(QStringLiteral("MY_POTA_REF")), QStringLiteral("IT-0001,IT-0002"));
+            QCOMPARE(record.value(QStringLiteral("MY_GRIDSQUARE")), QStringLiteral("JN70"));
+        }
+    }
+
     void callHistoryAndSharedSerials()
     {
         LogDatabase db;
@@ -389,6 +437,29 @@ private slots:
                                QStringLiteral("SSB")).value("newMultiplier").toBool(), false);
         // Un contest in SSB non apre la finestra della telegrafia.
         QVERIFY(!act.isCwContest());
+    }
+
+    void activationReferencesRejectEmptyAndDuplicateItems()
+    {
+        LogDatabase db;
+        QVERIFY(db.open(QStringLiteral(":memory:")));
+        ActivationController::Context ctx;
+        ctx.db = &db;
+        ctx.stationGrid = [] { return QStringLiteral("JN70"); };
+        ctx.activeProfileId = [] { return qint64(0); };
+        ActivationController act(std::move(ctx));
+        act.load();
+
+        QVERIFY(act.start({{"kind", "pota"}, {"reference", "IT-0001,,IT-0002"}})
+                    .contains(QStringLiteral("empty"), Qt::CaseInsensitive));
+        QVERIFY(act.start({{"kind", "pota"}, {"reference", "IT-0001, it-0001"}})
+                    .contains(QStringLiteral("duplicate"), Qt::CaseInsensitive));
+        QVERIFY(act.start({{"kind", "pota"}, {"reference", " it-0001, IT-0002 "}}).isEmpty());
+        QCOMPARE(act.state().value(QStringLiteral("reference")).toString(),
+                 QStringLiteral("IT-0001,IT-0002"));
+        act.update({{"kind", "pota"}, {"reference", "IT-0001,,IT-0002"}});
+        QCOMPARE(act.state().value(QStringLiteral("reference")).toString(),
+                 QStringLiteral("IT-0001,IT-0002"));
     }
 
     void sessionOnTheLog()

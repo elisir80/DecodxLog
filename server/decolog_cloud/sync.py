@@ -52,7 +52,7 @@ def parse_time(value: str | None) -> dt.datetime | None:
         parsed = dt.datetime.fromisoformat(text)
     except ValueError:
         return None
-    return parsed if parsed.tzinfo else parsed.replace(tzinfo=dt.UTC)
+    return parsed if parsed.tzinfo else parsed.replace(tzinfo=dt.timezone.utc)
 
 
 def _next_seq(db: Session, account: Account) -> int:
@@ -87,7 +87,7 @@ def find_duplicate(db: Session, account: Account, record: dict, manual: bool = F
         if when is None:
             continue
         if when.tzinfo is None:
-            when = when.replace(tzinfo=dt.UTC)
+            when = when.replace(tzinfo=dt.timezone.utc)
         if abs((when - started).total_seconds()) <= window.total_seconds():
             return row
     return None
@@ -158,7 +158,7 @@ def apply_push(db: Session, account: Account, record: dict, device: str) -> dict
     row.mode_group = group
     row.started_at = started
     row.device = device[:120]
-    row.updated_at = dt.datetime.now(dt.UTC)
+    row.updated_at = dt.datetime.now(dt.timezone.utc)
     row.seq = _next_seq(db, account)
     db.flush()
     return {"uuid": uuid, "status": status, "revision": row.revision, "seq": row.seq}
@@ -197,7 +197,7 @@ def apply_doc(db: Session, account: Account, record: dict, device: str) -> dict:
     row.deleted = deleted
     row.data = data
     row.device = device[:120]
-    row.updated_at = dt.datetime.now(dt.UTC)
+    row.updated_at = dt.datetime.now(dt.timezone.utc)
     row.seq = _next_seq(db, account)
     db.flush()
     return {"kind": kind, "key": key, "status": status, "revision": row.revision, "seq": row.seq}

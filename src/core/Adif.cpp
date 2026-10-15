@@ -247,7 +247,7 @@ QString modeGroup(const QString& mode, const QString& submode)
 {
     const QString m = mode.trimmed().toUpper();
     const QString s = submode.trimmed().toUpper();
-    if (m == QLatin1String("CW"))
+    if (m == QLatin1String("CW") || m == QLatin1String("CWR") || m == QLatin1String("CW-R"))
         return QStringLiteral("CW");
     static const QSet<QString> phone{QStringLiteral("SSB"), QStringLiteral("USB"), QStringLiteral("LSB"),
                                      QStringLiteral("AM"), QStringLiteral("FM"), QStringLiteral("DIGITALVOICE"),

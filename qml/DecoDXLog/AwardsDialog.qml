@@ -16,6 +16,9 @@ DialogFrame {
     // "all", "unconfirmed", "missing"
     property string view: "all"
     property bool showMap: false
+    property var selectedQsoIds: []
+    property string claimNote: ""
+    property string claimEvidence: ""
     // Si ricalcola quando cambiano log, filtri o selezione.
     property int revision: 0
     // Solo a finestra aperta: chiusa, ricalcolava tutti i diplomi del log a ogni QSO.
@@ -28,6 +31,24 @@ DialogFrame {
     readonly property var totals: { revision; return decolog.awardBandTotals(awardId) }
     readonly property var grids: { revision; return awardId === "grids" ? decolog.awardGrids() : [] }
     readonly property var bands: decolog.awardBands
+    readonly property var claims: { revision; return decolog.awardClaims() }
+
+    function toggleQso(id) {
+        if (!id || id <= 0) return
+        let next = selectedQsoIds.slice()
+        const at = next.indexOf(id)
+        if (at >= 0) next.splice(at, 1)
+        else next.push(id)
+        selectedQsoIds = next
+    }
+
+    function createClaim() {
+        if (!selectedQsoIds.length) return
+        if (decolog.createAwardClaim(root.awardId, root.current.ruleVersion || "computed", selectedQsoIds)) {
+            selectedQsoIds = []
+            revision++
+        }
+    }
 
     function openAt(id) {
         if (id)
@@ -142,8 +163,24 @@ DialogFrame {
                     font.pixelSize: 20
                     font.bold: true
                 }
+                Pill {
+                    visible: root.current.officialRules === false
+                    text: qsTr("statistics · rules not verified")
+                    tone: Theme.warningColor
+                }
+                GlassButton {
+                    visible: !root.mapView && root.selectedQsoIds.length > 0
+                    text: qsTr("Create claim (%1)").arg(root.selectedQsoIds.length)
+                    tone: Theme.accentColor
+                    onClicked: root.createClaim()
+                }
                 Pill { text: qsTr("worked %1").arg(root.current.worked || 0); tone: Theme.secondaryColor }
                 Pill { text: qsTr("confirmed %1").arg(root.current.confirmed || 0); tone: Theme.accentColor }
+                Pill {
+                    visible: root.current.official60m || root.current.personal60m
+                    text: root.current.official60m ? qsTr("official rules") : qsTr("personal · 60 m")
+                    tone: root.current.official60m ? Theme.primaryColor : Theme.warningColor
+                }
                 Pill {
                     visible: root.bands.length > 1
                     text: qsTr("band slots %1 / %2").arg(root.current.slotsWorked || 0).arg(root.current.slotsConfirmed || 0)
@@ -230,6 +267,81 @@ DialogFrame {
                 }
             }
 
+            Rectangle {
+                Layout.fillWidth: true
+                visible: root.claims.length > 0 || root.selectedQsoIds.length > 0
+                implicitHeight: claimsColumn.implicitHeight + 12
+                color: Theme.glassOverlay
+                radius: 4
+                ColumnLayout {
+                    id: claimsColumn
+                    anchors.fill: parent
+                    anchors.margins: 6
+                    spacing: 4
+                    Text {
+                        text: qsTr("Claims")
+                        color: Theme.secondaryColor
+                        font.family: Theme.monoFamily
+                        font.bold: true
+                    }
+                    RowLayout {
+                        Layout.fillWidth: true
+                        StyledTextField {
+                            Layout.fillWidth: true
+                            placeholderText: qsTr("Outcome / note")
+                            text: root.claimNote
+                            onTextChanged: root.claimNote = text
+                        }
+                        StyledTextField {
+                            Layout.fillWidth: true
+                            placeholderText: qsTr("Evidence or external reference")
+                            text: root.claimEvidence
+                            onTextChanged: root.claimEvidence = text
+                        }
+                    }
+                    Repeater {
+                        model: root.claims
+                        RowLayout {
+                            required property var modelData
+                            Layout.fillWidth: true
+                            Text {
+                                Layout.fillWidth: true
+                                text: modelData.awardId + " · " + modelData.state + " · " + modelData.qsoIds.length + " QSO"
+                                color: Theme.textPrimary
+                                font.pixelSize: 11
+                            }
+                            Text {
+                                text: modelData.outcome || ""
+                                color: Theme.textSecondary
+                                font.pixelSize: 11
+                                elide: Text.ElideRight
+                            }
+                            GlassButton {
+                                visible: modelData.state === "Draft"
+                                text: qsTr("Submit")
+                                onClicked: decolog.transitionAwardClaim(modelData.id, "Submitted", root.claimNote, root.claimEvidence)
+                            }
+                            GlassButton {
+                                visible: modelData.state === "Submitted"
+                                text: qsTr("Verify")
+                                onClicked: decolog.transitionAwardClaim(modelData.id, "Verified", root.claimNote, root.claimEvidence)
+                            }
+                            GlassButton {
+                                visible: modelData.state === "Submitted"
+                                text: qsTr("Reject")
+                                tone: Theme.warningColor
+                                onClicked: decolog.transitionAwardClaim(modelData.id, "Rejected", root.claimNote, root.claimEvidence)
+                            }
+                            GlassButton {
+                                visible: modelData.state === "Verified"
+                                text: qsTr("Credit")
+                                onClicked: decolog.transitionAwardClaim(modelData.id, "Credited", root.claimNote, root.claimEvidence)
+                            }
+                        }
+                    }
+                }
+            }
+
             // Le conferme valide per questo diploma: quelle del regolamento
             // (il DXCC e il WAS solo LoTW e cartolina), quelle generali, o
             // quelle scelte a mano.
@@ -263,13 +375,12 @@ DialogFrame {
                 ToggleSwitch {
                     id: count60
                     visible: ["dxcc", "challenge", "was"].indexOf(root.awardId) >= 0
-                    text: qsTr("60 m")
+                    text: decolog.awardCount60m ? qsTr("60 m · personal") : qsTr("60 m · official")
                     checked: decolog.awardCount60m
                     onToggled: decolog.awardCount60m = checked
                     HoverHandler { id: count60Hover }
                     ToolTip.visible: count60Hover.hovered
-                    ToolTip.text: qsTr("Count QSOs on 60 m in DXCC, DXCC Challenge and WAS too. The ARRL does not "
-                                       + "accept them: switch off for the official count.")
+                    ToolTip.text: qsTr("The official ARRL count excludes 60 m. Enable it only for a personal count.")
                 }
                 Text {
                     Layout.fillWidth: true
@@ -366,6 +477,12 @@ DialogFrame {
                             font.family: Theme.monoFamily
                             font.pixelSize: Theme.fontSize
                             font.bold: true
+                        }
+                        CheckBox {
+                            Layout.preferredWidth: 28
+                            checked: root.selectedQsoIds.indexOf(line.modelData.firstQsoId) >= 0
+                            enabled: line.modelData.firstQsoId > 0
+                            onToggled: root.toggleQso(line.modelData.firstQsoId)
                         }
                         Text {
                             Layout.fillWidth: true

@@ -185,6 +185,41 @@ private slots:
         QVERIFY(!db.history(inserted.id).isEmpty());
     }
 
+    void clockSkewDoesNotOverrideRevisionOrder()
+    {
+        LogDatabase db;
+        QVERIFY(db.open(QStringLiteral(":memory:")));
+        const auto inserted = db.insertQso(qso(QStringLiteral("SK1ZZZ")), QStringLiteral("udp"));
+        const QString uuid = db.meta(inserted.id)->uuid;
+        QVERIFY(db.markSynced(inserted.id, 1));
+
+        // La revisione 2 vince anche se il timestamp remoto e' piu' vecchio.
+        QCOMPARE(db.applyRemote(QVariantMap{
+                     {QStringLiteral("uuid"), uuid}, {QStringLiteral("revision"), 2},
+                     {QStringLiteral("updated_at"), QStringLiteral("2000-01-01T00:00:00Z")},
+                     {QStringLiteral("fields"), QVariantMap{{QStringLiteral("CALL"), QStringLiteral("SK1NEW")},
+                                                            {QStringLiteral("QSO_DATE"), QStringLiteral("20260918")},
+                                                            {QStringLiteral("TIME_ON"), QStringLiteral("120000")},
+                                                            {QStringLiteral("BAND"), QStringLiteral("20m")},
+                                                            {QStringLiteral("MODE"), QStringLiteral("CW")}}}}),
+                 LogDatabase::RemoteResult::Updated);
+        QCOMPARE(db.record(inserted.id)->value(QStringLiteral("CALL")), QStringLiteral("SK1NEW"));
+
+        // Un client offline con revisione vecchia non puo' vincere solo perche'
+        // il suo orologio e' avanti.
+        QCOMPARE(db.applyRemote(QVariantMap{
+                     {QStringLiteral("uuid"), uuid}, {QStringLiteral("revision"), 1},
+                     {QStringLiteral("updated_at"), QStringLiteral("2099-01-01T00:00:00Z")},
+                     {QStringLiteral("fields"), QVariantMap{{QStringLiteral("CALL"), QStringLiteral("SK1OLD")},
+                                                            {QStringLiteral("QSO_DATE"), QStringLiteral("20260918")},
+                                                            {QStringLiteral("TIME_ON"), QStringLiteral("120000")},
+                                                            {QStringLiteral("BAND"), QStringLiteral("20m")},
+                                                            {QStringLiteral("MODE"), QStringLiteral("CW")}}}}),
+                 LogDatabase::RemoteResult::Skipped);
+        QCOMPARE(db.record(inserted.id)->value(QStringLiteral("CALL")), QStringLiteral("SK1NEW"));
+        QVERIFY(db.history(inserted.id).size() >= 1);
+    }
+
     void aRemoteDeleteRemovesTheQsoHere()
     {
         LogDatabase db;
@@ -206,6 +241,38 @@ private slots:
                                             {QStringLiteral("deleted"), true},
                                             {QStringLiteral("fields"), QVariantMap{}}}),
                  LogDatabase::RemoteResult::Skipped);
+    }
+
+    void anOlderOfflineClientCannotResurrectADeletedQso()
+    {
+        LogDatabase db;
+        QVERIFY(db.open(QStringLiteral(":memory:")));
+        const auto inserted = db.insertQso(qso(QStringLiteral("EA4OLD")), QStringLiteral("udp"));
+        const QString uuid = db.meta(inserted.id)->uuid;
+        db.markSynced(inserted.id, 1);
+
+        QCOMPARE(db.applyRemote(QVariantMap{{QStringLiteral("uuid"), uuid},
+                                            {QStringLiteral("revision"), 2},
+                                            {QStringLiteral("deleted"), true},
+                                            {QStringLiteral("fields"), QVariantMap{}}}),
+                 LogDatabase::RemoteResult::Deleted);
+        QVERIFY(db.meta(inserted.id)->deleted);
+
+        // Un client rimasto offline arriva con il vecchio contenuto: la
+        // revisione piu' bassa non puo' resuscitare il QSO cancellato.
+        QCOMPARE(db.applyRemote(QVariantMap{{QStringLiteral("uuid"), uuid},
+                                            {QStringLiteral("revision"), 1},
+                                            {QStringLiteral("deleted"), false},
+                                            {QStringLiteral("fields"), QVariantMap{
+                                                {QStringLiteral("CALL"), QStringLiteral("EA4OLD")},
+                                                {QStringLiteral("QSO_DATE"), QStringLiteral("20260918")},
+                                                {QStringLiteral("TIME_ON"), QStringLiteral("120000")},
+                                                {QStringLiteral("BAND"), QStringLiteral("20m")},
+                                                {QStringLiteral("MODE"), QStringLiteral("CW")}}}}),
+                 LogDatabase::RemoteResult::Skipped);
+        QVERIFY(db.meta(inserted.id)->deleted);
+        QCOMPARE(db.qsoCount(), 0);
+        QVERIFY(!db.history(inserted.id).isEmpty());
     }
 
     void theSameRevisionComingBackChangesNothing()

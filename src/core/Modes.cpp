@@ -67,6 +67,29 @@ QString groupFor(const QString& mode)
     return QStringLiteral("DATA");
 }
 
+QString displayName(const QString& mode, const QString& submode)
+{
+    const QString base = mode.trimmed().toUpper();
+    const QString sub = submode.trimmed().toUpper();
+    if (sub.isEmpty())
+        return base;
+
+    // Questi sono contenitori ADIF: il loro sottomodo e' il modo operativo
+    // che deve vedere il log, i diplomi e i filtri. Un sottomodo non presente
+    // nella tabella resta invece il modo originale, senza indovinare.
+    const bool container = base == QLatin1String("MFSK")
+        || base == QLatin1String("PKT")
+        || base == QLatin1String("DIGITAL")
+        || base == QLatin1String("DIGI");
+    if (!container)
+        return base;
+    for (const Entry& e : table()) {
+        if (e.name == sub)
+            return sub;
+    }
+    return base;
+}
+
 QString catFor(const QString& mode, double mhz)
 {
     const QString cat = catFor(mode);

@@ -427,6 +427,12 @@ public:
     Q_INVOKABLE QVariantMap awardCredits(const QString& awardId) const;
     Q_INVOKABLE void setAwardCredit(const QString& awardId, const QString& service, bool on);
     Q_INVOKABLE void resetAwardCredits(const QString& awardId);
+    // Domande ufficiali: una conferma del log non crea automaticamente un credito.
+    Q_INVOKABLE QVariantList awardClaims() const;
+    Q_INVOKABLE QString createAwardClaim(const QString& awardId, const QString& ruleVersion,
+                                          const QVariantList& qsoIds);
+    Q_INVOKABLE bool transitionAwardClaim(const QString& claimId, const QString& state,
+                                          const QString& note, const QString& evidence);
     bool awardConfirmLotw() const { return m_awardFilter.confirmLotw; }
     void setAwardConfirmLotw(bool on);
     bool awardConfirmCard() const { return m_awardFilter.confirmCard; }
@@ -650,6 +656,10 @@ public:
     Q_INVOKABLE QString subdivisionName(const QString& code, int dxcc) const;
 
     Q_INVOKABLE void importAdif(const QUrl& file);
+    Q_INVOKABLE QVariantMap previewImport(const QUrl& file) const;
+    Q_INVOKABLE bool undoLastImport();
+    Q_INVOKABLE QVariantList qsoEnrichments(qint64 qsoId) const;
+    Q_INVOKABLE bool undoQsoEnrichment(qint64 qsoId, const QString& field);
     Q_INVOKABLE void exportAdif(const QUrl& file);
     Q_INVOKABLE void exportQsos(const QVariantList& ids, const QUrl& file);
     // Correggere una cella della tabella del log sul posto (F2, menu della riga): le colonne che
@@ -686,6 +696,12 @@ public:
     Q_INVOKABLE void clearActivity();
     Q_INVOKABLE void openDatabaseFolder() const;
     Q_INVOKABLE QString localPath(const QUrl& url) const { return url.toLocalFile(); }
+    Q_INVOKABLE QString importQslAttachment(const QVariantList& qsoIds, const QUrl& file);
+    Q_INVOKABLE QString saveQslAttachment(qint64 attachmentId, const QUrl& file) const;
+    Q_INVOKABLE QVariantMap qslManagerSuggestion(qint64 qsoId) const;
+    Q_INVOKABLE QVariantList integrationDiagnostics() const;
+    Q_INVOKABLE QString diagnosticSupportText() const;
+    Q_INVOKABLE QString saveDiagnosticReport(const QUrl& file) const;
     // Per le prove: un evento del mouse vero ("press", "move", "release") nel
     // punto x, y della finestra, come se l'avesse fatto l'operatore. Serve a
     // provare che un clic arrivi davvero al pulsante giusto.
@@ -764,6 +780,7 @@ private:
     struct ConfirmTally {
         int confirmed{0};
         int already{0};
+        int ambiguous{0};
         int notFound{0};
         int invalid{0};
         QStringList missing;
@@ -963,6 +980,7 @@ private:
     core::LocalApiServer m_api;
     int       m_apiPort{0};
     QString   m_apiToken;
+    QHash<QString, QPair<QByteArray, core::HttpResponse>> m_apiIdempotency;
     void onN1mmReplaced(const core::AdifRecord& record, const QString& id);
     void onN1mmDeleted(const QString& id, const core::AdifRecord& record);
     QString   m_udpForwardError;
@@ -997,6 +1015,7 @@ private:
     // L'ultima richiesta di statistiche: le altre, ancora in coda, si saltano.
     std::shared_ptr<std::atomic<int>> m_statsLatest{std::make_shared<std::atomic<int>>(0)};
     double m_importProgress{-1};
+    QList<qint64> m_lastImportIds;
     void finishImport(const QString& path, const core::ImportResult& result);
     double m_bulkProgress{-1};
     void finishBulk(const QString& field, const QString& value, const core::BulkEditResult& result);

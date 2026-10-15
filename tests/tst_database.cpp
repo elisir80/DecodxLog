@@ -4,10 +4,15 @@
 
 #include <QCoreApplication>
 #include <QDir>
+#include <QElapsedTimer>
 #include <QFile>
+#include <QNetworkAccessManager>
+#include <QNetworkRequest>
 #include <QSqlDatabase>
+#include <QUrl>
 
 #include <QSqlQuery>
+#include <QTemporaryDir>
 #include <QTest>
 
 using namespace decolog::core;
@@ -17,7 +22,7 @@ namespace {
 // La versione dello schema, che sta in db/schema.sql. Sta qui una volta sola:
 // chi aggiunge una colonna cambia il file, l'ultimo passo di migrate() e questo
 // numero, e non va a caccia di tre QCOMPARE sparsi.
-constexpr int kSchemaVersion = 6;
+constexpr int kSchemaVersion = 8;
 
 // Confronto semantico: i numeri come numeri (14.074 == 14.074000), le ore a
 // quattro cifre come le stesse ore con i secondi a zero.
@@ -89,6 +94,60 @@ private slots:
         QVERIFY(back);
         QCOMPARE(back->value("STATION_CALLSIGN"), QString("IU8LMC"));
         QCOMPARE(back->value("SUBMODE"), QString("FT2"));
+    }
+
+    void localWriteDoesNotWaitForUnavailableService()
+    {
+        // Contratto architetturale DXL-032: un servizio esterno lento o
+        // irraggiungibile non deve diventare una dipendenza del salvataggio
+        // locale. La richiesta e' volutamente solo avviata; non si attende
+        // alcuna risposta per poter scrivere il QSO.
+        QNetworkAccessManager services;
+        QNetworkReply* reply = services.get(
+            QNetworkRequest(QUrl(QStringLiteral("http://192.0.2.1:9/decolog-service-timeout"))));
+
+        LogDatabase db;
+        QVERIFY(db.open(":memory:"));
+        AdifRecord r{{"CALL", "K1TEST"}, {"QSO_DATE", "20260917"}, {"TIME_ON", "101500"},
+                     {"BAND", "20m"}, {"MODE", "CW"}};
+        QElapsedTimer timer;
+        timer.start();
+        const InsertResult result = db.insertQso(r, "manual");
+        QVERIFY2(timer.elapsed() < 500, "il salvataggio locale attende un servizio esterno");
+        QCOMPARE(result.status, InsertResult::Status::Inserted);
+        QCOMPARE(db.qsoCount(), 1);
+        reply->abort();
+        reply->deleteLater();
+    }
+
+    void offlineQsosSurviveCloseAndReopen()
+    {
+        QTemporaryDir dir;
+        QVERIFY(dir.isValid());
+        const QString path = dir.filePath(QStringLiteral("offline.sqlite"));
+        qint64 id = 0;
+        {
+            LogDatabase db;
+            QVERIFY2(db.open(path), qPrintable(db.lastError()));
+            const auto result = db.insertQso(
+                {{"CALL", "K1OFF"}, {"QSO_DATE", "20261015"}, {"TIME_ON", "120000"},
+                 {"BAND", "20m"}, {"MODE", "CW"}, {"QSL_RCVD", "Y"}},
+                QStringLiteral("manual"));
+            QCOMPARE(result.status, InsertResult::Status::Inserted);
+            id = result.id;
+            QCOMPARE(db.dirtyQsos(), QList<qint64>{id});
+            db.close();
+        }
+        {
+            LogDatabase reopened;
+            QVERIFY2(reopened.open(path), qPrintable(reopened.lastError()));
+            QCOMPARE(reopened.qsoCount(), 1);
+            const auto record = reopened.record(id);
+            QVERIFY(record);
+            QCOMPARE(record->value(QStringLiteral("CALL")), QStringLiteral("K1OFF"));
+            QCOMPARE(record->value(QStringLiteral("QSL_RCVD")), QStringLiteral("Y"));
+            QCOMPARE(reopened.dirtyQsos(), QList<qint64>{id});
+        }
     }
 
     void rejectsIncompleteRecords()
@@ -201,6 +260,47 @@ private slots:
         QVERIFY(r.errors.first().contains("18991230"));
         QVERIFY(LogDatabase::isoFromAdif("18991230", "0840").isEmpty());
         QCOMPARE(LogDatabase::isoFromAdif("19300101", "0841"), QString("1930-01-01T08:41:00Z"));
+    }
+
+    void importReportCoversRecordsQslUtcAndPreservedFields()
+    {
+        LogDatabase db;
+        QVERIFY(db.open(":memory:"));
+        const ImportResult r = db.importAdif(
+            "<CALL:4>K1AA<QSO_DATE:8>20260101<TIME_ON:4>1000<BAND:3>20m<MODE:3>FT8"
+            "<LOTW_QSL_RCVD:1>Y<USERDEF1:3>abc<EOR>"
+            "<CALL:4>K1AB<BAND:3>40m<MODE:3>CW<EOR>");
+        QCOMPARE(r.read, 2);
+        QCOMPARE(r.inserted, 1);
+        QCOMPARE(r.invalid, 1);
+        QCOMPARE(r.qslRecords, 1);
+        QCOMPARE(r.missingUtc, 1);
+        QVERIFY(r.preservedExtraFields.contains(QStringLiteral("USERDEF1")));
+        QCOMPARE(r.insertedIds.size(), 1);
+        QVERIFY(db.meta(r.insertedIds.first()).has_value());
+        QVERIFY(db.softDeleteQso(r.insertedIds.first()));
+        QCOMPARE(db.qsoCount(), 0);
+    }
+
+    void enrichmentKeepsFieldProvenanceAndValidity()
+    {
+        LogDatabase db;
+        QVERIFY(db.open(":memory:"));
+        const auto inserted = db.insertQso({{"CALL", "K1AA"}, {"QSO_DATE", "20260101"},
+                                            {"TIME_ON", "1000"}, {"BAND", "20m"}, {"MODE", "FT8"}}, "udp");
+        QVERIFY(inserted.id > 0);
+        EnrichmentEntry entry{inserted.id, "NAME", "", "Alice", "callbook", "inferred",
+                              "2026-10-15T12:00:00.000Z", "20260101", ""};
+        QVERIFY2(db.recordEnrichment({entry}), qPrintable(db.lastError()));
+        const auto rows = db.enrichments(inserted.id);
+        QCOMPARE(rows.size(), 1);
+        QCOMPARE(rows.first().source, QStringLiteral("callbook"));
+        QCOMPARE(rows.first().kind, QStringLiteral("inferred"));
+        QCOMPARE(rows.first().validFrom, QStringLiteral("20260101"));
+        QVERIFY(db.undoEnrichment(inserted.id, QStringLiteral("NAME")));
+        QVERIFY(db.record(inserted.id)->value(QStringLiteral("NAME")).isEmpty());
+        QVERIFY(db.enrichments(inserted.id).isEmpty());
+        QVERIFY(!db.history(inserted.id).isEmpty());
     }
 
     void aBigImportGoesInBlocks()

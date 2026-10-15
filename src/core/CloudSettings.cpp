@@ -23,12 +23,66 @@ namespace {
 //  * `cloud/callsign` e `cloud/lastSync` — il quaderno del sync stesso.
 //  * `station/activeProfile` — il numero di riga del profilo su questo
 //    computer: al suo posto viaggia l'uuid.
+//  * `net/id` — l'identita' UDP di questa macchina; copiarla creerebbe una
+//    collisione e farebbe scartare i messaggi dell'altro dispositivo.
+//
+// La versione 1 dell'ambito portabile tiene inoltre locali le risorse legate
+// all'installazione: porte e dispositivi audio/seriali, indirizzi dei servizi
+// locali e percorsi. Un percorso Windows non deve finire nelle impostazioni di
+// un Mac/Linux, e una porta occupata su un computer non descrive la stazione.
+// Le chiavi portabili (tema, macro, filtri, layout e profilo per UUID) restano
+// invece sincronizzabili; le chiavi non riconosciute mantengono il precedente
+// comportamento per compatibilita' con impostazioni future.
 const QStringList kNeverSynced{
     QStringLiteral("credentials"),
     QStringLiteral("cloud/callsign"),
     QStringLiteral("cloud/lastSync"),
     QStringLiteral("station/activeProfile"),
+    QStringLiteral("net/id"),
+    QStringLiteral("rig/serialPort"),
+    QStringLiteral("rig/pttPort"),
+    QStringLiteral("rig/port"),
+    QStringLiteral("rig/host"),
+    QStringLiteral("rig/baud"),
+    QStringLiteral("rig/dataBits"),
+    QStringLiteral("rig/stopBits"),
+    QStringLiteral("rig/parity"),
+    QStringLiteral("rig/handshake"),
+    QStringLiteral("rig/civAddress"),
+    QStringLiteral("rig/keyerPort"),
+    QStringLiteral("rig/share/port"),
+    QStringLiteral("cw/audioInput"),
+    QStringLiteral("cw/audioInputId"),
+    QStringLiteral("cw/neuralModel"),
+    QStringLiteral("rotor/serialPort"),
+    QStringLiteral("rotor/arcoSerialPort"),
+    QStringLiteral("rotor/host"),
+    QStringLiteral("rotor/port"),
+    QStringLiteral("rotor/httpPort"),
+    QStringLiteral("rotorGateway/serialPort"),
+    QStringLiteral("rotorGateway/rotctldPort"),
+    QStringLiteral("rotorGateway/wsPort"),
+    QStringLiteral("decolink/port"),
+    QStringLiteral("n1mm/port"),
+    QStringLiteral("so2r/otrspPort"),
+    QStringLiteral("api/port"),
+    QStringLiteral("net/port"),
+    QStringLiteral("udp/port"),
+    QStringLiteral("udp/multicastGroup"),
+    QStringLiteral("backup"),
+    QStringLiteral("decodium/logPath"),
+    QStringLiteral("qsl/tqslPath"),
+    QStringLiteral("path"),
 };
+
+bool denied(const QString& key)
+{
+    for (const QString& deny : kNeverSynced) {
+        if (key == deny || key.startsWith(deny + QLatin1Char('/')))
+            return true;
+    }
+    return false;
+}
 
 constexpr auto kPacked = "__qvariant__";
 
@@ -63,13 +117,20 @@ bool sameValue(const QVariant& a, const QVariant& b)
     return canonical(QJsonValue::fromVariant(a)) == canonical(QJsonValue::fromVariant(b));
 }
 
+Scope scopeOf(const QString& key)
+{
+    if (denied(key) || key == QLatin1String("station/activeProfile"))
+        return Scope::Device;
+    if (key == QLatin1String("station/activeProfileUuid")
+        || key == QLatin1String("station/profiles")
+        || key.startsWith(QStringLiteral("station/profile/")))
+        return Scope::Station;
+    return Scope::Portable;
+}
+
 bool isMachineOnly(const QString& key)
 {
-    for (const QString& deny : kNeverSynced) {
-        if (key == deny || key.startsWith(deny + QLatin1Char('/')))
-            return true;
-    }
-    return false;
+    return scopeOf(key) == Scope::Device;
 }
 
 QVariant pack(const QVariant& value)

@@ -9,8 +9,31 @@ pagina.
 from __future__ import annotations
 
 import datetime as dt
+import json
+from pathlib import Path
 
 from decolog_cloud import analytics
+
+
+def test_shared_awards_fixture_has_the_same_contract_as_desktop():
+    fixture = json.loads((Path(__file__).parents[2] / "tests/fixtures/awards_shared.json").read_text())
+    rows = [analytics.row_of(FakeQso(**fields)) for fields in fixture["qsos"]]
+    result = {award.id: award for award in analytics.awards(rows)}
+    expected = fixture["expected"]
+    assert result["dxcc"].worked == expected["dxcc_worked"]
+    assert result["dxcc"].confirmed == expected["dxcc_confirmed"]
+    assert result["wac"].worked == expected["wac_worked"]
+    assert result["waz"].worked == expected["waz_worked"]
+    assert {a.id: a for a in analytics.awards(rows, band="20m")}["dxcc"].worked == expected["20m_dxcc"]
+    assert {a.id: a for a in analytics.awards(rows, mode_group="CW")}["dxcc"].worked == expected["cw_dxcc"]
+    stats = analytics.statistics(rows)
+    assert stats["qsos"] == expected["qsos"]
+    by_band = dict(stats["bands"])
+    assert by_band["20m"] == expected["20m_qsos"]
+    assert by_band["40m"] == expected["40m_qsos"]
+    lotw = next(item for item in analytics.qsl_summary(rows) if item["id"] == "lotw")
+    assert lotw["sent"] == expected["lotw_sent"]
+    assert lotw["rcvd"] == expected["lotw_confirmed"]
 
 
 class FakeQso:
@@ -263,7 +286,7 @@ def test_contest_score_only_looks_at_the_session():
         qso(call="DL9ZZT", band="20m", mode="CW", DXCC="230", date="20260918", time="080000"),
         qso(call="EA5XYZ", band="20m", mode="CW", DXCC="281", date="20260918", time="200000"),
     ]
-    since = dt.datetime(2026, 9, 18, 12, 0, tzinfo=dt.UTC)
+    since = dt.datetime(2026, 9, 18, 12, 0, tzinfo=dt.timezone.utc)
     score = analytics.contest_score(rows, since=since)
     assert score["qsos"] == 1
     assert score["score"] == 1

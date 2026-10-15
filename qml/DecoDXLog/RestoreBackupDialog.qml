@@ -64,7 +64,7 @@ DialogFrame {
     FileDialog {
         id: otherFile
         title: qsTr("Choose a backup")
-        nameFilters: [qsTr("DecoDXLog logs (*.sqlite)"), qsTr("All files (*)")]
+        nameFilters: [qsTr("DecoDXLog backups (*.sqlite *.bundle)"), qsTr("All files (*)")]
         onAccepted: root.choose(decolog.localPath(selectedFile))
     }
 

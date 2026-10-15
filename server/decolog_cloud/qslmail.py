@@ -64,7 +64,7 @@ _day: dt.date | None = None
 
 def _roll_over() -> None:
     global _day
-    today = dt.datetime.now(dt.UTC).date()
+    today = dt.datetime.now(dt.timezone.utc).date()
     if _day != today:
         _day = today
         _sent_today.clear()

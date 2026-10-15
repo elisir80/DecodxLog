@@ -1,6 +1,7 @@
 // I modi come li dice l'operatore e come li vuole la radio: FT8 per chi opera
 // e' un modo, per Hamlib e' una banda laterale con i dati dentro.
 #include "core/Modes.h"
+#include "core/Adif.h"
 
 #include <QTest>
 
@@ -120,6 +121,36 @@ private slots:
         QCOMPARE(modes::groupFor(" MFSK "), QString("DATA"));
         QCOMPARE(modes::groupFor("FT2"), QString("DATA"));
         QCOMPARE(modes::groupFor(""), QString("DATA"));
+    }
+
+    void adifSubmodesAreNormalizedWithoutGuessing()
+    {
+        QCOMPARE(modes::displayName("SSB"), QString("SSB"));
+        QCOMPARE(modes::displayName("USB"), QString("USB"));
+        QCOMPARE(modes::displayName("LSB"), QString("LSB"));
+        QCOMPARE(modes::displayName("CW-R"), QString("CW-R"));
+        QCOMPARE(modes::displayName("CW", "CWR"), QString("CW"));
+        QCOMPARE(modes::displayName("MFSK", "FT4"), QString("FT4"));
+        QCOMPARE(modes::displayName("MFSK", "FT8"), QString("FT8"));
+        QCOMPARE(modes::displayName("MFSK", "FT2"), QString("FT2"));
+        QCOMPARE(modes::displayName("MFSK", "UNKNOWN"), QString("MFSK"));
+        QCOMPARE(modes::displayName("DMR", "C4FM"), QString("DMR"));
+        QCOMPARE(modes::groupFor("DMR"), QString("PHONE"));
+        QCOMPARE(modes::groupFor("C4FM"), QString("PHONE"));
+        QCOMPARE(modes::groupFor("RTTY"), QString("DATA"));
+    }
+
+    void adifAndAwardGroupsStayAligned()
+    {
+        const QList<QPair<QString, QString>> cases{
+            {QStringLiteral("CW"), {}}, {QStringLiteral("CW-R"), {}},
+            {QStringLiteral("SSB"), QStringLiteral("USB")},
+            {QStringLiteral("FM"), {}}, {QStringLiteral("DMR"), {}},
+            {QStringLiteral("C4FM"), {}}, {QStringLiteral("FT8"), {}},
+            {QStringLiteral("MFSK"), QStringLiteral("FT2")},
+            {QStringLiteral("UNKNOWN-MODE"), {}}};
+        for (const auto& pair : cases)
+            QCOMPARE(modes::groupFor(pair.first), adif::modeGroup(pair.first, pair.second));
     }
 };
 

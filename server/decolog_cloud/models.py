@@ -35,7 +35,7 @@ class Base(DeclarativeBase):
 
 
 def _now() -> dt.datetime:
-    return dt.datetime.now(dt.UTC)
+    return dt.datetime.now(dt.timezone.utc)
 
 
 def new_uuid() -> str:

@@ -114,9 +114,14 @@ private slots:
         QCOMPARE(adif::modeGroup("MFSK", "FT2"), QString("DATA"));
         QCOMPARE(adif::modeGroup("FT8"), QString("DATA"));
         QCOMPARE(adif::modeGroup("CW"), QString("CW"));
+        QCOMPARE(adif::modeGroup("CWR"), QString("CW"));
+        QCOMPARE(adif::modeGroup("CW-R"), QString("CW"));
         QCOMPARE(adif::modeGroup("SSB", "USB"), QString("PHONE"));
         QCOMPARE(adif::modeGroup("FM"), QString("PHONE"));
+        QCOMPARE(adif::modeGroup("DMR"), QString("PHONE"));
+        QCOMPARE(adif::modeGroup("C4FM"), QString("PHONE"));
         QCOMPARE(adif::modeGroup("SSTV"), QString("IMAGE"));
+        QCOMPARE(adif::modeGroup("UNKNOWN-MODE"), QString("DATA"));
     }
 
     void parseReport()

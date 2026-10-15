@@ -129,6 +129,10 @@ def test_conflict_keeps_the_loser_in_history(client):
         assert len(kept) == 1
         assert kept[0].fields["NAME"] == "Primo"
 
+    history = client.get("/v1/sync/history/u1", headers=headers)
+    assert history.status_code == 200
+    assert history.json()["history"][0]["fields"]["NAME"] == "Primo"
+
 
 def test_old_revision_does_not_overwrite(client):
     headers = signup(client)
@@ -137,6 +141,34 @@ def test_old_revision_does_not_overwrite(client):
     assert reply.json()["results"][0]["status"] == "stale"
     pulled = client.get("/v1/sync/pull", headers=headers).json()
     assert pulled["qsos"][0]["fields"]["NAME"] == "Nuovo"
+
+
+def test_an_offline_old_delete_cannot_resurrect_or_delete_newer_qso(client):
+    headers = signup(client)
+    client.post("/v1/sync/push", json={"qsos": [qso("u1", revision=5, NAME="Nuovo")]}, headers=headers)
+    reply = client.post("/v1/sync/push", json={
+        "qsos": [dict(qso("u1", revision=2, NAME="Vecchio"), deleted=True)]
+    }, headers=headers)
+    assert reply.json()["results"][0]["status"] == "stale"
+    pulled = client.get("/v1/sync/pull", headers=headers).json()
+    assert pulled["qsos"][0]["deleted"] is False
+    assert pulled["qsos"][0]["fields"]["NAME"] == "Nuovo"
+
+
+def test_client_clock_skew_does_not_change_server_revision_order(client):
+    headers = signup(client)
+    ancient = qso("u1", revision=1, when="1999-01-01T00:00:00Z", NAME="Prima")
+    future = qso("u1", revision=2, when="2099-01-01T00:00:00Z", NAME="Seconda")
+    first = client.post("/v1/sync/push", json={"qsos": [ancient]}, headers=headers)
+    second = client.post("/v1/sync/push", json={"qsos": [future]}, headers=headers)
+    assert first.json()["results"][0]["status"] == "applied"
+    assert second.json()["results"][0]["status"] == "applied"
+    pulled = client.get("/v1/sync/pull", headers=headers).json()["qsos"][0]
+    assert pulled["revision"] == 2
+    assert pulled["fields"]["NAME"] == "Seconda"
+    # updatedAt è assegnato dal server, non copiato dal timestamp radio del client.
+    assert not pulled["updatedAt"].startswith("1999-")
+    assert not pulled["updatedAt"].startswith("2099-")
 
 
 def test_duplicate_with_another_uuid_is_recognised(client):
@@ -195,7 +227,7 @@ def test_token_expiry_is_checked(client):
     headers = signup(client)
     with models.SessionLocal() as db:
         token = db.query(models.Token).first()
-        token.expires_at = dt.datetime.now(dt.UTC) - dt.timedelta(days=1)
+        token.expires_at = dt.datetime.now(dt.timezone.utc) - dt.timedelta(days=1)
         db.commit()
     assert client.get("/v1/sync/status", headers=headers).status_code == 401
 

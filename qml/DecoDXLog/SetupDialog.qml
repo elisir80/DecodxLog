@@ -2477,7 +2477,9 @@ DialogFrame {
                                    + "radio with the focus gets the band, the tuning and the CW: Ctrl+← and Ctrl+→ "
                                    + "choose radio 1 or 2, Pause swaps them, ` (backquote) toggles stereo listening. "
                                    + "The SO2R box (MK2R, SO2RDuino, YCCC…) follows through OTRSP: TX1/TX2 for the "
-                                   + "transmitter, RX1/RX2 or RX1S/RX2S for the headphones.")
+                                   + "transmitter, RX1/RX2 or RX1S/RX2S for the headphones. "
+                                   + "Software focus is not an RF interlock: use the hardware interlock and verify the "
+                                   + "actual station wiring before transmitting.")
                     }
                     Item { Layout.fillHeight: true }
                 }

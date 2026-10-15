@@ -20,6 +20,9 @@ DialogFrame {
     property int editRev: 0
     property int currentTab: 0
     property var profileId: 0
+    property var enrichments: []
+    property var attachments: []
+    property var managerSuggestion: ({})
 
     title: qsTr("QSO detail")
     dotColor: Theme.primaryColor
@@ -49,6 +52,9 @@ DialogFrame {
         detail = decolog.qsoDetail(qsoId)
         fields = Object.assign({}, detail.fields || {})
         profileId = detail.stationProfileId || 0
+        enrichments = decolog.qsoEnrichments(qsoId)
+        attachments = detail.attachments || []
+        managerSuggestion = decolog.qslManagerSuggestion(qsoId)
         edited = false
         errorText.text = ""
         formRev++
@@ -104,6 +110,19 @@ DialogFrame {
         defaultSuffix: "adi"
         nameFilters: [qsTr("ADIF files (*.adi)")]
         onAccepted: decolog.exportQsos([root.qsoId], selectedFile)
+    }
+
+    FileDialog {
+        id: attachmentPicker
+        title: qsTr("Import received QSL scan or image")
+        fileMode: FileDialog.OpenFile
+        nameFilters: [qsTr("Images and documents (*.png *.jpg *.jpeg *.webp *.pdf)"), qsTr("All files (*)")]
+        onAccepted: {
+            const error = decolog.importQslAttachment([root.qsoId], selectedFile)
+            errorText.text = error
+            if (!error.length)
+                root.reload()
+        }
     }
 
     Popup {
@@ -709,6 +728,47 @@ DialogFrame {
                         Rectangle { Layout.fillWidth: true; implicitHeight: 1; color: Theme.borderSoft }
                     }
                 }
+                SectionTitle { text: qsTr("Received QSL archive") }
+                Rectangle {
+                    visible: root.managerSuggestion.available
+                    Layout.fillWidth: true
+                    implicitHeight: managerText.implicitHeight + 14
+                    radius: 4
+                    color: "transparent"
+                    border.width: 1
+                    border.color: root.managerSuggestion.stale ? Theme.warningColor : Theme.glassBorder
+                    Text {
+                        id: managerText
+                        anchors.fill: parent
+                        anchors.margins: 7
+                        wrapMode: Text.Wrap
+                        text: qsTr("QSL manager: %1 · %2 · %3")
+                              .arg(root.managerSuggestion.manager)
+                              .arg(root.managerSuggestion.source || qsTr("unknown source"))
+                              .arg(root.managerSuggestion.message || "")
+                        color: root.managerSuggestion.stale ? Theme.warningColor : Theme.textSecondary
+                        font.pixelSize: 10
+                    }
+                }
+                RowLayout {
+                    Layout.fillWidth: true
+                    GlassButton {
+                        text: qsTr("Import scan or image…")
+                        buttonHeight: 24
+                        fontPixelSize: 11
+                        onClicked: attachmentPicker.open()
+                    }
+                    Text { Layout.fillWidth: true; text: qsTr("Not a confirmation by itself"); color: Theme.textSecondary; font.pixelSize: 10 }
+                }
+                Repeater {
+                    model: root.attachments
+                    RowLayout {
+                        required property var modelData
+                        Layout.fillWidth: true
+                        Text { Layout.fillWidth: true; text: modelData.filename + " · " + modelData.mime; color: Theme.textPrimary; elide: Text.ElideRight; font.pixelSize: 11 }
+                        Text { text: qsTr("%1 KB").arg(Math.max(1, Math.round((modelData.size || 0) / 1024))); color: Theme.textSecondary; font.pixelSize: 10 }
+                    }
+                }
                 Repeater {
                     model: (root.detail.qsl || []).filter(q => q.lastError)
                     Rectangle {
@@ -733,6 +793,53 @@ DialogFrame {
                 }
 
                 Item { Layout.fillHeight: true }
+
+                SectionTitle { text: qsTr("Data provenance") }
+                Rectangle {
+                    Layout.fillWidth: true
+                    visible: root.enrichments.length > 0
+                    implicitHeight: provenanceColumn.implicitHeight + 16
+                    radius: 4
+                    color: Theme.glassOverlay
+                    border.width: 1
+                    border.color: Theme.borderSoft
+                    ColumnLayout {
+                        id: provenanceColumn
+                        anchors.fill: parent
+                        anchors.margins: 8
+                        spacing: 4
+                        Repeater {
+                            model: root.enrichments
+                            RowLayout {
+                                required property var modelData
+                                Layout.fillWidth: true
+                                Text {
+                                    Layout.fillWidth: true
+                                    text: modelData.field + ": " + (modelData.previousValue || qsTr("empty"))
+                                          + " → " + modelData.value + " · " + modelData.source
+                                          + " · " + modelData.acquiredAt
+                                    color: Theme.textSecondary
+                                    font.pixelSize: 11
+                                    elide: Text.ElideRight
+                                }
+                                GlassButton {
+                                    text: qsTr("Undo")
+                                    buttonHeight: 24
+                                    onClicked: {
+                                        if (decolog.undoQsoEnrichment(root.qsoId, modelData.field))
+                                            root.reload()
+                                    }
+                                }
+                            }
+                        }
+                        Text {
+                            visible: root.enrichments.length === 0
+                            text: qsTr("No enriched fields recorded.")
+                            color: Theme.textSecondary
+                            font.pixelSize: 11
+                        }
+                    }
+                }
 
                 SectionTitle { text: qsTr("Award impact") }
                 Rectangle {

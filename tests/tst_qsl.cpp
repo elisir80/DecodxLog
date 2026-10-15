@@ -488,6 +488,78 @@ private slots:
         QCOMPARE(db.record(a)->value("LOTW_QSL_RCVD"), QString("Y"));
     }
 
+    void ambiguousConfirmationIsNotAssignedArbitrarily()
+    {
+        LogDatabase db;
+        QVERIFY(db.open(":memory:"));
+        const AdifRecord firstQso{{"CALL", "W1AW"}, {"QSO_DATE", "20260101"}, {"TIME_ON", "1158"},
+                                  {"BAND", "20m"}, {"MODE", "CW"}};
+        const AdifRecord secondQso{{"CALL", "W1AW"}, {"QSO_DATE", "20260101"}, {"TIME_ON", "1202"},
+                                   {"BAND", "20m"}, {"MODE", "CW"}};
+        const qint64 first = db.insertQso(firstQso, "import").id;
+        const qint64 second = db.insertQso(secondQso, "import").id;
+        QVERIFY(first > 0 && second > 0 && first != second);
+        const AdifRecord confirmation{{"CALL", "W1AW"}, {"QSO_DATE", "20260101"}, {"TIME_ON", "1200"},
+                                      {"BAND", "20m"}, {"MODE", "CW"}};
+        const ConfirmationResult result = db.applyConfirmation("lotw", confirmation, 1800);
+        QCOMPARE(result.status, ConfirmationResult::Status::Ambiguous);
+        QCOMPARE(result.candidates.size(), 2);
+        QVERIFY(db.record(first)->value("LOTW_QSL_RCVD").isEmpty());
+        QVERIFY(db.record(second)->value("LOTW_QSL_RCVD").isEmpty());
+    }
+
+    void uploadQueueSurvivesReopenAndRemainsIdempotent()
+    {
+        QTemporaryDir dir;
+        QVERIFY(dir.isValid());
+        const QString path = QDir(dir.path()).filePath(QStringLiteral("queue.sqlite"));
+        qint64 id = 0;
+        {
+            LogDatabase db;
+            QVERIFY(db.open(path));
+            id = db.insertQso({{"CALL", "K1ABC"}, {"QSO_DATE", "20260101"}, {"TIME_ON", "1200"},
+                               {"BAND", "20m"}, {"MODE", "FT8"}}, "import").id;
+            QVERIFY(id > 0);
+            QslState failed;
+            failed.service = QStringLiteral("qrz");
+            failed.sent = QStringLiteral("N");
+            failed.lastError = QStringLiteral("network unavailable");
+            QVERIFY(db.setQslState(id, failed));
+            db.close();
+        }
+        {
+            LogDatabase db;
+            QVERIFY(db.open(path));
+            QCOMPARE(db.qsosToUpload(QStringLiteral("qrz")), QList<qint64>{id});
+            QCOMPARE(db.qslStatus(id).first().lastError, QStringLiteral("network unavailable"));
+            QslState sent;
+            sent.service = QStringLiteral("qrz");
+            sent.sent = QStringLiteral("Y");
+            QVERIFY(db.setQslState(id, sent));
+            QCOMPARE(db.qsosToUpload(QStringLiteral("qrz")), QList<qint64>{});
+            db.close();
+        }
+    }
+
+    void receivedQslAttachmentIsDeduplicatedAndLinkedToMultipleQsos()
+    {
+        LogDatabase db;
+        QVERIFY(db.open(":memory:"));
+        const qint64 a = db.insertQso({{"CALL", "W1AW"}, {"QSO_DATE", "20260101"}, {"TIME_ON", "1200"},
+                                       {"BAND", "20m"}, {"MODE", "CW"}}, "import").id;
+        const qint64 b = db.insertQso({{"CALL", "W1AW"}, {"QSO_DATE", "20260101"}, {"TIME_ON", "1300"},
+                                       {"BAND", "20m"}, {"MODE", "CW"}}, "import").id;
+        const QByteArray image("fake-qsl-image");
+        const qint64 first = db.addQslAttachment(image, "card.jpg", "image/jpeg", {a, b});
+        const qint64 second = db.addQslAttachment(image, "renamed.jpg", "image/jpeg", {a});
+        QVERIFY(first > 0);
+        QCOMPARE(second, first);
+        QCOMPARE(db.qslAttachments(a).size(), 1);
+        QCOMPARE(db.qslAttachments(b).size(), 1);
+        QCOMPARE(db.qslAttachmentData(first), image);
+        QCOMPARE(db.record(a)->value("LOTW_QSL_RCVD"), QString());
+    }
+
     void theCertificateIsTheOneOfTheCallsign()
     {
         // TQSL su Windows tiene tutto in %APPDATA%\TrustedQSL: si finge quella

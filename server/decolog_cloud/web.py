@@ -76,8 +76,8 @@ def _user_from_cookie(request: Request, db: Session) -> Account | None:
     if token.expires_at is not None:
         expires = token.expires_at
         if expires.tzinfo is None:
-            expires = expires.replace(tzinfo=dt.UTC)
-        if expires < dt.datetime.now(dt.UTC):
+            expires = expires.replace(tzinfo=dt.timezone.utc)
+        if expires < dt.datetime.now(dt.timezone.utc):
             return None
     return db.get(Account, token.account_id)
 
@@ -179,7 +179,7 @@ def login(
             account_id=account.id,
             token_hash=auth.token_fingerprint(raw),
             device="browser",
-            expires_at=dt.datetime.now(dt.UTC) + dt.timedelta(days=SESSION_DAYS),
+            expires_at=dt.datetime.now(dt.timezone.utc) + dt.timedelta(days=SESSION_DAYS),
         )
     )
     db.commit()
@@ -352,8 +352,8 @@ def _on_air(db: Session, account: Account) -> dict:
     if row is None or not row.updated_at:
         return {}
 
-    when = row.updated_at if row.updated_at.tzinfo else row.updated_at.replace(tzinfo=dt.UTC)
-    age = dt.datetime.now(dt.UTC) - when
+    when = row.updated_at if row.updated_at.tzinfo else row.updated_at.replace(tzinfo=dt.timezone.utc)
+    age = dt.datetime.now(dt.timezone.utc) - when
     mhz = row.frequency_hz / 1_000_000 if row.frequency_hz else 0.0
     return {
         "live": age < PRESENCE_FRESH,
@@ -498,7 +498,7 @@ def contest(request: Request, hours: int = 24, mult: str = "dxcc", mode: str = "
 
     rows = _all_rows(db, account)
     hours = max(1, min(hours, 24 * 14))
-    since = dt.datetime.now(dt.UTC) - dt.timedelta(hours=hours)
+    since = dt.datetime.now(dt.timezone.utc) - dt.timedelta(hours=hours)
     score = analytics.contest_score(rows, since=since, mode_group=mode,
                                     points_per_qso=max(1, min(points, 100)), multiplier=mult)
     return _page(request, db, account, "contest",
@@ -546,7 +546,7 @@ def qsl_page(request: Request, db: Session = Depends(auth.session)):
 
     rows = _all_rows(db, account)
     confirmed = [r for r in rows if r.confirmed_lotw or r.confirmed_card or r.confirmed_eqsl]
-    latest = sorted(confirmed, key=lambda r: r.when or dt.datetime.min.replace(tzinfo=dt.UTC),
+    latest = sorted(confirmed, key=lambda r: r.when or dt.datetime.min.replace(tzinfo=dt.timezone.utc),
                     reverse=True)[:40]
     return _page(request, db, account, "qsl",
                  summary=analytics.qsl_summary(rows),
@@ -939,8 +939,13 @@ async def save_settings(request: Request, db: Session = Depends(auth.session)):
 
 
 @router.get("/export.adi", response_class=PlainTextResponse)
-def export_adif(request: Request, db: Session = Depends(auth.session)) -> Response:
-    """Tutto il log in ADIF: il Cloud non e' una gabbia, i QSO si riprendono."""
+def export_adif(request: Request, profile: str = "", db: Session = Depends(auth.session)) -> Response:
+    """Esporta tutto il log, oppure solo il profilo stazione richiesto.
+
+    Il client sincronizza il profilo nei documenti e il QSO conserva
+    `STATION_CALLSIGN`; usare quest'ultimo come chiave ADIF evita di inventare
+    un identificativo locale diverso tra desktop e Cloud.
+    """
     account = _account_from_cookie(request, db)
     if account is None:
         return RedirectResponse("/", status_code=303)
@@ -950,12 +955,18 @@ def export_adif(request: Request, db: Session = Depends(auth.session)) -> Respon
         .where(Qso.account_id == account.id, Qso.deleted.is_(False))
         .order_by(Qso.started_at, Qso.id)
     ).all()
+    selected_profile = profile.strip().upper()
+    if selected_profile:
+        rows = [row for row in rows
+                if str((row.fields or {}).get("STATION_CALLSIGN", "")).strip().upper()
+                == selected_profile]
 
     out = [
-        f"DecoDXLog Cloud — {account.callsign}",
+        f"DecoDXLog Cloud — {account.callsign}"
+        + (f" — {selected_profile}" if selected_profile else ""),
         "<ADIF_VER:5>3.1.4",
         "<PROGRAMID:12>DecoDXLog Cloud",
-        f"<CREATED_TIMESTAMP:15>{dt.datetime.now(dt.UTC).strftime('%Y%m%d %H%M%S')}",
+        f"<CREATED_TIMESTAMP:15>{dt.datetime.now(dt.timezone.utc).strftime('%Y%m%d %H%M%S')}",
         "<EOH>",
     ]
     for row in rows:
@@ -969,7 +980,9 @@ def export_adif(request: Request, db: Session = Depends(auth.session)) -> Respon
 
     return PlainTextResponse(
         "\n".join(out) + "\n",
-        headers={"Content-Disposition": f'attachment; filename="{account.callsign}-cloud.adi"'},
+        headers={"Content-Disposition": f'attachment; filename="{account.callsign}'
+                 + (f'-{selected_profile}' if selected_profile else "")
+                 + '-cloud.adi"'},
         media_type="text/plain; charset=utf-8",
     )
 

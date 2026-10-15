@@ -7,6 +7,8 @@
 #include "core/LogMigration.h"
 
 #include <QFile>
+#include <QCryptographicHash>
+#include <QSaveFile>
 #include <QJsonArray>
 #include <QJsonDocument>
 #include <QJsonObject>
@@ -371,6 +373,20 @@ bool LogDatabase::migrate()
              QStringLiteral("CREATE INDEX IF NOT EXISTS idx_qso_tags ON qso(tags) WHERE IFNULL(tags, '') <> ''"),
              QStringLiteral("CREATE INDEX IF NOT EXISTS idx_qso_profile ON qso(station_profile_id) WHERE deleted = 0")},
          "submode"},
+        {7, {QStringLiteral("CREATE TABLE IF NOT EXISTS qso_enrichment ("
+                         "id INTEGER PRIMARY KEY, qso_id INTEGER NOT NULL REFERENCES qso(id) ON DELETE CASCADE, "
+                         "field TEXT NOT NULL, previous_value TEXT, value TEXT NOT NULL, source TEXT NOT NULL, "
+                         "kind TEXT NOT NULL, acquired_at TEXT NOT NULL, valid_from TEXT, valid_to TEXT)"),
+             QStringLiteral("CREATE INDEX IF NOT EXISTS idx_enrichment_qso ON qso_enrichment(qso_id, field)"),
+         }, nullptr},
+        {8, {QStringLiteral("CREATE TABLE IF NOT EXISTS qsl_attachment ("
+                         "id INTEGER PRIMARY KEY, sha256 TEXT NOT NULL UNIQUE, filename TEXT NOT NULL, "
+                         "mime TEXT NOT NULL, size INTEGER NOT NULL, data BLOB NOT NULL, created_at TEXT NOT NULL)"),
+             QStringLiteral("CREATE TABLE IF NOT EXISTS qsl_attachment_qso ("
+                         "attachment_id INTEGER NOT NULL REFERENCES qsl_attachment(id) ON DELETE CASCADE, "
+                         "qso_id INTEGER NOT NULL REFERENCES qso(id) ON DELETE CASCADE, "
+                         "PRIMARY KEY (attachment_id, qso_id))"),
+             QStringLiteral("CREATE INDEX IF NOT EXISTS idx_qsl_attachment_qso ON qsl_attachment_qso(qso_id)")}, nullptr},
     };
     for (const Step& step : steps) {
         if (version >= step.to)
@@ -906,6 +922,74 @@ bool LogDatabase::softDeleteQso(qint64 id)
     return !ownTransaction || db.commit();
 }
 
+bool LogDatabase::recordEnrichment(const QList<EnrichmentEntry>& entries)
+{
+    if (entries.isEmpty())
+        return true;
+    QSqlDatabase db = connection();
+    const bool ownTransaction = db.transaction();
+    QSqlQuery q(db);
+    q.prepare(QStringLiteral("INSERT INTO qso_enrichment "
+                             "(qso_id, field, previous_value, value, source, kind, acquired_at, valid_from, valid_to) "
+                             "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)"));
+    for (const EnrichmentEntry& e : entries) {
+        q.addBindValue(e.qsoId); q.addBindValue(e.field); q.addBindValue(e.previousValue);
+        q.addBindValue(e.value); q.addBindValue(e.source); q.addBindValue(e.kind);
+        q.addBindValue(e.acquiredAt); q.addBindValue(e.validFrom); q.addBindValue(e.validTo);
+        if (!q.exec()) {
+            m_lastError = q.lastError().text();
+            if (ownTransaction) db.rollback();
+            return false;
+        }
+        q.finish();
+        q.prepare(QStringLiteral("INSERT INTO qso_enrichment "
+                                 "(qso_id, field, previous_value, value, source, kind, acquired_at, valid_from, valid_to) "
+                                 "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)"));
+    }
+    return !ownTransaction || db.commit();
+}
+
+QList<EnrichmentEntry> LogDatabase::enrichments(qint64 qsoId) const
+{
+    QList<EnrichmentEntry> out;
+    QSqlQuery q(connection());
+    q.prepare(QStringLiteral("SELECT qso_id, field, previous_value, value, source, kind, acquired_at, valid_from, valid_to "
+                             "FROM qso_enrichment WHERE qso_id = ? ORDER BY id"));
+    q.addBindValue(qsoId);
+    if (!q.exec())
+        return out;
+    while (q.next()) {
+        EnrichmentEntry e;
+        e.qsoId = q.value(0).toLongLong(); e.field = q.value(1).toString();
+        e.previousValue = q.value(2).toString(); e.value = q.value(3).toString();
+        e.source = q.value(4).toString(); e.kind = q.value(5).toString();
+        e.acquiredAt = q.value(6).toString(); e.validFrom = q.value(7).toString();
+        e.validTo = q.value(8).toString(); out << e;
+    }
+    return out;
+}
+
+bool LogDatabase::undoEnrichment(qint64 qsoId, const QString& field)
+{
+    QSqlQuery q(connection());
+    q.prepare(QStringLiteral("SELECT previous_value FROM qso_enrichment WHERE qso_id = ? AND field = ? "
+                             "ORDER BY id DESC LIMIT 1"));
+    q.addBindValue(qsoId); q.addBindValue(field);
+    if (!q.exec() || !q.next())
+        return false;
+    const auto current = record(qsoId);
+    if (!current)
+        return false;
+    AdifRecord restored = *current;
+    restored.set(field, q.value(0).toString());
+    if (updateQso(qsoId, restored, -1, QStringLiteral("enrichment-undo")).status != InsertResult::Status::Inserted)
+        return false;
+    QSqlQuery remove(connection());
+    remove.prepare(QStringLiteral("DELETE FROM qso_enrichment WHERE qso_id = ? AND field = ?"));
+    remove.addBindValue(qsoId); remove.addBindValue(field);
+    return remove.exec();
+}
+
 // Il campo della data che va con uno stato QSL ("LOTW_QSL_RCVD" →
 // "LOTW_QSLRDATE"); vuoto se il campo non e' uno stato QSL.
 static QString qslDateFieldFor(const QString& status)
@@ -1394,21 +1478,30 @@ ConfirmationResult LogDatabase::applyConfirmation(const QString& service, const 
         return res;
     }
     // Il QSO piu' vicino nel tempo fra quelli dello stesso gruppo di modi.
-    qint64 best = 0;
     qint64 bestDistance = std::numeric_limits<qint64>::max();
-    bool bestConfirmed = false;
+    QList<QPair<qint64, bool>> bestMatches;
     while (q.next()) {
         if (!group.isEmpty() && adif::modeGroup(q.value(1).toString(), q.value(2).toString()) != group)
             continue;
         const qint64 distance = qAbs(parseIso(q.value(3).toString()).secsTo(on));
         if (distance < bestDistance) {
-            best = q.value(0).toLongLong();
             bestDistance = distance;
-            bestConfirmed = q.value(4).toString() == QLatin1String("Y");
+            bestMatches.clear();
         }
+        if (distance == bestDistance)
+            bestMatches.append({q.value(0).toLongLong(), q.value(4).toString() == QLatin1String("Y")});
     }
-    if (best == 0)
+    if (bestMatches.isEmpty())
         return res;
+    if (bestMatches.size() > 1) {
+        for (const auto& match : bestMatches)
+            res.candidates << match.first;
+        res.status = ConfirmationResult::Status::Ambiguous;
+        res.message = QStringLiteral("%1 candidate QSOs have the same matching distance").arg(bestMatches.size());
+        return res;
+    }
+    const qint64 best = bestMatches.first().first;
+    const bool bestConfirmed = bestMatches.first().second;
     res.id = best;
     if (bestConfirmed) {
         res.status = ConfirmationResult::Status::AlreadyConfirmed;
@@ -1474,13 +1567,45 @@ ImportResult LogDatabase::importAdif(const QByteArray& data, const QString& sour
         const int end = total - done > batch ? done + batch : total;
         const bool ownTransaction = db.transaction();
         for (; done < end; ++done) {
+            AdifRecord record = doc.records.at(done);
+            ++result.read;
+            if (!record.contains(QStringLiteral("QSO_DATE")) || !record.contains(QStringLiteral("TIME_ON")))
+                ++result.missingUtc;
+            if (record.contains(QStringLiteral("LOTW_QSL_RCVD")) || record.contains(QStringLiteral("EQSL_QSL_RCVD"))
+                || record.contains(QStringLiteral("QSL_RCVD")) || record.contains(QStringLiteral("CARD_QSL_RCVD")))
+                ++result.qslRecords;
+            static const QSet<QString> knownFields{
+                QStringLiteral("CALL"), QStringLiteral("QSO_DATE"), QStringLiteral("TIME_ON"),
+                QStringLiteral("QSO_DATE_OFF"), QStringLiteral("TIME_OFF"), QStringLiteral("BAND"),
+                QStringLiteral("FREQ"), QStringLiteral("MODE"), QStringLiteral("SUBMODE"),
+                QStringLiteral("RST_SENT"), QStringLiteral("RST_RCVD"), QStringLiteral("NAME"),
+                QStringLiteral("QTH"), QStringLiteral("GRIDSQUARE"), QStringLiteral("DXCC"),
+                QStringLiteral("CQZ"), QStringLiteral("ITUZ"), QStringLiteral("STATE"),
+                QStringLiteral("CNTY"), QStringLiteral("CONT"), QStringLiteral("IOTA"),
+                QStringLiteral("POTA_REF"), QStringLiteral("SOTA_REF"), QStringLiteral("WWFF_REF"),
+                QStringLiteral("SIG"), QStringLiteral("SIG_INFO"), QStringLiteral("COMMENT"),
+                QStringLiteral("NOTES"), QStringLiteral("PROP_MODE"), QStringLiteral("SAT_NAME"),
+                QStringLiteral("STATION_CALLSIGN"), QStringLiteral("OPERATOR"),
+                QStringLiteral("QSL_RCVD"), QStringLiteral("QSL_RDATE"), QStringLiteral("QSL_VIA"),
+                QStringLiteral("LOTW_QSL_SENT"), QStringLiteral("LOTW_QSLSDATE"),
+                QStringLiteral("LOTW_QSL_RCVD"), QStringLiteral("LOTW_QSLRDATE"),
+                QStringLiteral("EQSL_QSL_SENT"), QStringLiteral("EQSL_QSLSDATE"),
+                QStringLiteral("EQSL_QSL_RCVD"), QStringLiteral("EQSL_QSLRDATE"),
+                QStringLiteral("CLUBLOG_QSO_SENT"), QStringLiteral("CLUBLOG_QSO_RCVD"),
+                QStringLiteral("QRZCOM_QSO_SENT"), QStringLiteral("QRZCOM_QSO_RCVD")};
+            for (const AdifField& field : record.fields())
+                if (!knownFields.contains(field.name) && !result.preservedExtraFields.contains(field.name)
+                    && !field.name.startsWith(QStringLiteral("APP_")))
+                    result.preservedExtraFields << field.name;
             // Le conferme scritte nei campi di un altro programma (QRZ) diventano
             // quelle ADIF.
-            AdifRecord record = doc.records.at(done);
             migration::mapProgramFields(record);
             const InsertResult r = insertQso(record, source, programId, false, stationProfileId);
             switch (r.status) {
-            case InsertResult::Status::Inserted:  ++result.inserted; break;
+            case InsertResult::Status::Inserted:
+                ++result.inserted;
+                result.insertedIds << r.id;
+                break;
             case InsertResult::Status::Duplicate: ++result.duplicates; break;
             case InsertResult::Status::Invalid:
             case InsertResult::Status::Error:
@@ -2355,6 +2480,75 @@ bool LogDatabase::setCardState(qint64 id, const QslState& state)
     return writeQslState(id, card, true);
 }
 
+qint64 LogDatabase::addQslAttachment(const QByteArray& data, const QString& filename, const QString& mime,
+                                      const QList<qint64>& qsoIds)
+{
+    if (data.isEmpty() || qsoIds.isEmpty())
+        return 0;
+    const QString hash = QString::fromLatin1(QCryptographicHash::hash(data, QCryptographicHash::Sha256).toHex());
+    QSqlDatabase db = connection();
+    const bool ownTransaction = db.transaction();
+    QSqlQuery find(db);
+    find.prepare(QStringLiteral("SELECT id FROM qsl_attachment WHERE sha256 = ?"));
+    find.addBindValue(hash);
+    qint64 id = 0;
+    if (find.exec() && find.next()) {
+        id = find.value(0).toLongLong();
+    } else {
+        QSqlQuery insert(db);
+        insert.prepare(QStringLiteral("INSERT INTO qsl_attachment (sha256, filename, mime, size, data, created_at) VALUES (?, ?, ?, ?, ?, ?)"));
+        insert.addBindValue(hash);
+        insert.addBindValue(filename.trimmed().isEmpty() ? QStringLiteral("qsl") : filename.trimmed());
+        insert.addBindValue(mime.trimmed().isEmpty() ? QStringLiteral("application/octet-stream") : mime.trimmed());
+        insert.addBindValue(data.size());
+        insert.addBindValue(data);
+        insert.addBindValue(nowIso());
+        if (!insert.exec()) {
+            if (ownTransaction)
+                db.rollback();
+            return 0;
+        }
+        id = insert.lastInsertId().toLongLong();
+    }
+    QSqlQuery link(db);
+    link.prepare(QStringLiteral("INSERT OR IGNORE INTO qsl_attachment_qso (attachment_id, qso_id) VALUES (?, ?)"));
+    for (const qint64 qsoId : qsoIds) {
+        link.bindValue(0, id);
+        link.bindValue(1, qsoId);
+        if (!link.exec()) {
+            if (ownTransaction)
+                db.rollback();
+            return 0;
+        }
+    }
+    if (ownTransaction && !db.commit())
+        return 0;
+    return id;
+}
+
+QList<QslAttachment> LogDatabase::qslAttachments(qint64 qsoId) const
+{
+    QList<QslAttachment> out;
+    QSqlQuery q(connection());
+    q.prepare(QStringLiteral("SELECT a.id, a.sha256, a.filename, a.mime, a.size, a.created_at FROM qsl_attachment a "
+                             "JOIN qsl_attachment_qso x ON x.attachment_id = a.id WHERE x.qso_id = ? ORDER BY a.created_at, a.id"));
+    q.addBindValue(qsoId);
+    if (!q.exec())
+        return out;
+    while (q.next())
+        out << QslAttachment{q.value(0).toLongLong(), q.value(1).toString(), q.value(2).toString(),
+                              q.value(3).toString(), q.value(4).toLongLong(), q.value(5).toString()};
+    return out;
+}
+
+QByteArray LogDatabase::qslAttachmentData(qint64 attachmentId) const
+{
+    QSqlQuery q(connection());
+    q.prepare(QStringLiteral("SELECT data FROM qsl_attachment WHERE id = ?"));
+    q.addBindValue(attachmentId);
+    return q.exec() && q.next() ? q.value(0).toByteArray() : QByteArray();
+}
+
 bool LogDatabase::setQslState(qint64 id, const QslState& st)
 {
     return writeQslState(id, st, false);
@@ -3085,7 +3279,10 @@ qint64 LogDatabase::saveStationProfile(const StationProfile& p)
             "INSERT INTO station_profile (uuid, name, station_callsign, operator, my_gridsquare, my_cq_zone, "
             "my_itu_zone, my_dxcc, my_rig, my_antenna, default_tx_pwr, lotw_station_loc, is_default, updated_at) "
             "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"));
-        q.addBindValue(QUuid::createUuid().toString(QUuid::WithoutBraces));
+        const QString profileUuid = p.uuid.trimmed().isEmpty()
+            ? QUuid::createUuid().toString(QUuid::WithoutBraces)
+            : p.uuid.trimmed();
+        q.addBindValue(profileUuid);
     } else {
         q.prepare(QStringLiteral(
             "UPDATE station_profile SET name = ?, station_callsign = ?, operator = ?, my_gridsquare = ?, "
@@ -3167,15 +3364,57 @@ void LogDatabase::setSetting(const QString& key, const QString& value)
 
 bool LogDatabase::backupTo(const QString& filePath)
 {
-    if (QFile::exists(filePath))
-        QFile::remove(filePath);
+    // Scrivere prima in un temporaneo evita di perdere la copia precedente
+    // se VACUUM o il filesystem falliscono. Il commit finale di QSaveFile e'
+    // atomico sullo stesso filesystem.
+    const QString temporary = filePath + QStringLiteral(".partial");
+    QFile::remove(temporary);
     QSqlQuery q(connection());
     q.prepare(QStringLiteral("VACUUM INTO ?"));
-    q.addBindValue(filePath);
+    q.addBindValue(temporary);
     if (!q.exec()) {
         m_lastError = q.lastError().text();
+        QFile::remove(temporary);
         return false;
     }
+
+    QFile source(temporary);
+    if (!source.open(QIODevice::ReadOnly)) {
+        m_lastError = source.errorString();
+        QFile::remove(temporary);
+        return false;
+    }
+    QSaveFile committed(filePath);
+    if (!committed.open(QIODevice::WriteOnly)) {
+        m_lastError = committed.errorString();
+        source.close();
+        QFile::remove(temporary);
+        return false;
+    }
+    while (!source.atEnd()) {
+        const QByteArray block = source.read(1024 * 1024);
+        if (block.isEmpty() && source.error() != QFileDevice::NoError) {
+            m_lastError = source.errorString();
+            committed.cancelWriting();
+            source.close();
+            QFile::remove(temporary);
+            return false;
+        }
+        if (committed.write(block) != block.size()) {
+            m_lastError = committed.errorString();
+            committed.cancelWriting();
+            source.close();
+            QFile::remove(temporary);
+            return false;
+        }
+    }
+    source.close();
+    if (!committed.commit()) {
+        m_lastError = committed.errorString();
+        QFile::remove(temporary);
+        return false;
+    }
+    QFile::remove(temporary);
     return true;
 }
 

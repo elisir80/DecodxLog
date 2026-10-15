@@ -340,6 +340,22 @@ private slots:
         QVERIFY(!withOverrides(forId(QStringLiteral("NOPE")), {{"submitHours", 5}}).valid);
     }
 
+    void anEditionCannotEnableUnsupportedBands()
+    {
+        const ContestRules base = forId(QStringLiteral("CQ-WW-CW"));
+        const ContestRules invalid = withOverrides(base, {
+            {"bands", QStringList{"20m", "30m"}}
+        });
+        QVERIFY(!invalid.valid);
+        QCOMPARE(points(invalid, qso("W1AW", 291, "NA", "20m", "CW", "5", 5), me()), 0);
+
+        const ContestRules valid = withOverrides(base, {
+            {"bands", QStringList{"20M", "40m"}}
+        });
+        QVERIFY(valid.valid);
+        QCOMPARE(valid.bands, QStringList({"20m", "40m"}));
+    }
+
     void theTimeOnTheAir()
     {
         const ContestRules wpx = forId(QStringLiteral("CQ-WPX-SSB"));
@@ -415,6 +431,18 @@ private slots:
         QVERIFY(!runner.hasReserved());
         QCOMPARE(runner.take(3, false, false), 9);
         QCOMPARE(runner.highest(), 9);
+    }
+
+    void splitNetworkReportsSerialCollision()
+    {
+        SharedSerials first;
+        SharedSerials second;
+        QCOMPARE(first.take(1, false, false), 1);
+        QCOMPARE(second.take(1, false, false), 1);
+        QVERIFY(first.noteRemote(1));
+        QVERIFY(first.collisionDetected());
+        QVERIFY(!second.noteRemote(2));
+        QVERIFY(!second.collisionDetected());
     }
 };
 

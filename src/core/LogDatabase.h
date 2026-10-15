@@ -10,6 +10,7 @@
 #include "core/Adif.h"
 
 #include <QDateTime>
+#include <QByteArray>
 #include <QJsonArray>
 #include <QList>
 #include <QSet>
@@ -30,10 +31,27 @@ struct InsertResult {
 };
 
 struct ImportResult {
+    int read{0};
     int inserted{0};
     int duplicates{0};
     int invalid{0};
+    int missingUtc{0};
+    int qslRecords{0};
+    QStringList preservedExtraFields;
+    QList<qint64> insertedIds;
     QStringList errors;     // i primi problemi, per mostrarli all'operatore
+};
+
+struct EnrichmentEntry {
+    qint64 qsoId{0};
+    QString field;
+    QString previousValue;
+    QString value;
+    QString source;
+    QString kind; // received | declared | inferred
+    QString acquiredAt;
+    QString validFrom;
+    QString validTo;
 };
 
 struct BulkEditResult {
@@ -45,9 +63,10 @@ struct BulkEditResult {
 };
 
 struct ConfirmationResult {
-    enum class Status { Confirmed, AlreadyConfirmed, NotFound, Invalid, Error };
+    enum class Status { Confirmed, AlreadyConfirmed, Ambiguous, NotFound, Invalid, Error };
     Status  status{Status::NotFound};
     qint64  id{0};
+    QList<qint64> candidates;
     QString message;
 };
 
@@ -86,6 +105,15 @@ struct QslState {
     QString remoteId;
     QString lastError;
     QString via;            // solo le cartacee: B bureau, D diretta, E elettronica
+};
+
+struct QslAttachment {
+    qint64 id{0};
+    QString sha256;
+    QString filename;
+    QString mime;
+    qint64 size{0};
+    QString createdAt;
 };
 
 struct StationProfile {
@@ -191,6 +219,9 @@ public:
     // Cancellazione morbida: la riga resta, marcata deleted, e lo storico la
     // conserva.
     bool softDeleteQso(qint64 id);
+    bool recordEnrichment(const QList<EnrichmentEntry>& entries);
+    QList<EnrichmentEntry> enrichments(qint64 qsoId) const;
+    bool undoEnrichment(qint64 qsoId, const QString& field);
 
     // Lo stesso valore in un campo di molti QSO, ognuno con la sua revisione
     // nello storico ("bulk"): una correzione in blocco si disfa QSO per QSO.
@@ -421,6 +452,12 @@ public:
     // Lo stato di una cartacea, conferma compresa (setQslState non tocca il
     // ricevuto, perche' per gli altri servizi lo scrive il download).
     bool setCardState(qint64 id, const QslState& state);
+    // Allegati ricevuti: il contenuto resta nel database, viene deduplicato
+    // per hash e puo' essere collegato a piu' QSO senza copie.
+    qint64 addQslAttachment(const QByteArray& data, const QString& filename, const QString& mime,
+                            const QList<qint64>& qsoIds);
+    QList<QslAttachment> qslAttachments(qint64 qsoId) const;
+    QByteArray qslAttachmentData(qint64 attachmentId) const;
 
     // ── Etichette ────────────────────────────────────────────────────────────
     // Le etichette di un QSO (attivazione, contest, evento, portatile) stanno in

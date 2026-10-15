@@ -8,7 +8,7 @@ CREATE TABLE schema_version (
     version     INTEGER NOT NULL,
     applied_at  TEXT    NOT NULL DEFAULT (strftime('%Y-%m-%dT%H:%M:%SZ','now'))
 );
-INSERT INTO schema_version (version) VALUES (6);
+INSERT INTO schema_version (version) VALUES (8);
 
 -- Profili stazione (portatile, casa, evento speciale...)
 CREATE TABLE station_profile (
@@ -115,6 +115,23 @@ CREATE TABLE qsl_status (
 );
 CREATE INDEX idx_qsl_pending ON qsl_status(service, sent);
 
+-- Allegati QSL ricevuti: un file, molti QSO, contenuto privato nel backup DB.
+CREATE TABLE qsl_attachment (
+    id          INTEGER PRIMARY KEY,
+    sha256      TEXT NOT NULL UNIQUE,
+    filename    TEXT NOT NULL,
+    mime        TEXT NOT NULL,
+    size        INTEGER NOT NULL,
+    data        BLOB NOT NULL,
+    created_at  TEXT NOT NULL
+);
+CREATE TABLE qsl_attachment_qso (
+    attachment_id INTEGER NOT NULL REFERENCES qsl_attachment(id) ON DELETE CASCADE,
+    qso_id        INTEGER NOT NULL REFERENCES qso(id) ON DELETE CASCADE,
+    PRIMARY KEY (attachment_id, qso_id)
+);
+CREATE INDEX idx_qsl_attachment_qso ON qsl_attachment_qso(qso_id);
+
 -- Storico versioni (conflitti di sync e annullamento modifiche)
 CREATE TABLE qso_history (
     id          INTEGER PRIMARY KEY,
@@ -125,6 +142,21 @@ CREATE TABLE qso_history (
     recorded_at TEXT    NOT NULL
 );
 CREATE INDEX idx_hist_uuid ON qso_history(qso_uuid);
+
+-- Provenienza dei dati aggiunti da callbook o altri arricchitori.
+CREATE TABLE qso_enrichment (
+    id              INTEGER PRIMARY KEY,
+    qso_id          INTEGER NOT NULL REFERENCES qso(id) ON DELETE CASCADE,
+    field           TEXT NOT NULL,
+    previous_value  TEXT,
+    value           TEXT NOT NULL,
+    source          TEXT NOT NULL,
+    kind            TEXT NOT NULL,
+    acquired_at     TEXT NOT NULL,
+    valid_from      TEXT,
+    valid_to        TEXT
+);
+CREATE INDEX idx_enrichment_qso ON qso_enrichment(qso_id, field);
 
 -- Stato sync per account cloud
 CREATE TABLE sync_state (

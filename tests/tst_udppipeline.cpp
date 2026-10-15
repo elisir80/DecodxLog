@@ -385,6 +385,11 @@ private slots:
         // Lo stesso di nuovo: doppione.
         QCOMPARE(request("POST", QStringLiteral("/api/v1/qso"),
                          "<CALL:5>VK2AB<QSO_DATE:8>20260917<TIME_ON:4>0900<BAND:3>20m<MODE:3>FT8<EOR>").first, 409);
+        const auto diagnostic = request("POST", QStringLiteral("/api/v1/qso"),
+                                       "<CALL:9>DIAG-TEST<QSO_DATE:8>20000101<TIME_ON:6>000000<BAND:2>2m<MODE:4>TEST"
+                                       "<APP_DECOLOG_DIAGNOSTIC:1>1<EOR>");
+        QCOMPARE(diagnostic.first, 409);
+        QCOMPARE(countCall(QStringLiteral("DIAG-TEST")), 0);
         // Gia' lavorato? Si', in 20 m, non in 40 m.
         const auto [status, worked] = request("GET", QStringLiteral("/api/v1/worked?call=vk2ab&band=20m&mode=FT8"));
         QCOMPARE(status, 200);

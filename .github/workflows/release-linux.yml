@@ -12,7 +12,7 @@ on:
       tag:
         description: Release tag
         required: true
-        default: v1.17.15
+        default: v1.17.20
 
 permissions:
   contents: write
@@ -111,6 +111,11 @@ jobs:
 
       - name: Build
         run: cmake --build build --parallel 3 --target decolog
+
+      - name: Release gate
+        env:
+          QT_QPA_PLATFORM: offscreen
+        run: bash scripts/release-gate.sh build build/bin/DecoDXLog
 
       - name: Install into AppDir
         run: DESTDIR="$PWD/AppDir" cmake --install build

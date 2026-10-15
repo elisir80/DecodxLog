@@ -128,7 +128,7 @@ def _when(qso) -> dt.datetime | None:
     """L'ora del QSO: prima quella normalizzata, poi i campi ADIF."""
     raw = getattr(qso, "started_at", None)
     if isinstance(raw, dt.datetime):
-        return raw if raw.tzinfo else raw.replace(tzinfo=dt.UTC)
+        return raw if raw.tzinfo else raw.replace(tzinfo=dt.timezone.utc)
     fields = getattr(qso, "fields", None) or {}
     date = str(fields.get("QSO_DATE") or "")
     time = str(fields.get("TIME_ON") or "000000")
@@ -137,7 +137,7 @@ def _when(qso) -> dt.datetime | None:
     time = (time + "000000")[:6]
     try:
         return dt.datetime(int(date[:4]), int(date[4:6]), int(date[6:8]),
-                           int(time[:2]), int(time[2:4]), int(time[4:6]), tzinfo=dt.UTC)
+                           int(time[:2]), int(time[2:4]), int(time[4:6]), tzinfo=dt.timezone.utc)
     except ValueError:
         return None
 

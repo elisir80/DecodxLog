@@ -1,4 +1,4 @@
-# DecoDXLog 0.5.2 — funzioni / features
+# DecoDXLog 1.17.15 — funzioni / features
 
 Ogni voce è in italiano e in inglese: *italiano* / *English*.
 Quello che manca è in fondo.
@@ -220,6 +220,10 @@ Quello che manca è in fondo.
   DecoDXLog** (ggmorse, MIT): it reads the audio coming out of the radio, finds the tone by
   itself between 200 and 1200 Hz and measures the speed while listening. On an empty band it
   stays quiet: what does not look enough like Morse does not get through.
+- **Decoder neurale CTC opzionale**: il componente richiede ONNX Runtime e va abilitato con
+  `DECODXLOG_CTC_ONNX=ON`; i binari standard non lo includono. / **Optional CTC neural
+  decoder**: it requires ONNX Runtime and must be enabled with `DECODXLOG_CTC_ONNX=ON`;
+  standard binaries do not include it.
 - **La radio anche col cavo**: modello Hamlib + porta seriale, e rigctld lo avvia DecoDXLog; il
   **PTT** puo' stare su un'altra porta (RTS o DTR), come vuole chi ha due COM. /
   **The radio over the cable too**: Hamlib model + serial port, and DecoDXLog starts rigctld.
@@ -273,6 +277,15 @@ Quello che manca è in fondo.
   (operazioni non accettate, entita' cancellate). / **Valid confirmations per award** and
   **entities with their dates** from Club Log's cty.xml (operations not accepted, deleted
   entities).
+- **Pacchetti di regole dichiarativi**: un diploma di club può essere aggiunto mettendo un
+  JSON valido nella cartella locale `awards/`, senza modificare il core. Il formato include
+  fonte, versione, intervallo di validità, campo ammesso e soglia; sono accettati solo i
+  campi predefiniti (`DXCC`, `STATE`, `CQZ`, `GRID4`, `BAND`, `CALL_PREFIX`). Il pacchetto
+  non contiene codice, comandi TX o percorsi da leggere. / **Declarative rule packages**:
+  a club award can be added by placing valid JSON in the local `awards/` directory, without
+  changing the core. The format includes source, version, validity interval, an allowed
+  field and target; only predefined fields are accepted. Packages contain no code, TX
+  commands or filesystem paths.
 
 ## 10. QSL
 

@@ -260,6 +260,10 @@ QVariantList QslController::services() const
             }
         }
         const QString credential = QLatin1String(info.credential);
+        const QString account = m_ctx.credentials ? m_ctx.credentials->account(credential) : QString();
+        const QString profile = m_ctx.stationProfileName ? m_ctx.stationProfileName() : QString();
+        row.insert(QStringLiteral("account"), account.isEmpty() ? tr("not configured") : account);
+        row.insert(QStringLiteral("profile"), profile.isEmpty() ? tr("active station") : profile);
         bool hasSecret = m_ctx.credentials && m_ctx.credentials->hasSecret(credential);
         // QRZ ed eQSL: basta anche l'account di un solo profilo.
         if (!hasSecret && m_ctx.credentials && m_ctx.db && m_ctx.db->isOpen()

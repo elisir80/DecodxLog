@@ -126,6 +126,24 @@ private slots:
         QVERIFY(cabrillo::write(i, {}, &error).isEmpty());
         QVERIFY(!error.isEmpty());
     }
+
+    void refusesUnsupportedCategoryValues()
+    {
+        cabrillo::Info i = info();
+        i.categoryOperator = QStringLiteral("MAGIC-OP");
+        QString error;
+        QVERIFY(cabrillo::write(i, {qso(QStringLiteral("DL9ZZT"), QStringLiteral("20m"),
+                                       QStringLiteral("14.074"), QStringLiteral("CW"))}, &error).isEmpty());
+        QVERIFY(error.contains(QStringLiteral("category"), Qt::CaseInsensitive));
+
+        i = info();
+        i.categoryOperator = QStringLiteral("SINGLE-OP");
+        i.categoryBand = QStringLiteral("ALL");
+        error.clear();
+        QVERIFY(!cabrillo::write(i, {qso(QStringLiteral("DL9ZZT"), QStringLiteral("20m"),
+                                        QStringLiteral("14.074"), QStringLiteral("CW"))}, &error).isEmpty());
+        QVERIFY(error.isEmpty());
+    }
 };
 
 QTEST_GUILESS_MAIN(TestCabrillo)

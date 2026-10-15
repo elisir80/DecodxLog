@@ -252,11 +252,11 @@ GlassPanel {
                 Layout.fillWidth: true
                 spacing: 0
                 Repeater {
-                    model: [qsTr("Service"), qsTr("To send"), qsTr("Sent"), qsTr("Confirmed"), qsTr("Errors")]
+                model: [qsTr("Service"), qsTr("Account / profile"), qsTr("To send"), qsTr("Sent"), qsTr("Confirmed"), qsTr("Errors")]
                     Text {
                         required property string modelData
                         required property int index
-                        Layout.preferredWidth: index === 0 ? 120 : 80
+                        Layout.preferredWidth: index === 0 ? 120 : index === 1 ? 220 : 80
                         text: modelData
                         color: Theme.secondaryColor
                         font.family: Theme.monoFamily
@@ -274,6 +274,7 @@ GlassPanel {
                     Layout.fillWidth: true
                     spacing: 0
                     Text { Layout.preferredWidth: 120; text: modelData.label; color: Theme.textPrimary; font.family: Theme.monoFamily; font.pixelSize: 12; font.bold: true }
+                    Text { Layout.preferredWidth: 220; text: (modelData.account || qsTr("not configured")) + " · " + (modelData.profile || qsTr("active station")); color: Theme.textSecondary; font.family: Theme.monoFamily; font.pixelSize: 11; elide: Text.ElideRight }
                     Text { Layout.preferredWidth: 80; text: modelData.pending || 0; color: modelData.pending ? Theme.warningColor : Theme.textSecondary; font.family: Theme.monoFamily; font.pixelSize: 12 }
                     Text { Layout.preferredWidth: 80; text: modelData.sent || 0; color: Theme.textPrimary; font.family: Theme.monoFamily; font.pixelSize: 12 }
                     Text { Layout.preferredWidth: 80; text: modelData.confirmed || 0; color: modelData.confirmed ? Theme.accentColor : Theme.textSecondary; font.family: Theme.monoFamily; font.pixelSize: 12 }
@@ -301,6 +302,23 @@ GlassPanel {
                         color: modelData.ready ? Theme.textSecondary : Theme.warningColor
                         font.pixelSize: 11
                     }
+                }
+            }
+
+            RowLayout {
+                Layout.fillWidth: true
+                Layout.topMargin: 4
+                GlassButton {
+                    text: qsTr("Integration diagnostics…")
+                    buttonHeight: 24
+                    fontPixelSize: 11
+                    onClicked: diagnosticDialog.open()
+                }
+                Text {
+                    Layout.fillWidth: true
+                    text: qsTr("Runs locally; no test QSO is uploaded")
+                    color: Theme.textSecondary
+                    font.pixelSize: 10
                 }
             }
 
@@ -424,6 +442,68 @@ GlassPanel {
                 }
             }
             Item { Layout.fillHeight: true }
+        }
+
+        Dialog {
+            id: diagnosticDialog
+            title: qsTr("Integration diagnostics")
+            modal: true
+            width: Math.min(620, root.width - 30)
+            standardButtons: Dialog.Cancel
+            property var steps: []
+            onOpened: steps = decolog.integrationDiagnostics()
+            contentItem: ColumnLayout {
+                spacing: 8
+                Text {
+                    Layout.fillWidth: true
+                    text: qsTr("The checks stay on this computer. The support report is redacted and is saved only after confirmation.")
+                    wrapMode: Text.WordWrap
+                    color: Theme.textSecondary
+                }
+                Repeater {
+                    model: diagnosticDialog.steps
+                    RowLayout {
+                        required property var modelData
+                        Layout.fillWidth: true
+                        Text { Layout.preferredWidth: 110; text: modelData.label; color: Theme.textPrimary; font.bold: true }
+                        Text { Layout.preferredWidth: 70; text: modelData.state; color: modelData.state === "ok" ? Theme.accentColor : modelData.state === "error" ? Theme.errorColor : Theme.warningColor }
+                        Text { Layout.fillWidth: true; text: modelData.detail; color: Theme.textSecondary; wrapMode: Text.WordWrap }
+                    }
+                }
+                TextArea {
+                    Layout.fillWidth: true
+                    Layout.preferredHeight: 110
+                    readOnly: true
+                    text: decolog.diagnosticSupportText()
+                    wrapMode: TextArea.Wrap
+                    color: Theme.textSecondary
+                    background: Rectangle { color: Theme.inputColor; radius: 4; border.color: Theme.glassBorder }
+                }
+                RowLayout {
+                    Layout.fillWidth: true
+                    Item { Layout.fillWidth: true }
+                    GlassButton {
+                        text: qsTr("Approve and save report…")
+                        tone: Theme.accentColor
+                        onClicked: saveDiagnostic.open()
+                    }
+                }
+            }
+        }
+
+        FileDialog {
+            id: saveDiagnostic
+            title: qsTr("Save diagnostic support report")
+            fileMode: FileDialog.SaveFile
+            defaultSuffix: "txt"
+            nameFilters: [qsTr("Text files (*.txt)"), qsTr("All files (*)")]
+            onAccepted: {
+                const error = decolog.saveDiagnosticReport(selectedFile)
+                if (error.length)
+                    diagnosticDialog.title = error
+                else
+                    diagnosticDialog.close()
+            }
         }
         }
 

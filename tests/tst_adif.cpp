@@ -76,6 +76,22 @@ private slots:
         QCOMPARE(back.header.value("PROGRAMID"), QString("DecoDXLog"));
     }
 
+    void satelliteTxRxAndPropagationRoundTrip()
+    {
+        AdifRecord r{{"CALL", "AO-91"}, {"QSO_DATE", "20261015"}, {"TIME_ON", "120000"},
+                     {"BAND", "2m"}, {"FREQ", "145.900000"}, {"FREQ_RX", "435.250000"},
+                     {"MODE", "FM"}, {"PROP_MODE", "SAT"}, {"SAT_NAME", "AO-91"},
+                     {"SAT_MODE", "V/U"}};
+        const AdifDocument back = adif::parse(adif::writeDocument(AdifDocument{{}, {r}}));
+        QCOMPARE(back.records.size(), 1);
+        const AdifRecord& out = back.records.first();
+        QCOMPARE(out.value("FREQ"), QStringLiteral("145.900000"));
+        QCOMPARE(out.value("FREQ_RX"), QStringLiteral("435.250000"));
+        QCOMPARE(out.value("PROP_MODE"), QStringLiteral("SAT"));
+        QCOMPARE(out.value("SAT_NAME"), QStringLiteral("AO-91"));
+        QCOMPARE(out.value("SAT_MODE"), QStringLiteral("V/U"));
+    }
+
     void normalizeFt2()
     {
         AdifRecord legacy{{"CALL", "K1AB"}, {"MODE", "FT2"}};

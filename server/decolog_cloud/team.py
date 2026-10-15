@@ -42,12 +42,12 @@ _ALPHABET = "ABCDEFGHJKMNPQRSTUVWXYZ23456789"
 
 
 def _now() -> dt.datetime:
-    return dt.datetime.now(dt.UTC)
+    return dt.datetime.now(dt.timezone.utc)
 
 
 def _aware(value: dt.datetime | None) -> dt.datetime | None:
     if value is not None and value.tzinfo is None:
-        return value.replace(tzinfo=dt.UTC)
+        return value.replace(tzinfo=dt.timezone.utc)
     return value
 
 

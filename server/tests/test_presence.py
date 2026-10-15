@@ -108,7 +108,7 @@ def test_a_station_that_went_quiet_is_not_on_air_any_more(client):
     # Come se il computer di casa tacesse da mezz'ora.
     with models.SessionLocal() as db:
         row = db.query(Presence).first()
-        row.updated_at = dt.datetime.now(dt.UTC) - dt.timedelta(minutes=30)
+        row.updated_at = dt.datetime.now(dt.timezone.utc) - dt.timedelta(minutes=30)
         db.commit()
 
     sign_in(client)

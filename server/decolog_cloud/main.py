@@ -8,6 +8,7 @@ client Qt di DecoDXLog implementa.
     POST /v1/sync/push     i QSO in coda, con la revisione che il client conosceva
     GET  /v1/sync/pull     quello che e' cambiato dopo un cursore
     GET  /v1/sync/status   quanti QSO ci sono e a che punto e' il contatore
+    GET  /v1/sync/history/{uuid}  revisioni scartate di un QSO
     GET  /v1/health        per il monitoraggio
     /v1/team/...           un log per piu' operatori (team.py)
 
@@ -371,7 +372,7 @@ def presence(
     row.dx_call = body.dxCall.strip().upper()
     row.transmitting = body.transmitting
     row.client = body.client.strip()
-    row.updated_at = dt.datetime.now(dt.UTC)
+    row.updated_at = dt.datetime.now(dt.timezone.utc)
     db.commit()
     return {"ok": True}
 
@@ -398,6 +399,26 @@ def health() -> dict:
         features.append("qslmail")
     return {"status": "ok", "service": "decolog-cloud", "version": app.version,
             "features": features}
+
+
+@app.get("/v1/sync/history/{uuid}")
+def qso_history(
+    uuid: str,
+    access: auth.LogAccess = Depends(auth.current_log),
+    db: Session = Depends(auth.session),
+) -> dict:
+    """Rende recuperabili le versioni perse nei conflitti, senza modificarle."""
+    rows = db.scalars(
+        select(QsoHistory)
+        .where(QsoHistory.account_id == access.log.id, QsoHistory.uuid == uuid.strip())
+        .order_by(QsoHistory.revision, QsoHistory.id)
+    ).all()
+    return {"uuid": uuid, "history": [
+        {"revision": row.revision, "reason": row.reason,
+         "recordedAt": row.recorded_at.isoformat() if row.recorded_at else None,
+         "fields": row.fields or {}}
+        for row in rows
+    ]}
 
 
 # ── Il log dal browser ────────────────────────────────────────────────────────

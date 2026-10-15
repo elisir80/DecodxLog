@@ -20,9 +20,16 @@ class QSettings;
 
 namespace decolog::core::cloudsettings {
 
+// Versione del contratto di portabilita': incrementarla quando cambia la
+// classificazione, cosi' un client puo' rifiutare una politica sconosciuta.
+inline constexpr int kScopeVersion = 1;
+enum class Scope { Portable, Station, Device };
+
 // Il profilo attivo detto in un modo che vale su tutti i computer: il numero di
 // riga cambia da un log all'altro, l'uuid no.
 inline constexpr QLatin1String kActiveProfileUuid{"station/activeProfileUuid"};
+
+Scope scopeOf(const QString& key);
 
 // Vero per le impostazioni che restano dove sono state scritte.
 bool isMachineOnly(const QString& key);

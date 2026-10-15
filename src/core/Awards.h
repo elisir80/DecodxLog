@@ -16,12 +16,67 @@
 #include <QString>
 #include <QStringList>
 #include <functional>
+#include <optional>
+#include <QJsonObject>
 
 namespace decolog::core {
 
 class LogDatabase;
 
 namespace awards {
+
+struct AwardClaim {
+    enum class State { Draft, Submitted, Verified, Credited, Rejected };
+
+    QString id;
+    QString awardId;
+    QString ruleVersion;
+    QList<qint64> qsoIds;
+    State state{State::Draft};
+    QDateTime createdAt;
+    QDateTime submittedAt;
+    QDateTime decidedAt;
+    QString outcome;
+    QString evidence;
+
+    static QString stateName(State state);
+    static std::optional<State> stateFromName(const QString& name);
+    bool transitionTo(State next, const QDateTime& when, const QString& note = {}, QString* error = nullptr);
+    QJsonObject toJson() const;
+    static std::optional<AwardClaim> fromJson(const QJsonObject& object, QString* error = nullptr);
+};
+
+class AwardClaimStore {
+public:
+    static QList<AwardClaim> load(const LogDatabase& db, QString* error = nullptr);
+    static bool save(LogDatabase& db, const QList<AwardClaim>& claims, QString* error = nullptr);
+};
+
+struct AwardRulePackage {
+    QString id;
+    QString title;
+    QString source;
+    QString version;
+    QDate validFrom;
+    QDate validTo;
+    QString keyField; // DXCC, STATE, CQZ, GRID4, BAND, CALL_PREFIX
+    QString fingerprint;
+    int target{0};
+    int total{0};
+
+    static std::optional<AwardRulePackage> fromJson(const QByteArray& json, QString* error = nullptr);
+    bool isValid(QString* error = nullptr) const;
+};
+
+class AwardRuleCatalog {
+public:
+    bool add(const AwardRulePackage& package, QString* error = nullptr);
+    static AwardRuleCatalog loadDirectory(const QString& directory, QStringList* errors = nullptr);
+    QList<AwardRulePackage> packages() const { return m_packages; }
+
+private:
+    QList<AwardRulePackage> m_packages;
+};
 
 // Il prefisso WPX di un nominativo secondo le regole CQ WPX:
 // N8BJQ → N8, EA8/OH2XX → EA8, W1AW/4 → W4, LX/DL1ABC → LX0.
@@ -100,9 +155,9 @@ struct AwardFilter {
     qint64 stationProfileId{0}; // 0 = tutti i profili
     QString tag;                // etichetta dei QSO che contano, vuota = tutti
     // I 60 metri nel DXCC, nel DXCC Challenge e nel WAS. Per l'ARRL non
-    // valgono; di serie si contano lo stesso (lo chiedono gli operatori, e il
-    // conto e' il loro), e chi vuole il conto ufficiale li spegne.
-    bool count60m{true};
+    // valgono. Il profilo nuovo e' ufficiale; una preferenza gia' salvata a
+    // true resta personale e viene mantenuta dal controller.
+    bool count60m{false};
     // Le conferme scelte dall'operatore per un diploma ("dxcc" → lotw, card):
     // vincono sulle regole del diploma e sulle scelte generali.
     QHash<QString, QStringList> credits;
@@ -136,12 +191,18 @@ struct AwardItem {
     QDateTime last;
     qint64 firstQsoId{0};
     QString firstCall;
+    bool countsForAward{true}; // visibile nel dettaglio, eventualmente fuori dal conteggio ufficiale
     bool confirmed() const { return !bandsConfirmed.isEmpty(); }
 };
 
 struct AwardResult {
     QString id;                 // "dxcc", "waz"...
     QString title;
+    // False means the view is an operational/statistical estimate and must not
+    // be presented as proof of eligibility for an external award.
+    bool officialRules{false};
+    QString rulesSource;
+    QString verifier;
     // Quello che il regolamento chiede oltre al numero, gia' tradotto e gia'
     // confrontato con il log: "30 castelli in 5 regioni, uno della provincia di
     // Cuneo - ne hai 12 in 4 regioni, Cuneo manca". Vuoto se non c'e' altro.
@@ -149,11 +210,11 @@ struct AwardResult {
     int target{0};              // traguardo del diploma base (0 = nessuno)
     int total{0};               // elementi esistenti, se il numero e' fisso (40 zone, 50 stati)
     QList<AwardItem> items;     // ordinati per chiave
-    int worked() const { return static_cast<int>(items.size()); }
-    int confirmed() const;
+    int worked(bool officialOnly = false) const;
+    int confirmed(bool officialOnly = false) const;
     // Per banda, nell'ordine dato: quanti elementi lavorati e confermati. La somma
     // dei confermati e' il conteggio dei "band slot" (DXCC Challenge).
-    QList<BandTotal> bandTotals(const QStringList& bands) const;
+    QList<BandTotal> bandTotals(const QStringList& bands, bool officialOnly = false) const;
 };
 
 class AwardCalculator {
@@ -162,6 +223,8 @@ public:
     using DxccName = std::function<QString(int dxcc)>;
 
     explicit AwardCalculator(DxccName dxccName = {});
+
+    void setRulePackages(const QList<awards::AwardRulePackage>& packages) { m_rulePackages = packages; }
 
     // Con il cty.xml di Club Log il DXCC sa di piu': le operazioni che l'ARRL
     // non ha accettato non contano, e le entita' cancellate non fanno numero
@@ -179,6 +242,7 @@ public:
 private:
     DxccName m_dxccName;
     DxccRules m_rules;
+    QList<awards::AwardRulePackage> m_rulePackages;
 };
 
 } // namespace decolog::core

@@ -27,12 +27,27 @@ class TestCloudSettings : public QObject {
     Q_OBJECT
 
 private slots:
+    void scopePolicyIsVersionedAndClassified()
+    {
+        QCOMPARE(cloudsettings::kScopeVersion, 1);
+        QCOMPARE(cloudsettings::scopeOf(QStringLiteral("theme/current")), cloudsettings::Scope::Portable);
+        QCOMPARE(cloudsettings::scopeOf(QStringLiteral("cw/macros")), cloudsettings::Scope::Portable);
+        QCOMPARE(cloudsettings::scopeOf(QStringLiteral("station/profile/home")), cloudsettings::Scope::Station);
+        QCOMPARE(cloudsettings::scopeOf(QStringLiteral("rig/serialPort")), cloudsettings::Scope::Device);
+        QCOMPARE(cloudsettings::scopeOf(QStringLiteral("udp/port")), cloudsettings::Scope::Device);
+        QCOMPARE(cloudsettings::scopeOf(QStringLiteral("station/activeProfile")), cloudsettings::Scope::Device);
+    }
+
     void everythingTravelsButTheMachine()
     {
         QTemporaryDir dir;
         QScopedPointer<QSettings> s(fresh(dir, QStringLiteral("a.ini")));
         s->setValue(QStringLiteral("theme/current"), QStringLiteral("Darkcodium"));
+        s->setValue(QStringLiteral("cw/macros"), QStringLiteral("CQ|CALL|TU"));
+        s->setValue(QStringLiteral("layout/savedFilters"), QStringList{QStringLiteral("20m"), QStringLiteral("CW")});
         s->setValue(QStringLiteral("udp/port"), 2238);
+        s->setValue(QStringLiteral("rig/serialPort"), QStringLiteral("/dev/cu.usbserial-1"));
+        s->setValue(QStringLiteral("cw/audioInput"), QStringLiteral("USB Audio CODEC"));
         s->setValue(QStringLiteral("rotor/host"), QStringLiteral("127.0.0.1"));
         s->setValue(QStringLiteral("backup/folder"), QStringLiteral("D:/log/backup"));
         s->setValue(QStringLiteral("credentials/cloud/stored"), true);
@@ -40,16 +55,35 @@ private slots:
         s->setValue(QStringLiteral("cloud/server"), QStringLiteral("https://cloud.ft2.it"));
 
         const QVariantMap out = cloudsettings::collect(*s);
-        // Porte, percorsi e indirizzi dei programmi accanto sono impostazioni
-        // come le altre: su un altro computer la stazione dev'essere la stessa.
         QCOMPARE(out.value(QStringLiteral("theme/current")).toString(), QStringLiteral("Darkcodium"));
-        QCOMPARE(out.value(QStringLiteral("udp/port")).toInt(), 2238);
-        QCOMPARE(out.value(QStringLiteral("rotor/host")).toString(), QStringLiteral("127.0.0.1"));
-        QCOMPARE(out.value(QStringLiteral("backup/folder")).toString(), QStringLiteral("D:/log/backup"));
+        QCOMPARE(out.value(QStringLiteral("cw/macros")).toString(), QStringLiteral("CQ|CALL|TU"));
+        QCOMPARE(out.value(QStringLiteral("layout/savedFilters")).toStringList(), QStringList({QStringLiteral("20m"), QStringLiteral("CW")}));
+        QVERIFY(!out.contains(QStringLiteral("udp/port")));
+        QVERIFY(!out.contains(QStringLiteral("rig/serialPort")));
+        QVERIFY(!out.contains(QStringLiteral("cw/audioInput")));
+        QVERIFY(!out.contains(QStringLiteral("rotor/host")));
+        QVERIFY(!out.contains(QStringLiteral("backup/folder")));
         QCOMPARE(out.value(QStringLiteral("cloud/server")).toString(), QStringLiteral("https://cloud.ft2.it"));
         // Il promemoria del portachiavi e il quaderno del sync restano qui.
         QVERIFY(!out.contains(QStringLiteral("credentials/cloud/stored")));
         QVERIFY(!out.contains(QStringLiteral("cloud/lastSync")));
+    }
+
+    void networkIdentityStaysOnThisMachine()
+    {
+        QTemporaryDir dir;
+        QScopedPointer<QSettings> source(fresh(dir, QStringLiteral("net-source.ini")));
+        source->setValue(QStringLiteral("net/id"), QStringLiteral("source-device"));
+
+        const QVariantMap document = cloudsettings::collect(*source);
+        // L'identita' UDP e' strettamente locale: non deve diventare quella
+        // del primo computer dopo un ripristino Cloud.
+        QVERIFY(!document.contains(QStringLiteral("net/id")));
+
+        QScopedPointer<QSettings> target(fresh(dir, QStringLiteral("net-target.ini")));
+        target->setValue(QStringLiteral("net/id"), QStringLiteral("target-device"));
+        cloudsettings::apply(*target, document);
+        QCOMPARE(target->value(QStringLiteral("net/id")).toString(), QStringLiteral("target-device"));
     }
 
     void aSavedFilterSurvivesTheTrip()
@@ -96,13 +130,22 @@ private slots:
         QTemporaryDir dir;
         QScopedPointer<QSettings> s(fresh(dir, QStringLiteral("f.ini")));
         s->setValue(QStringLiteral("credentials/cloud/stored"), false);
+        s->setValue(QStringLiteral("rig/serialPort"), QStringLiteral("local-serial"));
+        s->setValue(QStringLiteral("udp/port"), 2238);
+        s->setValue(QStringLiteral("backup/folder"), QStringLiteral("/local/backup"));
 
         const int written = cloudsettings::apply(
             *s, QVariantMap{{QStringLiteral("credentials/cloud/stored"), true},
+                            {QStringLiteral("rig/serialPort"), QStringLiteral("remote-serial")},
+                            {QStringLiteral("udp/port"), 9999},
+                            {QStringLiteral("backup/folder"), QStringLiteral("D:/remote")},
                             {QStringLiteral("cloud/callsign"), QStringLiteral("XX0XXX")},
                             {QStringLiteral("theme/current"), QStringLiteral("Stellar Light")}});
         QCOMPARE(written, 1);
         QCOMPARE(s->value(QStringLiteral("credentials/cloud/stored")).toBool(), false);
+        QCOMPARE(s->value(QStringLiteral("rig/serialPort")).toString(), QStringLiteral("local-serial"));
+        QCOMPARE(s->value(QStringLiteral("udp/port")).toInt(), 2238);
+        QCOMPARE(s->value(QStringLiteral("backup/folder")).toString(), QStringLiteral("/local/backup"));
         QVERIFY(!s->contains(QStringLiteral("cloud/callsign")));
         QCOMPARE(s->value(QStringLiteral("theme/current")).toString(), QStringLiteral("Stellar Light"));
     }
