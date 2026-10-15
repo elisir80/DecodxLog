@@ -3,7 +3,7 @@
 Le date sono quelle del lavoro, non di una pubblicazione: DecoDXLog cresce mentre lo si usa
 in stazione.
 
-## 1.17.20 — 15 ottobre 2026
+## 1.17.21 — 15 ottobre 2026
 
 **Allineata alla 1.17.20 di elisir80.** La storia di elisir80 ripartiva dalla nostra 1.17.15, quindi
 l'allineamento e' lineare, senza conflitti. Quel che porta:
