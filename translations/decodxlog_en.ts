@@ -7918,6 +7918,30 @@ Extra fields are preserved: %8</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Never open the port Decodium uses for the CAT (%1)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Never open the port Decodium uses for the CAT</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Other ports DecoDXLog never opens</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>for instance COM5, COM9</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Reserved ports are not offered in the lists, are skipped when looking for the radio and are never opened for the CAT, the PTT, the CW key, the rotor or the SO2R box. To share the radio with Decodium, use its shared virtual port (DecoPort, a COM pair created by com0com): pick that port here, the same radio model as Decodium and its speed, or press Find the radio.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The port chosen above is reserved: DecoDXLog will not open it. Pick another one.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Advanced serial parameters</source>
         <translation type="unfinished"></translation>
     </message>
@@ -11565,6 +11589,10 @@ Extra fields are preserved: %8</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>%1 is reserved for another program (Decodium): DecoDXLog does not open it. Pick another port in Setup → Radio, for instance the shared virtual port of Decodium, or change the reservation there</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Shared CAT off</source>
         <translation type="unfinished"></translation>
     </message>
@@ -11784,6 +11812,10 @@ Extra fields are preserved: %8</source>
     <name>decolog::app::So2rController</name>
     <message>
         <source>Radio 2: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1 is reserved for another program (Decodium): not opened</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -12418,6 +12450,10 @@ Extra fields are preserved: %8</source>
 <context>
     <name>decolog::core::CwKeyerWorker</name>
     <message>
+        <source>%1 is reserved for another program (Decodium): not opened</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Cannot open %1: %2</source>
         <translation type="unfinished"></translation>
     </message>
@@ -12590,6 +12626,10 @@ Extra fields are preserved: %8</source>
     </message>
     <message>
         <source>ARCO: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1 is reserved for another program (Decodium): not opened</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

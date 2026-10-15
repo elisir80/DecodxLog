@@ -65,6 +65,11 @@ public slots:
     void openPort(const QString& name, const QString& line)
     {
         closePort();
+        if (isSerialPortReserved(name)) {
+            emit failed(tr("%1 is reserved for another program (Decodium): not opened").arg(name));
+            emit opened(false);
+            return;
+        }
         m_line = line.trimmed().toUpper() == QLatin1String("RTS") ? Line::Rts : Line::Dtr;
         m_port = new QSerialPort(name);
         // Niente handshake: il piedino lo comandiamo noi, e se lo comanda anche

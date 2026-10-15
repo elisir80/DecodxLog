@@ -7925,6 +7925,30 @@ Extra velden blijven behouden: %8</translation>
         <translation>OmniRig</translation>
     </message>
     <message>
+        <source>Never open the port Decodium uses for the CAT (%1)</source>
+        <translation>Nooit de poort openen die Decodium voor CAT gebruikt (%1)</translation>
+    </message>
+    <message>
+        <source>Never open the port Decodium uses for the CAT</source>
+        <translation>Nooit de poort openen die Decodium voor CAT gebruikt</translation>
+    </message>
+    <message>
+        <source>Other ports DecoDXLog never opens</source>
+        <translation>Andere poorten die DecoDXLog nooit opent</translation>
+    </message>
+    <message>
+        <source>for instance COM5, COM9</source>
+        <translation>bijvoorbeeld COM5, COM9</translation>
+    </message>
+    <message>
+        <source>Reserved ports are not offered in the lists, are skipped when looking for the radio and are never opened for the CAT, the PTT, the CW key, the rotor or the SO2R box. To share the radio with Decodium, use its shared virtual port (DecoPort, a COM pair created by com0com): pick that port here, the same radio model as Decodium and its speed, or press Find the radio.</source>
+        <translation>Gereserveerde poorten staan niet in de lijsten, worden overgeslagen bij het zoeken naar de radio en worden nooit geopend voor CAT, PTT, CW-sleutel, rotor of SO2R-box. Om de radio met Decodium te delen, gebruik je de gedeelde virtuele poort (DecoPort, een door com0com gemaakt COM-paar): kies hier die poort, hetzelfde radiomodel als Decodium en de snelheid ervan, of druk op Radio zoeken.</translation>
+    </message>
+    <message>
+        <source>The port chosen above is reserved: DecoDXLog will not open it. Pick another one.</source>
+        <translation>De hierboven gekozen poort is gereserveerd: DecoDXLog opent hem niet. Kies een andere.</translation>
+    </message>
+    <message>
         <source>Advanced serial parameters</source>
         <translation>Geavanceerde seriële parameters</translation>
     </message>
@@ -11572,6 +11596,10 @@ Extra velden blijven behouden: %8</translation>
         <translation>Hamlib gestart op %1 (model %2, %3 baud)</translation>
     </message>
     <message>
+        <source>%1 is reserved for another program (Decodium): DecoDXLog does not open it. Pick another port in Setup → Radio, for instance the shared virtual port of Decodium, or change the reservation there</source>
+        <translation>%1 is gereserveerd voor een ander programma (Decodium): DecoDXLog opent hem niet. Kies een andere poort bij Instellingen → Radio, bijvoorbeeld de gedeelde virtuele poort van Decodium, of wijzig daar de reservering</translation>
+    </message>
+    <message>
         <source>Shared CAT off</source>
         <translation>Gedeelde CAT uit</translation>
     </message>
@@ -11792,6 +11820,10 @@ Extra velden blijven behouden: %8</translation>
     <message>
         <source>Radio 2: %1</source>
         <translation>Radio 2: %1</translation>
+    </message>
+    <message>
+        <source>%1 is reserved for another program (Decodium): not opened</source>
+        <translation>%1 is gereserveerd voor een ander programma (Decodium): niet geopend</translation>
     </message>
     <message>
         <source>Cannot open the SO2R box on %1: %2</source>
@@ -12425,6 +12457,10 @@ Extra velden blijven behouden: %8</translation>
 <context>
     <name>decolog::core::CwKeyerWorker</name>
     <message>
+        <source>%1 is reserved for another program (Decodium): not opened</source>
+        <translation>%1 is gereserveerd voor een ander programma (Decodium): niet geopend</translation>
+    </message>
+    <message>
         <source>Cannot open %1: %2</source>
         <translation>Kan %1 niet openen: %2</translation>
     </message>
@@ -12598,6 +12634,10 @@ Extra velden blijven behouden: %8</translation>
     <message>
         <source>ARCO: %1</source>
         <translation>ARCO: %1</translation>
+    </message>
+    <message>
+        <source>%1 is reserved for another program (Decodium): not opened</source>
+        <translation>%1 is gereserveerd voor een ander programma (Decodium): niet geopend</translation>
     </message>
     <message>
         <source>Rotor: connected to MicroHAM ARCO on %1</source>

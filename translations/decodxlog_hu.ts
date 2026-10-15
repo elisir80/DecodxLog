@@ -7903,6 +7903,30 @@ A további mezők megmaradnak: %8</translation>
         <translation>OmniRig</translation>
     </message>
     <message>
+        <source>Never open the port Decodium uses for the CAT (%1)</source>
+        <translation>Soha ne nyissa meg azt a portot, amelyet a Decodium a CAT-hoz használ (%1)</translation>
+    </message>
+    <message>
+        <source>Never open the port Decodium uses for the CAT</source>
+        <translation>Soha ne nyissa meg azt a portot, amelyet a Decodium a CAT-hoz használ</translation>
+    </message>
+    <message>
+        <source>Other ports DecoDXLog never opens</source>
+        <translation>További portok, amelyeket a DecoDXLog soha nem nyit meg</translation>
+    </message>
+    <message>
+        <source>for instance COM5, COM9</source>
+        <translation>például COM5, COM9</translation>
+    </message>
+    <message>
+        <source>Reserved ports are not offered in the lists, are skipped when looking for the radio and are never opened for the CAT, the PTT, the CW key, the rotor or the SO2R box. To share the radio with Decodium, use its shared virtual port (DecoPort, a COM pair created by com0com): pick that port here, the same radio model as Decodium and its speed, or press Find the radio.</source>
+        <translation>A lefoglalt portok nem szerepelnek a listákban, a rádió keresésekor kimaradnak, és soha nem nyílnak meg CAT-hoz, PTT-hez, CW-kulcshoz, rotorhoz vagy SO2R-dobozhoz. Ha a rádiót meg akarja osztani a Decodiummal, használja annak megosztott virtuális portját (DecoPort, a com0com által létrehozott COM-pár): válassza itt azt a portot, a Decodiummal azonos rádiótípust és annak sebességét, vagy nyomja meg a Rádió keresése gombot.</translation>
+    </message>
+    <message>
+        <source>The port chosen above is reserved: DecoDXLog will not open it. Pick another one.</source>
+        <translation>A fent kiválasztott port le van foglalva: a DecoDXLog nem nyitja meg. Válasszon másikat.</translation>
+    </message>
+    <message>
         <source>Advanced serial parameters</source>
         <translation>Speciális soros paraméterek</translation>
     </message>
@@ -11508,6 +11532,10 @@ A további mezők megmaradnak: %8</translation>
         <translation>A Hamlib elindult itt: %1 (modell %2, %3 baud)</translation>
     </message>
     <message>
+        <source>%1 is reserved for another program (Decodium): DecoDXLog does not open it. Pick another port in Setup → Radio, for instance the shared virtual port of Decodium, or change the reservation there</source>
+        <translation>A(z) %1 egy másik programnak (Decodium) van fenntartva: a DecoDXLog nem nyitja meg. Válasszon másik portot a Beállítások → Rádió alatt, például a Decodium megosztott virtuális portját, vagy ott módosítsa a foglalást</translation>
+    </message>
+    <message>
         <source>Shared CAT off</source>
         <translation>Megosztott CAT kikapcsolva</translation>
     </message>
@@ -11728,6 +11756,10 @@ A további mezők megmaradnak: %8</translation>
     <message>
         <source>Radio 2: %1</source>
         <translation>2. rádió: %1</translation>
+    </message>
+    <message>
+        <source>%1 is reserved for another program (Decodium): not opened</source>
+        <translation>A(z) %1 egy másik programnak (Decodium) van fenntartva: nincs megnyitva</translation>
     </message>
     <message>
         <source>Cannot open the SO2R box on %1: %2</source>
@@ -12361,6 +12393,10 @@ A további mezők megmaradnak: %8</translation>
 <context>
     <name>decolog::core::CwKeyerWorker</name>
     <message>
+        <source>%1 is reserved for another program (Decodium): not opened</source>
+        <translation>A(z) %1 egy másik programnak (Decodium) van fenntartva: nincs megnyitva</translation>
+    </message>
+    <message>
         <source>Cannot open %1: %2</source>
         <translation>Nem nyitható meg: %1: %2</translation>
     </message>
@@ -12534,6 +12570,10 @@ A további mezők megmaradnak: %8</translation>
     <message>
         <source>ARCO: %1</source>
         <translation>ARCO: %1</translation>
+    </message>
+    <message>
+        <source>%1 is reserved for another program (Decodium): not opened</source>
+        <translation>A(z) %1 egy másik programnak (Decodium) van fenntartva: nincs megnyitva</translation>
     </message>
     <message>
         <source>Rotor: connected to MicroHAM ARCO on %1</source>

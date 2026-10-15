@@ -7903,6 +7903,30 @@ QSL 狀態：%6 · UTC 不完整：%7。
         <translation>OmniRig</translation>
     </message>
     <message>
+        <source>Never open the port Decodium uses for the CAT (%1)</source>
+        <translation>不要開啟 Decodium 用於 CAT 的連接埠 (%1)</translation>
+    </message>
+    <message>
+        <source>Never open the port Decodium uses for the CAT</source>
+        <translation>不要開啟 Decodium 用於 CAT 的連接埠</translation>
+    </message>
+    <message>
+        <source>Other ports DecoDXLog never opens</source>
+        <translation>DecoDXLog 永不開啟的其他連接埠</translation>
+    </message>
+    <message>
+        <source>for instance COM5, COM9</source>
+        <translation>例如 COM5, COM9</translation>
+    </message>
+    <message>
+        <source>Reserved ports are not offered in the lists, are skipped when looking for the radio and are never opened for the CAT, the PTT, the CW key, the rotor or the SO2R box. To share the radio with Decodium, use its shared virtual port (DecoPort, a COM pair created by com0com): pick that port here, the same radio model as Decodium and its speed, or press Find the radio.</source>
+        <translation>保留的連接埠不會出現在清單中，尋找電台時會略過，也絕不會被用於 CAT、PTT、CW 鍵、轉台或 SO2R 盒。要與 Decodium 共用電台，請使用它的共用虛擬連接埠（DecoPort，由 com0com 建立的 COM 配對）：在此選擇該連接埠、與 Decodium 相同的電台型號及其速率，或按「尋找電台」。</translation>
+    </message>
+    <message>
+        <source>The port chosen above is reserved: DecoDXLog will not open it. Pick another one.</source>
+        <translation>上面選擇的連接埠已被保留：DecoDXLog 不會開啟它。請選擇另一個。</translation>
+    </message>
+    <message>
         <source>Advanced serial parameters</source>
         <translation>進階序列參數</translation>
     </message>
@@ -11508,6 +11532,10 @@ QSL 狀態：%6 · UTC 不完整：%7。
         <translation>Hamlib 已在 %1 上啟動（型號 %2，%3 鮑率）</translation>
     </message>
     <message>
+        <source>%1 is reserved for another program (Decodium): DecoDXLog does not open it. Pick another port in Setup → Radio, for instance the shared virtual port of Decodium, or change the reservation there</source>
+        <translation>%1 已保留給另一個程式 (Decodium)：DecoDXLog 不會開啟它。請在 設定 → 電台 中選擇其他連接埠，例如 Decodium 的共用虛擬連接埠，或在那裡變更保留設定</translation>
+    </message>
+    <message>
         <source>Shared CAT off</source>
         <translation>共享 CAT 已關閉</translation>
     </message>
@@ -11728,6 +11756,10 @@ QSL 狀態：%6 · UTC 不完整：%7。
     <message>
         <source>Radio 2: %1</source>
         <translation>電台 2：%1</translation>
+    </message>
+    <message>
+        <source>%1 is reserved for another program (Decodium): not opened</source>
+        <translation>%1 已保留給另一個程式 (Decodium)：未開啟</translation>
     </message>
     <message>
         <source>Cannot open the SO2R box on %1: %2</source>
@@ -12361,6 +12393,10 @@ QSL 狀態：%6 · UTC 不完整：%7。
 <context>
     <name>decolog::core::CwKeyerWorker</name>
     <message>
+        <source>%1 is reserved for another program (Decodium): not opened</source>
+        <translation>%1 已保留給另一個程式 (Decodium)：未開啟</translation>
+    </message>
+    <message>
         <source>Cannot open %1: %2</source>
         <translation>打不開 %1：%2</translation>
     </message>
@@ -12534,6 +12570,10 @@ QSL 狀態：%6 · UTC 不完整：%7。
     <message>
         <source>ARCO: %1</source>
         <translation>ARCO：%1</translation>
+    </message>
+    <message>
+        <source>%1 is reserved for another program (Decodium): not opened</source>
+        <translation>%1 已保留給另一個程式 (Decodium)：未開啟</translation>
     </message>
     <message>
         <source>Rotor: connected to MicroHAM ARCO on %1</source>

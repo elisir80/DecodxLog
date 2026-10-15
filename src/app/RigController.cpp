@@ -280,19 +280,16 @@ void RigController::probeRadio()
     const QStringList ports = serialPorts();
     QList<int> speeds{m_baud, 38400, 19200, 9600, 115200, 4800};
     m_probe.clear();
-    QStringList order;
-    if (!m_serialPort.isEmpty())
-        order << m_serialPort;
-    const QString fromDecodium = decodiumCat().value(QStringLiteral("port")).toString();
-    if (!fromDecodium.isEmpty() && !order.contains(fromDecodium))
-        order << fromDecodium;
-    for (const QString& port : ports) {
-        if (!order.contains(port))
-            order << port;
-    }
-    for (const QString& port : std::as_const(order)) {
+    // Mai le porte riservate (quella di Decodium) ne' gli estremi nascosti delle coppie
+    // virtuali: sono di chi le ha create. Le porte virtuali condivise (DecoPort di Decodium)
+    // vengono prima: rispondono subito e non tolgono la radio a nessuno.
+    const QStringList virtualPorts = core::virtualSerialPorts();
+    const QStringList order = core::serialProbeOrder(m_serialPort, ports, virtualPorts);
+    for (const QString& port : order) {
         QList<int> seen;
-        for (const int baud : std::as_const(speeds)) {
+        // Su una porta virtuale la velocita' non conta: un solo tentativo.
+        const QList<int> candidates = virtualPorts.contains(port) ? QList<int>{m_baud > 0 ? m_baud : 38400} : speeds;
+        for (const int baud : candidates) {
             if (baud <= 0 || seen.contains(baud))
                 continue;
             seen << baud;
@@ -614,6 +611,21 @@ void RigController::startLocalRigctld()
         connectHamlibLater(generation, 0);
         return;
     }
+    // Una porta di un altro programma (di serie, quella di Decodium) non si apre:
+    // se la prende DecoDXLog, Decodium resta senza radio.
+    for (const QString& used : {m_serialPort, m_pttType == QLatin1String("RIG") ? QString() : m_pttPort}) {
+        if (used.isEmpty() || !core::isSerialPortReserved(used))
+            continue;
+        if (m_ctx.activity) {
+            m_ctx.activity(QStringLiteral("CAT"),
+                           tr("%1 is reserved for another program (Decodium): DecoDXLog does not open it. "
+                              "Pick another port in Setup → Radio, for instance the shared virtual port "
+                              "of Decodium, or change the reservation there").arg(used),
+                           QStringLiteral("warning"));
+        }
+        connectHamlibLater(generation, 0);
+        return;
+    }
     // L'app puo' avviare la radio prima che la pagina Impostazioni sia stata
     // aperta: in quel caso scopriamo qui le capacita', prima di costruire la
     // riga di comando, non solo quando la UI le deve visualizzare.
@@ -819,6 +831,48 @@ void RigController::setSerialPort(const QString& port)
     m_serialPort = port.trimmed();
     QSettings().setValue(QStringLiteral("rig/serialPort"), m_serialPort);
     emit changed();
+}
+
+QString RigController::reservedPorts() const
+{
+    return core::userReservedSerialPorts().join(QStringLiteral(", "));
+}
+
+void RigController::setReservedPorts(const QString& ports)
+{
+    const QStringList list = ports.split(QRegularExpression(QStringLiteral("[,;\\s]+")), Qt::SkipEmptyParts);
+    if (list == core::userReservedSerialPorts())
+        return;
+    core::setUserReservedSerialPorts(list);
+    emit changed();
+}
+
+bool RigController::leaveDecodiumPort() const
+{
+    return core::leaveDecodiumPort();
+}
+
+void RigController::setLeaveDecodiumPort(bool on)
+{
+    if (on == core::leaveDecodiumPort())
+        return;
+    core::setLeaveDecodiumPort(on);
+    emit changed();
+}
+
+QString RigController::decodiumCatPort() const
+{
+    return core::decodiumCatPort();
+}
+
+bool RigController::isPortReserved(const QString& port) const
+{
+    return core::isSerialPortReserved(port);
+}
+
+QStringList RigController::virtualPorts() const
+{
+    return core::virtualSerialPorts();
 }
 
 void RigController::setRigModel(int model)

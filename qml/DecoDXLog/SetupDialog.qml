@@ -1907,6 +1907,38 @@ DialogFrame {
                         }
                     }
 
+                    //  Le porte di un altro programma: una seriale la apre uno solo, e se
+                    //  DecoDXLog prende quella di Decodium, Decodium resta senza radio.
+                    ToggleSwitch {
+                        visible: decolog.rig.link === "serial"
+                        text: decolog.rig.decodiumCatPort().length > 0
+                              ? qsTr("Never open the port Decodium uses for the CAT (%1)").arg(decolog.rig.decodiumCatPort())
+                              : qsTr("Never open the port Decodium uses for the CAT")
+                        checked: decolog.rig.leaveDecodiumPort
+                        onToggled: decolog.rig.leaveDecodiumPort = checked
+                    }
+                    RowLayout {
+                        spacing: 12
+                        visible: decolog.rig.link === "serial"
+                        LabeledField {
+                            label: qsTr("Other ports DecoDXLog never opens")
+                            StyledTextField {
+                                Layout.preferredWidth: 260
+                                placeholderText: qsTr("for instance COM5, COM9")
+                                Component.onCompleted: text = decolog.rig.reservedPorts
+                                onEditingFinished: decolog.rig.reservedPorts = text
+                            }
+                        }
+                    }
+                    Note {
+                        visible: decolog.rig.link === "serial"
+                        text: qsTr("Reserved ports are not offered in the lists, are skipped when looking for the radio and are never opened for the CAT, the PTT, the CW key, the rotor or the SO2R box. To share the radio with Decodium, use its shared virtual port (DecoPort, a COM pair created by com0com): pick that port here, the same radio model as Decodium and its speed, or press Find the radio.")
+                    }
+                    Note {
+                        visible: decolog.rig.link === "serial" && decolog.rig.isPortReserved(decolog.rig.serialPort)
+                        text: qsTr("The port chosen above is reserved: DecoDXLog will not open it. Pick another one.")
+                    }
+
                     //  Il PTT: chi ha due porte tiene il CAT su una e il PTT
                     //  sull'altra, ed e' la maniera che funziona sempre.
                     RowLayout {

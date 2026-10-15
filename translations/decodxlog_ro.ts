@@ -7947,6 +7947,30 @@ Câmpuri suplimentare păstrate: %8</translation>
         <translation>OmniRig</translation>
     </message>
     <message>
+        <source>Never open the port Decodium uses for the CAT (%1)</source>
+        <translation>Nu deschide niciodată portul pe care Decodium îl folosește pentru CAT (%1)</translation>
+    </message>
+    <message>
+        <source>Never open the port Decodium uses for the CAT</source>
+        <translation>Nu deschide niciodată portul pe care Decodium îl folosește pentru CAT</translation>
+    </message>
+    <message>
+        <source>Other ports DecoDXLog never opens</source>
+        <translation>Alte porturi pe care DecoDXLog nu le deschide niciodată</translation>
+    </message>
+    <message>
+        <source>for instance COM5, COM9</source>
+        <translation>de exemplu COM5, COM9</translation>
+    </message>
+    <message>
+        <source>Reserved ports are not offered in the lists, are skipped when looking for the radio and are never opened for the CAT, the PTT, the CW key, the rotor or the SO2R box. To share the radio with Decodium, use its shared virtual port (DecoPort, a COM pair created by com0com): pick that port here, the same radio model as Decodium and its speed, or press Find the radio.</source>
+        <translation>Porturile rezervate nu apar în liste, sunt sărite la căutarea radioului și nu se deschid niciodată pentru CAT, PTT, cheia CW, rotor sau cutia SO2R. Pentru a împărți radioul cu Decodium, folosește portul său virtual partajat (DecoPort, o pereche COM creată de com0com): alege aici acel port, același model de radio ca Decodium și viteza lui, sau apasă Găsește radioul.</translation>
+    </message>
+    <message>
+        <source>The port chosen above is reserved: DecoDXLog will not open it. Pick another one.</source>
+        <translation>Portul ales mai sus este rezervat: DecoDXLog nu îl va deschide. Alege altul.</translation>
+    </message>
+    <message>
         <source>Advanced serial parameters</source>
         <translation>Parametri seriali avansați</translation>
     </message>
@@ -11636,6 +11660,10 @@ Câmpuri suplimentare păstrate: %8</translation>
         <translation>Hamlib pornit pe %1 (model %2, %3 baud)</translation>
     </message>
     <message>
+        <source>%1 is reserved for another program (Decodium): DecoDXLog does not open it. Pick another port in Setup → Radio, for instance the shared virtual port of Decodium, or change the reservation there</source>
+        <translation>%1 este rezervat altui program (Decodium): DecoDXLog nu îl deschide. Alege alt port în Setări → Radio, de exemplu portul virtual partajat al Decodium, sau schimbă acolo rezervarea</translation>
+    </message>
+    <message>
         <source>Shared CAT off</source>
         <translation>CAT partajată oprită</translation>
     </message>
@@ -11856,6 +11884,10 @@ Câmpuri suplimentare păstrate: %8</translation>
     <message>
         <source>Radio 2: %1</source>
         <translation>Stația 2: %1</translation>
+    </message>
+    <message>
+        <source>%1 is reserved for another program (Decodium): not opened</source>
+        <translation>%1 este rezervat altui program (Decodium): nu a fost deschis</translation>
     </message>
     <message>
         <source>Cannot open the SO2R box on %1: %2</source>
@@ -12489,6 +12521,10 @@ Câmpuri suplimentare păstrate: %8</translation>
 <context>
     <name>decolog::core::CwKeyerWorker</name>
     <message>
+        <source>%1 is reserved for another program (Decodium): not opened</source>
+        <translation>%1 este rezervat altui program (Decodium): nu a fost deschis</translation>
+    </message>
+    <message>
         <source>Cannot open %1: %2</source>
         <translation>Nu se poate deschide %1: %2</translation>
     </message>
@@ -12662,6 +12698,10 @@ Câmpuri suplimentare păstrate: %8</translation>
     <message>
         <source>ARCO: %1</source>
         <translation>ARCO: %1</translation>
+    </message>
+    <message>
+        <source>%1 is reserved for another program (Decodium): not opened</source>
+        <translation>%1 este rezervat altui program (Decodium): nu a fost deschis</translation>
     </message>
     <message>
         <source>Rotor: connected to MicroHAM ARCO on %1</source>

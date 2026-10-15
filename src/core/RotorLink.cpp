@@ -1,4 +1,5 @@
 #include "core/RotorLink.h"
+#include "core/SerialPorts.h"
 
 #include <QJsonArray>
 #include <QJsonDocument>
@@ -383,8 +384,13 @@ void RotorLink::openArcoTcp()
 
 void RotorLink::openArcoSerial()
 {
-    if (m_serial) { m_serial->close(); m_serial->deleteLater(); }
+    if (m_serial) { m_serial->close(); m_serial->deleteLater(); m_serial = nullptr; }
     m_buffer.clear();
+    if (isSerialPortReserved(m_host)) {
+        m_state.error = tr("%1 is reserved for another program (Decodium): not opened").arg(m_host);
+        emit stateChanged();
+        return;
+    }
     m_serial = new QSerialPort(this);
     m_serial->setPortName(m_host);
     m_serial->setBaudRate(m_port);

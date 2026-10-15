@@ -7925,6 +7925,30 @@ Ekstra felter bevares: %8</translation>
         <translation>OmniRig</translation>
     </message>
     <message>
+        <source>Never open the port Decodium uses for the CAT (%1)</source>
+        <translation>Åbn aldrig den port, Decodium bruger til CAT (%1)</translation>
+    </message>
+    <message>
+        <source>Never open the port Decodium uses for the CAT</source>
+        <translation>Åbn aldrig den port, Decodium bruger til CAT</translation>
+    </message>
+    <message>
+        <source>Other ports DecoDXLog never opens</source>
+        <translation>Andre porte, DecoDXLog aldrig åbner</translation>
+    </message>
+    <message>
+        <source>for instance COM5, COM9</source>
+        <translation>for eksempel COM5, COM9</translation>
+    </message>
+    <message>
+        <source>Reserved ports are not offered in the lists, are skipped when looking for the radio and are never opened for the CAT, the PTT, the CW key, the rotor or the SO2R box. To share the radio with Decodium, use its shared virtual port (DecoPort, a COM pair created by com0com): pick that port here, the same radio model as Decodium and its speed, or press Find the radio.</source>
+        <translation>Reserverede porte vises ikke i listerne, springes over, når radioen søges, og åbnes aldrig til CAT, PTT, CW-nøgle, rotor eller SO2R-boks. For at dele radioen med Decodium bruger du dens delte virtuelle port (DecoPort, et COM-par oprettet af com0com): vælg den port her, samme radiomodel som Decodium og dens hastighed, eller tryk på Find radioen.</translation>
+    </message>
+    <message>
+        <source>The port chosen above is reserved: DecoDXLog will not open it. Pick another one.</source>
+        <translation>Den port, der er valgt ovenfor, er reserveret: DecoDXLog åbner den ikke. Vælg en anden.</translation>
+    </message>
+    <message>
         <source>Advanced serial parameters</source>
         <translation>Avancerede serielle parametre</translation>
     </message>
@@ -11572,6 +11596,10 @@ Ekstra felter bevares: %8</translation>
         <translation>Hamlib startet på %1 (model %2, %3 baud)</translation>
     </message>
     <message>
+        <source>%1 is reserved for another program (Decodium): DecoDXLog does not open it. Pick another port in Setup → Radio, for instance the shared virtual port of Decodium, or change the reservation there</source>
+        <translation>%1 er reserveret til et andet program (Decodium): DecoDXLog åbner den ikke. Vælg en anden port under Indstillinger → Radio, for eksempel Decodiums delte virtuelle port, eller ændr reservationen dér</translation>
+    </message>
+    <message>
         <source>Shared CAT off</source>
         <translation>Delt CAT slået fra</translation>
     </message>
@@ -11792,6 +11820,10 @@ Ekstra felter bevares: %8</translation>
     <message>
         <source>Radio 2: %1</source>
         <translation>Radio 2: %1</translation>
+    </message>
+    <message>
+        <source>%1 is reserved for another program (Decodium): not opened</source>
+        <translation>%1 er reserveret til et andet program (Decodium): ikke åbnet</translation>
     </message>
     <message>
         <source>Cannot open the SO2R box on %1: %2</source>
@@ -12425,6 +12457,10 @@ Ekstra felter bevares: %8</translation>
 <context>
     <name>decolog::core::CwKeyerWorker</name>
     <message>
+        <source>%1 is reserved for another program (Decodium): not opened</source>
+        <translation>%1 er reserveret til et andet program (Decodium): ikke åbnet</translation>
+    </message>
+    <message>
         <source>Cannot open %1: %2</source>
         <translation>Kan ikke åbne %1: %2</translation>
     </message>
@@ -12598,6 +12634,10 @@ Ekstra felter bevares: %8</translation>
     <message>
         <source>ARCO: %1</source>
         <translation>ARCO: %1</translation>
+    </message>
+    <message>
+        <source>%1 is reserved for another program (Decodium): not opened</source>
+        <translation>%1 er reserveret til et andet program (Decodium): ikke åbnet</translation>
     </message>
     <message>
         <source>Rotor: connected to MicroHAM ARCO on %1</source>

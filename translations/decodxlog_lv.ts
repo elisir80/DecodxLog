@@ -7947,6 +7947,30 @@ Papildu lauki tiek saglabāti: %8</translation>
         <translation>OmniRig</translation>
     </message>
     <message>
+        <source>Never open the port Decodium uses for the CAT (%1)</source>
+        <translation>Nekad neatvērt portu, ko Decodium izmanto CAT (%1)</translation>
+    </message>
+    <message>
+        <source>Never open the port Decodium uses for the CAT</source>
+        <translation>Nekad neatvērt portu, ko Decodium izmanto CAT</translation>
+    </message>
+    <message>
+        <source>Other ports DecoDXLog never opens</source>
+        <translation>Citi porti, ko DecoDXLog nekad neatver</translation>
+    </message>
+    <message>
+        <source>for instance COM5, COM9</source>
+        <translation>piemēram, COM5, COM9</translation>
+    </message>
+    <message>
+        <source>Reserved ports are not offered in the lists, are skipped when looking for the radio and are never opened for the CAT, the PTT, the CW key, the rotor or the SO2R box. To share the radio with Decodium, use its shared virtual port (DecoPort, a COM pair created by com0com): pick that port here, the same radio model as Decodium and its speed, or press Find the radio.</source>
+        <translation>Rezervētie porti netiek rādīti sarakstos, tiek izlaisti, meklējot radio, un nekad netiek atvērti CAT, PTT, CW atslēgai, rotatoram vai SO2R kārbiņai. Lai radio dalītu ar Decodium, izmantojiet tā koplietoto virtuālo portu (DecoPort, com0com izveidots COM pāris): izvēlieties šeit šo portu, to pašu radio modeli, ko Decodium, un tā ātrumu, vai nospiediet Atrast radio.</translation>
+    </message>
+    <message>
+        <source>The port chosen above is reserved: DecoDXLog will not open it. Pick another one.</source>
+        <translation>Augstāk izvēlētais ports ir rezervēts: DecoDXLog to neatvērs. Izvēlieties citu.</translation>
+    </message>
+    <message>
         <source>Advanced serial parameters</source>
         <translation>Papildu seriālie parametri</translation>
     </message>
@@ -11636,6 +11660,10 @@ Papildu lauki tiek saglabāti: %8</translation>
         <translation>Hamlib palaists uz %1 (modelis %2, %3 bodi)</translation>
     </message>
     <message>
+        <source>%1 is reserved for another program (Decodium): DecoDXLog does not open it. Pick another port in Setup → Radio, for instance the shared virtual port of Decodium, or change the reservation there</source>
+        <translation>%1 ir rezervēts citai programmai (Decodium): DecoDXLog to neatver. Izvēlieties citu portu sadaļā Iestatījumi → Radio, piemēram, Decodium koplietoto virtuālo portu, vai tur mainiet rezervāciju</translation>
+    </message>
+    <message>
         <source>Shared CAT off</source>
         <translation>Koplietotā CAT izslēgta</translation>
     </message>
@@ -11856,6 +11884,10 @@ Papildu lauki tiek saglabāti: %8</translation>
     <message>
         <source>Radio 2: %1</source>
         <translation>2. radio: %1</translation>
+    </message>
+    <message>
+        <source>%1 is reserved for another program (Decodium): not opened</source>
+        <translation>%1 ir rezervēts citai programmai (Decodium): nav atvērts</translation>
     </message>
     <message>
         <source>Cannot open the SO2R box on %1: %2</source>
@@ -12489,6 +12521,10 @@ Papildu lauki tiek saglabāti: %8</translation>
 <context>
     <name>decolog::core::CwKeyerWorker</name>
     <message>
+        <source>%1 is reserved for another program (Decodium): not opened</source>
+        <translation>%1 ir rezervēts citai programmai (Decodium): nav atvērts</translation>
+    </message>
+    <message>
         <source>Cannot open %1: %2</source>
         <translation>Nevar atvērt %1: %2</translation>
     </message>
@@ -12662,6 +12698,10 @@ Papildu lauki tiek saglabāti: %8</translation>
     <message>
         <source>ARCO: %1</source>
         <translation>ARCO: %1</translation>
+    </message>
+    <message>
+        <source>%1 is reserved for another program (Decodium): not opened</source>
+        <translation>%1 ir rezervēts citai programmai (Decodium): nav atvērts</translation>
     </message>
     <message>
         <source>Rotor: connected to MicroHAM ARCO on %1</source>

@@ -135,6 +135,10 @@ class RigController : public QObject {
     Q_PROPERTY(int tciTrx READ tciTrx WRITE setTciTrx NOTIFY changed)
     Q_PROPERTY(QString tciDevice READ tciDevice NOTIFY stateChanged)
     Q_PROPERTY(QString serialPort READ serialPort WRITE setSerialPort NOTIFY changed)
+    // Le porte che DecoDXLog non apre mai perche' sono di un altro programma
+    // (di serie quella su cui Decodium tiene il CAT).
+    Q_PROPERTY(QString reservedPorts READ reservedPorts WRITE setReservedPorts NOTIFY changed)
+    Q_PROPERTY(bool leaveDecodiumPort READ leaveDecodiumPort WRITE setLeaveDecodiumPort NOTIFY changed)
     Q_PROPERTY(int rigModel READ rigModel WRITE setRigModel NOTIFY changed)
     Q_PROPERTY(int baud READ baud WRITE setBaud NOTIFY changed)
     // I parametri della seriale non sono universali: serialCapabilities viene
@@ -339,6 +343,10 @@ public:
     Q_INVOKABLE void useSharedCat(const QString& host, int port);
     QString serialPort() const { return m_serialPort; }
     void setSerialPort(const QString& port);
+    QString reservedPorts() const;
+    void setReservedPorts(const QString& ports);
+    bool leaveDecodiumPort() const;
+    void setLeaveDecodiumPort(bool on);
     int rigModel() const { return m_rigModel; }
     void setRigModel(int model);
     int baud() const { return m_baud; }
@@ -370,8 +378,14 @@ public:
     // adesso (vuoto la prima volta): la lista vera arriva con rigModelsChanged().
     Q_INVOKABLE QVariantList rigModels();
     QVariantList rigModelList() { return rigModels(); }
-    // Le porte seriali di questo computer.
+    // Le porte seriali di questo computer, senza quelle riservate.
     Q_INVOKABLE QStringList serialPorts() const;
+    // La porta su cui Decodium tiene il CAT, e se una porta e' riservata.
+    Q_INVOKABLE QString decodiumCatPort() const;
+    Q_INVOKABLE bool isPortReserved(const QString& port) const;
+    // Le porte virtuali (com0com): quelle che DecoPort di Decodium offre, nel
+    // dialetto della radio, a chi non puo' avere la seriale vera.
+    Q_INVOKABLE QStringList virtualPorts() const;
 
 signals:
     void changed();

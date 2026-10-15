@@ -7903,6 +7903,30 @@ QSL の状態: %6 · UTC が不完全: %7。
         <translation>OmniRig</translation>
     </message>
     <message>
+        <source>Never open the port Decodium uses for the CAT (%1)</source>
+        <translation>Decodium が CAT に使うポートは絶対に開かない (%1)</translation>
+    </message>
+    <message>
+        <source>Never open the port Decodium uses for the CAT</source>
+        <translation>Decodium が CAT に使うポートは絶対に開かない</translation>
+    </message>
+    <message>
+        <source>Other ports DecoDXLog never opens</source>
+        <translation>DecoDXLog が絶対に開かない他のポート</translation>
+    </message>
+    <message>
+        <source>for instance COM5, COM9</source>
+        <translation>例: COM5, COM9</translation>
+    </message>
+    <message>
+        <source>Reserved ports are not offered in the lists, are skipped when looking for the radio and are never opened for the CAT, the PTT, the CW key, the rotor or the SO2R box. To share the radio with Decodium, use its shared virtual port (DecoPort, a COM pair created by com0com): pick that port here, the same radio model as Decodium and its speed, or press Find the radio.</source>
+        <translation>予約済みのポートは一覧に表示されず、無線機の検索ではスキップされ、CAT、PTT、CW キー、ローテーター、SO2R ボックスのために開かれることもありません。Decodium と無線機を共有するには、Decodium の共有仮想ポート (DecoPort、com0com が作る COM のペア) を使います。ここでそのポートと、Decodium と同じ無線機モデルおよびその速度を選ぶか、「無線機を検索」を押してください。</translation>
+    </message>
+    <message>
+        <source>The port chosen above is reserved: DecoDXLog will not open it. Pick another one.</source>
+        <translation>上で選んだポートは予約済みです。DecoDXLog はこのポートを開きません。別のポートを選んでください。</translation>
+    </message>
+    <message>
         <source>Advanced serial parameters</source>
         <translation>シリアルの詳細設定</translation>
     </message>
@@ -11508,6 +11532,10 @@ QSL の状態: %6 · UTC が不完全: %7。
         <translation>%1 で Hamlib が立ち上がりました (機種 %2、%3 baud)</translation>
     </message>
     <message>
+        <source>%1 is reserved for another program (Decodium): DecoDXLog does not open it. Pick another port in Setup → Radio, for instance the shared virtual port of Decodium, or change the reservation there</source>
+        <translation>%1 は別のプログラム (Decodium) 用に予約されています。DecoDXLog は開きません。設定 → 無線機で別のポート (たとえば Decodium の共有仮想ポート) を選ぶか、そこで予約を変更してください</translation>
+    </message>
+    <message>
         <source>Shared CAT off</source>
         <translation>共有 CAT をオフにしました</translation>
     </message>
@@ -11728,6 +11756,10 @@ QSL の状態: %6 · UTC が不完全: %7。
     <message>
         <source>Radio 2: %1</source>
         <translation>無線機2: %1</translation>
+    </message>
+    <message>
+        <source>%1 is reserved for another program (Decodium): not opened</source>
+        <translation>%1 は別のプログラム (Decodium) 用に予約されています: 開きませんでした</translation>
     </message>
     <message>
         <source>Cannot open the SO2R box on %1: %2</source>
@@ -12361,6 +12393,10 @@ QSL の状態: %6 · UTC が不完全: %7。
 <context>
     <name>decolog::core::CwKeyerWorker</name>
     <message>
+        <source>%1 is reserved for another program (Decodium): not opened</source>
+        <translation>%1 は別のプログラム (Decodium) 用に予約されています: 開きませんでした</translation>
+    </message>
+    <message>
         <source>Cannot open %1: %2</source>
         <translation>%1 を開けません: %2</translation>
     </message>
@@ -12534,6 +12570,10 @@ QSL の状態: %6 · UTC が不完全: %7。
     <message>
         <source>ARCO: %1</source>
         <translation>ARCO: %1</translation>
+    </message>
+    <message>
+        <source>%1 is reserved for another program (Decodium): not opened</source>
+        <translation>%1 は別のプログラム (Decodium) 用に予約されています: 開きませんでした</translation>
     </message>
     <message>
         <source>Rotor: connected to MicroHAM ARCO on %1</source>

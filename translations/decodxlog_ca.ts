@@ -7925,6 +7925,30 @@ Camps extra conservats: %8</translation>
         <translation>OmniRig</translation>
     </message>
     <message>
+        <source>Never open the port Decodium uses for the CAT (%1)</source>
+        <translation>No obrir mai el port que Decodium fa servir per al CAT (%1)</translation>
+    </message>
+    <message>
+        <source>Never open the port Decodium uses for the CAT</source>
+        <translation>No obrir mai el port que Decodium fa servir per al CAT</translation>
+    </message>
+    <message>
+        <source>Other ports DecoDXLog never opens</source>
+        <translation>Altres ports que DecoDXLog no obre mai</translation>
+    </message>
+    <message>
+        <source>for instance COM5, COM9</source>
+        <translation>per exemple COM5, COM9</translation>
+    </message>
+    <message>
+        <source>Reserved ports are not offered in the lists, are skipped when looking for the radio and are never opened for the CAT, the PTT, the CW key, the rotor or the SO2R box. To share the radio with Decodium, use its shared virtual port (DecoPort, a COM pair created by com0com): pick that port here, the same radio model as Decodium and its speed, or press Find the radio.</source>
+        <translation>Els ports reservats no apareixen a les llistes, se salten quan es busca la ràdio i no s&apos;obren mai per al CAT, el PTT, la tecla CW, el rotor ni la caixa SO2R. Per compartir la ràdio amb Decodium, fes servir el seu port virtual compartit (DecoPort, una parella de COM creada per com0com): tria aquí aquest port, el mateix model de ràdio que Decodium i la seva velocitat, o prem Troba la ràdio.</translation>
+    </message>
+    <message>
+        <source>The port chosen above is reserved: DecoDXLog will not open it. Pick another one.</source>
+        <translation>El port triat a dalt està reservat: DecoDXLog no l&apos;obrirà. Tria&apos;n un altre.</translation>
+    </message>
+    <message>
         <source>Advanced serial parameters</source>
         <translation>Paràmetres sèrie avançats</translation>
     </message>
@@ -11572,6 +11596,10 @@ Camps extra conservats: %8</translation>
         <translation>Hamlib arrencat a %1 (model %2, %3 baud)</translation>
     </message>
     <message>
+        <source>%1 is reserved for another program (Decodium): DecoDXLog does not open it. Pick another port in Setup → Radio, for instance the shared virtual port of Decodium, or change the reservation there</source>
+        <translation>%1 està reservat per a un altre programa (Decodium): DecoDXLog no l&apos;obre. Tria un altre port a Configuració → Ràdio, per exemple el port virtual compartit de Decodium, o canvia-hi la reserva</translation>
+    </message>
+    <message>
         <source>Shared CAT off</source>
         <translation>CAT compartida apagada</translation>
     </message>
@@ -11792,6 +11820,10 @@ Camps extra conservats: %8</translation>
     <message>
         <source>Radio 2: %1</source>
         <translation>Ràdio 2: %1</translation>
+    </message>
+    <message>
+        <source>%1 is reserved for another program (Decodium): not opened</source>
+        <translation>%1 està reservat per a un altre programa (Decodium): no s&apos;ha obert</translation>
     </message>
     <message>
         <source>Cannot open the SO2R box on %1: %2</source>
@@ -12425,6 +12457,10 @@ Camps extra conservats: %8</translation>
 <context>
     <name>decolog::core::CwKeyerWorker</name>
     <message>
+        <source>%1 is reserved for another program (Decodium): not opened</source>
+        <translation>%1 està reservat per a un altre programa (Decodium): no s&apos;ha obert</translation>
+    </message>
+    <message>
         <source>Cannot open %1: %2</source>
         <translation>No es pot obrir %1: %2</translation>
     </message>
@@ -12598,6 +12634,10 @@ Camps extra conservats: %8</translation>
     <message>
         <source>ARCO: %1</source>
         <translation>ARCO: %1</translation>
+    </message>
+    <message>
+        <source>%1 is reserved for another program (Decodium): not opened</source>
+        <translation>%1 està reservat per a un altre programa (Decodium): no s&apos;ha obert</translation>
     </message>
     <message>
         <source>Rotor: connected to MicroHAM ARCO on %1</source>

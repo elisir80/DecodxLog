@@ -3,6 +3,34 @@
 Le date sono quelle del lavoro, non di una pubblicazione: DecoDXLog cresce mentre lo si usa
 in stazione.
 
+## 1.17.22 — 15 ottobre 2026
+
+**Le porte seriali di Decodium restano di Decodium.** Una seriale la apre un programma solo: se la
+prende DecoDXLog, Decodium resta senza radio. Il caso vero: CAT di Decodium su COM5, quello di
+DecoDXLog su COM4; «Trova la radio» provava tutte le porte nell'ordine, trovava la radio su COM5 e
+DecoDXLog la prendeva. Adesso:
+
+- **Porte riservate.** In Impostazioni → Radio, sotto la porta seriale: l'interruttore «Non aprire
+  mai la porta che Decodium usa per il CAT» (acceso di serie; la porta si legge da `Decodium3.ini`,
+  `[Transceiver]/serialPort`) e il campo «Altre porte che DecoDXLog non apre mai» (per esempio
+  `COM5, COM9`). Una porta riservata non compare negli elenchi, si salta nella ricerca della radio e
+  non si apre mai: non per il CAT (rigctld), non per il PTT su un'altra porta, non per il tasto CW,
+  non per il rotore (seriale e ARCO) e non per la scatola SO2R. Se la porta scelta e' riservata
+  l'attivita' dice perche' non si collega, e come cambiarlo.
+- **La ricerca della radio** salta anche gli estremi nascosti delle coppie virtuali (`CNCA*`/`CNCB*`
+  di com0com: sono di chi ha creato la coppia, DecoPort per primo) e prova prima le porte virtuali
+  condivise, con una velocita' sola (su una porta virtuale non conta).
+
+**La porta virtuale condivisa di DecoPort si usa.** DecoPort di Decodium tiene la seriale vera e la
+offre, nel dialetto della radio, su una coppia com0com (qui COM8; la meta' nascosta e' CNCB2).
+Per DecoDXLog e' una seriale qualunque: stesso modello della radio di Decodium (FT-991A: 1035),
+stessa velocita'. Provato sulla stazione: con DecoDXLog su COM8,
+modello 1035 a 38400 baud, la frequenza (14.084 MHz) e il modo (PKTUSB) arrivano come dalla seriale
+vera, senza toccare COM5. Con «Trova la radio» la porta si sceglie da sola; a mano,
+basta sceglierla nell'elenco delle porte. Un'avvertenza: con la radio condivisa da DecoPort il
+controllo di flusso va lasciato su «Nessuno» (il predefinito di Hamlib per la FT-991 e' quello
+hardware, e con RTS forzato la porta non si apre: «cannot set RTS with hardware handshake»).
+
 ## 1.17.21 — 15 ottobre 2026
 
 **Corretti tre difetti della 1.17.20 di elisir80**, trovati in stazione dopo l'aggiornamento:

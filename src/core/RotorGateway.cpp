@@ -1,4 +1,5 @@
 #include "core/RotorGateway.h"
+#include "core/SerialPorts.h"
 
 #include "core/Maidenhead.h"
 
@@ -252,6 +253,16 @@ void RotorGateway::openPort()
                                       .arg(m_settings.serialPort, m_serial->errorString()));
                 }
             });
+        }
+        if (isSerialPortReserved(m_settings.serialPort)) {
+            const QString why = QStringLiteral("%1 e' riservata a un altro programma (Decodium): non la apro")
+                                    .arg(m_settings.serialPort);
+            if (why != m_error)
+                emit note(why, QStringLiteral("warning"));
+            m_error = why;
+            m_connected = false;
+            publishState();
+            return;
         }
         m_serial->setPortName(m_settings.serialPort);
         m_serial->setBaudRate(m_settings.baud);

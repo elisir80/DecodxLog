@@ -146,6 +146,14 @@ void So2rController::openOtrsp()
         emit stateChanged();
         return;
     }
+    if (core::isSerialPortReserved(m_otrspPort)) {
+        if (m_ctx.activity)
+            m_ctx.activity(QStringLiteral("SO2R"),
+                           tr("%1 is reserved for another program (Decodium): not opened").arg(m_otrspPort),
+                           QStringLiteral("warning"));
+        emit stateChanged();
+        return;
+    }
     if (!m_serial)
         m_serial = new QSerialPort(this);
     m_serial->setPortName(m_otrspPort);
