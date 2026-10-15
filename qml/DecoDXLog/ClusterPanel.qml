@@ -23,6 +23,7 @@ GlassPanel {
 
     readonly property var cluster: decolog.cluster
     readonly property var model: cluster.spots
+    readonly property var recommendations: { model.count; return cluster.assistantRecommendations() }
     readonly property var quickBands: ["160m", "80m", "40m", "30m", "20m", "17m", "15m", "12m", "10m", "6m"]
     readonly property var quickModes: ["FT2", "FT8", "FT4", "CW", "SSB"]
 
@@ -236,6 +237,15 @@ GlassPanel {
             buttonHeight: 24
             fontPixelSize: 11
             onClicked: root.windowRequested(0)
+        },
+        GlassButton {
+            anchors.verticalCenter: parent.verticalCenter
+            visible: !root.compact
+            text: qsTr("DX priorities")
+            tone: Theme.secondaryColor
+            buttonHeight: 24
+            fontPixelSize: 11
+            onClicked: recommendationsPopup.open()
         }
     ]
 
@@ -344,6 +354,61 @@ GlassPanel {
             height: visible ? implicitHeight : 0
             enabled: false
             text: qsTr("No saved filters: use More filters → Save")
+        }
+    }
+
+    Popup {
+        id: recommendationsPopup
+        parent: Overlay.overlay
+        anchors.centerIn: parent
+        width: Math.min(560, root.width - 24)
+        height: Math.min(420, root.height - 24)
+        padding: 12
+        modal: true
+        dim: true
+        background: Rectangle {
+            color: Theme.bgMedium
+            radius: 8
+            border.width: 1
+            border.color: Theme.borderSoft
+        }
+        ColumnLayout {
+            anchors.fill: parent
+            spacing: 8
+            RowLayout {
+                Layout.fillWidth: true
+                Text { text: qsTr("DX priorities"); color: Theme.accentColor; font.bold: true; font.pixelSize: 15; Layout.fillWidth: true }
+                GlassButton { text: qsTr("Close"); buttonHeight: 24; fontPixelSize: 11; onClicked: recommendationsPopup.close() }
+            }
+            Note { Layout.fillWidth: true; text: qsTr("Based on observed spots and log status. Propagation is not included until a forecast is available; no radio command is performed.") }
+            ListView {
+                Layout.fillWidth: true
+                Layout.fillHeight: true
+                clip: true
+                model: root.recommendations
+                delegate: Rectangle {
+                    required property var modelData
+                    width: ListView.view.width
+                    height: 58
+                    color: index % 2 ? Theme.bgMedium : Theme.bgDark
+                    RowLayout {
+                        anchors.fill: parent
+                        anchors.margins: 8
+                        spacing: 10
+                        Text { text: modelData.call || ""; color: Theme.textPrimary; font.bold: true; font.family: Theme.monoFamily; Layout.preferredWidth: 90 }
+                        Text { text: (modelData.band || "") + " " + (modelData.mode || ""); color: Theme.textSecondary; Layout.preferredWidth: 80 }
+                        Text { text: Number(modelData.score || 0).toFixed(0); color: Theme.accentColor; font.bold: true; Layout.preferredWidth: 42 }
+                        Text {
+                            text: (modelData.reasons || []).concat(modelData.limitations || []).join(" · ")
+                            color: Theme.textSecondary
+                            elide: Text.ElideRight
+                            Layout.fillWidth: true
+                        }
+                    }
+                }
+                ScrollBar.vertical: PanelScrollBar {}
+            }
+            Note { Layout.fillWidth: true; visible: root.recommendations.length === 0; text: qsTr("No observed spot is available.") }
         }
     }
 

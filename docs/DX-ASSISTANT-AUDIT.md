@@ -64,6 +64,11 @@ Verifica controller:
 cmake --build build --parallel 4 --target tst_clustercontroller
 ctest --test-dir build -R '^clustercontroller$' --output-on-failure
 1/1 test superato
+
+La UI del DX Cluster ora espone il pulsante `DX priorities` e una finestra
+dedicata che mostra nominativo, banda/modo, score, motivazioni e limitazioni.
+La compilazione completa del target `decolog` ha ricreato anche il cache QML di
+`ClusterPanel.qml` senza errori.
 ```
 ```
 
@@ -78,6 +83,6 @@ Prima di aggiungere il ranking servono una specifica versionata per:
 5. divieto esplicito di inventare nominativi/QSO e di trasmettere.
 
 La voce resta parzialmente aperta: il nucleo e l'adattatore al cluster sono
-verificati, ma mancano ancora il collegamento alla previsione VOACAP, le
-preferenze persistenti dell'operatore e la UI che mostri la classifica senza
-confonderla con osservazioni o previsioni.
+verificati e la UI è presente, ma mancano ancora il collegamento alla
+previsione VOACAP e le preferenze persistenti dell'operatore. La finestra
+indica esplicitamente quando la previsione non è disponibile.
