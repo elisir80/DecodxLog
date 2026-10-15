@@ -42,6 +42,11 @@ Il job Cloud separato è presente in `.github/workflows/ci.yml`; la dipendenza
 `server/requirements.txt`. La suite Cloud è stata eseguita localmente con
 Python 3.11: 136 test passati, 3 warning di dipendenze, 0 errori.
 
+Per evitare che un runner assegnato ma bloccato resti indefinitamente in
+`in_progress`, i job Windows, Linux e Cloud della CI hanno ora timeout espliciti
+di 35, 35 e 20 minuti. Il timeout fa fallire il gate in modo osservabile; non
+trasforma un job sospeso in un successo.
+
 ## Limiti residui
 
 La verifica locale è stata eseguita su macOS arm64. La matrice GitHub Actions
