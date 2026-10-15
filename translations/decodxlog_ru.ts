@@ -4174,6 +4174,14 @@ Extra fields are preserved: %8</source>
         <translation>Записи с неполным UTC будут отклонены при импорте.</translation>
     </message>
     <message>
+        <source>Cancel</source>
+        <translation>Отмена</translation>
+    </message>
+    <message>
+        <source>Import</source>
+        <translation>Импортировать</translation>
+    </message>
+    <message>
         <source>Export ADIF</source>
         <translation>Экспорт ADIF</translation>
     </message>

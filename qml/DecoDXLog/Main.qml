@@ -1566,16 +1566,21 @@ RoundedWindow {
     }
     property url pendingImport
     property var importPreview: ({})
-    Dialog {
+    // Una finestra del programma, come le altre: un Dialog di stile resta
+    // chiaro anche con i temi scuri (Ocean Blue) e il testo non si legge.
+    DialogFrame {
         id: importPreviewDialog
         title: qsTr("Import preview")
-        modal: true
-        standardButtons: Dialog.Cancel | Dialog.Ok
-        onAccepted: decolog.importAdif(root.pendingImport)
-        contentItem: ColumnLayout {
-            spacing: 8
+        dialogKey: "import-preview"
+        dotColor: Theme.primaryColor
+        width: 600
+        height: 300
+        onAccepted: decolog.importAdif(window.pendingImport)
+        body: ColumnLayout {
+            anchors.margins: 16
+            spacing: 10
             Text {
-                Layout.preferredWidth: 520
+                Layout.fillWidth: true
                 wrapMode: Text.Wrap
                 text: window.importPreview.ok
                       ? qsTr("%1 records read from %2.\nEstimated result: %3 new · %4 duplicates · %5 rejected.\nQSL status: %6 · incomplete UTC: %7.\nExtra fields are preserved: %8")
@@ -1589,10 +1594,27 @@ RoundedWindow {
                 color: Theme.textPrimary
             }
             Text {
-                visible: window.importPreview.ok && window.importPreview.missingUtc > 0
+                Layout.fillWidth: true
+                visible: !!window.importPreview.ok && (window.importPreview.missingUtc || 0) > 0
                 text: qsTr("Records with incomplete UTC will be rejected during import.")
                 color: Theme.warningColor
                 wrapMode: Text.Wrap
+            }
+            Item { Layout.fillHeight: true }
+            RowLayout {
+                Layout.fillWidth: true
+                spacing: 8
+                Item { Layout.fillWidth: true }
+                GlassButton {
+                    text: qsTr("Cancel")
+                    onClicked: importPreviewDialog.reject()
+                }
+                GlassButton {
+                    text: qsTr("Import")
+                    tone: Theme.accentColor
+                    enabled: !!window.importPreview.ok
+                    onClicked: importPreviewDialog.accept()
+                }
             }
         }
     }

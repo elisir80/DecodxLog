@@ -177,7 +177,7 @@ DialogFrame {
                 Pill { text: qsTr("worked %1").arg(root.current.worked || 0); tone: Theme.secondaryColor }
                 Pill { text: qsTr("confirmed %1").arg(root.current.confirmed || 0); tone: Theme.accentColor }
                 Pill {
-                    visible: root.current.official60m || root.current.personal60m
+                    visible: !!(root.current.official60m || root.current.personal60m)
                     text: root.current.official60m ? qsTr("official rules") : qsTr("personal · 60 m")
                     tone: root.current.official60m ? Theme.primaryColor : Theme.warningColor
                 }

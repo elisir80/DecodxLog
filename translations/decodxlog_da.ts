@@ -4163,6 +4163,14 @@ Ekstra felter bevares: %8</translation>
         <translation>Poster med ufuldstændig UTC afvises ved import.</translation>
     </message>
     <message>
+        <source>Cancel</source>
+        <translation>Annullér</translation>
+    </message>
+    <message>
+        <source>Import</source>
+        <translation>Importér</translation>
+    </message>
+    <message>
         <source>Export ADIF</source>
         <translation>Eksportér ADIF</translation>
     </message>

@@ -4163,6 +4163,14 @@ Campi extra conservati: %8</translation>
         <translation>I record con UTC incompleto saranno scartati durante l&apos;importazione.</translation>
     </message>
     <message>
+        <source>Cancel</source>
+        <translation>Annulla</translation>
+    </message>
+    <message>
+        <source>Import</source>
+        <translation>Importa</translation>
+    </message>
+    <message>
         <source>Export ADIF</source>
         <translation>Esporta ADIF</translation>
     </message>

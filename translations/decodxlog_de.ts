@@ -4163,6 +4163,14 @@ Zusatzfelder bleiben erhalten: %8</translation>
         <translation>Datensätze mit unvollständiger UTC werden beim Import abgelehnt.</translation>
     </message>
     <message>
+        <source>Cancel</source>
+        <translation>Abbrechen</translation>
+    </message>
+    <message>
+        <source>Import</source>
+        <translation>Importieren</translation>
+    </message>
+    <message>
         <source>Export ADIF</source>
         <translation>ADIF exportieren</translation>
     </message>

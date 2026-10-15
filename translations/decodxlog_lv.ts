@@ -4174,6 +4174,14 @@ Papildu lauki tiek saglabāti: %8</translation>
         <translation>Ierakstus ar nepilnīgu UTC importēšanas laikā noraidīs.</translation>
     </message>
     <message>
+        <source>Cancel</source>
+        <translation>Atcelt</translation>
+    </message>
+    <message>
+        <source>Import</source>
+        <translation>Importēt</translation>
+    </message>
+    <message>
         <source>Export ADIF</source>
         <translation>Eksportēt ADIF</translation>
     </message>

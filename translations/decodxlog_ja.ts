@@ -4152,6 +4152,14 @@ QSL の状態: %6 · UTC が不完全: %7。
         <translation>UTC が不完全なレコードはインポート時に却下されます。</translation>
     </message>
     <message>
+        <source>Cancel</source>
+        <translation>キャンセル</translation>
+    </message>
+    <message>
+        <source>Import</source>
+        <translation>インポート</translation>
+    </message>
+    <message>
         <source>Export ADIF</source>
         <translation>ADIF を書き出す</translation>
     </message>

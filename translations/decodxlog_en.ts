@@ -4156,6 +4156,14 @@ Extra fields are preserved: %8</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Cancel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Import</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Export ADIF</source>
         <translation type="unfinished"></translation>
     </message>

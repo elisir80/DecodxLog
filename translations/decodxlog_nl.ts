@@ -4163,6 +4163,14 @@ Extra velden blijven behouden: %8</translation>
         <translation>Records met onvolledige UTC worden bij het importeren afgewezen.</translation>
     </message>
     <message>
+        <source>Cancel</source>
+        <translation>Annuleren</translation>
+    </message>
+    <message>
+        <source>Import</source>
+        <translation>Importeren</translation>
+    </message>
+    <message>
         <source>Export ADIF</source>
         <translation>ADIF exporteren</translation>
     </message>

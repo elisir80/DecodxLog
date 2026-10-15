@@ -4163,6 +4163,14 @@ Camps extra conservats: %8</translation>
         <translation>Els registres amb UTC incomplet es rebutjaran en importar.</translation>
     </message>
     <message>
+        <source>Cancel</source>
+        <translation>Cancel·la</translation>
+    </message>
+    <message>
+        <source>Import</source>
+        <translation>Importa</translation>
+    </message>
+    <message>
         <source>Export ADIF</source>
         <translation>Exportar ADIF</translation>
     </message>

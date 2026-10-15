@@ -5,6 +5,22 @@ in stazione.
 
 ## 1.17.21 — 15 ottobre 2026
 
+**Corretti tre difetti della 1.17.20 di elisir80**, trovati in stazione dopo l'aggiornamento:
+
+- **L'importazione dei QSO non partiva.** Dopo la scelta del file compare l'anteprima; il tasto
+  «Importa» chiamava un nome che in `Main.qml` non esiste (`root`, l'id e' `window`) e l'importazione
+  non cominciava mai.
+- **La scheda inferiore (Diplomi, Statistiche, QSL, Attivita', Cluster, Propagazione) non
+  compariva**, nemmeno spuntandola: il file `BottomTabs.qml` usava `FileDialog` senza
+  `import QtQuick.Dialogs` e non si caricava.
+- **L'anteprima dell'importazione e la diagnostica delle integrazioni non si leggevano con Ocean
+  Blue**: erano Dialog di stile (sfondo chiaro) con il testo del tema (chiaro). Ora sono finestre
+  del programma, come le altre, e seguono il tema.
+- Qualche pillola dei diplomi e del manager QSL restava visibile quando non c'era nulla da dire
+  (un valore non definito dato a `visible`); un colore del tema che non esiste (`inputColor`).
+- Tre controlli nuovi in `tst_qmlpopups` per non ricadere: nessun `root.` in `Main.qml`, ogni
+  `FileDialog` col suo import, nessun Dialog di stile.
+
 **Allineata alla 1.17.20 di elisir80.** La storia di elisir80 ripartiva dalla nostra 1.17.15, quindi
 l'allineamento e' lineare, senza conflitti. Quel che porta:
 

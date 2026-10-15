@@ -4152,6 +4152,14 @@ A további mezők megmaradnak: %8</translation>
         <translation>A hiányos UTC-jű rekordokat az importálás elutasítja.</translation>
     </message>
     <message>
+        <source>Cancel</source>
+        <translation>Mégse</translation>
+    </message>
+    <message>
+        <source>Import</source>
+        <translation>Importálás</translation>
+    </message>
+    <message>
         <source>Export ADIF</source>
         <translation>ADIF exportálás</translation>
     </message>

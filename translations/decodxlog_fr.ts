@@ -4163,6 +4163,14 @@ Champs supplémentaires conservés : %8</translation>
         <translation>Les enregistrements avec un UTC incomplet seront rejetés à l&apos;importation.</translation>
     </message>
     <message>
+        <source>Cancel</source>
+        <translation>Annuler</translation>
+    </message>
+    <message>
+        <source>Import</source>
+        <translation>Importer</translation>
+    </message>
+    <message>
         <source>Export ADIF</source>
         <translation>Exporter ADIF</translation>
     </message>

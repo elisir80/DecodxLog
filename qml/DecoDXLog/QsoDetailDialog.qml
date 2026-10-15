@@ -730,7 +730,7 @@ DialogFrame {
                 }
                 SectionTitle { text: qsTr("Received QSL archive") }
                 Rectangle {
-                    visible: root.managerSuggestion.available
+                    visible: !!root.managerSuggestion.available
                     Layout.fillWidth: true
                     implicitHeight: managerText.implicitHeight + 14
                     radius: 4

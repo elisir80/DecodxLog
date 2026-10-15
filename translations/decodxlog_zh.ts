@@ -4152,6 +4152,14 @@ QSL 状态：%6 · UTC 不完整：%7。
         <translation>UTC 不完整的记录在导入时会被拒绝。</translation>
     </message>
     <message>
+        <source>Cancel</source>
+        <translation>取消</translation>
+    </message>
+    <message>
+        <source>Import</source>
+        <translation>导入</translation>
+    </message>
+    <message>
         <source>Export ADIF</source>
         <translation>导出 ADIF</translation>
     </message>

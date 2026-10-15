@@ -4174,6 +4174,14 @@ Câmpuri suplimentare păstrate: %8</translation>
         <translation>Înregistrările cu UTC incomplet vor fi respinse la import.</translation>
     </message>
     <message>
+        <source>Cancel</source>
+        <translation>Anulează</translation>
+    </message>
+    <message>
+        <source>Import</source>
+        <translation>Importă</translation>
+    </message>
+    <message>
         <source>Export ADIF</source>
         <translation>Exportă ADIF</translation>
     </message>

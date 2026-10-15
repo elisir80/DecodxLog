@@ -2,6 +2,7 @@
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
+import QtQuick.Dialogs
 import Decodium.UI
 
 GlassPanel {
@@ -444,15 +445,20 @@ GlassPanel {
             Item { Layout.fillHeight: true }
         }
 
-        Dialog {
+        // Una finestra del programma (come le altre), non un Dialog di stile:
+        // con i temi scuri come Ocean Blue il Dialog di stile resta chiaro e il
+        // testo del tema non si legge.
+        DialogFrame {
             id: diagnosticDialog
             title: qsTr("Integration diagnostics")
-            modal: true
-            width: Math.min(620, root.width - 30)
-            standardButtons: Dialog.Cancel
+            dialogKey: "integration-diagnostics"
+            dotColor: Theme.accentColor
+            width: 640
+            height: 540
             property var steps: []
             onOpened: steps = decolog.integrationDiagnostics()
-            contentItem: ColumnLayout {
+            body: ColumnLayout {
+                anchors.margins: 16
                 spacing: 8
                 Text {
                     Layout.fillWidth: true
@@ -472,12 +478,13 @@ GlassPanel {
                 }
                 TextArea {
                     Layout.fillWidth: true
-                    Layout.preferredHeight: 110
+                    Layout.fillHeight: true
+                    Layout.minimumHeight: 110
                     readOnly: true
                     text: decolog.diagnosticSupportText()
                     wrapMode: TextArea.Wrap
                     color: Theme.textSecondary
-                    background: Rectangle { color: Theme.inputColor; radius: 4; border.color: Theme.glassBorder }
+                    background: Rectangle { color: Theme.bgDeep; radius: 4; border.color: Theme.glassBorder }
                 }
                 RowLayout {
                     Layout.fillWidth: true

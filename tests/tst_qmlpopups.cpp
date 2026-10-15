@@ -210,6 +210,45 @@ private slots:
         QVERIFY(source.contains(QStringLiteral("automaticSend")));
         QVERIFY(source.contains(QStringLiteral("verify the route before sending")));
     }
+
+    // Nella 1.17.20 «importa» non partiva (la finestra dell'anteprima chiamava
+    // `root`, che in Main.qml non c'e': l'id e' `window`), la scheda inferiore non
+    // compariva (FileDialog senza `import QtQuick.Dialogs`) e la finestra restava
+    // chiara con Ocean Blue (un Dialog di stile, non una finestra del programma).
+    void mainQmlDoesNotUseAnUndefinedRootId()
+    {
+        const QDir qmlDir(QStringLiteral(QML_DIR));
+        const QString source = readFile(qmlDir.filePath(QStringLiteral("Main.qml")));
+        QVERIFY(!source.contains(QStringLiteral("id: root")));
+        QVERIFY(!source.contains(QRegularExpression(QStringLiteral(R"(\broot\.)"))));
+    }
+
+    void everyFileDialogHasItsImport()
+    {
+        const QDir qmlDir(QStringLiteral(QML_DIR));
+        const QStringList names = qmlDir.entryList({QStringLiteral("*.qml")}, QDir::Files);
+        QVERIFY(!names.isEmpty());
+        for (const QString& name : names) {
+            const QString source = readFile(qmlDir.filePath(name));
+            if (!source.contains(QRegularExpression(QStringLiteral(R"(\bFileDialog\s*\{)"))))
+                continue;
+            QVERIFY2(source.contains(QStringLiteral("import QtQuick.Dialogs")),
+                     qPrintable(name + QStringLiteral(" uses FileDialog without import QtQuick.Dialogs")));
+        }
+    }
+
+    void dialogsAreProgramWindowsNotStyleDialogs()
+    {
+        const QDir qmlDir(QStringLiteral(QML_DIR));
+        const QStringList names = qmlDir.entryList({QStringLiteral("*.qml")}, QDir::Files);
+        const QRegularExpression styleDialog(QStringLiteral(R"(^\s*Dialog\s*\{)"),
+                                             QRegularExpression::MultilineOption);
+        for (const QString& name : names) {
+            const QString source = readFile(qmlDir.filePath(name));
+            QVERIFY2(!source.contains(styleDialog),
+                     qPrintable(name + QStringLiteral(" uses a style Dialog: unreadable with dark themes, use DialogFrame")));
+        }
+    }
 };
 
 QTEST_GUILESS_MAIN(TestQmlPopups)
