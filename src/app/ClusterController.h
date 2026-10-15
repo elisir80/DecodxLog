@@ -88,6 +88,9 @@ public:
         // Ogni spot arrivato, gia' con entita' e posizione: il gateway del
         // rotore lo mette sulla mappa dell'app.
         std::function<void(const core::EnrichedSpot& spot)> spotSeen;
+        // Previsione per uno spot gia' osservato: sola lettura, nessun CAT/TX.
+        std::function<QVariantMap(const QString& grid, const QString& band,
+                                   const QString& mode)> propagationForecast;
     };
 
     explicit ClusterController(Context context, QObject* parent = nullptr);

@@ -877,6 +877,13 @@ QVariantList ClusterController::assistantRecommendations() const
         c.status = e.status;
         c.source = e.spot.source;
         c.hasHistory = m_index.qsoCount() > 0;
+        if (m_ctx.propagationForecast) {
+            const QVariantMap forecast = m_ctx.propagationForecast(e.spot.dxGrid, e.spot.band,
+                                                                     e.spot.mode);
+            c.hasPropagation = forecast.value(QStringLiteral("available")).toBool();
+            c.propagationQuality = forecast.value(QStringLiteral("quality"), -1).toInt();
+            c.propagationEngine = forecast.value(QStringLiteral("engine")).toString();
+        }
         candidates.append(c);
     }
     QVariantList out;
@@ -889,6 +896,7 @@ QVariantList ClusterController::assistantRecommendations() const
             {QStringLiteral("score"), r.score},
             {QStringLiteral("reasons"), r.reasons},
             {QStringLiteral("limitations"), r.limitations},
+            {QStringLiteral("propagationEngine"), r.candidate.propagationEngine},
         };
     }
     return out;

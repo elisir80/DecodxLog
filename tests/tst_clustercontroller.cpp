@@ -105,6 +105,13 @@ private slots:
         ctx.decoLink = &link;
         ctx.stationCall = [] { return QStringLiteral("IU8LMC"); };
         ctx.stationGrid = [] { return QStringLiteral("JN71DC"); };
+        ctx.propagationForecast = [](const QString&, const QString& band, const QString&) {
+            if (band == QStringLiteral("20m"))
+                return QVariantMap{{QStringLiteral("available"), true},
+                                   {QStringLiteral("quality"), 3},
+                                   {QStringLiteral("engine"), QStringLiteral("voacap")}};
+            return QVariantMap{{QStringLiteral("available"), false}};
+        };
         ctx.activity = [&activity](const QString& cat, const QString& text, const QString&) { activity << cat + ": " + text; };
         ctx.lookup = [&looked](const QString& call) { looked = call; };
         ctx.tuneRadio = [&](double mhz, const QString& mode) {
@@ -141,7 +148,9 @@ private slots:
         QCOMPARE(recommendations.size(), 1);
         QCOMPARE(recommendations.first().toMap().value("call").toString(), QString("3Y0J"));
         QVERIFY(recommendations.first().toMap().value("reasons").toStringList().join(" ").contains("new DXCC"));
-        QVERIFY(recommendations.first().toMap().value("limitations").toStringList().join(" ").contains("propagation"));
+        QVERIFY(recommendations.first().toMap().value("reasons").toStringList().join(" ").contains("propagation quality 3/3"));
+        QVERIFY(!recommendations.first().toMap().value("limitations").toStringList().join(" ").contains("propagation unavailable"));
+        QCOMPARE(recommendations.first().toMap().value("propagationEngine").toString(), QStringLiteral("voacap"));
 
         QVariantMap preferences = cluster.assistantPreferences();
         preferences["newEntityWeight"] = 90;

@@ -794,6 +794,27 @@ bool DecoLogController::openDatabase(const QString& path)
             gw->noteCluster(e.spot.dxCall, e.lat, e.lon, e.entity, e.spot.mode,
                             static_cast<quint64>(e.spot.freqKhz * 1000.0), e.spot.comment);
     };
+    ctx.propagationForecast = [this](const QString& grid, const QString& band,
+                                     const QString& mode) {
+        if (!m_solar || grid.trimmed().isEmpty())
+            return QVariantMap{{QStringLiteral("available"), false}};
+        const QVariantMap forecast = m_solar->pathForecast(grid);
+        const QStringList bands = forecast.value(QStringLiteral("bands")).toStringList();
+        const QVariantList hours = forecast.value(QStringLiteral("hours")).toList();
+        const int hour = forecast.value(QStringLiteral("currentHour"), -1).toInt();
+        const int bandIndex = bands.indexOf(band);
+        if (bandIndex < 0 || hour < 0 || hour >= hours.size())
+            return QVariantMap{{QStringLiteral("available"), false},
+                               {QStringLiteral("engine"), forecast.value(QStringLiteral("engine"))}};
+        const QVariantList quality = hours.at(hour).toMap().value(QStringLiteral("quality")).toList();
+        if (bandIndex >= quality.size() || !quality.at(bandIndex).isValid())
+            return QVariantMap{{QStringLiteral("available"), false},
+                               {QStringLiteral("engine"), forecast.value(QStringLiteral("engine"))}};
+        return QVariantMap{{QStringLiteral("available"), true},
+                           {QStringLiteral("quality"), quality.at(bandIndex).toInt()},
+                           {QStringLiteral("engine"), forecast.value(QStringLiteral("engine"))},
+                           {QStringLiteral("mode"), mode}};
+    };
     ctx.decodiumBand = [this] { return clientConnected() ? dialBand() : QString(); };
     ctx.confirmations = [this](bool& lotw, bool& card, bool& eqsl) {
         lotw = m_awardFilter.confirmLotw;

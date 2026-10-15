@@ -76,6 +76,11 @@ I pesi del ranking e la soglia di freschezza sono ora persistenti in
 Il popup espone inoltre sei controlli grafici numerici per DXCC, banda, modo,
 riferimento, propagazione e freschezza; ogni modifica passa dalla stessa API
 validata e viene salvata nelle preferenze.
+
+Il cluster usa ora un adapter di sola lettura verso `SolarController`: per ogni
+spot con percorso disponibile estrae la qualità della banda nell'ora corrente
+e l'origine della previsione (`voacap` o `model`). Il risultato viene esposto
+insieme a motivazioni e limitazioni, senza CAT, modifica del log o TX.
 ```
 ```
 
@@ -90,6 +95,7 @@ Prima di aggiungere il ranking servono una specifica versionata per:
 5. divieto esplicito di inventare nominativi/QSO e di trasmettere.
 
 La voce resta parzialmente aperta: il nucleo e l'adattatore al cluster sono
-verificati e la UI è presente. Manca ancora il collegamento alla previsione
-VOACAP; le preferenze sono invece modificabili dal popup e non richiedono più
-un intervento diretto sull’API QML.
+verificati e la UI è presente. Il collegamento alla previsione è verificato
+con un test di adapter; resta da validare il comportamento con un cluster reale
+e una previsione VOACAP completata, perché la richiesta può inizialmente essere
+in stato pending e gli spot privi di locatore restano senza previsione.

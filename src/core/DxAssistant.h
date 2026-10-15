@@ -15,6 +15,7 @@ struct Candidate {
     int status{0};
     int propagationQuality{-1}; // -1 = previsione assente, 0..3
     bool hasPropagation{false};
+    QString propagationEngine;
     bool hasHistory{false};
     QString source;
 };

@@ -422,7 +422,7 @@ GlassPanel {
                         Text { text: (modelData.band || "") + " " + (modelData.mode || ""); color: Theme.textSecondary; Layout.preferredWidth: 80 }
                         Text { text: Number(modelData.score || 0).toFixed(0); color: Theme.accentColor; font.bold: true; Layout.preferredWidth: 42 }
                         Text {
-                            text: (modelData.reasons || []).concat(modelData.limitations || []).join(" · ")
+                            text: (modelData.reasons || []).concat(modelData.propagationEngine ? [modelData.propagationEngine] : []).concat(modelData.limitations || []).join(" · ")
                             color: Theme.textSecondary
                             elide: Text.ElideRight
                             Layout.fillWidth: true
