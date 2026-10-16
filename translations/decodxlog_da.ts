@@ -1109,6 +1109,10 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
         <translation>Åbn cluster</translation>
     </message>
     <message>
+        <source>DX priorities</source>
+        <translation>DX-prioriteter</translation>
+    </message>
+    <message>
         <source>Spot filters</source>
         <translation>Spot-filtre</translation>
     </message>
@@ -1131,6 +1135,26 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
     <message>
         <source>No saved filters: use More filters → Save</source>
         <translation>Ingen gemte filtre: brug Flere filtre → Gem</translation>
+    </message>
+    <message>
+        <source>Based on observed spots and log status. Propagation is not included until a forecast is available; no radio command is performed.</source>
+        <translation>Baseret på observerede spots og logstatus. Udbredelse er ikke medregnet, før der er en prognose; der udføres ingen radiokommando.</translation>
+    </message>
+    <message>
+        <source>DXCC</source>
+        <translation type="unfinished">DXCC</translation>
+    </message>
+    <message>
+        <source>Propagation</source>
+        <translation type="unfinished">Propagation</translation>
+    </message>
+    <message>
+        <source>Freshness min</source>
+        <translation>Aktualitet min</translation>
+    </message>
+    <message>
+        <source>No observed spot is available.</source>
+        <translation>Ingen observeret spot er tilgængelig.</translation>
     </message>
     <message>
         <source>Tune Decodium to %1</source>
@@ -3256,6 +3280,10 @@ I Decodium: Settings → Reporting → UDP Server 127.0.0.1, port %1, og &quot;A
         <translation>SQLite-kopien kunne ikke kopieres ind i pakken.</translation>
     </message>
     <message>
+        <source>The SQLite copy could not be verified inside the bundle.</source>
+        <translation>SQLite-kopien kunne ikke verificeres i pakken.</translation>
+    </message>
+    <message>
         <source>Portable settings could not be written to the backup bundle.</source>
         <translation>De bærbare indstillinger kunne ikke skrives til sikkerhedskopipakken.</translation>
     </message>
@@ -3266,6 +3294,10 @@ I Decodium: Settings → Reporting → UDP Server 127.0.0.1, port %1, og &quot;A
     <message>
         <source>Resource could not be copied into the bundle: %1</source>
         <translation>Ressourcen kunne ikke kopieres ind i pakken: %1</translation>
+    </message>
+    <message>
+        <source>The bundle resource could not be verified: %1</source>
+        <translation>Pakkens ressource kunne ikke verificeres: %1</translation>
     </message>
     <message>
         <source>The backup bundle manifest could not be written.</source>
@@ -3288,12 +3320,20 @@ I Decodium: Settings → Reporting → UDP Server 127.0.0.1, port %1, og &quot;A
         <translation>Manifestet for sikkerhedskopipakken er ufuldstændigt.</translation>
     </message>
     <message>
+        <source>The database in the backup bundle failed its integrity check.</source>
+        <translation>Databasen i sikkerhedskopipakken bestod ikke integritetstjekket.</translation>
+    </message>
+    <message>
         <source>The bundle resources could not be staged.</source>
         <translation>Pakkens ressourcer kunne ikke klargøres.</translation>
     </message>
     <message>
         <source>The bundle resource is missing: %1</source>
         <translation>Pakkens ressource mangler: %1</translation>
+    </message>
+    <message>
+        <source>The bundle resource failed its integrity check: %1</source>
+        <translation>Pakkens ressource bestod ikke integritetstjekket: %1</translation>
     </message>
     <message>
         <source>Portable settings could not be read from the backup bundle.</source>
@@ -7793,6 +7833,14 @@ Ekstra felter bevares: %8</translation>
         <translation>Til programmer ved siden af DecoDXLog: GET /api/v1/status, /api/v1/worked?call=…&amp;band=…&amp;mode=…, /api/v1/qsos?call=…&amp;limit=…, og POST /api/v1/qso med en ADIF-post for at logge den. Kun fra denne computer og altid med nøglen. Detaljer: docs/API.md.</translation>
     </message>
     <message>
+        <source>Cloud settings waiting for confirmation: %1 change(s)</source>
+        <translation>Cloudindstillinger venter på bekræftelse: %1 ændring(er)</translation>
+    </message>
+    <message>
+        <source>Discard</source>
+        <translation>Kassér</translation>
+    </message>
+    <message>
         <source>Shared log</source>
         <translation>Delt log</translation>
     </message>
@@ -9838,11 +9886,22 @@ Ekstra felter bevares: %8</translation>
         <translation>Cloud: log ind først</translation>
     </message>
     <message numerus="yes">
+        <source>Cloud: settings waiting for confirmation (%n change(s))</source>
+        <translation>
+            <numerusform>Cloud: indstilling venter på bekræftelse (%n ændring)</numerusform>
+            <numerusform>Cloud: indstillinger venter på bekræftelse (%n ændringer)</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
         <source>Cloud: %n setting(s) changed here kept (they go up at the next sync)</source>
         <translation>
             <numerusform>Cloud: %n indstilling ændret her beholdt (sendes ved næste synkronisering)</numerusform>
             <numerusform>Cloud: %n indstillinger ændret her beholdt (sendes ved næste synkronisering)</numerusform>
         </translation>
+    </message>
+    <message>
+        <source>Cloud: remote settings discarded on this device</source>
+        <translation>Cloud: fjernindstillinger kasseret på denne enhed</translation>
     </message>
     <message>
         <source>Cloud: the vault did not open</source>

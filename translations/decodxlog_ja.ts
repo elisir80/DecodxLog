@@ -1105,6 +1105,10 @@ Decodium が交信しているコールサインは、ここにひとりでに�
         <translation>クラスターを開く</translation>
     </message>
     <message>
+        <source>DX priorities</source>
+        <translation>DX の優先度</translation>
+    </message>
+    <message>
         <source>Spot filters</source>
         <translation>スポットのフィルター</translation>
     </message>
@@ -1127,6 +1131,26 @@ Decodium が交信しているコールサインは、ここにひとりでに�
     <message>
         <source>No saved filters: use More filters → Save</source>
         <translation>保存したフィルターはありません: 「フィルターをもっと」→「保存」</translation>
+    </message>
+    <message>
+        <source>Based on observed spots and log status. Propagation is not included until a forecast is available; no radio command is performed.</source>
+        <translation>観測したスポットとログの状態に基づきます。予報が得られるまで伝搬は含めません。無線機へのコマンドは実行しません。</translation>
+    </message>
+    <message>
+        <source>DXCC</source>
+        <translation type="unfinished">DXCC</translation>
+    </message>
+    <message>
+        <source>Propagation</source>
+        <translation type="unfinished">伝播</translation>
+    </message>
+    <message>
+        <source>Freshness min</source>
+        <translation>鮮度 (分)</translation>
+    </message>
+    <message>
+        <source>No observed spot is available.</source>
+        <translation>観測されたスポットがありません。</translation>
     </message>
     <message>
         <source>Tune Decodium to %1</source>
@@ -3247,6 +3271,10 @@ Decodium で: Settings → Reporting → UDP Server 127.0.0.1、ポート %1、�
         <translation>SQLite のコピーをパッケージにコピーできませんでした。</translation>
     </message>
     <message>
+        <source>The SQLite copy could not be verified inside the bundle.</source>
+        <translation>バンドル内の SQLite コピーを検証できませんでした。</translation>
+    </message>
+    <message>
         <source>Portable settings could not be written to the backup bundle.</source>
         <translation>ポータブル設定をバックアップパッケージに書き込めませんでした。</translation>
     </message>
@@ -3257,6 +3285,10 @@ Decodium で: Settings → Reporting → UDP Server 127.0.0.1、ポート %1、�
     <message>
         <source>Resource could not be copied into the bundle: %1</source>
         <translation>リソースをパッケージにコピーできませんでした: %1</translation>
+    </message>
+    <message>
+        <source>The bundle resource could not be verified: %1</source>
+        <translation>バンドルのリソースを検証できませんでした: %1</translation>
     </message>
     <message>
         <source>The backup bundle manifest could not be written.</source>
@@ -3279,12 +3311,20 @@ Decodium で: Settings → Reporting → UDP Server 127.0.0.1、ポート %1、�
         <translation>バックアップパッケージのマニフェストが不完全です。</translation>
     </message>
     <message>
+        <source>The database in the backup bundle failed its integrity check.</source>
+        <translation>バックアップバンドル内のデータベースが整合性チェックに失敗しました。</translation>
+    </message>
+    <message>
         <source>The bundle resources could not be staged.</source>
         <translation>パッケージのリソースを準備できませんでした。</translation>
     </message>
     <message>
         <source>The bundle resource is missing: %1</source>
         <translation>パッケージのリソースがありません: %1</translation>
+    </message>
+    <message>
+        <source>The bundle resource failed its integrity check: %1</source>
+        <translation>バンドルのリソースが整合性チェックに失敗しました: %1</translation>
     </message>
     <message>
         <source>Portable settings could not be read from the backup bundle.</source>
@@ -7771,6 +7811,14 @@ QSL の状態: %6 · UTC が不完全: %7。
         <translation>DecoDXLog のそばで動くプログラム向け: GET /api/v1/status, /api/v1/worked?call=…&amp;band=…&amp;mode=…, /api/v1/qsos?call=…&amp;limit=…、それに記録するための ADIF レコード付きの POST /api/v1/qso。このコンピューターからだけ、いつもキー付きで。詳しくは docs/API.md。</translation>
     </message>
     <message>
+        <source>Cloud settings waiting for confirmation: %1 change(s)</source>
+        <translation>確認待ちのクラウド設定: %1 件の変更</translation>
+    </message>
+    <message>
+        <source>Discard</source>
+        <translation>破棄</translation>
+    </message>
+    <message>
         <source>Shared log</source>
         <translation>共有ログ</translation>
     </message>
@@ -9809,10 +9857,20 @@ QSL の状態: %6 · UTC が不完全: %7。
         <translation>Cloud: 先にログインしてください</translation>
     </message>
     <message numerus="yes">
+        <source>Cloud: settings waiting for confirmation (%n change(s))</source>
+        <translation>
+            <numerusform>クラウド: 確認待ちの設定 (%n 件の変更)</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
         <source>Cloud: %n setting(s) changed here kept (they go up at the next sync)</source>
         <translation>
             <numerusform>Cloud: ここで変更した設定 %n 件を保持しました（次の同期で送信）</numerusform>
         </translation>
+    </message>
+    <message>
+        <source>Cloud: remote settings discarded on this device</source>
+        <translation>クラウド: この端末で遠隔の設定を破棄しました</translation>
     </message>
     <message>
         <source>Cloud: the vault did not open</source>

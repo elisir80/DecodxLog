@@ -1109,6 +1109,10 @@ De roepletters waar Decodium mee bezig is, verschijnen hier vanzelf.</translatio
         <translation>Cluster openen</translation>
     </message>
     <message>
+        <source>DX priorities</source>
+        <translation>DX-prioriteiten</translation>
+    </message>
+    <message>
         <source>Spot filters</source>
         <translation>Spotfilters</translation>
     </message>
@@ -1131,6 +1135,26 @@ De roepletters waar Decodium mee bezig is, verschijnen hier vanzelf.</translatio
     <message>
         <source>No saved filters: use More filters → Save</source>
         <translation>Geen opgeslagen filters: gebruik Meer filters → Opslaan</translation>
+    </message>
+    <message>
+        <source>Based on observed spots and log status. Propagation is not included until a forecast is available; no radio command is performed.</source>
+        <translation>Gebaseerd op waargenomen spots en de status van het logboek. Propagatie is niet opgenomen zolang er geen voorspelling is; er wordt geen radio-opdracht uitgevoerd.</translation>
+    </message>
+    <message>
+        <source>DXCC</source>
+        <translation type="unfinished">DXCC</translation>
+    </message>
+    <message>
+        <source>Propagation</source>
+        <translation type="unfinished">Propagatie</translation>
+    </message>
+    <message>
+        <source>Freshness min</source>
+        <translation>Versheid min</translation>
+    </message>
+    <message>
+        <source>No observed spot is available.</source>
+        <translation>Er is geen waargenomen spot beschikbaar.</translation>
     </message>
     <message>
         <source>Tune Decodium to %1</source>
@@ -3256,6 +3280,10 @@ In Decodium: Settings → Reporting → UDP Server 127.0.0.1, poort %1, en &quot
         <translation>De SQLite-kopie kon niet in het pakket worden gekopieerd.</translation>
     </message>
     <message>
+        <source>The SQLite copy could not be verified inside the bundle.</source>
+        <translation>De SQLite-kopie kon niet in het pakket worden geverifieerd.</translation>
+    </message>
+    <message>
         <source>Portable settings could not be written to the backup bundle.</source>
         <translation>De draagbare instellingen konden niet in het back-uppakket worden geschreven.</translation>
     </message>
@@ -3266,6 +3294,10 @@ In Decodium: Settings → Reporting → UDP Server 127.0.0.1, poort %1, en &quot
     <message>
         <source>Resource could not be copied into the bundle: %1</source>
         <translation>De bron kon niet in het pakket worden gekopieerd: %1</translation>
+    </message>
+    <message>
+        <source>The bundle resource could not be verified: %1</source>
+        <translation>De bron in het pakket kon niet worden geverifieerd: %1</translation>
     </message>
     <message>
         <source>The backup bundle manifest could not be written.</source>
@@ -3288,12 +3320,20 @@ In Decodium: Settings → Reporting → UDP Server 127.0.0.1, poort %1, en &quot
         <translation>Het manifest van het back-uppakket is onvolledig.</translation>
     </message>
     <message>
+        <source>The database in the backup bundle failed its integrity check.</source>
+        <translation>De database in het back-uppakket heeft de integriteitscontrole niet doorstaan.</translation>
+    </message>
+    <message>
         <source>The bundle resources could not be staged.</source>
         <translation>De bronnen van het pakket konden niet worden klaargezet.</translation>
     </message>
     <message>
         <source>The bundle resource is missing: %1</source>
         <translation>De bron van het pakket ontbreekt: %1</translation>
+    </message>
+    <message>
+        <source>The bundle resource failed its integrity check: %1</source>
+        <translation>De bron in het pakket heeft de integriteitscontrole niet doorstaan: %1</translation>
     </message>
     <message>
         <source>Portable settings could not be read from the backup bundle.</source>
@@ -7793,6 +7833,14 @@ Extra velden blijven behouden: %8</translation>
         <translation>Voor programma&apos;s naast DecoDXLog: GET /api/v1/status, /api/v1/worked?call=…&amp;band=…&amp;mode=…, /api/v1/qsos?call=…&amp;limit=…, en POST /api/v1/qso met een ADIF-record om het te loggen. Alleen vanaf deze computer, en altijd met de sleutel. Details: docs/API.md.</translation>
     </message>
     <message>
+        <source>Cloud settings waiting for confirmation: %1 change(s)</source>
+        <translation>Cloudinstellingen wachten op bevestiging: %1 wijziging(en)</translation>
+    </message>
+    <message>
+        <source>Discard</source>
+        <translation>Verwerpen</translation>
+    </message>
+    <message>
         <source>Shared log</source>
         <translation>Gedeeld log</translation>
     </message>
@@ -9838,11 +9886,22 @@ Extra velden blijven behouden: %8</translation>
         <translation>Cloud: log eerst in</translation>
     </message>
     <message numerus="yes">
+        <source>Cloud: settings waiting for confirmation (%n change(s))</source>
+        <translation>
+            <numerusform>Cloud: instelling wacht op bevestiging (%n wijziging)</numerusform>
+            <numerusform>Cloud: instellingen wachten op bevestiging (%n wijzigingen)</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
         <source>Cloud: %n setting(s) changed here kept (they go up at the next sync)</source>
         <translation>
             <numerusform>Cloud: %n hier gewijzigde instelling behouden (gaat bij de volgende sync omhoog)</numerusform>
             <numerusform>Cloud: %n hier gewijzigde instellingen behouden (gaan bij de volgende sync omhoog)</numerusform>
         </translation>
+    </message>
+    <message>
+        <source>Cloud: remote settings discarded on this device</source>
+        <translation>Cloud: externe instellingen verworpen op dit apparaat</translation>
     </message>
     <message>
         <source>Cloud: the vault did not open</source>

@@ -3,6 +3,18 @@
 Le date sono quelle del lavoro, non di una pubblicazione: DecoDXLog cresce mentre lo si usa
 in stazione.
 
+## 1.17.25 — 16 ottobre 2026
+
+**Allineata alla 1.17.24 di elisir80.** La loro 1.17.24 chiude i bundle di backup: il manifest ha le
+impronte SHA-256 del database e delle risorse, e il ripristino le controlla prima di toccare il log.
+Un bundle mancante, alterato o corrotto viene rifiutato senza toccare il log di destinazione. Porta
+anche il DX assistant (priorita' DX spiegate dal cluster, preferenze di classifica, collegamento alle
+previsioni di propagazione) e altre verifiche di API, diagnostica e test di avvio del cluster. Nessun
+conflitto: le nostre porte riservate e il controllo di flusso restano come sono.
+
+Traduzioni: 12 stringhe nuove in tutte e 14 le lingue (DX assistant, verifica dei bundle, impostazioni
+cloud in attesa di conferma).
+
 ## 1.17.23 — 15 ottobre 2026
 
 **La radio non si scollega piu' di continuo con DTR e RTS forzati.** Con la radio su una seriale

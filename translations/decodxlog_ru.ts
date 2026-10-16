@@ -1113,6 +1113,10 @@ The call Decodium is working shows up here by itself.</source>
         <translation>Открыть кластер</translation>
     </message>
     <message>
+        <source>DX priorities</source>
+        <translation>Приоритеты DX</translation>
+    </message>
+    <message>
         <source>Spot filters</source>
         <translation>Фильтры спотов</translation>
     </message>
@@ -1135,6 +1139,26 @@ The call Decodium is working shows up here by itself.</source>
     <message>
         <source>No saved filters: use More filters → Save</source>
         <translation>Сохранённых фильтров нет: «Ещё фильтры» → «Сохранить»</translation>
+    </message>
+    <message>
+        <source>Based on observed spots and log status. Propagation is not included until a forecast is available; no radio command is performed.</source>
+        <translation>По наблюдаемым спотам и состоянию журнала. Распространение не учитывается, пока нет прогноза; команды радио не выполняются.</translation>
+    </message>
+    <message>
+        <source>DXCC</source>
+        <translation type="unfinished">DXCC</translation>
+    </message>
+    <message>
+        <source>Propagation</source>
+        <translation type="unfinished">Прохождение</translation>
+    </message>
+    <message>
+        <source>Freshness min</source>
+        <translation>Свежесть, мин</translation>
+    </message>
+    <message>
+        <source>No observed spot is available.</source>
+        <translation>Наблюдаемых спотов нет.</translation>
     </message>
     <message>
         <source>Tune Decodium to %1</source>
@@ -3265,6 +3289,10 @@ In Decodium: Settings → Reporting → UDP Server 127.0.0.1, port %1, and &quot
         <translation>Не удалось скопировать копию SQLite в пакет.</translation>
     </message>
     <message>
+        <source>The SQLite copy could not be verified inside the bundle.</source>
+        <translation>Не удалось проверить копию SQLite внутри пакета.</translation>
+    </message>
+    <message>
         <source>Portable settings could not be written to the backup bundle.</source>
         <translation>Не удалось записать переносимые настройки в пакет резервной копии.</translation>
     </message>
@@ -3275,6 +3303,10 @@ In Decodium: Settings → Reporting → UDP Server 127.0.0.1, port %1, and &quot
     <message>
         <source>Resource could not be copied into the bundle: %1</source>
         <translation>Не удалось скопировать ресурс в пакет: %1</translation>
+    </message>
+    <message>
+        <source>The bundle resource could not be verified: %1</source>
+        <translation>Не удалось проверить ресурс пакета: %1</translation>
     </message>
     <message>
         <source>The backup bundle manifest could not be written.</source>
@@ -3297,12 +3329,20 @@ In Decodium: Settings → Reporting → UDP Server 127.0.0.1, port %1, and &quot
         <translation>Манифест пакета резервной копии неполный.</translation>
     </message>
     <message>
+        <source>The database in the backup bundle failed its integrity check.</source>
+        <translation>База данных в пакете резервной копии не прошла проверку целостности.</translation>
+    </message>
+    <message>
         <source>The bundle resources could not be staged.</source>
         <translation>Не удалось подготовить ресурсы пакета.</translation>
     </message>
     <message>
         <source>The bundle resource is missing: %1</source>
         <translation>Отсутствует ресурс пакета: %1</translation>
+    </message>
+    <message>
+        <source>The bundle resource failed its integrity check: %1</source>
+        <translation>Ресурс пакета не прошёл проверку целостности: %1</translation>
     </message>
     <message>
         <source>Portable settings could not be read from the backup bundle.</source>
@@ -7815,6 +7855,14 @@ Extra fields are preserved: %8</source>
         <translation>Для программ рядом с DecoDXLog: GET /api/v1/status, /api/v1/worked?call=…&amp;band=…&amp;mode=…, /api/v1/qsos?call=…&amp;limit=…, и POST /api/v1/qso с записью ADIF, чтобы её сохранить. Только с этого компьютера и всегда с ключом. Подробности: docs/API.md.</translation>
     </message>
     <message>
+        <source>Cloud settings waiting for confirmation: %1 change(s)</source>
+        <translation>Настройки облака ждут подтверждения: изменений — %1</translation>
+    </message>
+    <message>
+        <source>Discard</source>
+        <translation>Отменить</translation>
+    </message>
+    <message>
         <source>Shared log</source>
         <translation>Общий журнал</translation>
     </message>
@@ -9867,12 +9915,24 @@ Extra fields are preserved: %8</source>
         <translation>Cloud: сначала войдите</translation>
     </message>
     <message numerus="yes">
+        <source>Cloud: settings waiting for confirmation (%n change(s))</source>
+        <translation>
+            <numerusform>Облако: настройка ждёт подтверждения (изменений: %n)</numerusform>
+            <numerusform>Облако: настройки ждут подтверждения (изменений: %n)</numerusform>
+            <numerusform>Облако: настройки ждут подтверждения (изменений: %n)</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
         <source>Cloud: %n setting(s) changed here kept (they go up at the next sync)</source>
         <translation>
             <numerusform>Cloud: %n настройка, изменённая здесь, сохранена (уйдёт при следующей синхронизации)</numerusform>
             <numerusform>Cloud: %n настройки, изменённые здесь, сохранены (уйдут при следующей синхронизации)</numerusform>
             <numerusform>Cloud: %n настроек, изменённых здесь, сохранены (уйдут при следующей синхронизации)</numerusform>
         </translation>
+    </message>
+    <message>
+        <source>Cloud: remote settings discarded on this device</source>
+        <translation>Облако: удалённые настройки отброшены на этом устройстве</translation>
     </message>
     <message>
         <source>Cloud: the vault did not open</source>

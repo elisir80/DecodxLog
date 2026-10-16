@@ -1109,6 +1109,10 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
         <translation>Apri il cluster</translation>
     </message>
     <message>
+        <source>DX priorities</source>
+        <translation>Priorità DX</translation>
+    </message>
+    <message>
         <source>Spot filters</source>
         <translation>Filtri degli spot</translation>
     </message>
@@ -1131,6 +1135,26 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     <message>
         <source>No saved filters: use More filters → Save</source>
         <translation>Nessun filtro salvato: usa Altri filtri → Salva</translation>
+    </message>
+    <message>
+        <source>Based on observed spots and log status. Propagation is not included until a forecast is available; no radio command is performed.</source>
+        <translation>In base agli spot osservati e allo stato del log. La propagazione non è inclusa finché non c&apos;è una previsione; nessun comando alla radio viene eseguito.</translation>
+    </message>
+    <message>
+        <source>DXCC</source>
+        <translation type="unfinished">DXCC</translation>
+    </message>
+    <message>
+        <source>Propagation</source>
+        <translation type="unfinished">Propagazione</translation>
+    </message>
+    <message>
+        <source>Freshness min</source>
+        <translation>Freschezza min</translation>
+    </message>
+    <message>
+        <source>No observed spot is available.</source>
+        <translation>Nessuno spot osservato disponibile.</translation>
     </message>
     <message>
         <source>Tune Decodium to %1</source>
@@ -3256,6 +3280,10 @@ In Decodium: Settings → Reporting → UDP Server 127.0.0.1, porta %1, e &quot;
         <translation>Non è stato possibile copiare la copia SQLite nel pacchetto.</translation>
     </message>
     <message>
+        <source>The SQLite copy could not be verified inside the bundle.</source>
+        <translation>La copia SQLite non ha potuto essere verificata nel pacchetto.</translation>
+    </message>
+    <message>
         <source>Portable settings could not be written to the backup bundle.</source>
         <translation>Non è stato possibile scrivere le impostazioni portatili nel pacchetto di backup.</translation>
     </message>
@@ -3266,6 +3294,10 @@ In Decodium: Settings → Reporting → UDP Server 127.0.0.1, porta %1, e &quot;
     <message>
         <source>Resource could not be copied into the bundle: %1</source>
         <translation>Non è stato possibile copiare la risorsa nel pacchetto: %1</translation>
+    </message>
+    <message>
+        <source>The bundle resource could not be verified: %1</source>
+        <translation>La risorsa del pacchetto non ha potuto essere verificata: %1</translation>
     </message>
     <message>
         <source>The backup bundle manifest could not be written.</source>
@@ -3288,12 +3320,20 @@ In Decodium: Settings → Reporting → UDP Server 127.0.0.1, porta %1, e &quot;
         <translation>Il manifesto del pacchetto di backup è incompleto.</translation>
     </message>
     <message>
+        <source>The database in the backup bundle failed its integrity check.</source>
+        <translation>Il database nel pacchetto di backup non ha superato il controllo di integrità.</translation>
+    </message>
+    <message>
         <source>The bundle resources could not be staged.</source>
         <translation>Non è stato possibile preparare le risorse del pacchetto.</translation>
     </message>
     <message>
         <source>The bundle resource is missing: %1</source>
         <translation>Manca la risorsa del pacchetto: %1</translation>
+    </message>
+    <message>
+        <source>The bundle resource failed its integrity check: %1</source>
+        <translation>La risorsa del pacchetto non ha superato il controllo di integrità: %1</translation>
     </message>
     <message>
         <source>Portable settings could not be read from the backup bundle.</source>
@@ -7793,6 +7833,14 @@ Campi extra conservati: %8</translation>
         <translation>Per i programmi accanto a DecoDXLog: GET /api/v1/status, /api/v1/worked?call=…&amp;band=…&amp;mode=…, /api/v1/qsos?call=…&amp;limit=…, e POST /api/v1/qso con un record ADIF per registrarlo. Solo da questo computer, e sempre con la chiave. Dettagli: docs/API.md.</translation>
     </message>
     <message>
+        <source>Cloud settings waiting for confirmation: %1 change(s)</source>
+        <translation>Impostazioni cloud in attesa di conferma: %1 modifica/e</translation>
+    </message>
+    <message>
+        <source>Discard</source>
+        <translation>Scarta</translation>
+    </message>
+    <message>
         <source>Shared log</source>
         <translation>Log condiviso</translation>
     </message>
@@ -9838,11 +9886,22 @@ Campi extra conservati: %8</translation>
         <translation>Cloud: prima entra nell&apos;account</translation>
     </message>
     <message numerus="yes">
+        <source>Cloud: settings waiting for confirmation (%n change(s))</source>
+        <translation>
+            <numerusform>Cloud: impostazioni in attesa di conferma (%n modifica)</numerusform>
+            <numerusform>Cloud: impostazioni in attesa di conferma (%n modifiche)</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
         <source>Cloud: %n setting(s) changed here kept (they go up at the next sync)</source>
         <translation>
             <numerusform>Cloud: tenuta %n impostazione cambiata qui (parte al prossimo sync)</numerusform>
             <numerusform>Cloud: tenute %n impostazioni cambiate qui (partono al prossimo sync)</numerusform>
         </translation>
+    </message>
+    <message>
+        <source>Cloud: remote settings discarded on this device</source>
+        <translation>Cloud: impostazioni remote scartate su questo dispositivo</translation>
     </message>
     <message>
         <source>Cloud: the vault did not open</source>

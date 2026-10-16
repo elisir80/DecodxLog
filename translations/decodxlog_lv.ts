@@ -1113,6 +1113,10 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
         <translation>Atvērt klasteri</translation>
     </message>
     <message>
+        <source>DX priorities</source>
+        <translation>DX prioritātes</translation>
+    </message>
+    <message>
         <source>Spot filters</source>
         <translation>Spotu filtri</translation>
     </message>
@@ -1135,6 +1139,26 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
     <message>
         <source>No saved filters: use More filters → Save</source>
         <translation>Nav saglabātu filtru: izmanto Vairāk filtru → Saglabāt</translation>
+    </message>
+    <message>
+        <source>Based on observed spots and log status. Propagation is not included until a forecast is available; no radio command is performed.</source>
+        <translation>Balstīts uz novērotajiem spotiem un žurnāla stāvokli. Izplatīšanās nav iekļauta, kamēr nav prognozes; radio komanda netiek izpildīta.</translation>
+    </message>
+    <message>
+        <source>DXCC</source>
+        <translation type="unfinished">DXCC</translation>
+    </message>
+    <message>
+        <source>Propagation</source>
+        <translation type="unfinished">Izplatīšanās</translation>
+    </message>
+    <message>
+        <source>Freshness min</source>
+        <translation>Svaigums min</translation>
+    </message>
+    <message>
+        <source>No observed spot is available.</source>
+        <translation>Novērots spots nav pieejams.</translation>
     </message>
     <message>
         <source>Tune Decodium to %1</source>
@@ -3265,6 +3289,10 @@ Decodium: Settings → Reporting → UDP Server 127.0.0.1, ports %1, un &quot;Ac
         <translation>SQLite kopiju neizdevās iekopēt pakotnē.</translation>
     </message>
     <message>
+        <source>The SQLite copy could not be verified inside the bundle.</source>
+        <translation>SQLite kopiju nevarēja pārbaudīt pakotnē.</translation>
+    </message>
+    <message>
         <source>Portable settings could not be written to the backup bundle.</source>
         <translation>Pārnēsājamos iestatījumus neizdevās ierakstīt rezerves pakotnē.</translation>
     </message>
@@ -3275,6 +3303,10 @@ Decodium: Settings → Reporting → UDP Server 127.0.0.1, ports %1, un &quot;Ac
     <message>
         <source>Resource could not be copied into the bundle: %1</source>
         <translation>Resursu neizdevās iekopēt pakotnē: %1</translation>
+    </message>
+    <message>
+        <source>The bundle resource could not be verified: %1</source>
+        <translation>Pakotnes resursu nevarēja pārbaudīt: %1</translation>
     </message>
     <message>
         <source>The backup bundle manifest could not be written.</source>
@@ -3297,12 +3329,20 @@ Decodium: Settings → Reporting → UDP Server 127.0.0.1, ports %1, un &quot;Ac
         <translation>Rezerves pakotnes manifests ir nepilnīgs.</translation>
     </message>
     <message>
+        <source>The database in the backup bundle failed its integrity check.</source>
+        <translation>Rezerves pakotnes datubāze neizturēja integritātes pārbaudi.</translation>
+    </message>
+    <message>
         <source>The bundle resources could not be staged.</source>
         <translation>Pakotnes resursus neizdevās sagatavot.</translation>
     </message>
     <message>
         <source>The bundle resource is missing: %1</source>
         <translation>Trūkst pakotnes resursa: %1</translation>
+    </message>
+    <message>
+        <source>The bundle resource failed its integrity check: %1</source>
+        <translation>Pakotnes resurss neizturēja integritātes pārbaudi: %1</translation>
     </message>
     <message>
         <source>Portable settings could not be read from the backup bundle.</source>
@@ -7815,6 +7855,14 @@ Papildu lauki tiek saglabāti: %8</translation>
         <translation>Programmām blakus DecoDXLog: GET /api/v1/status, /api/v1/worked?call=…&amp;band=…&amp;mode=…, /api/v1/qsos?call=…&amp;limit=…, un POST /api/v1/qso ar ADIF ierakstu, lai to reģistrētu. Tikai no šī datora un vienmēr ar atslēgu. Sīkāk: docs/API.md.</translation>
     </message>
     <message>
+        <source>Cloud settings waiting for confirmation: %1 change(s)</source>
+        <translation>Mākoņa iestatījumi gaida apstiprinājumu: %1 izmaiņa(s)</translation>
+    </message>
+    <message>
+        <source>Discard</source>
+        <translation>Atmest</translation>
+    </message>
+    <message>
         <source>Shared log</source>
         <translation>Koplietots žurnāls</translation>
     </message>
@@ -9867,12 +9915,24 @@ Papildu lauki tiek saglabāti: %8</translation>
         <translation>Cloud: vispirms pieteicies</translation>
     </message>
     <message numerus="yes">
+        <source>Cloud: settings waiting for confirmation (%n change(s))</source>
+        <translation>
+            <numerusform>Mākonis: iestatījums gaida apstiprinājumu (%n izmaiņa)</numerusform>
+            <numerusform>Mākonis: iestatījumi gaida apstiprinājumu (%n izmaiņas)</numerusform>
+            <numerusform>Mākonis: iestatījumi gaida apstiprinājumu (%n izmaiņu)</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
         <source>Cloud: %n setting(s) changed here kept (they go up at the next sync)</source>
         <translation>
             <numerusform>Cloud: saglabāts %n šeit mainīts iestatījums (aizies nākamajā sinhronizācijā)</numerusform>
             <numerusform>Cloud: saglabāti %n šeit mainīti iestatījumi (aizies nākamajā sinhronizācijā)</numerusform>
             <numerusform>Cloud: saglabāti %n šeit mainīti iestatījumi (aizies nākamajā sinhronizācijā)</numerusform>
         </translation>
+    </message>
+    <message>
+        <source>Cloud: remote settings discarded on this device</source>
+        <translation>Mākonis: attālie iestatījumi šajā ierīcē atmesti</translation>
     </message>
     <message>
         <source>Cloud: the vault did not open</source>

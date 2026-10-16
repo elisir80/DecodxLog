@@ -1109,6 +1109,10 @@ Das Rufzeichen, an dem Decodium arbeitet, erscheint hier von selbst.</translatio
         <translation>Cluster öffnen</translation>
     </message>
     <message>
+        <source>DX priorities</source>
+        <translation>DX-Prioritäten</translation>
+    </message>
+    <message>
         <source>Spot filters</source>
         <translation>Spot-Filter</translation>
     </message>
@@ -1131,6 +1135,26 @@ Das Rufzeichen, an dem Decodium arbeitet, erscheint hier von selbst.</translatio
     <message>
         <source>No saved filters: use More filters → Save</source>
         <translation>Keine gespeicherten Filter: über Weitere Filter → Speichern</translation>
+    </message>
+    <message>
+        <source>Based on observed spots and log status. Propagation is not included until a forecast is available; no radio command is performed.</source>
+        <translation>Basiert auf beobachteten Spots und dem Status des Logs. Die Ausbreitung ist nicht enthalten, bis eine Vorhersage vorliegt; es wird kein Funkbefehl ausgeführt.</translation>
+    </message>
+    <message>
+        <source>DXCC</source>
+        <translation type="unfinished">DXCC</translation>
+    </message>
+    <message>
+        <source>Propagation</source>
+        <translation type="unfinished">Ausbreitung</translation>
+    </message>
+    <message>
+        <source>Freshness min</source>
+        <translation>Aktualität min</translation>
+    </message>
+    <message>
+        <source>No observed spot is available.</source>
+        <translation>Kein beobachteter Spot verfügbar.</translation>
     </message>
     <message>
         <source>Tune Decodium to %1</source>
@@ -3256,6 +3280,10 @@ In Decodium: Settings → Reporting → UDP Server 127.0.0.1, Port %1, und &quot
         <translation>Die SQLite-Kopie konnte nicht in das Paket kopiert werden.</translation>
     </message>
     <message>
+        <source>The SQLite copy could not be verified inside the bundle.</source>
+        <translation>Die SQLite-Kopie konnte im Paket nicht verifiziert werden.</translation>
+    </message>
+    <message>
         <source>Portable settings could not be written to the backup bundle.</source>
         <translation>Die portablen Einstellungen konnten nicht in das Sicherungspaket geschrieben werden.</translation>
     </message>
@@ -3266,6 +3294,10 @@ In Decodium: Settings → Reporting → UDP Server 127.0.0.1, Port %1, und &quot
     <message>
         <source>Resource could not be copied into the bundle: %1</source>
         <translation>Die Ressource konnte nicht in das Paket kopiert werden: %1</translation>
+    </message>
+    <message>
+        <source>The bundle resource could not be verified: %1</source>
+        <translation>Die Ressource des Pakets konnte nicht verifiziert werden: %1</translation>
     </message>
     <message>
         <source>The backup bundle manifest could not be written.</source>
@@ -3288,12 +3320,20 @@ In Decodium: Settings → Reporting → UDP Server 127.0.0.1, Port %1, und &quot
         <translation>Das Manifest des Sicherungspakets ist unvollständig.</translation>
     </message>
     <message>
+        <source>The database in the backup bundle failed its integrity check.</source>
+        <translation>Die Datenbank im Sicherungspaket hat die Integritätsprüfung nicht bestanden.</translation>
+    </message>
+    <message>
         <source>The bundle resources could not be staged.</source>
         <translation>Die Ressourcen des Pakets konnten nicht bereitgestellt werden.</translation>
     </message>
     <message>
         <source>The bundle resource is missing: %1</source>
         <translation>Die Ressource des Pakets fehlt: %1</translation>
+    </message>
+    <message>
+        <source>The bundle resource failed its integrity check: %1</source>
+        <translation>Die Ressource des Pakets hat die Integritätsprüfung nicht bestanden: %1</translation>
     </message>
     <message>
         <source>Portable settings could not be read from the backup bundle.</source>
@@ -7793,6 +7833,14 @@ Zusatzfelder bleiben erhalten: %8</translation>
         <translation>Für Programme neben DecoDXLog: GET /api/v1/status, /api/v1/worked?call=…&amp;band=…&amp;mode=…, /api/v1/qsos?call=…&amp;limit=…, und POST /api/v1/qso mit einem ADIF-Datensatz, um ihn zu loggen. Nur von diesem Computer und immer mit dem Schlüssel. Details: docs/API.md.</translation>
     </message>
     <message>
+        <source>Cloud settings waiting for confirmation: %1 change(s)</source>
+        <translation>Cloud-Einstellungen warten auf Bestätigung: %1 Änderung(en)</translation>
+    </message>
+    <message>
+        <source>Discard</source>
+        <translation>Verwerfen</translation>
+    </message>
+    <message>
         <source>Shared log</source>
         <translation>Gemeinsames Log</translation>
     </message>
@@ -9838,11 +9886,22 @@ Zusatzfelder bleiben erhalten: %8</translation>
         <translation>Cloud: zuerst anmelden</translation>
     </message>
     <message numerus="yes">
+        <source>Cloud: settings waiting for confirmation (%n change(s))</source>
+        <translation>
+            <numerusform>Cloud: Einstellung wartet auf Bestätigung (%n Änderung)</numerusform>
+            <numerusform>Cloud: Einstellungen warten auf Bestätigung (%n Änderungen)</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
         <source>Cloud: %n setting(s) changed here kept (they go up at the next sync)</source>
         <translation>
             <numerusform>Cloud: %n hier geänderte Einstellung behalten (geht beim nächsten Sync hoch)</numerusform>
             <numerusform>Cloud: %n hier geänderte Einstellungen behalten (gehen beim nächsten Sync hoch)</numerusform>
         </translation>
+    </message>
+    <message>
+        <source>Cloud: remote settings discarded on this device</source>
+        <translation>Cloud: entfernte Einstellungen auf diesem Gerät verworfen</translation>
     </message>
     <message>
         <source>Cloud: the vault did not open</source>

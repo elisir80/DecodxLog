@@ -1105,6 +1105,10 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
         <translation>Cluster megnyitása</translation>
     </message>
     <message>
+        <source>DX priorities</source>
+        <translation>DX-prioritások</translation>
+    </message>
+    <message>
         <source>Spot filters</source>
         <translation>Spot-szűrők</translation>
     </message>
@@ -1127,6 +1131,26 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
     <message>
         <source>No saved filters: use More filters → Save</source>
         <translation>Nincs mentett szűrő: használd a Több szűrő → Mentés pontot</translation>
+    </message>
+    <message>
+        <source>Based on observed spots and log status. Propagation is not included until a forecast is available; no radio command is performed.</source>
+        <translation>Észlelt spotok és a napló állapota alapján. A terjedést nem számítja be, amíg nincs előrejelzés; rádiós parancs nem fut.</translation>
+    </message>
+    <message>
+        <source>DXCC</source>
+        <translation type="unfinished">DXCC</translation>
+    </message>
+    <message>
+        <source>Propagation</source>
+        <translation type="unfinished">Terjedés</translation>
+    </message>
+    <message>
+        <source>Freshness min</source>
+        <translation>Frissesség min</translation>
+    </message>
+    <message>
+        <source>No observed spot is available.</source>
+        <translation>Nincs elérhető megfigyelt spot.</translation>
     </message>
     <message>
         <source>Tune Decodium to %1</source>
@@ -3247,6 +3271,10 @@ A Decodiumban: Settings → Reporting → UDP Server 127.0.0.1, port: %1, és &q
         <translation>Az SQLite-másolatot nem sikerült a csomagba másolni.</translation>
     </message>
     <message>
+        <source>The SQLite copy could not be verified inside the bundle.</source>
+        <translation>Az SQLite-másolatot nem sikerült ellenőrizni a csomagban.</translation>
+    </message>
+    <message>
         <source>Portable settings could not be written to the backup bundle.</source>
         <translation>A hordozható beállításokat nem sikerült a mentéscsomagba írni.</translation>
     </message>
@@ -3257,6 +3285,10 @@ A Decodiumban: Settings → Reporting → UDP Server 127.0.0.1, port: %1, és &q
     <message>
         <source>Resource could not be copied into the bundle: %1</source>
         <translation>Az erőforrást nem sikerült a csomagba másolni: %1</translation>
+    </message>
+    <message>
+        <source>The bundle resource could not be verified: %1</source>
+        <translation>A csomag erőforrását nem sikerült ellenőrizni: %1</translation>
     </message>
     <message>
         <source>The backup bundle manifest could not be written.</source>
@@ -3279,12 +3311,20 @@ A Decodiumban: Settings → Reporting → UDP Server 127.0.0.1, port: %1, és &q
         <translation>A mentéscsomag jegyzéke hiányos.</translation>
     </message>
     <message>
+        <source>The database in the backup bundle failed its integrity check.</source>
+        <translation>A mentéscsomag adatbázisa nem felelt meg az integritás-ellenőrzésnek.</translation>
+    </message>
+    <message>
         <source>The bundle resources could not be staged.</source>
         <translation>A csomag erőforrásait nem sikerült előkészíteni.</translation>
     </message>
     <message>
         <source>The bundle resource is missing: %1</source>
         <translation>A csomag erőforrása hiányzik: %1</translation>
+    </message>
+    <message>
+        <source>The bundle resource failed its integrity check: %1</source>
+        <translation>A csomag erőforrása nem felelt meg az integritás-ellenőrzésnek: %1</translation>
     </message>
     <message>
         <source>Portable settings could not be read from the backup bundle.</source>
@@ -7771,6 +7811,14 @@ A további mezők megmaradnak: %8</translation>
         <translation>A DecoDXLog mellett futó programoknak: GET /api/v1/status, /api/v1/worked?call=…&amp;band=…&amp;mode=…, /api/v1/qsos?call=…&amp;limit=…, és POST /api/v1/qso egy ADIF-rekorddal a naplózáshoz. Csak erről a gépről, és mindig a kulccsal. Részletek: docs/API.md.</translation>
     </message>
     <message>
+        <source>Cloud settings waiting for confirmation: %1 change(s)</source>
+        <translation>A felhőbeállítások megerősítésre várnak: %1 módosítás</translation>
+    </message>
+    <message>
+        <source>Discard</source>
+        <translation>Elvetés</translation>
+    </message>
+    <message>
         <source>Shared log</source>
         <translation>Megosztott napló</translation>
     </message>
@@ -9809,10 +9857,20 @@ A további mezők megmaradnak: %8</translation>
         <translation>Cloud: előbb lépj be</translation>
     </message>
     <message numerus="yes">
+        <source>Cloud: settings waiting for confirmation (%n change(s))</source>
+        <translation>
+            <numerusform>Felhő: a beállítások megerősítésre várnak (%n módosítás)</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
         <source>Cloud: %n setting(s) changed here kept (they go up at the next sync)</source>
         <translation>
             <numerusform>Cloud: %n itt módosított beállítás megtartva (a következő szinkronizáláskor megy fel)</numerusform>
         </translation>
+    </message>
+    <message>
+        <source>Cloud: remote settings discarded on this device</source>
+        <translation>Felhő: a távoli beállítások elvetve ezen az eszközön</translation>
     </message>
     <message>
         <source>Cloud: the vault did not open</source>

@@ -1113,6 +1113,10 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
         <translation>Deschide clusterul</translation>
     </message>
     <message>
+        <source>DX priorities</source>
+        <translation>Priorități DX</translation>
+    </message>
+    <message>
         <source>Spot filters</source>
         <translation>Filtre de spot</translation>
     </message>
@@ -1135,6 +1139,26 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
     <message>
         <source>No saved filters: use More filters → Save</source>
         <translation>Niciun filtru salvat: folosește Mai multe filtre → Salvează</translation>
+    </message>
+    <message>
+        <source>Based on observed spots and log status. Propagation is not included until a forecast is available; no radio command is performed.</source>
+        <translation>Pe baza spoturilor observate și a stării jurnalului. Propagarea nu este inclusă până există o prognoză; nu se trimite nicio comandă la radio.</translation>
+    </message>
+    <message>
+        <source>DXCC</source>
+        <translation type="unfinished">DXCC</translation>
+    </message>
+    <message>
+        <source>Propagation</source>
+        <translation type="unfinished">Propagare</translation>
+    </message>
+    <message>
+        <source>Freshness min</source>
+        <translation>Prospețime min</translation>
+    </message>
+    <message>
+        <source>No observed spot is available.</source>
+        <translation>Nu este disponibil niciun spot observat.</translation>
     </message>
     <message>
         <source>Tune Decodium to %1</source>
@@ -3265,6 +3289,10 @@ In Decodium: Settings → Reporting → UDP Server 127.0.0.1, port %1, and &quot
         <translation>Copia SQLite nu a putut fi copiată în pachet.</translation>
     </message>
     <message>
+        <source>The SQLite copy could not be verified inside the bundle.</source>
+        <translation>Copia SQLite nu a putut fi verificată în pachet.</translation>
+    </message>
+    <message>
         <source>Portable settings could not be written to the backup bundle.</source>
         <translation>Setările portabile nu au putut fi scrise în pachetul de rezervă.</translation>
     </message>
@@ -3275,6 +3303,10 @@ In Decodium: Settings → Reporting → UDP Server 127.0.0.1, port %1, and &quot
     <message>
         <source>Resource could not be copied into the bundle: %1</source>
         <translation>Resursa nu a putut fi copiată în pachet: %1</translation>
+    </message>
+    <message>
+        <source>The bundle resource could not be verified: %1</source>
+        <translation>Resursa pachetului nu a putut fi verificată: %1</translation>
     </message>
     <message>
         <source>The backup bundle manifest could not be written.</source>
@@ -3297,12 +3329,20 @@ In Decodium: Settings → Reporting → UDP Server 127.0.0.1, port %1, and &quot
         <translation>Manifestul pachetului de rezervă este incomplet.</translation>
     </message>
     <message>
+        <source>The database in the backup bundle failed its integrity check.</source>
+        <translation>Baza de date din pachetul de rezervă nu a trecut verificarea de integritate.</translation>
+    </message>
+    <message>
         <source>The bundle resources could not be staged.</source>
         <translation>Resursele pachetului nu au putut fi pregătite.</translation>
     </message>
     <message>
         <source>The bundle resource is missing: %1</source>
         <translation>Lipsește resursa pachetului: %1</translation>
+    </message>
+    <message>
+        <source>The bundle resource failed its integrity check: %1</source>
+        <translation>Resursa pachetului nu a trecut verificarea de integritate: %1</translation>
     </message>
     <message>
         <source>Portable settings could not be read from the backup bundle.</source>
@@ -7815,6 +7855,14 @@ Câmpuri suplimentare păstrate: %8</translation>
         <translation>Pentru programele de lângă DecoDXLog: GET /api/v1/status, /api/v1/worked?call=…&amp;band=…&amp;mode=…, /api/v1/qsos?call=…&amp;limit=…, și POST /api/v1/qso cu o înregistrare ADIF pentru a o salva. Doar de pe acest calculator și întotdeauna cu cheia. Detalii: docs/API.md.</translation>
     </message>
     <message>
+        <source>Cloud settings waiting for confirmation: %1 change(s)</source>
+        <translation>Setări din cloud în așteptarea confirmării: %1 modificare(i)</translation>
+    </message>
+    <message>
+        <source>Discard</source>
+        <translation>Renunță</translation>
+    </message>
+    <message>
         <source>Shared log</source>
         <translation>Log partajat</translation>
     </message>
@@ -9867,12 +9915,24 @@ Câmpuri suplimentare păstrate: %8</translation>
         <translation>Cloud: intră mai întâi în cont</translation>
     </message>
     <message numerus="yes">
+        <source>Cloud: settings waiting for confirmation (%n change(s))</source>
+        <translation>
+            <numerusform>Cloud: setare în așteptarea confirmării (%n modificare)</numerusform>
+            <numerusform>Cloud: setări în așteptarea confirmării (%n modificări)</numerusform>
+            <numerusform>Cloud: setări în așteptarea confirmării (%n de modificări)</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
         <source>Cloud: %n setting(s) changed here kept (they go up at the next sync)</source>
         <translation>
             <numerusform>Cloud: %n setare schimbată aici păstrată (pleacă la următoarea sincronizare)</numerusform>
             <numerusform>Cloud: %n setări schimbate aici păstrate (pleacă la următoarea sincronizare)</numerusform>
             <numerusform>Cloud: %n de setări schimbate aici păstrate (pleacă la următoarea sincronizare)</numerusform>
         </translation>
+    </message>
+    <message>
+        <source>Cloud: remote settings discarded on this device</source>
+        <translation>Cloud: setările de la distanță au fost respinse pe acest dispozitiv</translation>
     </message>
     <message>
         <source>Cloud: the vault did not open</source>

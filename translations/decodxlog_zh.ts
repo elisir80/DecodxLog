@@ -1105,6 +1105,10 @@ Decodium 正在通联的呼号会自己出现在这里。</translation>
         <translation>打开集群</translation>
     </message>
     <message>
+        <source>DX priorities</source>
+        <translation>DX 优先级</translation>
+    </message>
+    <message>
         <source>Spot filters</source>
         <translation>点报筛选</translation>
     </message>
@@ -1127,6 +1131,26 @@ Decodium 正在通联的呼号会自己出现在这里。</translation>
     <message>
         <source>No saved filters: use More filters → Save</source>
         <translation>没有保存的筛选：用 更多筛选 → 保存</translation>
+    </message>
+    <message>
+        <source>Based on observed spots and log status. Propagation is not included until a forecast is available; no radio command is performed.</source>
+        <translation>基于观测到的 spot 和日志状态。在有预测之前不包含传播；不会执行任何电台命令。</translation>
+    </message>
+    <message>
+        <source>DXCC</source>
+        <translation type="unfinished">DXCC</translation>
+    </message>
+    <message>
+        <source>Propagation</source>
+        <translation type="unfinished">传播</translation>
+    </message>
+    <message>
+        <source>Freshness min</source>
+        <translation>新鲜度（分钟）</translation>
+    </message>
+    <message>
+        <source>No observed spot is available.</source>
+        <translation>没有可用的观测 spot。</translation>
     </message>
     <message>
         <source>Tune Decodium to %1</source>
@@ -3247,6 +3271,10 @@ In Decodium: Settings → Reporting → UDP Server 127.0.0.1, port %1, and &quot
         <translation>无法将 SQLite 副本复制到包中。</translation>
     </message>
     <message>
+        <source>The SQLite copy could not be verified inside the bundle.</source>
+        <translation>无法在备份包内验证 SQLite 副本。</translation>
+    </message>
+    <message>
         <source>Portable settings could not be written to the backup bundle.</source>
         <translation>无法将便携设置写入备份包。</translation>
     </message>
@@ -3257,6 +3285,10 @@ In Decodium: Settings → Reporting → UDP Server 127.0.0.1, port %1, and &quot
     <message>
         <source>Resource could not be copied into the bundle: %1</source>
         <translation>无法将资源复制到包中：%1</translation>
+    </message>
+    <message>
+        <source>The bundle resource could not be verified: %1</source>
+        <translation>无法验证备份包中的资源：%1</translation>
     </message>
     <message>
         <source>The backup bundle manifest could not be written.</source>
@@ -3279,12 +3311,20 @@ In Decodium: Settings → Reporting → UDP Server 127.0.0.1, port %1, and &quot
         <translation>备份包的清单不完整。</translation>
     </message>
     <message>
+        <source>The database in the backup bundle failed its integrity check.</source>
+        <translation>备份包中的数据库未通过完整性检查。</translation>
+    </message>
+    <message>
         <source>The bundle resources could not be staged.</source>
         <translation>无法准备包中的资源。</translation>
     </message>
     <message>
         <source>The bundle resource is missing: %1</source>
         <translation>缺少包中的资源：%1</translation>
+    </message>
+    <message>
+        <source>The bundle resource failed its integrity check: %1</source>
+        <translation>备份包中的资源未通过完整性检查：%1</translation>
     </message>
     <message>
         <source>Portable settings could not be read from the backup bundle.</source>
@@ -7771,6 +7811,14 @@ QSL 状态：%6 · UTC 不完整：%7。
         <translation>给在 DecoDXLog 旁边运行的程序用：GET /api/v1/status, /api/v1/worked?call=…&amp;band=…&amp;mode=…, /api/v1/qsos?call=…&amp;limit=…，以及带 ADIF 记录的 POST /api/v1/qso 来记录它。只能从这台电脑访问，而且总要带密钥。详情见 docs/API.md。</translation>
     </message>
     <message>
+        <source>Cloud settings waiting for confirmation: %1 change(s)</source>
+        <translation>云端设置等待确认：%1 项更改</translation>
+    </message>
+    <message>
+        <source>Discard</source>
+        <translation>丢弃</translation>
+    </message>
+    <message>
         <source>Shared log</source>
         <translation>共享日志</translation>
     </message>
@@ -9809,10 +9857,20 @@ QSL 状态：%6 · UTC 不完整：%7。
         <translation>Cloud：请先登录</translation>
     </message>
     <message numerus="yes">
+        <source>Cloud: settings waiting for confirmation (%n change(s))</source>
+        <translation>
+            <numerusform>云端：设置等待确认（%n 项更改）</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
         <source>Cloud: %n setting(s) changed here kept (they go up at the next sync)</source>
         <translation>
             <numerusform>Cloud：保留了 %n 项在此处更改的设置（下次同步时上传）</numerusform>
         </translation>
+    </message>
+    <message>
+        <source>Cloud: remote settings discarded on this device</source>
+        <translation>云端：已在此设备上丢弃远程设置</translation>
     </message>
     <message>
         <source>Cloud: the vault did not open</source>

@@ -1109,6 +1109,10 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
         <translation>Obre el clúster</translation>
     </message>
     <message>
+        <source>DX priorities</source>
+        <translation>Prioritats DX</translation>
+    </message>
+    <message>
         <source>Spot filters</source>
         <translation>Filtres d&apos;spots</translation>
     </message>
@@ -1131,6 +1135,26 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
     <message>
         <source>No saved filters: use More filters → Save</source>
         <translation>Cap filtre desat: fes servir Més filtres → Desa</translation>
+    </message>
+    <message>
+        <source>Based on observed spots and log status. Propagation is not included until a forecast is available; no radio command is performed.</source>
+        <translation>Basat en spots observats i en l&apos;estat del registre. La propagació no s&apos;inclou fins que hi hagi una previsió; no s&apos;executa cap ordre a la ràdio.</translation>
+    </message>
+    <message>
+        <source>DXCC</source>
+        <translation type="unfinished">DXCC</translation>
+    </message>
+    <message>
+        <source>Propagation</source>
+        <translation type="unfinished">Propagació</translation>
+    </message>
+    <message>
+        <source>Freshness min</source>
+        <translation>Frescor mín</translation>
+    </message>
+    <message>
+        <source>No observed spot is available.</source>
+        <translation>No hi ha cap spot observat disponible.</translation>
     </message>
     <message>
         <source>Tune Decodium to %1</source>
@@ -3256,6 +3280,10 @@ A Decodium: Settings → Reporting → UDP Server 127.0.0.1, port %1, i &quot;Ac
         <translation>No s&apos;ha pogut copiar la còpia SQLite al paquet.</translation>
     </message>
     <message>
+        <source>The SQLite copy could not be verified inside the bundle.</source>
+        <translation>No s&apos;ha pogut verificar la còpia SQLite dins del paquet.</translation>
+    </message>
+    <message>
         <source>Portable settings could not be written to the backup bundle.</source>
         <translation>No s&apos;ha pogut escriure la configuració portàtil al paquet de còpia.</translation>
     </message>
@@ -3266,6 +3294,10 @@ A Decodium: Settings → Reporting → UDP Server 127.0.0.1, port %1, i &quot;Ac
     <message>
         <source>Resource could not be copied into the bundle: %1</source>
         <translation>No s&apos;ha pogut copiar el recurs al paquet: %1</translation>
+    </message>
+    <message>
+        <source>The bundle resource could not be verified: %1</source>
+        <translation>No s&apos;ha pogut verificar el recurs del paquet: %1</translation>
     </message>
     <message>
         <source>The backup bundle manifest could not be written.</source>
@@ -3288,12 +3320,20 @@ A Decodium: Settings → Reporting → UDP Server 127.0.0.1, port %1, i &quot;Ac
         <translation>El manifest del paquet de còpia és incomplet.</translation>
     </message>
     <message>
+        <source>The database in the backup bundle failed its integrity check.</source>
+        <translation>La base de dades del paquet de còpia no ha superat la comprovació d&apos;integritat.</translation>
+    </message>
+    <message>
         <source>The bundle resources could not be staged.</source>
         <translation>No s&apos;han pogut preparar els recursos del paquet.</translation>
     </message>
     <message>
         <source>The bundle resource is missing: %1</source>
         <translation>Falta el recurs del paquet: %1</translation>
+    </message>
+    <message>
+        <source>The bundle resource failed its integrity check: %1</source>
+        <translation>El recurs del paquet no ha superat la comprovació d&apos;integritat: %1</translation>
     </message>
     <message>
         <source>Portable settings could not be read from the backup bundle.</source>
@@ -7793,6 +7833,14 @@ Camps extra conservats: %8</translation>
         <translation>Per als programes al costat de DecoDXLog: GET /api/v1/status, /api/v1/worked?call=…&amp;band=…&amp;mode=…, /api/v1/qsos?call=…&amp;limit=…, i POST /api/v1/qso amb un registre ADIF per desar-lo. Només des d&apos;aquest ordinador, i sempre amb la clau. Detalls: docs/API.md.</translation>
     </message>
     <message>
+        <source>Cloud settings waiting for confirmation: %1 change(s)</source>
+        <translation>Configuració del núvol pendent de confirmació: %1 canvi(s)</translation>
+    </message>
+    <message>
+        <source>Discard</source>
+        <translation>Descarta</translation>
+    </message>
+    <message>
         <source>Shared log</source>
         <translation>Log compartit</translation>
     </message>
@@ -9838,11 +9886,22 @@ Camps extra conservats: %8</translation>
         <translation>Cloud: entra primer</translation>
     </message>
     <message numerus="yes">
+        <source>Cloud: settings waiting for confirmation (%n change(s))</source>
+        <translation>
+            <numerusform>Núvol: ajust pendent de confirmació (%n canvi)</numerusform>
+            <numerusform>Núvol: ajustos pendents de confirmació (%n canvis)</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
         <source>Cloud: %n setting(s) changed here kept (they go up at the next sync)</source>
         <translation>
             <numerusform>Cloud: %n ajust canviat aquí conservat (puja a la propera sincronització)</numerusform>
             <numerusform>Cloud: %n ajustos canviats aquí conservats (pugen a la propera sincronització)</numerusform>
         </translation>
+    </message>
+    <message>
+        <source>Cloud: remote settings discarded on this device</source>
+        <translation>Núvol: configuració remota descartada en aquest dispositiu</translation>
     </message>
     <message>
         <source>Cloud: the vault did not open</source>
