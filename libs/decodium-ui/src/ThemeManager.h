@@ -42,6 +42,11 @@ class ThemeManager : public QObject {
     Q_PROPERTY(QColor accentDim      READ accentDim      NOTIFY paletteChanged)
     Q_PROPERTY(QColor accentDeep     READ accentDeep     NOTIFY paletteChanged)
     Q_PROPERTY(bool   isLightTheme   READ isLightTheme   NOTIFY paletteChanged)
+    // The glass theme is deliberately a theme property, rather than a
+    // platform check: it can be selected on macOS, Windows and Linux, while
+    // the QML surfaces still provide a sober fallback on compositors that do
+    // not expose a native backdrop blur.
+    Q_PROPERTY(bool   isGlassTheme   READ isGlassTheme   NOTIFY paletteChanged)
 
     Q_PROPERTY(QStringList availableThemes   READ availableThemes   CONSTANT)
     Q_PROPERTY(QStringList availableVariants READ availableVariants CONSTANT)
@@ -93,6 +98,7 @@ public:
     QColor accentDim() const;
     QColor accentDeep() const;
     bool   isLightTheme() const;
+    bool   isGlassTheme() const { return m_theme == QStringLiteral("Liquid Glass"); }
 
     QStringList availableThemes() const;
     QStringList availableVariants() const;

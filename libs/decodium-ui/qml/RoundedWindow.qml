@@ -41,10 +41,48 @@ ApplicationWindow {
     // essere trasparente perche' macOS possa mostrare gli angoli veri.
     color: root.transparentCorners ? "transparent" : root.surfaceColor
 
-    background: Rectangle {
-        color: root.surfaceColor
-        radius: root.frameRadius
-        antialiasing: root.frameRadius > 0
+    background: Item {
+        // The classic themes remain a flat, pixel-stable surface.  Liquid
+        // Glass adds depth with a restrained gradient; panels above it use
+        // translucent fills and borders.  This is intentionally compositor
+        // independent, so Linux does not become a black rectangle when the
+        // desktop compositor has no blur support.
+        clip: root.frameRadius > 0
+
+        Rectangle {
+            anchors.fill: parent
+            radius: root.frameRadius
+            antialiasing: root.frameRadius > 0
+            gradient: Gradient {
+                GradientStop { position: 0.0; color: root.surfaceColor }
+                GradientStop {
+                    position: 0.48
+                    color: Theme.isGlassTheme
+                           ? Qt.rgba(Theme.bgMedium.r, Theme.bgMedium.g, Theme.bgMedium.b, 0.82)
+                           : root.surfaceColor
+                }
+                GradientStop {
+                    position: 1.0
+                    color: Theme.isGlassTheme
+                           ? Qt.rgba(Theme.bgDeep.r, Theme.bgDeep.g, Theme.bgDeep.b, 0.98)
+                           : root.surfaceColor
+                }
+            }
+        }
+
+        // A soft top sheen gives glass surfaces a readable silhouette without
+        // requiring a screenshot of the desktop behind the window.
+        Rectangle {
+            visible: Theme.isGlassTheme
+            anchors { left: parent.left; right: parent.right; top: parent.top }
+            height: Math.max(1, parent.height * 0.34)
+            radius: root.frameRadius
+            opacity: 0.28
+            gradient: Gradient {
+                GradientStop { position: 0.0; color: "#FFFFFF" }
+                GradientStop { position: 1.0; color: "transparent" }
+            }
+        }
     }
 
     // Questa e' sempre la scena reale e visibile della finestra. La maschera

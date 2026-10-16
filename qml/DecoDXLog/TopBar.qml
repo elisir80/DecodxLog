@@ -26,7 +26,9 @@ Rectangle {
     signal panelsRequested(var opener)
     signal aboutRequested()
     // Per le prove: apre il menu del marchio senza mouse.
-    function openMainMenu() { mainMenu.popup(brandBlock, 0, brandBlock.height + 4) }
+    function openMainMenu() {
+        Qt.callLater(function() { mainMenu.popup(brandBlock, 0, brandBlock.height + 4) })
+    }
     // Idem per l'elenco dei modi, che di solito si apre cliccando la pillola.
     function openModeMenu() { modeMenu.popup(modePill, 0, modePill.height + 6) }
     signal logFolderRequested()
@@ -88,6 +90,10 @@ Rectangle {
             anchors.fill: parent
             enabled: blockRoot.clickable
             hoverEnabled: blockRoot.clickable
+            // The layout row is declared after this handler and therefore is
+            // above it in the scene graph. Keep the full-block hit target on
+            // top when the block is meant to be clickable.
+            z: blockRoot.clickable ? 10 : 0
             cursorShape: Qt.PointingHandCursor
             onClicked: blockRoot.clicked()
         }
@@ -123,14 +129,37 @@ Rectangle {
             // Tutto il riquadro del marchio apre il menu: le tre righette da
             // sole sono un bersaglio piccolo, e la gente ci clicca sopra il nome.
             clickable: true
-            onClicked: mainMenu.opened ? mainMenu.close()
-                                       : mainMenu.popup(brandBlock, 0, brandBlock.height + 4)
+            onClicked: {
+                if (mainMenu.opened) {
+                    mainMenu.close()
+                } else {
+                    // Popup.Window must be opened after the originating mouse
+                    // event has finished, otherwise macOS can treat the same
+                    // click as an outside click and close it immediately.
+                    Qt.callLater(function() {
+                        mainMenu.popup(brandBlock, 0, brandBlock.height + 4)
+                    })
+                }
+            }
 
             StyledMenu {
                 id: mainMenu
                 StyledMenuItem { text: qsTr("About DecoDXLog…"); onTriggered: root.aboutRequested() }
                 MenuSeparator { contentItem: Rectangle { implicitHeight: 1; color: Theme.borderSoft } }
                 StyledMenuItem { text: qsTr("Settings…"); onTriggered: root.setupRequested() }
+                // Open the theme menu explicitly. Qt treats a Menu child as a
+                // hover submenu, but on macOS/Windows/Linux a click can close
+                // the parent without showing that child when the menu uses a
+                // custom Popup.Window delegate.
+                StyledMenuItem {
+                    text: qsTr("Appearance")
+                    onTriggered: {
+                        mainMenu.close()
+                        // Menu closes the whole popup chain after onTriggered;
+                        // defer the sibling popup until the parent is gone.
+                        appearancePopupTimer.restart()
+                    }
+                }
                 StyledMenuItem { text: qsTr("Station profiles…"); onTriggered: root.profilesRequested() }
                 StyledMenuItem { text: qsTr("Panels…"); onTriggered: root.panelsRequested(brandBlock) }
                 StyledMenuItem { text: qsTr("DX Cluster…"); onTriggered: root.clusterRequested() }
@@ -147,6 +176,36 @@ Rectangle {
                 StyledMenuItem { text: qsTr("Open the log folder"); onTriggered: root.logFolderRequested() }
                 MenuSeparator { contentItem: Rectangle { implicitHeight: 1; color: Theme.borderSoft } }
                 StyledMenuItem { text: qsTr("Quit"); onTriggered: root.quitRequested() }
+            }
+
+            // Kept outside mainMenu so it can be opened explicitly from the
+            // Appearance action after the parent menu has closed.
+            StyledMenu {
+                id: appearanceMenu
+                // Keep this popup in the main QML window. A second native
+                // Popup.Window can lose focus while the parent menu closes on
+                // macOS, making Appearance appear to do nothing.
+                popupType: Popup.Item
+                Repeater {
+                    model: Theme.availableThemes
+                    delegate: StyledMenuItem {
+                        required property string modelData
+                        text: modelData
+                        checkable: true
+                        checked: Theme.currentTheme === modelData
+                        onTriggered: {
+                            Theme.currentTheme = modelData
+                            appearanceMenu.close()
+                        }
+                    }
+                }
+            }
+
+            Timer {
+                id: appearancePopupTimer
+                interval: 50
+                repeat: false
+                onTriggered: appearanceMenu.popup(brandBlock, 0, brandBlock.height + 4)
             }
 
             Text {

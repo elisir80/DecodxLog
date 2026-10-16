@@ -22,10 +22,10 @@ Specifica di partenza: [`docs/FASE0_SPEC.md`](docs/FASE0_SPEC.md).
 Licenza: GPL-3.0. Dentro `libs/ggmorse` c'e' ggmorse di Georgi Gerganov, licenza MIT,
 con la sua `LICENSE` accanto.
 
-## Stato: 1.17.25
+## Stato: 1.17.26
 
 La versione e le funzioni descritte qui corrispondono al manifest di build
-`CMakeLists.txt` (1.17.25). Le note incrementali sono in
+`CMakeLists.txt` (1.17.26). Le note incrementali sono in
 [`docs/CHANGELOG.md`](docs/CHANGELOG.md); le opzioni sperimentali o opzionali
 sono indicate esplicitamente nelle sezioni relative.
 
@@ -189,8 +189,27 @@ cd build && ctest --output-on-failure
 ```
 
 Richiede Qt ≥ 6.5 con Quick, QuickControls2, Sql (driver QSQLITE), Network, Test.
-Per le credenziali: `pacman -S mingw-w64-x86_64-qtkeychain` (facoltativo: senza, DecoDXLog
-si compila ma non salva password). Nella distribuzione va incluso `libqt6keychain.dll`.
+Per le credenziali locali: `pacman -S mingw-w64-x86_64-qtkeychain` (facoltativo: senza,
+DecoDXLog si compila ma non salva password). Per la cassaforte delle credenziali che deve
+viaggiare col Cloud serve anche OpenSSL 3: `pacman -S mingw-w64-x86_64-openssl`.
+I pacchetti ufficiali non chiedono all'utente di installarlo: le DLL OpenSSL sono incluse
+nel setup Windows, le dylib nel DMG macOS e `libcrypto`/`libssl` nell'AppImage Linux.
+Se CMake conserva un percorso Homebrew non piu' esistente dopo un aggiornamento, lo
+scarta automaticamente; su macOS si puo' forzare il controllo completo con:
+
+```sh
+brew install openssl@3
+cmake -S . -B build -G Ninja -DCMAKE_BUILD_TYPE=Release \
+  -DDECODXLOG_REQUIRE_OPENSSL=ON \
+  -DOPENSSL_ROOT_DIR="$(brew --prefix openssl@3)"
+```
+
+Il build macOS firma automaticamente in modo ad-hoc l'app locale, evitando il
+`Code Signature Invalid` di dyld se il linker o un deploy precedente aveva lasciato
+una firma non piu' valida. Il workflow di release rifirma il bundle dopo `macdeployqt`.
+
+Le impostazioni Cloud (tema, filtri, profili e dati sincronizzabili) funzionano anche senza
+la cassaforte; senza OpenSSL restano invece sul dispositivo le password/API key dei servizi.
 Per VOACAP: `pacman -S mingw-w64-x86_64-gcc-fortran` (facoltativo: senza, la previsione sul
 percorso resta quella semplificata); il sorgente e' in `third_party/voacapl`.
 

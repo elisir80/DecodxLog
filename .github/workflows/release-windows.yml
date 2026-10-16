@@ -16,7 +16,7 @@ on:
       tag:
         description: Tag sorgente e release destinataria
         required: true
-        default: v1.17.25
+        default: v1.17.26
         type: string
       publish:
         description: Ho provato l'artefatto Windows e autorizzo la pubblicazione
@@ -68,7 +68,7 @@ jobs:
         run: choco install innosetup --no-progress -y
 
       - name: Configure
-        run: cmake -S . -B build-rel -G Ninja -DCMAKE_BUILD_TYPE=Release
+        run: cmake -S . -B build-rel -G Ninja -DCMAKE_BUILD_TYPE=Release -DDECODXLOG_REQUIRE_OPENSSL=ON
 
       - name: Build
         run: cmake --build build-rel --parallel 3 --target decolog

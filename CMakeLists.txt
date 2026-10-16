@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.21)
 
 project(DecoDXLog
-    VERSION 1.17.25
+    VERSION 1.17.26
     DESCRIPTION "Station logbook for the Decodium family"
     LANGUAGES C CXX)
 
@@ -16,6 +16,13 @@ endif()
 
 option(DECODXLOG_BUILD_TESTS "Build the unit tests" ON)
 option(DECODXLOG_BUILD_TOOLS "Build the command-line tools (UDP simulator)" ON)
+# The Cloud can synchronize ordinary settings without OpenSSL, but portable
+# credentials need the client-side AES-256-GCM vault.  Release/CI workflows turn
+# this on so a package can never be published with that capability silently
+# disabled.  Developers may leave it off for a deliberately minimal build.
+option(DECODXLOG_REQUIRE_OPENSSL
+       "Fail configuration when OpenSSL is unavailable (required for portable Cloud credentials)"
+       OFF)
 # Il decodificatore CW CTC (rete neurale, da Morsecodium): richiede ONNX Runtime. Spento di
 # default: il programma distribuito non lo include finche' non si decide di farlo.
 option(DECODXLOG_CTC_ONNX "Build the neural CW decoder (CTC, needs ONNX Runtime)" OFF)
@@ -268,13 +275,32 @@ endif()
 
 # Le credenziali che passano dal Cloud viaggiano chiuse, e si chiudono con
 # OpenSSL (AES-256-GCM, chiave da PBKDF2): il server non le deve poter leggere.
-# Senza OpenSSL DecoDXLog si compila lo stesso e le credenziali restano dove sono.
+# CMake conserva i percorsi trovati nel cache. Homebrew cambia il percorso della
+# Cellar a ogni aggiornamento: se un vecchio libcrypto.dylib non esiste piu',
+# FindOpenSSL altrimenti continua a riusare quel percorso e dichiara OpenSSL
+# assente anche se la formula e' installata.
+foreach(_decodxlog_openssl_cache_var
+        OPENSSL_INCLUDE_DIR OPENSSL_CRYPTO_LIBRARY OPENSSL_SSL_LIBRARY)
+    if(DEFINED ${_decodxlog_openssl_cache_var})
+        set(_decodxlog_openssl_cached_value
+            "${${_decodxlog_openssl_cache_var}}")
+        if(_decodxlog_openssl_cached_value
+           AND NOT EXISTS "${_decodxlog_openssl_cached_value}")
+            unset(${_decodxlog_openssl_cache_var} CACHE)
+        endif()
+    endif()
+endforeach()
 find_package(OpenSSL QUIET COMPONENTS Crypto)
 if(TARGET OpenSSL::Crypto)
     target_link_libraries(decolog_core PUBLIC OpenSSL::Crypto)
     target_compile_definitions(decolog_core PUBLIC DECODXLOG_HAS_OPENSSL=1)
-    message(STATUS "DecoDXLog: OpenSSL found — credentials travel sealed")
+    message(STATUS "DecoDXLog: OpenSSL ${OpenSSL_VERSION} found — credentials travel sealed")
 else()
+    if(DECODXLOG_REQUIRE_OPENSSL)
+        message(FATAL_ERROR
+            "DecoDXLog: OpenSSL Crypto is required for this build. "
+            "Install OpenSSL 3 or set OPENSSL_ROOT_DIR to its prefix.")
+    endif()
     message(WARNING "DecoDXLog: OpenSSL not found — credentials stay on this machine")
 endif()
 if(MSVC)
@@ -543,6 +569,38 @@ set_target_properties(decolog PROPERTIES
     MACOSX_BUNDLE_SHORT_VERSION_STRING "${PROJECT_VERSION}"
     MACOSX_BUNDLE_BUNDLE_VERSION "${PROJECT_VERSION}"
 )
+
+# macOS 26+ gives clang-linked Mach-O files an ad-hoc linker signature. If a
+# later build/deploy step changes load commands without refreshing that
+# signature, dyld terminates the app with "Code Signature Invalid" before main
+# is reached. Keep the source-tree app launchable after a normal local build.
+# Release workflows sign again after macdeployqt, because macdeployqt changes
+# the bundle while it embeds Qt/OpenSSL dependencies.
+#
+# macdeployqt also leaves a deployed copy of Qt in the build bundle. A later
+# normal `cmake --build` relinks the executable against the Homebrew Qt, but
+# Qt would still read the stale bundle's qt.conf and load its old plugins.
+# That creates two Qt copies in one process and makes the cocoa platform plugin
+# abort during QGuiApplication construction. Remove deployment leftovers here;
+# release jobs run macdeployqt after the build and therefore recreate them in a
+# controlled, single-Qt bundle.
+if(APPLE)
+    find_program(DECODXLOG_CODESIGN_EXECUTABLE codesign REQUIRED)
+    add_custom_command(TARGET decolog POST_BUILD
+        COMMAND "${CMAKE_COMMAND}" -E rm -rf
+                "$<TARGET_BUNDLE_DIR:decolog>/Contents/Frameworks"
+        COMMAND "${CMAKE_COMMAND}" -E rm -rf
+                "$<TARGET_BUNDLE_DIR:decolog>/Contents/PlugIns"
+        COMMAND "${CMAKE_COMMAND}" -E rm -rf
+                "$<TARGET_BUNDLE_DIR:decolog>/Contents/Resources/qt.conf"
+        COMMAND "${CMAKE_COMMAND}" -E rm -rf
+                "$<TARGET_BUNDLE_DIR:decolog>/Contents/Resources/qml"
+        COMMAND "${DECODXLOG_CODESIGN_EXECUTABLE}" --force --deep --sign -
+                --timestamp=none "$<TARGET_BUNDLE_DIR:decolog>"
+        COMMENT "Ad-hoc signing DecoDXLog.app for local macOS execution"
+        VERBATIM
+    )
+endif()
 
 # ── Propagazione ──────────────────────────────────────────────────────────────
 # Su macOS e Linux DecoDXLog e' costruito interamente in C++: la previsione sul

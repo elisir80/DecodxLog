@@ -26,7 +26,10 @@ RoundedWindow {
     // La cornice principale resta nelle mani del sistema operativo: su macOS
     // questo significa angoli e ombra nativi, senza alterare fullscreen,
     // spostamento o snapping su Windows e Linux.
-    transparentFrame: false
+    // The classic theme keeps the native macOS surface.  Liquid Glass opts
+    // into the existing rounded/masked frame on every platform; Linux still
+    // uses the compositor-independent opaque fallback in RoundedWindow.
+    transparentFrame: Theme.isGlassTheme
     surfaceColor: Theme.bgDeep
     font.pixelSize: Theme.fontSize
 

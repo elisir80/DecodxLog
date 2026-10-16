@@ -117,9 +117,22 @@ while [ "$added" -gt 0 ] && [ "$round" -lt 10 ]; do
 done
 
 # OpenSSL non e' una dipendenza dichiarata: il plugin TLS lo carica a runtime,
-# quindi ldd non lo vede.
+# quindi ldd non lo vede. La cassaforte Cloud, invece, lo usa direttamente:
+# l'installer deve contenere entrambe le DLL anche su una macchina che non ha
+# MSYS2/OpenSSL installati.
 for ssl in "$MINGW"/bin/libssl-3-x64.dll "$MINGW"/bin/libcrypto-3-x64.dll; do
-    [ -f "$ssl" ] && cp -n "$ssl" "$DIST/"
+    if [ ! -f "$ssl" ]; then
+        echo "manca $(basename "$ssl"): OpenSSL non e' disponibile nel runtime MinGW" >&2
+        exit 1
+    fi
+    cp -n "$ssl" "$DIST/"
+done
+
+for must in libssl-3-x64.dll libcrypto-3-x64.dll; do
+    [ -f "$DIST/$must" ] || {
+        echo "manca $must nel pacchetto Windows" >&2
+        exit 1
+    }
 done
 
 # Senza le librerie del compilatore la cartella non si apre, e Windows non dice

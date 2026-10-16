@@ -11,7 +11,7 @@ on:
       tag:
         description: Release tag
         required: true
-        default: v1.17.25
+        default: v1.17.26
       arch:
         description: Architettura da costruire (all, arm64, x86_64)
         required: true
@@ -41,7 +41,7 @@ jobs:
         run: brew install cmake ninja qt qtkeychain openssl@3 brotli webp
 
       - name: Configure
-        run: cmake -S . -B build -G Ninja -DCMAKE_BUILD_TYPE=Release -DCMAKE_PREFIX_PATH="$(brew --prefix qt);$(brew --prefix qtkeychain)" -DOPENSSL_ROOT_DIR="$(brew --prefix openssl@3)"
+        run: cmake -S . -B build -G Ninja -DCMAKE_BUILD_TYPE=Release -DDECODXLOG_REQUIRE_OPENSSL=ON -DCMAKE_PREFIX_PATH="$(brew --prefix qt);$(brew --prefix qtkeychain)" -DOPENSSL_ROOT_DIR="$(brew --prefix openssl@3)" -DOPENSSL_USE_STATIC_LIBS=FALSE
 
       - name: Build
         run: cmake --build build --parallel 3 --target decolog
@@ -62,8 +62,45 @@ jobs:
             -qmldir=libs/decodium-ui/qml \
             -libpath="$(brew --prefix brotli)/lib" \
             -libpath="$(brew --prefix webp)/lib" \
+            -libpath="$(brew --prefix openssl@3)/lib" \
             -no-codesign \
             -verbose=1
+
+          # DecoDXLog writes PDFs through QtGui/QPdfWriter; it does not read
+          # PDFs through QtPdf. These optional Qt plugins are not used by the
+          # application and pull QtPdf, Qt3D, QtStateMachine or QtVirtualKeyboard
+          # from Homebrew when probed. Keep them out instead of publishing a
+          # bundle that can load a second Qt installation at runtime.
+          unused_plugins="$RUNNER_TEMP/decodxlog-unused-qt-plugins"
+          mkdir -p "$unused_plugins"
+          while IFS= read -r -d '' plugin; do
+            case "$(basename "$plugin")" in
+              libqpdf.dylib|libpdfquickplugin.dylib|libqtvirtualkeyboardplugin.dylib|\
+              libqtqmlstatemachineplugin.dylib|\
+              libqtquickscene2dplugin.dylib|libqtquickscene3dplugin.dylib|\
+              libqtquicktimeline*.dylib|libqtvkb*.dylib|libvirtualkeyboardplugin.dylib)
+                mv "$plugin" "$unused_plugins/"
+                ;;
+            esac
+          done < <(find build/DecoDXLog.app/Contents/PlugIns -type f -print0)
+          for qml_dir in \
+            build/DecoDXLog.app/Contents/Resources/qml/QtQml/StateMachine \
+            build/DecoDXLog.app/Contents/Resources/qml/QtQuick/Pdf \
+            build/DecoDXLog.app/Contents/Resources/qml/QtQuick/Scene2D \
+            build/DecoDXLog.app/Contents/Resources/qml/QtQuick/Scene3D \
+            build/DecoDXLog.app/Contents/Resources/qml/QtQuick/Timeline \
+            build/DecoDXLog.app/Contents/Resources/qml/QtQuick/VirtualKeyboard; do
+            if [[ -e "$qml_dir" || -L "$qml_dir" ]]; then
+              mv "$qml_dir" "$unused_plugins/"
+            fi
+          done
+
+          scripts/fix-macos-bundle.sh build/DecoDXLog.app
+
+          for library in libcrypto libssl; do
+            test -n "$(find build/DecoDXLog.app/Contents/Frameworks -maxdepth 1 -name "${library}*.dylib" -print -quit)" \
+              || { echo "OpenSSL ${library} was not bundled into the app"; exit 1; }
+          done
 
           version="${{ inputs.tag }}"
           version="${version#v}"

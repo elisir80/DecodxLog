@@ -11,6 +11,7 @@ namespace {
 const QString kOcean    = QStringLiteral("Ocean Blue");
 const QString kStellar  = QStringLiteral("Stellar Light");
 const QString kDark     = QStringLiteral("Darkcodium");
+const QString kGlass    = QStringLiteral("Liquid Glass");
 
 // Lingua dell'interfaccia, per scegliere i caratteri. Vuota finche' nessuno la
 // dice: allora si va sui caratteri di sempre.
@@ -98,7 +99,7 @@ void ThemeManager::store(const QString& key, const QVariant& value) const
     s.setValue(QStringLiteral("theme/") + key, value);
 }
 
-QStringList ThemeManager::availableThemes() const { return {kOcean, kStellar, kDark}; }
+QStringList ThemeManager::availableThemes() const { return {kOcean, kStellar, kDark, kGlass}; }
 
 QStringList ThemeManager::availableVariants() const
 {
@@ -146,8 +147,24 @@ const ThemeManager::Palette& ThemeManager::palette() const
         QColor(25, 255, 136, 28), QColor("#19ff88"),
         false};
 
+    // A restrained Liquid Glass palette.  The alpha in panel/header colours
+    // lets the layered QML surfaces show through; RoundedWindow supplies the
+    // opaque, gradient-backed fallback behind them on platforms without a
+    // native backdrop material.
+    static const Palette liquid{
+        QColor("#0A1020"), QColor("#14223A"), QColor("#233B60"),
+        QColor("#EAF6FF"), QColor("#A8C7E8"), QColor("#8DEBFF"),
+        QColor("#FFD18A"), QColor("#FF8296"), QColor("#7CF4C8"),
+        QColor("#F5FAFF"), QColor("#AFC6DF"),
+        QColor(235, 247, 255, 38), QColor(220, 242, 255, 112),
+        QColor(220, 242, 255, 82), QColor(220, 242, 255, 42),
+        QColor(25, 43, 72, 176), QColor(38, 62, 98, 208),
+        QColor(141, 235, 255, 42), QColor("#8DEBFF"),
+        false};
+
     if (m_theme == kStellar) return stellar;
     if (m_theme == kDark)    return dark;
+    if (m_theme == kGlass)   return liquid;
     return ocean;
 }
 

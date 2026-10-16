@@ -3,6 +3,30 @@
 Le date sono quelle del lavoro, non di una pubblicazione: DecoDXLog cresce mentre lo si usa
 in stazione.
 
+## 1.17.26 — 16 ottobre 2026
+
+**Tema e menu Appearance.** Il tema selezionabile torna realmente raggiungibile dal menu del
+marchio: su macOS il sottomenu non viene piu' chiuso insieme al popup principale. La scelta dei
+temi e' ora un popup esplicito e ritardato, con `Ocean Blue`, `Stellar Light`, `Darkcodium` e il
+nuovo **Liquid Glass**. Il tema Liquid Glass usa superfici arrotondate e traslucide dove il
+compositore lo consente, con un fallback opaco e sobrio su Windows e Linux.
+
+**Bundle macOS piu' affidabile.** Dopo un deploy Qt il normale rebuild rimuove i residui del
+bundle precedente e rifirma l'app in modo ad-hoc, evitando copie Qt miste e gli avvii terminati da
+`Code Signature Invalid`. Il workflow macOS ripulisce i plugin Qt non usati, include OpenSSL e
+verifica che `libcrypto` e `libssl` siano davvero nel DMG.
+
+**Credenziali Cloud portabili.** Le build ufficiali richiedono OpenSSL e i pacchetti includono le
+librerie necessarie: DLL nel setup Windows, dylib nel DMG macOS e librerie ELF nell'AppImage
+Linux. Una build locale puo' restare minimale, mentre `DECODXLOG_REQUIRE_OPENSSL=ON` fa fallire
+subito la configurazione se la crittografia non e' disponibile.
+
+**Distribuzione.** I workflow pubblicano il setup Windows con il nome standard per l'auto-update,
+i manifest firmati per ogni piattaforma e gli AppImage `x86_64` e `aarch64` oltre ai DMG Intel e
+Apple Silicon.
+
+Dettagli bilingui: [`docs/RELEASE_NOTES_1.17.26.md`](RELEASE_NOTES_1.17.26.md).
+
 ## 1.17.25 — 16 ottobre 2026
 
 **Allineata alla 1.17.24 di elisir80.** La loro 1.17.24 chiude i bundle di backup: il manifest ha le

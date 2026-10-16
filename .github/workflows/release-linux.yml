@@ -12,7 +12,7 @@ on:
       tag:
         description: Release tag
         required: true
-        default: v1.17.25
+        default: v1.17.26
 
 permissions:
   contents: write
@@ -59,6 +59,7 @@ jobs:
             libfuse2 \
             libgl1-mesa-dev \
             libsecret-1-dev \
+            libssl-dev \
             libxkbcommon-dev \
             ninja-build \
             patchelf \
@@ -103,11 +104,11 @@ jobs:
 
       - name: Configure x86_64
         if: matrix.arch == 'x86_64'
-        run: cmake -S . -B build -G Ninja -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_PREFIX_PATH="$QT_ROOT_DIR" -DCMAKE_RUNTIME_OUTPUT_DIRECTORY="$PWD/build/bin"
+        run: cmake -S . -B build -G Ninja -DCMAKE_BUILD_TYPE=Release -DDECODXLOG_REQUIRE_OPENSSL=ON -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_PREFIX_PATH="$QT_ROOT_DIR" -DCMAKE_RUNTIME_OUTPUT_DIRECTORY="$PWD/build/bin"
 
       - name: Configure aarch64
         if: matrix.arch == 'aarch64'
-        run: cmake -S . -B build -G Ninja -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_RUNTIME_OUTPUT_DIRECTORY="$PWD/build/bin"
+        run: cmake -S . -B build -G Ninja -DCMAKE_BUILD_TYPE=Release -DDECODXLOG_REQUIRE_OPENSSL=ON -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_RUNTIME_OUTPUT_DIRECTORY="$PWD/build/bin"
 
       - name: Build
         run: cmake --build build --parallel 3 --target decolog
@@ -160,6 +161,10 @@ jobs:
             --icon-file AppDir/usr/share/icons/hicolor/256x256/apps/decodxlog.png \
             --plugin qt \
             --output appimage
+          for library in libcrypto.so* libssl.so*; do
+            test -n "$(find AppDir \( -type f -o -type l \) -name "$library" -print -quit)" \
+              || { echo "OpenSSL $library was not bundled into the AppImage"; exit 1; }
+          done
           version="${{ inputs.tag }}"
           version="${version#v}"
           mkdir -p release-assets

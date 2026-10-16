@@ -41,7 +41,7 @@ jobs:
             mingw-w64-x86_64-openssl
 
       - name: Configure
-        run: cmake -S . -B build -G Ninja -DCMAKE_BUILD_TYPE=Release
+        run: cmake -S . -B build -G Ninja -DCMAKE_BUILD_TYPE=Release -DDECODXLOG_REQUIRE_OPENSSL=ON
 
       - name: Build
         run: cmake --build build
@@ -80,7 +80,7 @@ jobs:
           cache: true
 
       - name: Packages
-        run: sudo apt-get update && sudo apt-get install -y ninja-build libgl1-mesa-dev libxkbcommon-dev libsecret-1-dev
+        run: sudo apt-get update && sudo apt-get install -y ninja-build libgl1-mesa-dev libxkbcommon-dev libsecret-1-dev libssl-dev
 
       # qtkeychain non c'e' in install-qt-action: si compila contro lo stesso Qt.
       # Senza Secret Service in esecuzione il test delle credenziali si salta.
@@ -92,7 +92,7 @@ jobs:
           cmake --install /tmp/qtkeychain/build
 
       - name: Configure
-        run: cmake -S . -B build -G Ninja -DCMAKE_BUILD_TYPE=Release
+        run: cmake -S . -B build -G Ninja -DCMAKE_BUILD_TYPE=Release -DDECODXLOG_REQUIRE_OPENSSL=ON
 
       - name: Build
         run: cmake --build build
