@@ -7339,8 +7339,8 @@ A további mezők megmaradnak: %8</translation>
         <translation>a kulcs, amit a Club Logtól kaptál</translation>
     </message>
     <message>
-        <source>Club Log wants three things: the email and password of the account (below), the callsign of the station profile, and an API key. The key is free and personal, and is asked for at clublog.org/need_api.php — it identifies the program, not you. A single QSO leaves as soon as it is logged, a backlog leaves as one ADIF file.</source>
-        <translation>A Club Lognak három dolog kell: a fiók e-mail-címe és jelszava (lent), az állomásprofil hívójele, és egy API-kulcs. A kulcs ingyenes és személyes, a clublog.org/need_api.php oldalon lehet kérni — a programot azonosítja, nem téged. Egy QSO rögtön elmegy, ahogy naplózódik; a felhalmozódott adag egyetlen ADIF-fájlként megy el.</translation>
+        <source>Club Log wants three things: the email and password of the account (below), the callsign of the station profile, and an API key. The key is free and personal, and is asked for at clublog.org/requestapikey.php — it identifies the program, not you. A single QSO leaves as soon as it is logged, a backlog leaves as one ADIF file.</source>
+        <translation>A Club Lognak három dolog kell: a fiók e-mail-címe és jelszava (lent), az állomásprofil hívójele, és egy API-kulcs. A kulcs ingyenes és személyes, a clublog.org/requestapikey.php oldalon lehet kérni — a programot azonosítja, nem téged. Egy QSO rögtön elmegy, ahogy naplózódik; a felhalmozódott adag egyetlen ADIF-fájlként megy el.</translation>
     </message>
     <message>
         <source>Logbook on CRX</source>
@@ -8801,6 +8801,10 @@ A további mezők megmaradnak: %8</translation>
     <message>
         <source>Contest Mode ▾</source>
         <translation>Contest mód ▾</translation>
+    </message>
+    <message>
+        <source>Appearance</source>
+        <translation>Megjelenés</translation>
     </message>
     <message>
         <source>DX Cluster…</source>

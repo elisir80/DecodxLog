@@ -7361,8 +7361,8 @@ Extra velden blijven behouden: %8</translation>
         <translation>de sleutel die Club Log je gegeven heeft</translation>
     </message>
     <message>
-        <source>Club Log wants three things: the email and password of the account (below), the callsign of the station profile, and an API key. The key is free and personal, and is asked for at clublog.org/need_api.php — it identifies the program, not you. A single QSO leaves as soon as it is logged, a backlog leaves as one ADIF file.</source>
-        <translation>Club Log wil drie dingen: het e-mailadres en het wachtwoord van de account (hieronder), de roepletters van het stationsprofiel, en een API-sleutel. De sleutel is gratis en persoonlijk, en wordt aangevraagd op clublog.org/need_api.php — hij wijst het programma aan, niet jou. Eén QSO gaat weg zodra het gelogd is, een achterstand gaat als één ADIF-bestand weg.</translation>
+        <source>Club Log wants three things: the email and password of the account (below), the callsign of the station profile, and an API key. The key is free and personal, and is asked for at clublog.org/requestapikey.php — it identifies the program, not you. A single QSO leaves as soon as it is logged, a backlog leaves as one ADIF file.</source>
+        <translation>Club Log wil drie dingen: het e-mailadres en het wachtwoord van de account (hieronder), de roepletters van het stationsprofiel, en een API-sleutel. De sleutel is gratis en persoonlijk, en wordt aangevraagd op clublog.org/requestapikey.php — hij wijst het programma aan, niet jou. Eén QSO gaat weg zodra het gelogd is, een achterstand gaat als één ADIF-bestand weg.</translation>
     </message>
     <message>
         <source>Logbook on CRX</source>
@@ -8823,6 +8823,10 @@ Extra velden blijven behouden: %8</translation>
     <message>
         <source>Contest Mode ▾</source>
         <translation>Contestmodus ▾</translation>
+    </message>
+    <message>
+        <source>Appearance</source>
+        <translation>Weergave</translation>
     </message>
     <message>
         <source>DX Cluster…</source>

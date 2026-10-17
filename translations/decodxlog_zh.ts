@@ -7339,8 +7339,8 @@ QSL 状态：%6 · UTC 不完整：%7。
         <translation>Club Log 给你的密钥</translation>
     </message>
     <message>
-        <source>Club Log wants three things: the email and password of the account (below), the callsign of the station profile, and an API key. The key is free and personal, and is asked for at clublog.org/need_api.php — it identifies the program, not you. A single QSO leaves as soon as it is logged, a backlog leaves as one ADIF file.</source>
-        <translation>Club Log 要三样东西：账户的邮箱和密码（下面）、电台配置里的呼号，以及一个 API 密钥。密钥是免费的、属于你个人的，在 clublog.org/need_api.php 申请 — 它标识的是程序，不是你。单个 QSO 一记录就发走，积压的则作为一个 ADIF 文件发走。</translation>
+        <source>Club Log wants three things: the email and password of the account (below), the callsign of the station profile, and an API key. The key is free and personal, and is asked for at clublog.org/requestapikey.php — it identifies the program, not you. A single QSO leaves as soon as it is logged, a backlog leaves as one ADIF file.</source>
+        <translation>Club Log 要三样东西：账户的邮箱和密码（下面）、电台配置里的呼号，以及一个 API 密钥。密钥是免费的、属于你个人的，在 clublog.org/requestapikey.php 申请 — 它标识的是程序，不是你。单个 QSO 一记录就发走，积压的则作为一个 ADIF 文件发走。</translation>
     </message>
     <message>
         <source>Logbook on CRX</source>
@@ -8801,6 +8801,10 @@ QSL 状态：%6 · UTC 不完整：%7。
     <message>
         <source>Contest Mode ▾</source>
         <translation>竞赛模式 ▾</translation>
+    </message>
+    <message>
+        <source>Appearance</source>
+        <translation>外观</translation>
     </message>
     <message>
         <source>DX Cluster…</source>

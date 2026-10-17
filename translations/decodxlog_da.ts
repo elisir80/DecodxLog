@@ -7361,8 +7361,8 @@ Ekstra felter bevares: %8</translation>
         <translation>den nøgle, Club Log har givet dig</translation>
     </message>
     <message>
-        <source>Club Log wants three things: the email and password of the account (below), the callsign of the station profile, and an API key. The key is free and personal, and is asked for at clublog.org/need_api.php — it identifies the program, not you. A single QSO leaves as soon as it is logged, a backlog leaves as one ADIF file.</source>
-        <translation>Club Log vil have tre ting: kontoens e-mail og adgangskode (nedenfor), stationsprofilens kaldesignal og en API-nøgle. Nøglen er gratis og personlig og bedes om på clublog.org/need_api.php — den peger på programmet, ikke på dig. Et enkelt QSO går af sted, så snart det er logget; en pukkel går af sted som én ADIF-fil.</translation>
+        <source>Club Log wants three things: the email and password of the account (below), the callsign of the station profile, and an API key. The key is free and personal, and is asked for at clublog.org/requestapikey.php — it identifies the program, not you. A single QSO leaves as soon as it is logged, a backlog leaves as one ADIF file.</source>
+        <translation>Club Log vil have tre ting: kontoens e-mail og adgangskode (nedenfor), stationsprofilens kaldesignal og en API-nøgle. Nøglen er gratis og personlig og bedes om på clublog.org/requestapikey.php — den peger på programmet, ikke på dig. Et enkelt QSO går af sted, så snart det er logget; en pukkel går af sted som én ADIF-fil.</translation>
     </message>
     <message>
         <source>Logbook on CRX</source>
@@ -8823,6 +8823,10 @@ Ekstra felter bevares: %8</translation>
     <message>
         <source>Contest Mode ▾</source>
         <translation>Contesttilstand ▾</translation>
+    </message>
+    <message>
+        <source>Appearance</source>
+        <translation>Udseende</translation>
     </message>
     <message>
         <source>DX Cluster…</source>

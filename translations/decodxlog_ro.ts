@@ -7383,8 +7383,8 @@ Câmpuri suplimentare păstrate: %8</translation>
         <translation>cheia pe care ți-a dat-o Club Log</translation>
     </message>
     <message>
-        <source>Club Log wants three things: the email and password of the account (below), the callsign of the station profile, and an API key. The key is free and personal, and is asked for at clublog.org/need_api.php — it identifies the program, not you. A single QSO leaves as soon as it is logged, a backlog leaves as one ADIF file.</source>
-        <translation>Club Log vrea trei lucruri: adresa de e-mail și parola contului (mai jos), indicativul profilului de stație și o cheie API. Cheia este gratuită și personală și se cere la clublog.org/need_api.php — identifică programul, nu pe tine. Un singur QSO pleacă imediat ce este înregistrat, o restanță pleacă într-un singur fișier ADIF.</translation>
+        <source>Club Log wants three things: the email and password of the account (below), the callsign of the station profile, and an API key. The key is free and personal, and is asked for at clublog.org/requestapikey.php — it identifies the program, not you. A single QSO leaves as soon as it is logged, a backlog leaves as one ADIF file.</source>
+        <translation>Club Log vrea trei lucruri: adresa de e-mail și parola contului (mai jos), indicativul profilului de stație și o cheie API. Cheia este gratuită și personală și se cere la clublog.org/requestapikey.php — identifică programul, nu pe tine. Un singur QSO pleacă imediat ce este înregistrat, o restanță pleacă într-un singur fișier ADIF.</translation>
     </message>
     <message>
         <source>Logbook on CRX</source>
@@ -8845,6 +8845,10 @@ Câmpuri suplimentare păstrate: %8</translation>
     <message>
         <source>Contest Mode ▾</source>
         <translation>Mod concurs ▾</translation>
+    </message>
+    <message>
+        <source>Appearance</source>
+        <translation>Aspect</translation>
     </message>
     <message>
         <source>DX Cluster…</source>

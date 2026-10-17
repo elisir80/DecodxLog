@@ -1511,7 +1511,7 @@ DialogFrame {
                     Note {
                         text: qsTr("Club Log wants three things: the email and password of the account (below), the callsign of the "
                                    + "station profile, and an API key. The key is free and personal, and is asked for at "
-                                   + "clublog.org/need_api.php — it identifies the program, not you. A single QSO leaves as soon as "
+                                   + "clublog.org/requestapikey.php — it identifies the program, not you. A single QSO leaves as soon as "
                                    + "it is logged, a backlog leaves as one ADIF file.")
                     }
                     // ── CRX Logbook (crx.cloud) ─────────────────────────────

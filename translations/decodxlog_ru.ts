@@ -7383,8 +7383,8 @@ Extra fields are preserved: %8</source>
         <translation>ключ, который выдал Club Log</translation>
     </message>
     <message>
-        <source>Club Log wants three things: the email and password of the account (below), the callsign of the station profile, and an API key. The key is free and personal, and is asked for at clublog.org/need_api.php — it identifies the program, not you. A single QSO leaves as soon as it is logged, a backlog leaves as one ADIF file.</source>
-        <translation>Club Log нужны три вещи: почта и пароль учётной записи (ниже), позывной из профиля станции и ключ API. Ключ бесплатный и личный, его просят на clublog.org/need_api.php — он указывает на программу, а не на вас. Один QSO уходит сразу, как записан; накопившееся уходит одним файлом ADIF.</translation>
+        <source>Club Log wants three things: the email and password of the account (below), the callsign of the station profile, and an API key. The key is free and personal, and is asked for at clublog.org/requestapikey.php — it identifies the program, not you. A single QSO leaves as soon as it is logged, a backlog leaves as one ADIF file.</source>
+        <translation>Club Log нужны три вещи: почта и пароль учётной записи (ниже), позывной из профиля станции и ключ API. Ключ бесплатный и личный, его просят на clublog.org/requestapikey.php — он указывает на программу, а не на вас. Один QSO уходит сразу, как записан; накопившееся уходит одним файлом ADIF.</translation>
     </message>
     <message>
         <source>Logbook on CRX</source>
@@ -8845,6 +8845,10 @@ Extra fields are preserved: %8</source>
     <message>
         <source>Contest Mode ▾</source>
         <translation>Режим контеста ▾</translation>
+    </message>
+    <message>
+        <source>Appearance</source>
+        <translation>Оформление</translation>
     </message>
     <message>
         <source>DX Cluster…</source>

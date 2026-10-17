@@ -7361,8 +7361,8 @@ Zusatzfelder bleiben erhalten: %8</translation>
         <translation>der Schlüssel, den Club Log dir gegeben hat</translation>
     </message>
     <message>
-        <source>Club Log wants three things: the email and password of the account (below), the callsign of the station profile, and an API key. The key is free and personal, and is asked for at clublog.org/need_api.php — it identifies the program, not you. A single QSO leaves as soon as it is logged, a backlog leaves as one ADIF file.</source>
-        <translation>Club Log will drei Dinge: E-Mail und Passwort des Kontos (unten), das Rufzeichen des Stationsprofils und einen API-Schlüssel. Der Schlüssel ist kostenlos und persönlich und wird auf clublog.org/need_api.php angefragt — er weist das Programm aus, nicht dich. Ein einzelnes QSO geht sofort nach dem Eintragen hinaus, ein Rückstand als eine ADIF-Datei.</translation>
+        <source>Club Log wants three things: the email and password of the account (below), the callsign of the station profile, and an API key. The key is free and personal, and is asked for at clublog.org/requestapikey.php — it identifies the program, not you. A single QSO leaves as soon as it is logged, a backlog leaves as one ADIF file.</source>
+        <translation>Club Log will drei Dinge: E-Mail und Passwort des Kontos (unten), das Rufzeichen des Stationsprofils und einen API-Schlüssel. Der Schlüssel ist kostenlos und persönlich und wird auf clublog.org/requestapikey.php angefragt — er weist das Programm aus, nicht dich. Ein einzelnes QSO geht sofort nach dem Eintragen hinaus, ein Rückstand als eine ADIF-Datei.</translation>
     </message>
     <message>
         <source>Logbook on CRX</source>
@@ -8823,6 +8823,10 @@ Zusatzfelder bleiben erhalten: %8</translation>
     <message>
         <source>Contest Mode ▾</source>
         <translation>Contest-Modus ▾</translation>
+    </message>
+    <message>
+        <source>Appearance</source>
+        <translation>Darstellung</translation>
     </message>
     <message>
         <source>DX Cluster…</source>

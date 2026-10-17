@@ -7383,8 +7383,8 @@ Papildu lauki tiek saglabāti: %8</translation>
         <translation>atslēga, ko tev iedevis Club Log</translation>
     </message>
     <message>
-        <source>Club Log wants three things: the email and password of the account (below), the callsign of the station profile, and an API key. The key is free and personal, and is asked for at clublog.org/need_api.php — it identifies the program, not you. A single QSO leaves as soon as it is logged, a backlog leaves as one ADIF file.</source>
-        <translation>Club Log vajadzīgas trīs lietas: konta e-pasts un parole (zemāk), stacijas profila izsaukuma signāls un API atslēga. Atslēga ir bez maksas un personiska, un to pieprasa clublog.org/need_api.php — tā apzīmē programmu, nevis tevi. Viens QSO aiziet uzreiz pēc ierakstīšanas, uzkrājums aiziet kā viens ADIF fails.</translation>
+        <source>Club Log wants three things: the email and password of the account (below), the callsign of the station profile, and an API key. The key is free and personal, and is asked for at clublog.org/requestapikey.php — it identifies the program, not you. A single QSO leaves as soon as it is logged, a backlog leaves as one ADIF file.</source>
+        <translation>Club Log vajadzīgas trīs lietas: konta e-pasts un parole (zemāk), stacijas profila izsaukuma signāls un API atslēga. Atslēga ir bez maksas un personiska, un to pieprasa clublog.org/requestapikey.php — tā apzīmē programmu, nevis tevi. Viens QSO aiziet uzreiz pēc ierakstīšanas, uzkrājums aiziet kā viens ADIF fails.</translation>
     </message>
     <message>
         <source>Logbook on CRX</source>
@@ -8845,6 +8845,10 @@ Papildu lauki tiek saglabāti: %8</translation>
     <message>
         <source>Contest Mode ▾</source>
         <translation>Konkursa režīms ▾</translation>
+    </message>
+    <message>
+        <source>Appearance</source>
+        <translation>Izskats</translation>
     </message>
     <message>
         <source>DX Cluster…</source>

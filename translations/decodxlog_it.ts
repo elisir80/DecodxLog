@@ -7361,8 +7361,8 @@ Campi extra conservati: %8</translation>
         <translation>la chiave che ti ha dato Club Log</translation>
     </message>
     <message>
-        <source>Club Log wants three things: the email and password of the account (below), the callsign of the station profile, and an API key. The key is free and personal, and is asked for at clublog.org/need_api.php — it identifies the program, not you. A single QSO leaves as soon as it is logged, a backlog leaves as one ADIF file.</source>
-        <translation>Club Log vuole tre cose: l&apos;email e la password dell&apos;account (qui sotto), il nominativo del profilo stazione e una chiave API. La chiave è gratuita e personale, si chiede su clublog.org/need_api.php — dice quale programma sta scrivendo, non chi sei. Un QSO appena registrato parte da solo, un arretrato parte come un unico file ADIF.</translation>
+        <source>Club Log wants three things: the email and password of the account (below), the callsign of the station profile, and an API key. The key is free and personal, and is asked for at clublog.org/requestapikey.php — it identifies the program, not you. A single QSO leaves as soon as it is logged, a backlog leaves as one ADIF file.</source>
+        <translation>Club Log vuole tre cose: l&apos;email e la password dell&apos;account (qui sotto), il nominativo del profilo stazione e una chiave API. La chiave è gratuita e personale, si chiede su clublog.org/requestapikey.php — dice quale programma sta scrivendo, non chi sei. Un QSO appena registrato parte da solo, un arretrato parte come un unico file ADIF.</translation>
     </message>
     <message>
         <source>Logbook on CRX</source>
@@ -8823,6 +8823,10 @@ Campi extra conservati: %8</translation>
     <message>
         <source>Contest Mode ▾</source>
         <translation>Contest Mode ▾</translation>
+    </message>
+    <message>
+        <source>Appearance</source>
+        <translation>Aspetto</translation>
     </message>
     <message>
         <source>DX Cluster…</source>

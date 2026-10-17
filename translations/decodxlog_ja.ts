@@ -7339,8 +7339,8 @@ QSL の状態: %6 · UTC が不完全: %7。
         <translation>Club Log がくれたキー</translation>
     </message>
     <message>
-        <source>Club Log wants three things: the email and password of the account (below), the callsign of the station profile, and an API key. The key is free and personal, and is asked for at clublog.org/need_api.php — it identifies the program, not you. A single QSO leaves as soon as it is logged, a backlog leaves as one ADIF file.</source>
-        <translation>Club Log がほしいのは三つです。アカウントのメールとパスワード (下)、局プロファイルのコールサイン、そして API キー。キーは無料で自分だけのもので、clublog.org/need_api.php でもらいます。あれはプログラムを指すもので、あなたを指すものではありません。1 件の QSO は記録したらすぐ出ていきます。たまったぶんは 1 つの ADIF ファイルで出ていきます。</translation>
+        <source>Club Log wants three things: the email and password of the account (below), the callsign of the station profile, and an API key. The key is free and personal, and is asked for at clublog.org/requestapikey.php — it identifies the program, not you. A single QSO leaves as soon as it is logged, a backlog leaves as one ADIF file.</source>
+        <translation>Club Log がほしいのは三つです。アカウントのメールとパスワード (下)、局プロファイルのコールサイン、そして API キー。キーは無料で自分だけのもので、clublog.org/requestapikey.php でもらいます。あれはプログラムを指すもので、あなたを指すものではありません。1 件の QSO は記録したらすぐ出ていきます。たまったぶんは 1 つの ADIF ファイルで出ていきます。</translation>
     </message>
     <message>
         <source>Logbook on CRX</source>
@@ -8801,6 +8801,10 @@ QSL の状態: %6 · UTC が不完全: %7。
     <message>
         <source>Contest Mode ▾</source>
         <translation>コンテストモード ▾</translation>
+    </message>
+    <message>
+        <source>Appearance</source>
+        <translation>外観</translation>
     </message>
     <message>
         <source>DX Cluster…</source>

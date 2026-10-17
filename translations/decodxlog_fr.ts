@@ -7361,8 +7361,8 @@ Champs supplémentaires conservés : %8</translation>
         <translation>la clé que Club Log vous a donnée</translation>
     </message>
     <message>
-        <source>Club Log wants three things: the email and password of the account (below), the callsign of the station profile, and an API key. The key is free and personal, and is asked for at clublog.org/need_api.php — it identifies the program, not you. A single QSO leaves as soon as it is logged, a backlog leaves as one ADIF file.</source>
-        <translation>Club Log veut trois choses : l&apos;e-mail et le mot de passe du compte (ci-dessous), l&apos;indicatif du profil de station, et une clé API. La clé est gratuite et personnelle, et se demande sur clublog.org/need_api.php — elle identifie le programme, pas vous. Un QSO isolé part dès qu&apos;il est enregistré, un retard part en un seul fichier ADIF.</translation>
+        <source>Club Log wants three things: the email and password of the account (below), the callsign of the station profile, and an API key. The key is free and personal, and is asked for at clublog.org/requestapikey.php — it identifies the program, not you. A single QSO leaves as soon as it is logged, a backlog leaves as one ADIF file.</source>
+        <translation>Club Log veut trois choses : l&apos;e-mail et le mot de passe du compte (ci-dessous), l&apos;indicatif du profil de station, et une clé API. La clé est gratuite et personnelle, et se demande sur clublog.org/requestapikey.php — elle identifie le programme, pas vous. Un QSO isolé part dès qu&apos;il est enregistré, un retard part en un seul fichier ADIF.</translation>
     </message>
     <message>
         <source>Logbook on CRX</source>
@@ -8823,6 +8823,10 @@ Champs supplémentaires conservés : %8</translation>
     <message>
         <source>Contest Mode ▾</source>
         <translation>Mode contest ▾</translation>
+    </message>
+    <message>
+        <source>Appearance</source>
+        <translation>Apparence</translation>
     </message>
     <message>
         <source>DX Cluster…</source>
