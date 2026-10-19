@@ -39,7 +39,9 @@ jobs:
       - name: Checkout release source
         uses: actions/checkout@v4
         with:
-          ref: ${{ inputs.tag }}
+          # The release tag contains the application snapshot; use the
+          # current fork main for the CI-only gate stabilization below.
+          ref: main
 
       - name: Install MSYS2 MinGW and Qt
         uses: msys2/setup-msys2@v2
