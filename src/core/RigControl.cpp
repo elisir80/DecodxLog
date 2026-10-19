@@ -326,15 +326,28 @@ void RigControl::finishMorse(const Pending& what, bool accepted)
 
 void RigControl::emergencyStop()
 {
-    if (!connected())
-        return;
-
-    // Il PTT va giu' prima di tutto. Non metterlo dopo stop_morse: su alcune
-    // radio il comando CW resta occupato finche' non finisce la memoria
-    // interna, e in quel caso il vecchio ordine lasciava la radio in TX.
-    setPtt(false);
-    stopMorse();
+    // Il PTT va giu' prima di tutto quando la socket ordinaria e' disponibile.
+    // Se la connessione e' gia' caduta, non si puo' usare quella coda, ma il
+    // canale di emergenza qui sotto puo' ancora raggiungere rigctld e la radio.
+    // Il vecchio return lasciava proprio questi utenti in TX.
+    if (connected()) {
+        // Non mettere stop_morse prima del dekey: su alcune radio il comando CW
+        // resta occupato finche' non finisce la memoria interna.
+        setPtt(false);
+        stopMorse();
+    } else {
+        cancelMorseQueue();
+    }
     sendEmergencyStop();
+}
+
+void RigControl::setEmergencyCatOffCommand(const QString& command)
+{
+    const QString clean = command.trimmed();
+    // This value becomes one rigctld protocol line.  It is configured only by
+    // RigController, but reject separators here as a defence in depth.
+    m_emergencyCatOffCommand = clean.contains(QLatin1Char('\n'))
+            || clean.contains(QLatin1Char('\r')) ? QString() : clean;
 }
 
 void RigControl::sendEmergencyStop()
@@ -344,10 +357,15 @@ void RigControl::sendEmergencyStop()
 
     // La socket normale puo' avere davanti interrogazioni CAT o una risposta
     // lenta. Una seconda connessione a rigctld non partecipa alla sua coda
-    // locale; manda solo due operazioni idempotenti e si autodistrugge.
+    // locale; manda solo operazioni di arresto idempotenti e si autodistrugge.
+    QByteArray commands = QByteArrayLiteral("+T 0\n");
+    if (!m_emergencyCatOffCommand.isEmpty())
+        commands += QByteArrayLiteral("+w ") + m_emergencyCatOffCommand.toLatin1() + '\n';
+    commands += QByteArrayLiteral("+\\stop_morse\n");
+
     auto* emergency = new QTcpSocket(this);
-    connect(emergency, &QTcpSocket::connected, emergency, [emergency] {
-        emergency->write(QByteArrayLiteral("+T 0\n+\\stop_morse\n"));
+    connect(emergency, &QTcpSocket::connected, emergency, [emergency, commands] {
+        emergency->write(commands);
         emergency->flush();
     });
     connect(emergency, &QTcpSocket::bytesWritten, emergency, [emergency](qint64) {

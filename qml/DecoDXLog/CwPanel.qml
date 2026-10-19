@@ -85,10 +85,10 @@ GlassPanel {
             tone: Theme.errorColor
             buttonHeight: 22
             fontPixelSize: 11
-            // Se il CAT cade durante una macro affidata al manipolatore
-            // seriale/WinKeyer, Ferma deve restare disponibile: il keyer puo'
-            // ancora avere il buffer e la linea di manipolazione attivi.
-            enabled: root.rig.connected || root.rig.keyerOn || root.rig.activeMacroIndex >= 0
+            // Ferma must remain available even after CAT reports disconnected:
+            // the radio can still be transmitting, and RigControl has a
+            // separate emergency path that can reconnect to rigctld.
+            enabled: true
             onClicked: root.rig.stop()
         },
         // Le macro si scrivono anche da qui, non solo dal contest.
