@@ -1,0 +1,32 @@
+{
+  "format": "decodxlog-migration-matrix-1",
+  "sourceEvidence": "synthetic-anonymized-fixture",
+  "realVendorExportsVerified": false,
+  "verificationScope": "parser-preservation-only",
+  "cases": [
+    {
+      "source": "Log4OM",
+      "evidence": "synthetic-anonymized-fixture",
+      "version": "fixture",
+      "format": "ADIF",
+      "input": "<CALL:5>W1AW <QSO_DATE:8>20261001 <TIME_ON:6>120000 <BAND:3>20m <MODE:2>CW <RST_SENT:3>599 <RST_RCVD:3>599 <GRIDSQUARE:6>FN31PR <LOTW_QSL_RCVD:1>Y <APP_LOG4OM_OPERATOR:4>OP1 <EOR>\n",
+      "mustPreserve": ["CALL", "QSO_DATE", "TIME_ON", "BAND", "MODE", "RST_SENT", "RST_RCVD", "GRIDSQUARE", "LOTW_QSL_RCVD", "APP_LOG4OM_OPERATOR"]
+    },
+    {
+      "source": "DXKeeper",
+      "evidence": "synthetic-anonymized-fixture",
+      "version": "fixture",
+      "format": "ADIF",
+      "input": "<CALL:5>DL1AA <QSO_DATE:8>20261002 <TIME_ON:4>1315 <BAND:3>40m <MODE:3>SSB <RST_SENT:2>59 <RST_RCVD:2>59 <QSL_RCVD:1>Y <APP_DXKEEPER_NET:3>LOT <EOR>\n",
+      "mustPreserve": ["CALL", "QSO_DATE", "TIME_ON", "BAND", "MODE", "RST_SENT", "RST_RCVD", "QSL_RCVD", "APP_DXKEEPER_NET"]
+    },
+    {
+      "source": "Log4OM spreadsheet export",
+      "evidence": "synthetic-anonymized-fixture",
+      "version": "fixture",
+      "format": "CSV",
+      "input": "Call;Date;Time;Band;Mode;RST_SENT;RST_RCVD;Grid\nIU8LMC;2026-10-03;14:22;20m;CW;599;599;JN70\n",
+      "mustPreserve": ["CALL", "QSO_DATE", "TIME_ON", "BAND", "MODE", "RST_SENT", "RST_RCVD", "GRIDSQUARE"]
+    }
+  ]
+}

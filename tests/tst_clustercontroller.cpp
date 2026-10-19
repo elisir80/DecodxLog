@@ -155,14 +155,21 @@ private slots:
         QVariantMap preferences = cluster.assistantPreferences();
         preferences["newEntityWeight"] = 90;
         preferences["freshnessMinutes"] = 45;
+        preferences["rejectStale"] = true;
+        preferences["stalePenalty"] = 0.25;
         cluster.setAssistantPreferences(preferences);
         QCOMPARE(cluster.assistantPreferences().value("newEntityWeight").toInt(), 90);
         QCOMPARE(cluster.assistantPreferences().value("freshnessMinutes").toInt(), 45);
+        QCOMPARE(cluster.assistantPreferences().value("rejectStale").toBool(), true);
+        QCOMPARE(cluster.assistantPreferences().value("stalePenalty").toDouble(), 0.25);
         preferences["newEntityWeight"] = 999;
         preferences["freshnessMinutes"] = 0;
         cluster.setAssistantPreferences(preferences);
         QCOMPARE(cluster.assistantPreferences().value("newEntityWeight").toInt(), 100);
         QCOMPARE(cluster.assistantPreferences().value("freshnessMinutes").toInt(), 1);
+        preferences["stalePenalty"] = 2.0;
+        cluster.setAssistantPreferences(preferences);
+        QCOMPARE(cluster.assistantPreferences().value("stalePenalty").toDouble(), 1.0);
 
         // Lo stesso DX da un altro skimmer: una riga con due spotter, nessun nuovo avviso.
         cluster.injectLine(QString("DX de DL1ABC-#:  14025.1  3Y0J  CW 22 dB 25 WPM CQ  %1Z").arg(hhmm));

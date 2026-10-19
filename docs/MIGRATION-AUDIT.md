@@ -28,3 +28,14 @@ English CSV, N1MM SQLite, ADIF round-trip, UTC/mode normalization, QSL states,
 duplicate handling, preview counts and undo through the inserted-ID path.
 Real exports from Log4OM, DXKeeper or other third-party versions were not
 available in this checkout, so their vendor-specific presets remain unclaimed.
+
+The repository now includes `tests/fixtures/migration_matrix.json`, a clearly
+labelled synthetic/anonymized matrix for Log4OM and DXKeeper ADIF-shaped data
+plus a Log4OM-style CSV spreadsheet row. The test dispatches each fixture to
+the matching ADIF or CSV parser and checks the same preservation contract.
+The matrix validator requires each case to declare its source, fixture version,
+format, evidence class and fields that must survive. It verifies preservation
+of UTC, band, mode, RST, grid, QSL and vendor extra fields through the parser.
+This is a regression fixture, not evidence from a real vendor export;
+real-export validation remains an explicit follow-up. N1MM SQLite coverage is
+kept in the dedicated migration test and is likewise synthetic.

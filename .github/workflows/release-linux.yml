@@ -12,7 +12,7 @@ on:
       tag:
         description: Release tag
         required: true
-        default: v1.17.26
+        default: v1.17.27
 
 permissions:
   contents: write
@@ -168,7 +168,11 @@ jobs:
           version="${{ inputs.tag }}"
           version="${version#v}"
           mkdir -p release-assets
-          mv DecoDXLog-*.AppImage "release-assets/DecoDXLog-$version-linux-${{ matrix.arch }}.AppImage"
+          asset="release-assets/DecoDXLog-$version-linux-${{ matrix.arch }}.AppImage"
+          mv DecoDXLog-*.AppImage "$asset"
+          QT_QPA_PLATFORM=offscreen APPIMAGE_EXTRACT_AND_RUN=1 \
+            "$asset" --show badge --grab "$RUNNER_TEMP/decodxlog-appimage.png"
+          test -s "$RUNNER_TEMP/decodxlog-appimage.png"
 
       - name: Sign Linux package for automatic updates
         env:

@@ -105,6 +105,8 @@ DialogFrame {
         Row_ { label: qsTr("Home"); value: root.info.home; copiable: true }
 
         SectionTitle { text: qsTr("This copy") }
+        Row_ { label: qsTr("Distribution"); value: root.info.repository }
+        Row_ { label: qsTr("Commit"); value: root.info.commit; copiable: true }
         Row_ { label: qsTr("QSO in the log"); value: Number(root.info.qsoCount).toLocaleString(Qt.locale(), "f", 0) }
         Row_ { label: qsTr("Built with"); value: "C++20 · Qt " + root.info.qt + " · QML" }
         Row_ { label: qsTr("Built on"); value: root.info.built }
@@ -136,6 +138,7 @@ DialogFrame {
                     detailsForClipboard.text = "DecoDXLog " + root.info.version
                                              + "\n" + root.info.author + " <" + root.info.email + ">"
                                              + "\n" + root.info.home
+                                             + "\n" + root.info.repository + " @ " + root.info.commit
                                              + "\nQt " + root.info.qt + " — " + root.info.built
                                              + "\n" + root.info.license
                     detailsForClipboard.selectAll()

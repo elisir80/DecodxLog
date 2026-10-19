@@ -11,7 +11,7 @@ on:
       tag:
         description: Release tag
         required: true
-        default: v1.17.26
+        default: v1.17.27
       arch:
         description: Architettura da costruire (all, arm64, x86_64)
         required: true
@@ -117,6 +117,25 @@ jobs:
             -srcfolder build/DecoDXLog.app \
             -ov -format UDZO \
             "release-assets/DecoDXLog-$version-macos-${{ matrix.arch }}.dmg"
+
+      - name: Smoke-test final DMG
+        env:
+          QT_QPA_PLATFORM: offscreen
+        run: |
+          version="${{ inputs.tag }}"
+          version="${version#v}"
+          dmg="release-assets/DecoDXLog-$version-macos-${{ matrix.arch }}.dmg"
+          mount_point="$RUNNER_TEMP/decodxlog-dmg"
+          probe="$RUNNER_TEMP/decodxlog-dmg.png"
+          mkdir -p "$mount_point"
+          trap 'hdiutil detach "$mount_point" >/dev/null 2>&1 || true; rm -f "$probe"' EXIT
+          hdiutil attach "$dmg" -nobrowse -readonly -mountpoint "$mount_point"
+          app="$mount_point/DecoDXLog.app/Contents/MacOS/DecoDXLog"
+          test -x "$app"
+          "$app" --show badge --grab "$probe"
+          test -s "$probe"
+          hdiutil detach "$mount_point"
+          trap - EXIT
 
       - name: Sign macOS package for automatic updates
         env:

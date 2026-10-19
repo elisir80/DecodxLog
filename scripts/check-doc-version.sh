@@ -23,6 +23,8 @@ grep -Fq "\"version\":\"$version\"" "$api_file"
 test -s "$manifest_file" || { echo "capabilities manifest missing: $manifest_file" >&2; exit 1; }
 grep -Fq '"application": "DecoDXLog"' "$manifest_file"
 grep -Fq "\"version\": \"$version\"" "$manifest_file"
+grep -Fq '"repository": "elisir80/DecodxLog"' "$manifest_file"
+grep -Fq '"channel": "fork"' "$manifest_file"
 if grep -Fq 'DECODXLOG_CTC_ONNX=ON' "$features_file"; then
     if grep -Fq '"cw_decoder_ctc_onnx": true' "$manifest_file"; then
         :

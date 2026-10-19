@@ -462,7 +462,11 @@ GlassPanel {
             width: 640
             height: 540
             property var steps: []
-            onOpened: steps = decolog.integrationDiagnostics()
+            onOpened: {
+                const started = Date.now()
+                steps = decolog.integrationDiagnostics()
+                Qt.callLater(function() { decolog.recordUiLatency("integration-diagnostics.open", Date.now() - started) })
+            }
             body: ColumnLayout {
                 anchors.margins: 16
                 spacing: 8
@@ -500,6 +504,10 @@ GlassPanel {
                         tone: Theme.accentColor
                         onClicked: saveDiagnostic.open()
                     }
+                    GlassButton {
+                        text: qsTr("Save JSON evidence…")
+                        onClicked: saveDiagnosticJson.open()
+                    }
                 }
             }
         }
@@ -512,6 +520,20 @@ GlassPanel {
             nameFilters: [qsTr("Text files (*.txt)"), qsTr("All files (*)")]
             onAccepted: {
                 const error = decolog.saveDiagnosticReport(selectedFile)
+                if (error.length)
+                    diagnosticDialog.title = error
+                else
+                    diagnosticDialog.close()
+            }
+        }
+        FileDialog {
+            id: saveDiagnosticJson
+            title: qsTr("Save structured diagnostic evidence")
+            fileMode: FileDialog.SaveFile
+            defaultSuffix: "json"
+            nameFilters: [qsTr("JSON files (*.json)"), qsTr("All files (*)")]
+            onAccepted: {
+                const error = decolog.saveDiagnosticJsonReport(selectedFile)
                 if (error.length)
                     diagnosticDialog.title = error
                 else

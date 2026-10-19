@@ -7,8 +7,9 @@ domanda di diploma (`AwardClaim`). Una conferma LoTW/cartacea entra nel
 calcolo dell'award secondo il filtro, ma non crea né porta automaticamente una
 domanda allo stato `Credited`.
 
-Le domande conservano identificativo del diploma, versione della regola, QSO
-presentati, esito, evidenza e timestamp. Le transizioni consentite sono:
+Le domande conservano identificativo del diploma, account diploma, categoria,
+versione della regola, QSO presentati, esito, evidenza e timestamp. Le
+transizioni consentite sono:
 
 ```text
 Draft -> Submitted -> Verified -> Credited
@@ -30,7 +31,10 @@ verifica che:
 - QSO, versione, esito ed evidenza sopravvivano alla serializzazione e al
   salvataggio nel database.
 
-Il test `awards` è passato 1/1 il 2026-10-16.
+Il test `awards` verifica anche che una risposta esterna con account o
+categoria incompatibili venga rifiutata e che una risposta ripetuta sia
+idempotente. La suite `awards` è passata insieme alla suite completa del
+progetto.
 
 ## Limiti
 

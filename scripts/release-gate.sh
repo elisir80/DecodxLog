@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 # Gate comune per i workflow di pacchetto: nessun artefatto puo' essere
 # preparato se il build corrente non supera i test e non produce l'eseguibile.
+# La verifica dell'artefatto finale avviene dopo il packaging nei workflow;
+# non richiede certificati Apple, notarizzazione o Developer ID.
 set -euo pipefail
 
 BUILD_DIR="${1:?build directory required}"

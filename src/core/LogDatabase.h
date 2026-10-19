@@ -62,6 +62,14 @@ struct BulkEditResult {
     QList<qint64> changedIds;
 };
 
+struct ApiIdempotencyRecord {
+    QByteArray requestBody;
+    int status{0};
+    QByteArray contentType;
+    QByteArray responseBody;
+    QString createdAt;
+};
+
 struct ConfirmationResult {
     enum class Status { Confirmed, AlreadyConfirmed, Ambiguous, NotFound, Invalid, Error };
     Status  status{Status::NotFound};
@@ -130,6 +138,13 @@ struct StationProfile {
     QString myAntenna;
     double  defaultTxPwr{0.0};
     QString lotwStationLocation;
+    QString awardAccount;
+    QString operatingLocation;
+    QString validFrom;
+    QString validTo;
+    qint64  operatorProfileId{0};
+    qint64  operatingLocationId{0};
+    int     dxccEntityId{0};
     bool    isDefault{false};
     bool    deleted{false};
     bool    dirty{true};
@@ -196,6 +211,9 @@ public:
     int schemaVersion() const;
 
     QSqlDatabase connection() const;
+
+    std::optional<ApiIdempotencyRecord> apiIdempotency(const QString& key) const;
+    bool saveApiIdempotency(const QString& key, const ApiIdempotencyRecord& record);
 
     // Finestra dei duplicati, in secondi: per i QSO dai programmi digitali e per
     // quelli scritti a mano (l'ora a mano e' approssimativa).

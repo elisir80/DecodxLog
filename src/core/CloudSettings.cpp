@@ -65,6 +65,9 @@ const QStringList kNeverSynced{
     QStringLiteral("decolink/port"),
     QStringLiteral("n1mm/port"),
     QStringLiteral("so2r/otrspPort"),
+    // Indirizzo della seconda radio o del backend condiviso: e' locale alla
+    // macchina, come le porte e le periferiche, e non va copiato dal Cloud.
+    QStringLiteral("so2r/address"),
     QStringLiteral("api/port"),
     QStringLiteral("net/port"),
     QStringLiteral("udp/port"),
@@ -73,6 +76,17 @@ const QStringList kNeverSynced{
     QStringLiteral("decodium/logPath"),
     QStringLiteral("qsl/tqslPath"),
     QStringLiteral("path"),
+};
+
+// Registro esplicito: una chiave nuova non diventa portabile per caso.
+const QStringList kPortablePrefixes{
+    QStringLiteral("ui/"), QStringLiteral("theme/"), QStringLiteral("cw/"),
+    QStringLiteral("qsl/"), QStringLiteral("contest/"), QStringLiteral("cluster/"),
+    QStringLiteral("layout/"), QStringLiteral("columns/"), QStringLiteral("stats/"),
+    QStringLiteral("awards/"), QStringLiteral("map/"), QStringLiteral("rotor/"),
+    QStringLiteral("voice/"), QStringLiteral("decoder/"), QStringLiteral("updates/"),
+    QStringLiteral("cloud/"),
+    QStringLiteral("logbook/"), QStringLiteral("web/")
 };
 
 bool denied(const QString& key)
@@ -125,7 +139,11 @@ Scope scopeOf(const QString& key)
         || key == QLatin1String("station/profiles")
         || key.startsWith(QStringLiteral("station/profile/")))
         return Scope::Station;
-    return Scope::Portable;
+    for (const QString& prefix : kPortablePrefixes) {
+        if (key.startsWith(prefix))
+            return Scope::Portable;
+    }
+    return Scope::Unknown;
 }
 
 bool isMachineOnly(const QString& key)
@@ -173,7 +191,7 @@ QVariantMap collect(QSettings& settings, const std::function<QString(qint64)>& u
 {
     QVariantMap values;
     for (const QString& key : settings.allKeys()) {
-        if (isMachineOnly(key))
+        if (scopeOf(key) == Scope::Device || scopeOf(key) == Scope::Unknown)
             continue;
         values.insert(key, pack(settings.value(key)));
     }
@@ -194,7 +212,7 @@ int apply(QSettings& settings, const QVariantMap& values, bool dryRun,
     for (auto it = values.cbegin(); it != values.cend(); ++it) {
         // Le cose di questa macchina non si lasciano riscrivere da fuori,
         // qualunque cosa arrivi dal server.
-        if (isMachineOnly(it.key()))
+        if (scopeOf(it.key()) == Scope::Device || scopeOf(it.key()) == Scope::Unknown)
             continue;
         // Cambiata qui e non ancora mandata: resta com'e'. Era il guaio delle
         // macro CW che tornavano quelle di prima dopo un giro di sync.
@@ -239,12 +257,13 @@ QVariantList preview(QSettings& settings, const QVariantMap& values,
         case Scope::Portable: return QStringLiteral("portable");
         case Scope::Station: return QStringLiteral("station");
         case Scope::Device: return QStringLiteral("device");
+        case Scope::Unknown: return QStringLiteral("unknown");
         }
         return QStringLiteral("portable");
     };
 
     for (auto it = values.cbegin(); it != values.cend(); ++it) {
-        if (isMachineOnly(it.key()))
+        if (scopeOf(it.key()) == Scope::Device || scopeOf(it.key()) == Scope::Unknown)
             continue;
 
         const QVariant local = settings.contains(it.key())

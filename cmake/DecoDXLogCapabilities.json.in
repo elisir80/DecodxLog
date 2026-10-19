@@ -1,6 +1,9 @@
 {
   "application": "DecoDXLog",
   "version": "@PROJECT_VERSION@",
+  "repository": "@DECODXLOG_DISTRIBUTION_REPOSITORY@",
+  "commit": "@DECODXLOG_GIT_COMMIT@",
+  "channel": "fork",
   "platform": "@CMAKE_SYSTEM_NAME@",
   "architecture": "@CMAKE_SYSTEM_PROCESSOR@",
   "capabilities": {

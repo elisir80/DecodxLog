@@ -4,6 +4,7 @@
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
+import QtQuick.Dialogs
 import Decodium.UI
 
 DialogFrame {
@@ -19,6 +20,8 @@ DialogFrame {
     property var selectedQsoIds: []
     property string claimNote: ""
     property string claimEvidence: ""
+    property string externalResultJson: ""
+    property string externalResultMessage: ""
     // Si ricalcola quando cambiano log, filtri o selezione.
     property int revision: 0
     // Solo a finestra aperta: chiusa, ricalcolava tutti i diplomi del log a ogni QSO.
@@ -32,6 +35,15 @@ DialogFrame {
     readonly property var grids: { revision; return awardId === "grids" ? decolog.awardGrids() : [] }
     readonly property var bands: decolog.awardBands
     readonly property var claims: { revision; return decolog.awardClaims() }
+    property int marathonYear: new Date().getUTCFullYear()
+    property string marathonCategory: "mixed"
+    property int marathonMaxPerEntity: 1
+    property var marathonPreview: ({})
+    property string vuccBand: "6m"
+    property string vuccAccount: ""
+    property string vuccSite: ""
+    property int vuccTarget: 100
+    property var vuccResult: ({})
 
     function toggleQso(id) {
         if (!id || id <= 0) return
@@ -50,11 +62,36 @@ DialogFrame {
         }
     }
 
+    function reconcileExternalResult() {
+        const result = decolog.reconcileAwardResult(root.externalResultJson)
+        root.externalResultMessage = result.length ? result : qsTr("External result reconciled")
+        if (!result.length) { root.externalResultJson = ""; revision++ }
+    }
+
     function openAt(id) {
         if (id)
             awardId = id
         revision++
         open()
+    }
+
+    function refreshMarathon() {
+        marathonPreview = decolog.cqMarathonPreview(marathonYear, marathonCategory,
+                                                     marathonMaxPerEntity)
+    }
+
+    function refreshVucc() {
+        vuccResult = decolog.vuccPreview(vuccBand, vuccAccount, vuccSite, vuccTarget)
+    }
+
+    FileDialog {
+        id: marathonFileDialog
+        title: qsTr("Export CQ DX Marathon JSON")
+        fileMode: FileDialog.SaveFile
+        currentFile: "decodxlog-cq-marathon-" + root.marathonYear + ".json"
+        nameFilters: [qsTr("JSON files (*.json)"), qsTr("All files (*)")]
+        onAccepted: decolog.saveCqMarathonExport(selectedFile, root.marathonYear,
+                                                   root.marathonCategory, root.marathonMaxPerEntity)
     }
 
     title: qsTr("Awards")
@@ -299,6 +336,30 @@ DialogFrame {
                             onTextChanged: root.claimEvidence = text
                         }
                     }
+                    RowLayout {
+                        Layout.fillWidth: true
+                        TextArea {
+                            Layout.fillWidth: true
+                            Layout.preferredHeight: 48
+                            placeholderText: qsTr("Paste verified external result JSON")
+                            text: root.externalResultJson
+                            wrapMode: TextEdit.Wrap
+                            onTextChanged: root.externalResultJson = text
+                        }
+                        GlassButton {
+                            text: qsTr("Reconcile result")
+                            enabled: root.externalResultJson.trim().length > 0
+                            onClicked: root.reconcileExternalResult()
+                        }
+                    }
+                    Text {
+                        visible: root.externalResultMessage.length > 0
+                        text: root.externalResultMessage
+                        color: root.externalResultMessage === qsTr("External result reconciled")
+                               ? Theme.accentColor : Theme.warningColor
+                        wrapMode: Text.Wrap
+                        Layout.fillWidth: true
+                    }
                     Repeater {
                         model: root.claims
                         RowLayout {
@@ -338,6 +399,123 @@ DialogFrame {
                                 onClicked: decolog.transitionAwardClaim(modelData.id, "Credited", root.claimNote, root.claimEvidence)
                             }
                         }
+                    }
+                }
+            }
+
+            Rectangle {
+                Layout.fillWidth: true
+                implicitHeight: marathonColumn.implicitHeight + 12
+                color: Theme.glassOverlay
+                radius: 4
+                ColumnLayout {
+                    id: marathonColumn
+                    anchors.fill: parent
+                    anchors.margins: 6
+                    spacing: 5
+                    RowLayout {
+                        Layout.fillWidth: true
+                        Text {
+                            text: qsTr("CQ DX Marathon preview")
+                            color: Theme.secondaryColor
+                            font.family: Theme.monoFamily
+                            font.bold: true
+                        }
+                        Text {
+                            Layout.fillWidth: true
+                            text: qsTr("local selection/export · not an official result")
+                            color: Theme.textSecondary
+                            font.pixelSize: 11
+                        }
+                        StyledTextField {
+                            Layout.preferredWidth: 80
+                            Accessible.name: qsTr("CQ DX Marathon edition year")
+                            text: String(root.marathonYear)
+                            inputMethodHints: Qt.ImhDigitsOnly
+                            onEditingFinished: { root.marathonYear = parseInt(text) || 0 }
+                        }
+                        StyledComboBox {
+                            Layout.preferredWidth: 120
+                            Accessible.name: qsTr("CQ DX Marathon category")
+                            model: [qsTr("Mixed"), "CW", qsTr("Phone"), qsTr("Digital")]
+                            readonly property var values: ["mixed", "cw", "phone", "digital"]
+                            currentIndex: Math.max(0, values.indexOf(root.marathonCategory))
+                            onActivated: root.marathonCategory = values[currentIndex]
+                        }
+                        StyledTextField {
+                            Layout.preferredWidth: 55
+                            Accessible.name: qsTr("CQ DX Marathon maximum contacts per entity")
+                            text: String(root.marathonMaxPerEntity)
+                            inputMethodHints: Qt.ImhDigitsOnly
+                            onEditingFinished: { root.marathonMaxPerEntity = Math.max(1, parseInt(text) || 1) }
+                        }
+                        GlassButton {
+                            Accessible.name: qsTr("Preview CQ DX Marathon selection")
+                            text: qsTr("Preview")
+                            onClicked: root.refreshMarathon()
+                        }
+                        GlassButton {
+                            Accessible.name: qsTr("Export CQ DX Marathon JSON")
+                            enabled: (root.marathonPreview.json || "").length > 0
+                            text: qsTr("Export JSON")
+                            onClicked: marathonFileDialog.open()
+                        }
+                    }
+                    Text {
+                        Layout.fillWidth: true
+                        text: root.marathonPreview.valid === undefined
+                              ? qsTr("Configure edition, category and entity limit, then preview.")
+                              : qsTr("Selected: %1 · excluded: %2")
+                                .arg(root.marathonPreview.selected.length || 0)
+                                .arg(root.marathonPreview.exclusions.length || 0)
+                        color: root.marathonPreview.valid === false ? Theme.warningColor : Theme.textSecondary
+                        font.pixelSize: 11
+                        elide: Text.ElideRight
+                    }
+                }
+            }
+
+            Rectangle {
+                Layout.fillWidth: true
+                implicitHeight: vuccColumn.implicitHeight + 12
+                color: Theme.glassOverlay
+                radius: 4
+                ColumnLayout {
+                    id: vuccColumn
+                    anchors.fill: parent
+                    anchors.margins: 6
+                    spacing: 5
+                    RowLayout {
+                        Layout.fillWidth: true
+                        Text {
+                            text: qsTr("VUCC preview")
+                            color: Theme.secondaryColor
+                            font.family: Theme.monoFamily
+                            font.bold: true
+                        }
+                        Text {
+                            Layout.fillWidth: true
+                            text: qsTr("separate from statistical locator totals")
+                            color: Theme.textSecondary
+                            font.pixelSize: 11
+                        }
+                        StyledTextField { Layout.preferredWidth: 65; Accessible.name: qsTr("VUCC band"); text: root.vuccBand; onEditingFinished: root.vuccBand = text }
+                        StyledTextField { Layout.preferredWidth: 120; Accessible.name: qsTr("VUCC award account"); placeholderText: qsTr("Award account"); text: root.vuccAccount; onEditingFinished: root.vuccAccount = text }
+                        StyledTextField { Layout.preferredWidth: 120; Accessible.name: qsTr("VUCC operating site"); placeholderText: qsTr("Operating site"); text: root.vuccSite; onEditingFinished: root.vuccSite = text }
+                        StyledTextField { Layout.preferredWidth: 55; Accessible.name: qsTr("VUCC target"); text: String(root.vuccTarget); inputMethodHints: Qt.ImhDigitsOnly; onEditingFinished: root.vuccTarget = Math.max(1, parseInt(text) || 1) }
+                        GlassButton { Accessible.name: qsTr("Preview VUCC selection"); text: qsTr("Preview"); onClicked: root.refreshVucc() }
+                    }
+                    Text {
+                        Layout.fillWidth: true
+                        text: root.vuccResult.valid === undefined
+                              ? qsTr("Confirmed evidence is required; configure the band/account/site and preview.")
+                              : qsTr("Eligible GRID4: %1 / %2 · excluded: %3 · external rules verified: %4")
+                                .arg(root.vuccResult.eligible.length || 0).arg(root.vuccTarget)
+                                .arg(root.vuccResult.exclusions.length || 0)
+                                .arg(root.vuccResult.officialRulesVerified ? qsTr("yes") : qsTr("no"))
+                        color: root.vuccResult.valid === false ? Theme.warningColor : Theme.textSecondary
+                        font.pixelSize: 11
+                        elide: Text.ElideRight
                     }
                 }
             }

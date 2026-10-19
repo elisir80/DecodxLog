@@ -11,10 +11,11 @@ are now labelled in the Awards dialog as `statistics · rules not verified`.
 The generic four-character locator result is explicitly not VUCC; VUCC rules
 also require band, station/account and evidence constraints.
 
-VUCC and CQ Marathon are not claimed as implemented awards in this build:
-their official rules, responsible verifier and reproducible fixtures have not
-yet been established in the project. No automatic submission or credit is
-therefore exposed for them.
+The project now has separate declarative VUCC and CQ DX Marathon support with
+versioned selection/export fixtures. CQ Marathon selection is explicitly
+scoped by edition, category, entity limit and, when supplied, one station
+profile. These modules produce a reproducible candidate submission file; they
+do not grant official credit or perform automatic submission.
 
 The current `grids` entry is deliberately only a statistical counter. The
 current [ARRL VUCC rules](https://www.arrl.org/files/file/Awards/VUCC_Rules_July_2023.pdf)
@@ -24,8 +25,9 @@ manager](https://www.arrl.org/awards-managers); a generic grid total cannot
 satisfy those requirements. The current [CQ DX Marathon rules](https://www.dxmarathon.com/rules/2026/)
 also define their own country/zone lists, single-location constraints and
 submission rules, so they cannot be represented by the generic counter.
-Neither program is advertised as implemented until it has a dedicated data
-model, verifier metadata and reproducible fixtures.
+Official eligibility still requires the responsible organization’s current
+rules, evidence and human review; the application does not silently promote a
+statistical count to official credit.
 
 `tst_awards` covers the existing fixtures and the official/statistical
 distinction; `gridCountIsExplicitlyStatisticalNotVucc` checks the source,

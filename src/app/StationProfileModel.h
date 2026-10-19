@@ -42,6 +42,12 @@ public:
     Q_INVOKABLE void reload();
     Q_INVOKABLE QVariantMap get(int row) const;
     Q_INVOKABLE QVariantMap byId(qint64 id) const;
+    // Conflitti potenziali nell'aggregazione di un account diploma. Non
+    // modifica profili o QSO: ogni riga richiede una decisione dell'operatore.
+    Q_INVOKABLE QVariantList awardAccountConflicts() const;
+    // Gruppi read-only per account diploma: i profili compatibili possono
+    // essere aggregati dal chiamante, quelli con conflitti restano in revisione.
+    Q_INVOKABLE QVariantList awardAccountGroups() const;
     Q_INVOKABLE int rowForId(qint64 id) const;
     // Restituisce l'id salvato, 0 se non e' andata (nome o nominativo mancanti).
     Q_INVOKABLE qint64 save(const QVariantMap& profile);

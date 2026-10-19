@@ -4,6 +4,12 @@ This is a reproducible baseline for DXL-026. It measures the synthetic
 dataset benchmark built into `tst_awards`; it is not a claim about every real
 log or every platform.
 
+Latency reports use `decolog::core::performance::summarize`, which records the
+sample count, nearest-rank p50, nearest-rank p95 and maximum. Empty samples are
+reported explicitly and negative durations are clamped to zero. The helper is
+covered by `tst_performance`; it does not itself claim that QML latency has
+been measured.
+
 ## Environment
 
 - Date: 2026-10-16

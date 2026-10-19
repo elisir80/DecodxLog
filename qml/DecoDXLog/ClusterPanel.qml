@@ -413,6 +413,64 @@ GlassPanel {
                 Text { text: qsTr("Freshness min"); color: Theme.textSecondary; font.pixelSize: 11 }
                 SpinBox { from: 1; to: 240; value: root.cluster.assistantPreferences.freshnessMinutes; onValueModified: root.setAssistantPreference("freshnessMinutes", value); Layout.preferredWidth: 70 }
             }
+            RowLayout {
+                Layout.fillWidth: true
+                Text { text: qsTr("Award account"); color: Theme.textSecondary; font.pixelSize: 11 }
+                StyledTextField {
+                    text: root.cluster.assistantPreferences.awardAccount || ""
+                    placeholderText: qsTr("optional account id")
+                    Layout.preferredWidth: 150
+                    onEditingFinished: root.setAssistantPreference("awardAccount", text)
+                }
+                CheckBox {
+                    text: qsTr("Require feasible station")
+                    checked: root.cluster.assistantPreferences.requireFeasible === true
+                    onToggled: root.setAssistantPreference("requireFeasible", checked)
+                }
+                CheckBox {
+                    text: qsTr("Prioritize worked/unconfirmed")
+                    checked: root.cluster.assistantPreferences.prioritizeWorkedUnconfirmed !== false
+                    onToggled: root.setAssistantPreference("prioritizeWorkedUnconfirmed", checked)
+                }
+            }
+            RowLayout {
+                Layout.fillWidth: true
+                Text { text: qsTr("Available bands"); color: Theme.textSecondary; font.pixelSize: 11 }
+                StyledTextField {
+                    Accessible.name: qsTr("DX Assistant available bands")
+                    text: (root.cluster.assistantPreferences.availableBands || []).join(", ")
+                    placeholderText: qsTr("comma separated; empty = any")
+                    Layout.fillWidth: true
+                    onEditingFinished: root.setAssistantPreference("availableBands", text.split(",").map(function(v) { return v.trim() }).filter(function(v) { return v.length > 0 }))
+                }
+                Text { text: qsTr("Modes"); color: Theme.textSecondary; font.pixelSize: 11 }
+                StyledTextField {
+                    Accessible.name: qsTr("DX Assistant available modes")
+                    text: (root.cluster.assistantPreferences.availableModes || []).join(", ")
+                    placeholderText: qsTr("comma separated; empty = any")
+                    Layout.fillWidth: true
+                    onEditingFinished: root.setAssistantPreference("availableModes", text.split(",").map(function(v) { return v.trim() }).filter(function(v) { return v.length > 0 }))
+                }
+            }
+            RowLayout {
+                Layout.fillWidth: true
+                Text { text: qsTr("Available radios"); color: Theme.textSecondary; font.pixelSize: 11 }
+                StyledTextField {
+                    Accessible.name: qsTr("DX Assistant available radios")
+                    text: (root.cluster.assistantPreferences.availableRadios || []).join(", ")
+                    placeholderText: qsTr("comma separated; empty = any")
+                    Layout.fillWidth: true
+                    onEditingFinished: root.setAssistantPreference("availableRadios", text.split(",").map(function(v) { return v.trim() }).filter(function(v) { return v.length > 0 }))
+                }
+                Text { text: qsTr("Antennas"); color: Theme.textSecondary; font.pixelSize: 11 }
+                StyledTextField {
+                    Accessible.name: qsTr("DX Assistant available antennas")
+                    text: (root.cluster.assistantPreferences.availableAntennas || []).join(", ")
+                    placeholderText: qsTr("comma separated; empty = any")
+                    Layout.fillWidth: true
+                    onEditingFinished: root.setAssistantPreference("availableAntennas", text.split(",").map(function(v) { return v.trim() }).filter(function(v) { return v.length > 0 }))
+                }
+            }
             ListView {
                 Layout.fillWidth: true
                 Layout.fillHeight: true
@@ -431,7 +489,7 @@ GlassPanel {
                         Text { text: (modelData.band || "") + " " + (modelData.mode || ""); color: Theme.textSecondary; Layout.preferredWidth: 80 }
                         Text { text: Number(modelData.score || 0).toFixed(0); color: Theme.accentColor; font.bold: true; Layout.preferredWidth: 42 }
                         Text {
-                            text: (modelData.reasons || []).concat(modelData.propagationEngine ? [modelData.propagationEngine] : []).concat(modelData.limitations || []).join(" · ")
+                            text: [modelData.evidence || "", (modelData.reasons || []).join(", "), modelData.propagationEngine || "", (modelData.limitations || []).join(", ")].filter(function(v) { return v.length > 0 }).join(" · ")
                             color: Theme.textSecondary
                             elide: Text.ElideRight
                             Layout.fillWidth: true

@@ -22,7 +22,7 @@ namespace {
 // La versione dello schema, che sta in db/schema.sql. Sta qui una volta sola:
 // chi aggiunge una colonna cambia il file, l'ultimo passo di migrate() e questo
 // numero, e non va a caccia di tre QCOMPARE sparsi.
-constexpr int kSchemaVersion = 8;
+constexpr int kSchemaVersion = 11;
 
 // Confronto semantico: i numeri come numeri (14.074 == 14.074000), le ore a
 // quattro cifre come le stesse ore con i secondi a zero.
@@ -64,6 +64,61 @@ private slots:
         QVERIFY2(db.open(":memory:"), qPrintable(db.lastError()));
         QCOMPARE(db.schemaVersion(), kSchemaVersion);
         QCOMPARE(db.qsoCount(), 0);
+    }
+
+    void apiIdempotencySurvivesReopenAndRejectsBodyChanges()
+    {
+        QTemporaryDir dir;
+        const QString path = dir.filePath(QStringLiteral("api.sqlite"));
+        const ApiIdempotencyRecord stored{"body-a", 201, "application/json", "{\"ok\":true}",
+                                          QStringLiteral("2026-10-18T12:00:00Z")};
+        {
+            LogDatabase db;
+            QVERIFY(db.open(path));
+            QVERIFY(db.saveApiIdempotency(QStringLiteral("retry-1"), stored));
+            const auto found = db.apiIdempotency(QStringLiteral("retry-1"));
+            QVERIFY(found);
+            QCOMPARE(found->requestBody, stored.requestBody);
+            QCOMPARE(found->responseBody, stored.responseBody);
+        }
+        {
+            LogDatabase reopened;
+            QVERIFY(reopened.open(path));
+            const auto found = reopened.apiIdempotency(QStringLiteral("retry-1"));
+            QVERIFY(found);
+            QCOMPARE(found->status, 201);
+            QCOMPARE(found->contentType, QByteArray("application/json"));
+            QVERIFY(!reopened.apiIdempotency(QStringLiteral("missing")));
+            QVERIFY(found->requestBody != QByteArray("body-b"));
+        }
+    }
+
+    void expiredApiIdempotencyEntryIsRemovedOnLookup()
+    {
+        LogDatabase db;
+        QVERIFY(db.open(":memory:"));
+        const ApiIdempotencyRecord expired{"body", 201, "application/json", "{}",
+                                          QStringLiteral("2020-01-01T00:00:00Z")};
+        QVERIFY(db.saveApiIdempotency(QStringLiteral("expired"), expired));
+        QVERIFY(!db.apiIdempotency(QStringLiteral("expired")));
+        QSqlQuery q(db.connection());
+        QVERIFY(q.exec(QStringLiteral("SELECT COUNT(*) FROM api_idempotency WHERE key = 'expired'")));
+        QVERIFY(q.next());
+        QCOMPARE(q.value(0).toInt(), 0);
+    }
+
+    void apiIdempotencyKeepsTheFirstWriter()
+    {
+        LogDatabase db;
+        QVERIFY(db.open(":memory:"));
+        const ApiIdempotencyRecord first{"body-a", 201, "application/json", "{\"id\":1}", {}};
+        const ApiIdempotencyRecord second{"body-b", 201, "application/json", "{\"id\":2}", {}};
+        QVERIFY(db.saveApiIdempotency(QStringLiteral("race"), first));
+        QVERIFY(!db.saveApiIdempotency(QStringLiteral("race"), second));
+        const auto stored = db.apiIdempotency(QStringLiteral("race"));
+        QVERIFY(stored);
+        QCOMPARE(stored->requestBody, QByteArray("body-a"));
+        QCOMPARE(stored->responseBody, QByteArray("{\"id\":1}"));
     }
 
     void insertAndReadBack()

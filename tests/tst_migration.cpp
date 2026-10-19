@@ -9,6 +9,9 @@
 #include <QSqlQuery>
 #include <QTemporaryDir>
 #include <QTest>
+#include <QJsonArray>
+#include <QJsonDocument>
+#include <QJsonObject>
 #include <algorithm>
 
 using namespace decolog::core;
@@ -18,6 +21,46 @@ class TestMigration : public QObject
     Q_OBJECT
 
 private slots:
+    void anonymizedVendorMatrixPreservesSemanticAndExtraFields()
+    {
+        const QString path = QFINDTESTDATA("fixtures/migration_matrix.json");
+        QVERIFY2(!path.isEmpty(), "migration fixture matrix is missing");
+        QFile file(path);
+        QVERIFY(file.open(QIODevice::ReadOnly));
+        const QJsonObject matrix = QJsonDocument::fromJson(file.readAll()).object();
+        QCOMPARE(matrix.value(QStringLiteral("format")).toString(), QStringLiteral("decodxlog-migration-matrix-1"));
+        QVERIFY(!matrix.value(QStringLiteral("realVendorExportsVerified")).toBool());
+        QCOMPARE(matrix.value(QStringLiteral("sourceEvidence")).toString(), QStringLiteral("synthetic-anonymized-fixture"));
+        QCOMPARE(matrix.value(QStringLiteral("verificationScope")).toString(), QStringLiteral("parser-preservation-only"));
+        const QJsonArray cases = matrix.value(QStringLiteral("cases")).toArray();
+        QCOMPARE(cases.size(), 3);
+        for (const QJsonValue& value : cases) {
+            const QJsonObject item = value.toObject();
+            QVERIFY(!item.value(QStringLiteral("source")).toString().isEmpty());
+            QCOMPARE(item.value(QStringLiteral("evidence")).toString(), QStringLiteral("synthetic-anonymized-fixture"));
+            QVERIFY(!item.value(QStringLiteral("version")).toString().isEmpty());
+            QVERIFY(item.value(QStringLiteral("mustPreserve")).isArray());
+            const QString format = item.value(QStringLiteral("format")).toString();
+            QList<AdifRecord> records;
+            if (format == QLatin1String("ADIF"))
+                records = adif::parse(item.value(QStringLiteral("input")).toString().toUtf8()).records;
+            else if (format == QLatin1String("CSV")) {
+                QString error;
+                records = migration::readCsv(item.value(QStringLiteral("input")).toString().toUtf8(), &error);
+                QVERIFY2(error.isEmpty(), qPrintable(error));
+            } else {
+                QFAIL("unsupported matrix parser format");
+            }
+            QCOMPARE(records.size(), 1);
+            const AdifRecord& record = records.first();
+            for (const QJsonValue& field : item.value(QStringLiteral("mustPreserve")).toArray())
+                QVERIFY2(record.contains(field.toString()), qPrintable(field.toString()));
+            QVERIFY(!record.value(QStringLiteral("CALL")).isEmpty());
+            QVERIFY(!record.value(QStringLiteral("QSO_DATE")).isEmpty());
+            QVERIFY(!record.value(QStringLiteral("TIME_ON")).isEmpty());
+        }
+    }
+
     void aSpreadsheetInItalian()
     {
         // Punto e virgola, virgola decimale, kHz, la data all'italiana.

@@ -362,6 +362,35 @@ private slots:
                 find(calc.compute(db, portableFilter), "dxcc").items.first().key);
     }
 
+    void historicalAwardAccountFiltersByProfileAndValidity()
+    {
+        LogDatabase db;
+        QVERIFY(db.open(QStringLiteral(":memory:")));
+        StationProfile home;
+        home.name = QStringLiteral("Casa storica");
+        home.stationCallsign = QStringLiteral("IU8LMC");
+        home.uuid = QStringLiteral("account-home");
+        home.awardAccount = QStringLiteral("account-home");
+        home.operatingLocation = QStringLiteral("JN70");
+        home.validFrom = QStringLiteral("2020-01-01");
+        home.validTo = QStringLiteral("2025-12-31");
+        const qint64 homeId = db.saveStationProfile(home);
+        QVERIFY2(homeId > 0, qPrintable(db.lastError()));
+        auto add = [&db, homeId](const char* call, const char* date) {
+            AdifRecord r{{"CALL", call}, {"QSO_DATE", date}, {"TIME_ON", "1200"},
+                         {"BAND", "20m"}, {"MODE", "CW"}, {"DXCC", "291"}};
+            QCOMPARE(db.insertQso(r, "test", {}, false, homeId).status, InsertResult::Status::Inserted);
+        };
+        add("W1OLD", "20250101");
+        add("W1NEW", "20260101");
+
+        AwardFilter account;
+        account.awardAccountUuid = QStringLiteral("account-home");
+        const AwardResult dxcc = find(AwardCalculator().compute(db, account), "dxcc");
+        QCOMPARE(dxcc.worked(), 1);
+        QCOMPARE(dxcc.items.first().firstCall, QStringLiteral("W1OLD"));
+    }
+
     // ── WAC, WAJA, AJD ───────────────────────────────────────────────────────
 
     void theSixContinentsAreCountedForWac()
@@ -1008,11 +1037,24 @@ private slots:
             R"({"format":"decodxlog-award-rule-1","id":"club_dx","title":"Club DX","source":"club.example/rules","version":"2026.1","validFrom":"2026-01-01","validTo":"2026-12-31","keyField":"DXCC","target":2,"total":340})",
             &error);
         QVERIFY2(package.has_value(), qPrintable(error));
+        const auto reformatted = awards::AwardRulePackage::fromJson(
+            R"({ "total":340, "target":2, "keyField":"DXCC", "validTo":"2026-12-31", "validFrom":"2026-01-01", "version":"2026.1", "source":"club.example/rules", "title":"Club DX", "id":"club_dx", "format":"decodxlog-award-rule-1" })",
+            &error);
+        QVERIFY2(reformatted.has_value(), qPrintable(error));
+        QCOMPARE(reformatted->fingerprint, package->fingerprint);
 
         const auto unsafe = awards::AwardRulePackage::fromJson(
             R"({"format":"decodxlog-award-rule-1","id":"unsafe","title":"Unsafe","source":"x","version":"1","validFrom":"2026-01-01","validTo":"2026-12-31","keyField":"EXEC","target":1})",
             &error);
         QVERIFY(!unsafe.has_value());
+        const auto compound = awards::AwardRulePackage::fromJson(
+            R"({"format":"decodxlog-award-rule-1","id":"compound_dx","title":"Compound DX","source":"club.example/rules","version":"1","validFrom":"2026-01-01","validTo":"2026-12-31","keyField":"DXCC","conditions":[{"field":"BAND","values":["20m","40m"]},{"field":"STATE","values":"CT"}],"target":1})",
+            &error);
+        QVERIFY2(compound.has_value(), qPrintable(error));
+        const auto unsupportedCondition = awards::AwardRulePackage::fromJson(
+            R"({"format":"decodxlog-award-rule-1","id":"bad_condition","title":"Bad","source":"x","version":"1","validFrom":"2026-01-01","validTo":"2026-12-31","keyField":"DXCC","conditions":[{"field":"SCRIPT","values":["x"]}]})",
+            &error);
+        QVERIFY(!unsupportedCondition.has_value());
         const auto unsafeVersion = awards::AwardRulePackage::fromJson(
             R"({"format":"decodxlog-award-rule-1","id":"unsafe_version","title":"Unsafe","source":"x","version":"../escape","validFrom":"2026-01-01","validTo":"2026-12-31","keyField":"DXCC","target":1})",
             &error);
@@ -1071,15 +1113,20 @@ private slots:
         };
         add("W1AW", "20260102", "291");
         add("DL1ABC", "20270102", "230"); // fuori dalla validita' del pacchetto
+        AdifRecord compoundRecord{{"CALL", "W1CT"}, {"QSO_DATE", "20260103"}, {"TIME_ON", "1200"},
+                                   {"BAND", "20m"}, {"MODE", "CW"}, {"DXCC", "291"}, {"STATE", "CT"}};
+        QCOMPARE(db.insertQso(compoundRecord, "test").status, InsertResult::Status::Inserted);
 
         AwardCalculator calculator;
-        calculator.setRulePackages({*package});
+        calculator.setRulePackages({*package, *compound});
         const auto results = calculator.compute(db, AwardFilter{});
         const auto club = find(results, QStringLiteral("club_dx"));
         QCOMPARE(club.title, QStringLiteral("Club DX"));
         QCOMPARE(club.worked(), 1);
         QCOMPARE(club.target, 2);
         QCOMPARE(club.total, 340);
+        const auto compoundResult = find(results, QStringLiteral("compound_dx"));
+        QCOMPARE(compoundResult.worked(), 1);
     }
 
     void awardClaimSeparatesConfirmationFromSubmissionAndCredit()
@@ -1087,6 +1134,8 @@ private slots:
         awards::AwardClaim claim;
         claim.id = QStringLiteral("claim-1");
         claim.awardId = QStringLiteral("dxcc");
+        claim.accountId = QStringLiteral("home-account");
+        claim.category = QStringLiteral("mixed");
         claim.ruleVersion = QStringLiteral("arrl-2026");
         claim.qsoIds = {12, 34};
         claim.createdAt = QDateTime::fromString(QStringLiteral("2026-10-15T12:00:00Z"), Qt::ISODate);
@@ -1140,6 +1189,39 @@ private slots:
         QVERIFY2(rejectedRestored.has_value(), qPrintable(error));
         QCOMPARE(rejectedRestored->state, awards::AwardClaim::State::Rejected);
         QCOMPARE(rejectedRestored->evidence, QStringLiteral("https://example.invalid/review/99"));
+    }
+
+    void externalClaimResultsReconcilePerQsoAndAreIdempotent()
+    {
+        LogDatabase db;
+        QVERIFY(db.open(QStringLiteral(":memory:")));
+        awards::AwardClaim claim;
+        claim.id = QStringLiteral("claim-external");
+        claim.awardId = QStringLiteral("dxcc");
+        claim.accountId = QStringLiteral("home-account");
+        claim.category = QStringLiteral("mixed");
+        claim.ruleVersion = QStringLiteral("arrl-2026");
+        claim.qsoIds = {11, 12, 13};
+        claim.createdAt = QDateTime::currentDateTimeUtc();
+        QString error;
+        QVERIFY(claim.transitionTo(awards::AwardClaim::State::Submitted,
+                                   claim.createdAt, {}, &error));
+        QVERIFY(awards::AwardClaimStore::save(db, {claim}, &error));
+        const QByteArray result = R"({"claimId":"claim-external","provider":"arrl","accountId":"home-account","category":"mixed","decision":"verified","outcome":"partial","evidence":"case/2026-42","creditedQsoIds":[11,12],"rejectedQsoIds":[13]})";
+        QVERIFY2(awards::AwardClaimStore::reconcileExternalResult(db, result, &error), qPrintable(error));
+        auto claims = awards::AwardClaimStore::load(db, &error);
+        QCOMPARE(claims.size(), 1);
+        QCOMPARE(claims.first().state, awards::AwardClaim::State::Verified);
+        QCOMPARE(claims.first().externalProvider, QStringLiteral("arrl"));
+        QCOMPARE(claims.first().creditedQsoIds, QList<qint64>({11, 12}));
+        QCOMPARE(claims.first().rejectedQsoIds, QList<qint64>({13}));
+        QVERIFY(awards::AwardClaimStore::reconcileExternalResult(db, result, &error));
+        const QByteArray conflicting = R"({"claimId":"claim-external","provider":"other","decision":"credited","evidence":"other-case"})";
+        QVERIFY(!awards::AwardClaimStore::reconcileExternalResult(db, conflicting, &error));
+        QVERIFY(error.contains(QStringLiteral("another provider")));
+        const QByteArray wrongAccount = R"({"claimId":"claim-external","provider":"arrl","accountId":"other-account","category":"mixed","decision":"verified","evidence":"case/2026-42"})";
+        QVERIFY(!awards::AwardClaimStore::reconcileExternalResult(db, wrongAccount, &error));
+        QVERIFY(error.contains(QStringLiteral("account")));
     }
 
     void gridCountIsExplicitlyStatisticalNotVucc()
