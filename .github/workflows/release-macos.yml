@@ -120,7 +120,10 @@ jobs:
 
       - name: Smoke-test final DMG
         env:
-          QT_QPA_PLATFORM: offscreen
+          # macdeployqt bundles Cocoa on macOS; Qt's offscreen plugin is not
+          # shipped in the final app, so use the native platform for the
+          # mounted-bundle smoke test.
+          QT_QPA_PLATFORM: cocoa
         run: |
           version="${{ inputs.tag }}"
           version="${version#v}"
