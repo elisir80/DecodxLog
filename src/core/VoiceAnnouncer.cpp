@@ -214,7 +214,7 @@ void VoiceAnnouncer::say(const QString& text)
         Q_UNUSED(self);
     };
     d->process = new QProcess(this);
-    connect(d->process, &QProcess::finished, this, [this, next] { next(next); });
+    connect(d->process, &QProcess::finished, this, [next] { next(next); });
     next(next);
 }
 

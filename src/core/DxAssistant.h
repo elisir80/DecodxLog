@@ -17,6 +17,15 @@ struct Candidate {
     bool hasPropagation{false};
     QString propagationEngine;
     bool hasHistory{false};
+    bool worked{false};
+    bool confirmed{false};
+    bool radioAvailable{true};
+    bool antennaAvailable{true};
+    QString radio;
+    QString antenna;
+    bool observed{true}; // false means forecast/inferred, never treated as a fact
+    bool historical{false};
+    QString awardAccount;
     QString source;
 };
 
@@ -27,6 +36,15 @@ struct Preferences {
     int newReferenceWeight{20};
     int propagationWeight{20};
     int freshnessMinutes{30};
+    bool rejectStale{false};
+    double stalePenalty{0.5};
+    QString awardAccount;
+    bool prioritizeWorkedUnconfirmed{true};
+    bool requireFeasible{false};
+    QStringList availableBands;
+    QStringList availableModes;
+    QStringList availableRadios;
+    QStringList availableAntennas;
 };
 
 struct Recommendation {
@@ -34,6 +52,7 @@ struct Recommendation {
     double score{0.0};
     QStringList reasons;
     QStringList limitations;
+    QString evidence; // observed, historical, or forecast/inferred
 };
 
 // Classifica esclusivamente candidati forniti dal chiamante. Non esegue CAT,

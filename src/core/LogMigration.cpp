@@ -185,7 +185,6 @@ QList<AdifRecord> readCsv(const QByteArray& data, QString* error)
         }
     }
     QStringList fields;
-    int known = 0;
     for (const QString& column : splitCsv(head, sep)) {
         QString field = csvColumns().value(squash(column));
         // Una colonna che ha gia' il nome ADIF resta com'e'.
@@ -193,8 +192,6 @@ QList<AdifRecord> readCsv(const QByteArray& data, QString* error)
             field = column.trimmed().toUpper();
         if (field.isEmpty() && squash(column) == QLatin1String("call"))
             field = QStringLiteral("CALL");
-        if (!field.isEmpty())
-            ++known;
         fields << field;
     }
     if (!fields.contains(QStringLiteral("CALL"))) {

@@ -42,6 +42,40 @@ QList<Recommendation> rank(const QList<Candidate>& candidates,
             r.score += p.newReferenceWeight;
             r.reasons << QStringLiteral("new reference");
         }
+        if (p.prioritizeWorkedUnconfirmed && c.worked && !c.confirmed) {
+            r.score += p.newReferenceWeight;
+            r.reasons << QStringLiteral("worked but unconfirmed");
+        }
+        if (!p.awardAccount.isEmpty() && c.awardAccount != p.awardAccount) {
+            r.limitations << QStringLiteral("outside selected award account");
+            if (p.requireFeasible)
+                continue;
+        }
+        const bool bandAvailable = p.availableBands.isEmpty()
+                                   || p.availableBands.contains(c.band, Qt::CaseInsensitive);
+        const bool modeAvailable = p.availableModes.isEmpty()
+                                  || p.availableModes.contains(c.mode, Qt::CaseInsensitive);
+        const bool radioAvailable = p.availableRadios.isEmpty() || c.radio.isEmpty()
+                                    || p.availableRadios.contains(c.radio, Qt::CaseInsensitive);
+        const bool antennaAvailable = p.availableAntennas.isEmpty() || c.antenna.isEmpty()
+                                      || p.availableAntennas.contains(c.antenna, Qt::CaseInsensitive);
+        if (!bandAvailable || !modeAvailable || !radioAvailable || !antennaAvailable
+            || !c.radioAvailable || !c.antennaAvailable) {
+            r.limitations << QStringLiteral("station feasibility unavailable");
+            if (p.requireFeasible)
+                continue;
+        } else if (!p.availableBands.isEmpty() || !p.availableModes.isEmpty()) {
+            r.reasons << QStringLiteral("station feasible");
+        }
+        if (!c.observed) {
+            r.evidence = QStringLiteral("forecast/inferred");
+            r.limitations << QStringLiteral("forecast or inferred data");
+        } else if (c.historical) {
+            r.evidence = QStringLiteral("historical");
+            r.limitations << QStringLiteral("historical observation");
+        } else {
+            r.evidence = QStringLiteral("observed");
+        }
         if (c.hasPropagation && c.propagationQuality >= 0) {
             const int quality = std::clamp(c.propagationQuality, 0, 3);
             r.score += p.propagationWeight * (quality / 3.0);
@@ -55,9 +89,15 @@ QList<Recommendation> rank(const QList<Candidate>& candidates,
             r.limitations << QStringLiteral("spot age unavailable");
         } else {
             const qint64 age = std::max<qint64>(0, c.spottedAt.secsTo(now) / 60);
-            if (age > p.freshnessMinutes)
+            if (age > p.freshnessMinutes) {
                 r.limitations << QStringLiteral("spot is %1 minutes old").arg(age);
-            else
+                if (p.rejectStale) {
+                    r.limitations << QStringLiteral("stale spot rejected");
+                    continue;
+                }
+                r.score *= std::clamp(p.stalePenalty, 0.0, 1.0);
+                r.reasons << QStringLiteral("stale spot penalty %1").arg(p.stalePenalty, 0, 'f', 2);
+            } else
                 r.reasons << QStringLiteral("spot is %1 minutes old").arg(age);
         }
         if (r.reasons.isEmpty())

@@ -35,7 +35,9 @@ private slots:
         QCOMPARE(cloudsettings::scopeOf(QStringLiteral("station/profile/home")), cloudsettings::Scope::Station);
         QCOMPARE(cloudsettings::scopeOf(QStringLiteral("rig/serialPort")), cloudsettings::Scope::Device);
         QCOMPARE(cloudsettings::scopeOf(QStringLiteral("udp/port")), cloudsettings::Scope::Device);
+        QCOMPARE(cloudsettings::scopeOf(QStringLiteral("so2r/address")), cloudsettings::Scope::Device);
         QCOMPARE(cloudsettings::scopeOf(QStringLiteral("station/activeProfile")), cloudsettings::Scope::Device);
+        QCOMPARE(cloudsettings::scopeOf(QStringLiteral("future/unclassified")), cloudsettings::Scope::Unknown);
     }
 
     void everythingTravelsButTheMachine()
@@ -49,10 +51,12 @@ private slots:
         s->setValue(QStringLiteral("rig/serialPort"), QStringLiteral("/dev/cu.usbserial-1"));
         s->setValue(QStringLiteral("cw/audioInput"), QStringLiteral("USB Audio CODEC"));
         s->setValue(QStringLiteral("rotor/host"), QStringLiteral("127.0.0.1"));
+        s->setValue(QStringLiteral("so2r/address"), QStringLiteral("127.0.0.1:4534"));
         s->setValue(QStringLiteral("backup/folder"), QStringLiteral("D:/log/backup"));
         s->setValue(QStringLiteral("credentials/cloud/stored"), true);
         s->setValue(QStringLiteral("cloud/lastSync"), QStringLiteral("2026-09-18 19:53"));
         s->setValue(QStringLiteral("cloud/server"), QStringLiteral("https://cloud.ft2.it"));
+        s->setValue(QStringLiteral("future/unclassified"), QStringLiteral("local"));
 
         const QVariantMap out = cloudsettings::collect(*s);
         QCOMPARE(out.value(QStringLiteral("theme/current")).toString(), QStringLiteral("Darkcodium"));
@@ -62,11 +66,13 @@ private slots:
         QVERIFY(!out.contains(QStringLiteral("rig/serialPort")));
         QVERIFY(!out.contains(QStringLiteral("cw/audioInput")));
         QVERIFY(!out.contains(QStringLiteral("rotor/host")));
+        QVERIFY(!out.contains(QStringLiteral("so2r/address")));
         QVERIFY(!out.contains(QStringLiteral("backup/folder")));
         QCOMPARE(out.value(QStringLiteral("cloud/server")).toString(), QStringLiteral("https://cloud.ft2.it"));
         // Il promemoria del portachiavi e il quaderno del sync restano qui.
         QVERIFY(!out.contains(QStringLiteral("credentials/cloud/stored")));
         QVERIFY(!out.contains(QStringLiteral("cloud/lastSync")));
+        QVERIFY(!out.contains(QStringLiteral("future/unclassified")));
     }
 
     void networkIdentityStaysOnThisMachine()
@@ -133,20 +139,25 @@ private slots:
         s->setValue(QStringLiteral("rig/serialPort"), QStringLiteral("local-serial"));
         s->setValue(QStringLiteral("udp/port"), 2238);
         s->setValue(QStringLiteral("backup/folder"), QStringLiteral("/local/backup"));
+        s->setValue(QStringLiteral("so2r/address"), QStringLiteral("127.0.0.1:4534"));
 
         const int written = cloudsettings::apply(
             *s, QVariantMap{{QStringLiteral("credentials/cloud/stored"), true},
                             {QStringLiteral("rig/serialPort"), QStringLiteral("remote-serial")},
                             {QStringLiteral("udp/port"), 9999},
                             {QStringLiteral("backup/folder"), QStringLiteral("D:/remote")},
+                            {QStringLiteral("so2r/address"), QStringLiteral("10.0.0.2:4534")},
                             {QStringLiteral("cloud/callsign"), QStringLiteral("XX0XXX")},
+                            {QStringLiteral("future/unclassified"), QStringLiteral("remote")},
                             {QStringLiteral("theme/current"), QStringLiteral("Stellar Light")}});
         QCOMPARE(written, 1);
         QCOMPARE(s->value(QStringLiteral("credentials/cloud/stored")).toBool(), false);
         QCOMPARE(s->value(QStringLiteral("rig/serialPort")).toString(), QStringLiteral("local-serial"));
         QCOMPARE(s->value(QStringLiteral("udp/port")).toInt(), 2238);
         QCOMPARE(s->value(QStringLiteral("backup/folder")).toString(), QStringLiteral("/local/backup"));
+        QCOMPARE(s->value(QStringLiteral("so2r/address")).toString(), QStringLiteral("127.0.0.1:4534"));
         QVERIFY(!s->contains(QStringLiteral("cloud/callsign")));
+        QVERIFY(!s->contains(QStringLiteral("future/unclassified")));
         QCOMPARE(s->value(QStringLiteral("theme/current")).toString(), QStringLiteral("Stellar Light"));
     }
 

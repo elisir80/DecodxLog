@@ -87,6 +87,14 @@
         <source>Close</source>
         <translation>Bezárás</translation>
     </message>
+    <message>
+        <source>Distribution</source>
+        <translation>Terjesztés</translation>
+    </message>
+    <message>
+        <source>Commit</source>
+        <translation>Commit</translation>
+    </message>
 </context>
 <context>
     <name>ActivationController</name>
@@ -647,6 +655,126 @@
         <source>● confirmed  ○ worked  ·  double-click opens the first QSO. DXCC counts entities with a DXCC number; use Setup → General → Fill missing DXCC for older QSOs.</source>
         <translation>● igazolt  ○ meglévő  ·  a dupla kattintás megnyitja az első QSO-t. A DXCC a DXCC-számmal rendelkező entitásokat számolja; régebbi QSO-khoz használd a Beállítások → Általános → Hiányzó DXCC pótlása pontot.</translation>
     </message>
+    <message>
+        <source>External result reconciled</source>
+        <translation>Külső eredmény egyeztetve</translation>
+    </message>
+    <message>
+        <source>Export CQ DX Marathon JSON</source>
+        <translation>CQ DX Marathon JSON exportálása</translation>
+    </message>
+    <message>
+        <source>JSON files (*.json)</source>
+        <translation>JSON fájlok (*.json)</translation>
+    </message>
+    <message>
+        <source>All files (*)</source>
+        <translation type="unfinished">Minden fájl (*)</translation>
+    </message>
+    <message>
+        <source>Paste verified external result JSON</source>
+        <translation>Illeszd be az ellenőrzött külső eredmény JSON-ját</translation>
+    </message>
+    <message>
+        <source>Reconcile result</source>
+        <translation>Eredmény egyeztetése</translation>
+    </message>
+    <message>
+        <source>CQ DX Marathon preview</source>
+        <translation>CQ DX Marathon előnézet</translation>
+    </message>
+    <message>
+        <source>local selection/export · not an official result</source>
+        <translation>helyi kijelölés/export · nem hivatalos eredmény</translation>
+    </message>
+    <message>
+        <source>CQ DX Marathon edition year</source>
+        <translation>CQ DX Marathon kiadásának éve</translation>
+    </message>
+    <message>
+        <source>CQ DX Marathon category</source>
+        <translation>CQ DX Marathon kategória</translation>
+    </message>
+    <message>
+        <source>Mixed</source>
+        <translation>Vegyes</translation>
+    </message>
+    <message>
+        <source>CQ DX Marathon maximum contacts per entity</source>
+        <translation>Legtöbb összeköttetés entitásonként a CQ DX Marathonban</translation>
+    </message>
+    <message>
+        <source>Preview CQ DX Marathon selection</source>
+        <translation>A CQ DX Marathon kijelölés előnézete</translation>
+    </message>
+    <message>
+        <source>Preview</source>
+        <translation>Előnézet</translation>
+    </message>
+    <message>
+        <source>Export JSON</source>
+        <translation>JSON exportálása</translation>
+    </message>
+    <message>
+        <source>Configure edition, category and entity limit, then preview.</source>
+        <translation>Állítsd be a kiadást, a kategóriát és az entitásonkénti korlátot, majd nézd meg az előnézetet.</translation>
+    </message>
+    <message>
+        <source>Selected: %1 · excluded: %2</source>
+        <translation>Kijelölve: %1 · kizárva: %2</translation>
+    </message>
+    <message>
+        <source>VUCC preview</source>
+        <translation>VUCC előnézet</translation>
+    </message>
+    <message>
+        <source>separate from statistical locator totals</source>
+        <translation>elkülönítve a statisztikai lokátorösszegektől</translation>
+    </message>
+    <message>
+        <source>VUCC band</source>
+        <translation>VUCC sáv</translation>
+    </message>
+    <message>
+        <source>VUCC award account</source>
+        <translation>VUCC díjfiók</translation>
+    </message>
+    <message>
+        <source>Award account</source>
+        <translation>Díjfiók</translation>
+    </message>
+    <message>
+        <source>VUCC operating site</source>
+        <translation>VUCC üzemeltetési helye</translation>
+    </message>
+    <message>
+        <source>Operating site</source>
+        <translation>Üzemeltetési hely</translation>
+    </message>
+    <message>
+        <source>VUCC target</source>
+        <translation>VUCC cél</translation>
+    </message>
+    <message>
+        <source>Preview VUCC selection</source>
+        <translation>A VUCC kijelölés előnézete</translation>
+    </message>
+    <message>
+        <source>Confirmed evidence is required; configure the band/account/site and preview.</source>
+        <translation>Megerősített bizonyíték szükséges; állítsd be a sávot, a fiókot és a helyet, majd nézd meg az előnézetet.</translation>
+    </message>
+    <message>
+        <source>Eligible GRID4: %1 / %2 · excluded: %3 · external rules verified: %4</source>
+        <translation>Érvényes GRID4: %1 / %2 · kizárva: %3 · külső szabályok ellenőrizve: %4</translation>
+    </message>
+    <message>
+        <source>yes</source>
+        <translation>igen</translation>
+    </message>
+    <message>
+        <source>no</source>
+        <translation>nem</translation>
+    </message>
 </context>
 <context>
     <name>BandMapPanel</name>
@@ -879,6 +1007,18 @@
     <message>
         <source>LoTW last sync %1</source>
         <translation>LoTW utolsó szinkron %1</translation>
+    </message>
+    <message>
+        <source>Save JSON evidence…</source>
+        <translation>JSON bizonyíték mentése…</translation>
+    </message>
+    <message>
+        <source>Save structured diagnostic evidence</source>
+        <translation>Strukturált diagnosztikai bizonyíték mentése</translation>
+    </message>
+    <message>
+        <source>JSON files (*.json)</source>
+        <translation>JSON fájlok (*.json)</translation>
     </message>
 </context>
 <context>
@@ -1303,6 +1443,58 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
     <message>
         <source>Waiting for spots…</source>
         <translation>Várakozás spotokra…</translation>
+    </message>
+    <message>
+        <source>Award account</source>
+        <translation>Díjfiók</translation>
+    </message>
+    <message>
+        <source>optional account id</source>
+        <translation>fiókazonosító (nem kötelező)</translation>
+    </message>
+    <message>
+        <source>Require feasible station</source>
+        <translation>Megvalósítható állomást kér</translation>
+    </message>
+    <message>
+        <source>Prioritize worked/unconfirmed</source>
+        <translation>Előnyben a dolgozott/meg nem erősített</translation>
+    </message>
+    <message>
+        <source>Available bands</source>
+        <translation>Elérhető sávok</translation>
+    </message>
+    <message>
+        <source>DX Assistant available bands</source>
+        <translation>Elérhető sávok a DX-asszisztenshez</translation>
+    </message>
+    <message>
+        <source>comma separated; empty = any</source>
+        <translation>vesszővel elválasztva; üres = bármely</translation>
+    </message>
+    <message>
+        <source>Modes</source>
+        <translation type="unfinished">Módok</translation>
+    </message>
+    <message>
+        <source>DX Assistant available modes</source>
+        <translation>Elérhető üzemmódok a DX-asszisztenshez</translation>
+    </message>
+    <message>
+        <source>Available radios</source>
+        <translation>Elérhető rádiók</translation>
+    </message>
+    <message>
+        <source>DX Assistant available radios</source>
+        <translation>Elérhető rádiók a DX-asszisztenshez</translation>
+    </message>
+    <message>
+        <source>Antennas</source>
+        <translation>Antennák</translation>
+    </message>
+    <message>
+        <source>DX Assistant available antennas</source>
+        <translation>Elérhető antennák a DX-asszisztenshez</translation>
     </message>
 </context>
 <context>
@@ -8598,6 +8790,30 @@ A további mezők megmaradnak: %8</translation>
         <source>Save profile</source>
         <translation>Profil mentése</translation>
     </message>
+    <message>
+        <source>Award account</source>
+        <translation>Díjfiók</translation>
+    </message>
+    <message>
+        <source>Historical operating location</source>
+        <translation>Korábbi üzemeltetési hely</translation>
+    </message>
+    <message>
+        <source>Valid from (YYYY-MM-DD)</source>
+        <translation>Érvényes ettől (ÉÉÉÉ-HH-NN)</translation>
+    </message>
+    <message>
+        <source>Valid to (YYYY-MM-DD)</source>
+        <translation>Érvényes eddig (ÉÉÉÉ-HH-NN)</translation>
+    </message>
+    <message>
+        <source>Award account requires review: %1</source>
+        <translation>A díjfiókot felül kell vizsgálni: %1</translation>
+    </message>
+    <message>
+        <source>Award account groups: %1</source>
+        <translation>A díjfiók csoportjai: %1</translation>
+    </message>
 </context>
 <context>
     <name>StatsAwardsPage</name>
@@ -10151,10 +10367,6 @@ A további mezők megmaradnak: %8</translation>
         <translation>N1MM javította: %1</translation>
     </message>
     <message>
-        <source>built on %1</source>
-        <translation>fordítva ekkor: %1</translation>
-    </message>
-    <message>
         <source>Not understood: %1 (write address:port)</source>
         <translation>Nem érthető: %1 (írj cím:port formát)</translation>
     </message>
@@ -10990,6 +11202,14 @@ A további mezők megmaradnak: %8</translation>
         <translation>
             <numerusform>%n QSO rendbe téve egy rossz régi import után (az előző szöveg az előzményekben marad).</numerusform>
         </translation>
+    </message>
+    <message>
+        <source>built on %1 · %2 @ %3</source>
+        <translation>fordítva: %1 · %2 @ %3</translation>
+    </message>
+    <message>
+        <source>External result was rejected</source>
+        <translation>A külső eredményt elutasították</translation>
     </message>
 </context>
 <context>

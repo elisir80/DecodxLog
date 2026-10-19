@@ -394,6 +394,20 @@ private slots:
         const QByteArray retryBody =
             "<CALL:5>W8IDM<QSO_DATE:8>20260917<TIME_ON:4>0910<BAND:3>20m<MODE:3>FT8<EOR>";
         const auto firstRetry = request("POST", QStringLiteral("/api/v1/qso"), retryBody, "retry-1");
+        // Il registro idempotente deve sopravvivere alla chiusura del processo,
+        // non soltanto restare nella memoria del controller.
+        m_app.terminate();
+        QVERIFY(m_app.waitForFinished(10000));
+        m_output.clear();
+        m_app.start(QStringLiteral(DECODXLOG_APP),
+                    {QStringLiteral("--settings"), m_dir.path(), QStringLiteral("--db"), m_db,
+                     QStringLiteral("--port"), QString::number(m_port), QStringLiteral("--grab"),
+                     m_dir.filePath(QStringLiteral("shot-restart.png"))});
+        QVERIFY2(m_app.waitForStarted(20000), qPrintable(m_app.errorString()));
+        const QRegularExpression restartedListening(
+            QStringLiteral("\\[activity\\] UDP\\|info\\|[^\\n]*\\b%1\\b").arg(m_port));
+        QVERIFY2(waitFor([&] { return restartedListening.match(QString::fromUtf8(m_output)).hasMatch(); }, 90000),
+                 m_output.right(2000).constData());
         const auto secondRetry = request("POST", QStringLiteral("/api/v1/qso"), retryBody, "retry-1");
         QCOMPARE(firstRetry.first, 201);
         QCOMPARE(secondRetry.first, 201);

@@ -1,0 +1,9 @@
+{
+  "schema": "decodxlog.operational-matrix/v1",
+  "scenarios": [
+    {"id": "N126-012", "kind": "automatic", "status": "passed", "evidence": "ctest:diagnostics,qmlpopups", "sideEffects": "none"},
+    {"id": "N126-013", "kind": "ui", "status": "pending", "evidence": "requires operator session on each desktop platform", "sideEffects": "none"},
+    {"id": "N126-014", "kind": "hardware", "status": "pending", "evidence": "requires named radio, CAT, antenna and approved PTT test", "sideEffects": "may-transmit"},
+    {"id": "migration-real-exports", "kind": "external-data", "status": "pending", "evidence": "requires anonymized Log4OM/DXKeeper exports", "sideEffects": "none"}
+  ]
+}

@@ -87,6 +87,14 @@
         <source>Close</source>
         <translation>关闭</translation>
     </message>
+    <message>
+        <source>Distribution</source>
+        <translation>发行来源</translation>
+    </message>
+    <message>
+        <source>Commit</source>
+        <translation>提交</translation>
+    </message>
 </context>
 <context>
     <name>ActivationController</name>
@@ -647,6 +655,126 @@
         <source>● confirmed  ○ worked  ·  double-click opens the first QSO. DXCC counts entities with a DXCC number; use Setup → General → Fill missing DXCC for older QSOs.</source>
         <translation>● 已确认  ○ 已通联  ·  双击打开第一个 QSO。DXCC 统计带 DXCC 号码的实体；较早的 QSO 请用 设置 → 通用 → 补上缺少的 DXCC。</translation>
     </message>
+    <message>
+        <source>External result reconciled</source>
+        <translation>外部结果已核对</translation>
+    </message>
+    <message>
+        <source>Export CQ DX Marathon JSON</source>
+        <translation>导出 CQ DX Marathon JSON</translation>
+    </message>
+    <message>
+        <source>JSON files (*.json)</source>
+        <translation>JSON 文件 (*.json)</translation>
+    </message>
+    <message>
+        <source>All files (*)</source>
+        <translation type="unfinished">所有文件 (*)</translation>
+    </message>
+    <message>
+        <source>Paste verified external result JSON</source>
+        <translation>粘贴已验证的外部结果 JSON</translation>
+    </message>
+    <message>
+        <source>Reconcile result</source>
+        <translation>核对结果</translation>
+    </message>
+    <message>
+        <source>CQ DX Marathon preview</source>
+        <translation>CQ DX Marathon 预览</translation>
+    </message>
+    <message>
+        <source>local selection/export · not an official result</source>
+        <translation>本地选择/导出 · 非官方结果</translation>
+    </message>
+    <message>
+        <source>CQ DX Marathon edition year</source>
+        <translation>CQ DX Marathon 年度</translation>
+    </message>
+    <message>
+        <source>CQ DX Marathon category</source>
+        <translation>CQ DX Marathon 类别</translation>
+    </message>
+    <message>
+        <source>Mixed</source>
+        <translation>混合</translation>
+    </message>
+    <message>
+        <source>CQ DX Marathon maximum contacts per entity</source>
+        <translation>CQ DX Marathon 每个实体的最大通联数</translation>
+    </message>
+    <message>
+        <source>Preview CQ DX Marathon selection</source>
+        <translation>预览 CQ DX Marathon 选择</translation>
+    </message>
+    <message>
+        <source>Preview</source>
+        <translation>预览</translation>
+    </message>
+    <message>
+        <source>Export JSON</source>
+        <translation>导出 JSON</translation>
+    </message>
+    <message>
+        <source>Configure edition, category and entity limit, then preview.</source>
+        <translation>设置年度、类别和每个实体的上限，然后查看预览。</translation>
+    </message>
+    <message>
+        <source>Selected: %1 · excluded: %2</source>
+        <translation>已选择：%1 · 已排除：%2</translation>
+    </message>
+    <message>
+        <source>VUCC preview</source>
+        <translation>VUCC 预览</translation>
+    </message>
+    <message>
+        <source>separate from statistical locator totals</source>
+        <translation>与定位符统计总数分开</translation>
+    </message>
+    <message>
+        <source>VUCC band</source>
+        <translation>VUCC 波段</translation>
+    </message>
+    <message>
+        <source>VUCC award account</source>
+        <translation>VUCC 奖状账户</translation>
+    </message>
+    <message>
+        <source>Award account</source>
+        <translation>奖状账户</translation>
+    </message>
+    <message>
+        <source>VUCC operating site</source>
+        <translation>VUCC 运行地点</translation>
+    </message>
+    <message>
+        <source>Operating site</source>
+        <translation>运行地点</translation>
+    </message>
+    <message>
+        <source>VUCC target</source>
+        <translation>VUCC 目标</translation>
+    </message>
+    <message>
+        <source>Preview VUCC selection</source>
+        <translation>预览 VUCC 选择</translation>
+    </message>
+    <message>
+        <source>Confirmed evidence is required; configure the band/account/site and preview.</source>
+        <translation>需要已确认的证据：请设置波段、账户和地点，然后查看预览。</translation>
+    </message>
+    <message>
+        <source>Eligible GRID4: %1 / %2 · excluded: %3 · external rules verified: %4</source>
+        <translation>有效 GRID4：%1 / %2 · 已排除：%3 · 外部规则已验证：%4</translation>
+    </message>
+    <message>
+        <source>yes</source>
+        <translation>有</translation>
+    </message>
+    <message>
+        <source>no</source>
+        <translation>否</translation>
+    </message>
 </context>
 <context>
     <name>BandMapPanel</name>
@@ -879,6 +1007,18 @@
     <message>
         <source>LoTW last sync %1</source>
         <translation>LoTW 上次同步 %1</translation>
+    </message>
+    <message>
+        <source>Save JSON evidence…</source>
+        <translation>保存 JSON 证据…</translation>
+    </message>
+    <message>
+        <source>Save structured diagnostic evidence</source>
+        <translation>保存结构化的诊断证据</translation>
+    </message>
+    <message>
+        <source>JSON files (*.json)</source>
+        <translation>JSON 文件 (*.json)</translation>
     </message>
 </context>
 <context>
@@ -1303,6 +1443,58 @@ Decodium 正在通联的呼号会自己出现在这里。</translation>
     <message>
         <source>Waiting for spots…</source>
         <translation>正在等点报…</translation>
+    </message>
+    <message>
+        <source>Award account</source>
+        <translation>奖状账户</translation>
+    </message>
+    <message>
+        <source>optional account id</source>
+        <translation>账户 ID（可选）</translation>
+    </message>
+    <message>
+        <source>Require feasible station</source>
+        <translation>要求可行的电台</translation>
+    </message>
+    <message>
+        <source>Prioritize worked/unconfirmed</source>
+        <translation>优先已通联/未确认</translation>
+    </message>
+    <message>
+        <source>Available bands</source>
+        <translation>可用波段</translation>
+    </message>
+    <message>
+        <source>DX Assistant available bands</source>
+        <translation>DX 助手可用波段</translation>
+    </message>
+    <message>
+        <source>comma separated; empty = any</source>
+        <translation>以逗号分隔；留空 = 任意</translation>
+    </message>
+    <message>
+        <source>Modes</source>
+        <translation type="unfinished">模式</translation>
+    </message>
+    <message>
+        <source>DX Assistant available modes</source>
+        <translation>DX 助手可用模式</translation>
+    </message>
+    <message>
+        <source>Available radios</source>
+        <translation>可用电台</translation>
+    </message>
+    <message>
+        <source>DX Assistant available radios</source>
+        <translation>DX 助手可用电台</translation>
+    </message>
+    <message>
+        <source>Antennas</source>
+        <translation>天线</translation>
+    </message>
+    <message>
+        <source>DX Assistant available antennas</source>
+        <translation>DX 助手可用天线</translation>
     </message>
 </context>
 <context>
@@ -8598,6 +8790,30 @@ QSL 状态：%6 · UTC 不完整：%7。
         <source>Save profile</source>
         <translation>保存配置</translation>
     </message>
+    <message>
+        <source>Award account</source>
+        <translation>奖状账户</translation>
+    </message>
+    <message>
+        <source>Historical operating location</source>
+        <translation>历史运行地点</translation>
+    </message>
+    <message>
+        <source>Valid from (YYYY-MM-DD)</source>
+        <translation>起始日期 (YYYY-MM-DD)</translation>
+    </message>
+    <message>
+        <source>Valid to (YYYY-MM-DD)</source>
+        <translation>截止日期 (YYYY-MM-DD)</translation>
+    </message>
+    <message>
+        <source>Award account requires review: %1</source>
+        <translation>奖状账户需要复核：%1</translation>
+    </message>
+    <message>
+        <source>Award account groups: %1</source>
+        <translation>奖状账户分组：%1</translation>
+    </message>
 </context>
 <context>
     <name>StatsAwardsPage</name>
@@ -10151,10 +10367,6 @@ QSL 状态：%6 · UTC 不完整：%7。
         <translation>N1MM 更正：%1</translation>
     </message>
     <message>
-        <source>built on %1</source>
-        <translation>构建于 %1</translation>
-    </message>
-    <message>
         <source>Not understood: %1 (write address:port)</source>
         <translation>看不懂：%1（请写 地址:端口）</translation>
     </message>
@@ -10990,6 +11202,14 @@ QSL 状态：%6 · UTC 不完整：%7。
         <translation>
             <numerusform>整理了 %n 个被旧导入弄坏的 QSO（原来的文字留在历史里）。</numerusform>
         </translation>
+    </message>
+    <message>
+        <source>built on %1 · %2 @ %3</source>
+        <translation>构建于 %1 · %2 @ %3</translation>
+    </message>
+    <message>
+        <source>External result was rejected</source>
+        <translation>外部结果被拒绝</translation>
     </message>
 </context>
 <context>

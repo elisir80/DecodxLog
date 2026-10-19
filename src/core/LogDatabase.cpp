@@ -387,6 +387,24 @@ bool LogDatabase::migrate()
                          "qso_id INTEGER NOT NULL REFERENCES qso(id) ON DELETE CASCADE, "
                          "PRIMARY KEY (attachment_id, qso_id))"),
              QStringLiteral("CREATE INDEX IF NOT EXISTS idx_qsl_attachment_qso ON qsl_attachment_qso(qso_id)")}, nullptr},
+        {9, {QStringLiteral("CREATE TABLE IF NOT EXISTS api_idempotency ("
+                         "key TEXT PRIMARY KEY, request_body BLOB NOT NULL, status INTEGER NOT NULL, "
+                         "content_type TEXT NOT NULL, response_body BLOB NOT NULL, created_at TEXT NOT NULL)"),
+             QStringLiteral("CREATE INDEX IF NOT EXISTS idx_api_idempotency_created ON api_idempotency(created_at)")}, nullptr},
+        {10, {QStringLiteral("ALTER TABLE station_profile ADD COLUMN award_account TEXT"),
+              QStringLiteral("ALTER TABLE station_profile ADD COLUMN operating_location TEXT"),
+              QStringLiteral("ALTER TABLE station_profile ADD COLUMN valid_from TEXT"),
+              QStringLiteral("ALTER TABLE station_profile ADD COLUMN valid_to TEXT")}, nullptr},
+        {11, {QStringLiteral("CREATE TABLE IF NOT EXISTS operator_profile (id INTEGER PRIMARY KEY, callsign TEXT NOT NULL UNIQUE, display_name TEXT, updated_at TEXT NOT NULL)"),
+              QStringLiteral("CREATE TABLE IF NOT EXISTS operating_location (id INTEGER PRIMARY KEY, location_key TEXT NOT NULL UNIQUE, label TEXT, gridsquare TEXT, dxcc INTEGER, updated_at TEXT NOT NULL)"),
+              QStringLiteral("CREATE TABLE IF NOT EXISTS dxcc_entity (id INTEGER PRIMARY KEY, name TEXT, updated_at TEXT NOT NULL)"),
+              QStringLiteral("ALTER TABLE station_profile ADD COLUMN operator_profile_id INTEGER REFERENCES operator_profile(id)"),
+              QStringLiteral("ALTER TABLE station_profile ADD COLUMN operating_location_id INTEGER REFERENCES operating_location(id)"),
+              QStringLiteral("ALTER TABLE station_profile ADD COLUMN dxcc_entity_id INTEGER REFERENCES dxcc_entity(id)"),
+              QStringLiteral("INSERT OR IGNORE INTO operator_profile(callsign, display_name, updated_at) SELECT DISTINCT operator, operator, strftime('%Y-%m-%dT%H:%M:%SZ','now') FROM station_profile WHERE IFNULL(operator,'') <> ''"),
+              QStringLiteral("INSERT OR IGNORE INTO operating_location(location_key, label, gridsquare, dxcc, updated_at) SELECT DISTINCT operating_location, operating_location, my_gridsquare, my_dxcc, strftime('%Y-%m-%dT%H:%M:%SZ','now') FROM station_profile WHERE IFNULL(operating_location,'') <> ''"),
+              QStringLiteral("INSERT OR IGNORE INTO dxcc_entity(id, name, updated_at) SELECT DISTINCT my_dxcc, '', strftime('%Y-%m-%dT%H:%M:%SZ','now') FROM station_profile WHERE IFNULL(my_dxcc,0) > 0"),
+              QStringLiteral("UPDATE station_profile SET operator_profile_id = (SELECT id FROM operator_profile WHERE callsign = station_profile.operator), operating_location_id = (SELECT id FROM operating_location WHERE location_key = station_profile.operating_location), dxcc_entity_id = my_dxcc WHERE operator_profile_id IS NULL OR operating_location_id IS NULL OR dxcc_entity_id IS NULL")}, nullptr},
     };
     for (const Step& step : steps) {
         if (version >= step.to)
@@ -397,6 +415,71 @@ bool LogDatabase::migrate()
         }
         QSqlQuery q(db);
         QStringList statements = step.statements;
+        if (step.to == 10) {
+            QSqlQuery exists(db);
+            if (!exists.exec(QStringLiteral("SELECT COUNT(*) FROM sqlite_master WHERE type='table' AND name='station_profile'"))
+                || !exists.next()) {
+                db.rollback();
+                m_lastError = QStringLiteral("cannot inspect station_profile during migration");
+                return false;
+            }
+            if (exists.value(0).toInt() == 0) {
+                statements = {QStringLiteral(
+                    "CREATE TABLE station_profile (id INTEGER PRIMARY KEY, uuid TEXT NOT NULL UNIQUE, "
+                    "name TEXT NOT NULL, station_callsign TEXT NOT NULL, operator TEXT, my_gridsquare TEXT, "
+                    "my_cq_zone INTEGER, my_itu_zone INTEGER, my_dxcc INTEGER, my_rig TEXT, my_antenna TEXT, "
+                    "default_tx_pwr REAL, lotw_station_loc TEXT, award_account TEXT, operating_location TEXT, "
+                    "valid_from TEXT, valid_to TEXT, is_default INTEGER NOT NULL DEFAULT 0, "
+                    "revision INTEGER NOT NULL DEFAULT 1, updated_at TEXT NOT NULL, deleted INTEGER NOT NULL DEFAULT 0, "
+                    "dirty INTEGER NOT NULL DEFAULT 1)")};
+            } else {
+                const QStringList columns{QStringLiteral("award_account"), QStringLiteral("operating_location"),
+                                          QStringLiteral("valid_from"), QStringLiteral("valid_to")};
+                statements.clear();
+                for (const QString& column : columns) {
+                    QSqlQuery columnQuery(db);
+                    columnQuery.prepare(QStringLiteral("SELECT COUNT(*) FROM pragma_table_info('station_profile') WHERE name = ?"));
+                    columnQuery.addBindValue(column);
+                    if (!columnQuery.exec() || !columnQuery.next()) {
+                        db.rollback();
+                        m_lastError = QStringLiteral("cannot inspect station_profile columns during migration");
+                        return false;
+                    }
+                    if (columnQuery.value(0).toInt() == 0)
+                        statements << QStringLiteral("ALTER TABLE station_profile ADD COLUMN %1 TEXT").arg(column);
+                }
+            }
+        }
+        if (step.to == 11) {
+            // Older databases may already contain one or more of the new
+            // columns when a migration was interrupted; add only missing
+            // columns, while keeping the whole step transactional.
+            QStringList filtered;
+            for (const QString& statement : statements) {
+                if (!statement.startsWith(QStringLiteral("ALTER TABLE station_profile ADD COLUMN"))) {
+                    filtered << statement;
+                    continue;
+                }
+                const QStringList tokens = statement.split(QLatin1Char(' '), Qt::SkipEmptyParts);
+                const QString column = tokens.value(5);
+                if (column.isEmpty()) {
+                    db.rollback();
+                    m_lastError = QStringLiteral("cannot parse normalized profile column during migration");
+                    return false;
+                }
+                QSqlQuery columnQuery(db);
+                columnQuery.prepare(QStringLiteral("SELECT COUNT(*) FROM pragma_table_info('station_profile') WHERE name = ?"));
+                columnQuery.addBindValue(column);
+                if (!columnQuery.exec() || !columnQuery.next()) {
+                    db.rollback();
+                    m_lastError = QStringLiteral("cannot inspect normalized profile columns during migration");
+                    return false;
+                }
+                if (columnQuery.value(0).toInt() == 0)
+                    filtered << statement;
+            }
+            statements = filtered;
+        }
         if (step.needsQsoColumn) {
             q.prepare(QStringLiteral("SELECT COUNT(*) FROM pragma_table_info('qso') WHERE name = ?"));
             q.addBindValue(QLatin1String(step.needsQsoColumn));
@@ -417,6 +500,58 @@ bool LogDatabase::migrate()
         }
     }
     return true;
+}
+
+std::optional<ApiIdempotencyRecord> LogDatabase::apiIdempotency(const QString& key) const
+{
+    if (key.isEmpty() || !isOpen())
+        return std::nullopt;
+    QSqlQuery cleanup(connection());
+    cleanup.prepare(QStringLiteral("DELETE FROM api_idempotency WHERE created_at < ?"));
+    cleanup.addBindValue(QDateTime::currentDateTimeUtc().addDays(-30).toString(Qt::ISODate));
+    cleanup.exec();
+
+    QSqlQuery q(connection());
+    q.prepare(QStringLiteral("SELECT request_body, status, content_type, response_body, created_at "
+                             "FROM api_idempotency WHERE key = ?"));
+    q.addBindValue(key);
+    if (!q.exec() || !q.next())
+        return std::nullopt;
+    return ApiIdempotencyRecord{q.value(0).toByteArray(), q.value(1).toInt(), q.value(2).toByteArray(),
+                                q.value(3).toByteArray(), q.value(4).toString()};
+}
+
+bool LogDatabase::saveApiIdempotency(const QString& key, const ApiIdempotencyRecord& record)
+{
+    if (key.isEmpty() || !isOpen())
+        return false;
+    const QString createdAt = record.createdAt.isEmpty()
+                                  ? QDateTime::currentDateTimeUtc().toString(Qt::ISODate)
+                                  : record.createdAt;
+    QSqlQuery q(connection());
+    q.prepare(QStringLiteral("INSERT INTO api_idempotency "
+                             "(key, request_body, status, content_type, response_body, created_at) "
+                             "VALUES (?, ?, ?, ?, ?, ?) "
+                             "ON CONFLICT(key) DO NOTHING"));
+    q.addBindValue(key);
+    q.addBindValue(record.requestBody);
+    q.addBindValue(record.status);
+    q.addBindValue(record.contentType);
+    q.addBindValue(record.responseBody);
+    q.addBindValue(createdAt);
+    if (!q.exec())
+        return false;
+    if (q.numRowsAffected() > 0)
+        return true;
+
+    // Un'altra richiesta ha vinto la gara sulla stessa chiave. Non sostituire
+    // mai il suo esito: una chiave riutilizzata con un corpo diverso deve
+    // restare un conflitto anche in presenza di richieste concorrenti.
+    const auto existing = apiIdempotency(key);
+    return existing && existing->requestBody == record.requestBody
+        && existing->status == record.status
+        && existing->contentType == record.contentType
+        && existing->responseBody == record.responseBody;
 }
 
 QString LogDatabase::isoFromAdif(const QString& date, const QString& time)
@@ -3216,18 +3351,27 @@ StationProfile profileFromQuery(const QSqlQuery& q)
     p.myAntenna = q.value(10).toString();
     p.defaultTxPwr = q.value(11).toDouble();
     p.lotwStationLocation = q.value(12).toString();
-    p.isDefault = q.value(13).toBool();
-    p.revision = q.value(14).toInt();
-    p.deleted = q.value(15).toBool();
-    p.dirty = q.value(16).toBool();
-    p.qsoCount = q.value(17).toInt();
+    p.awardAccount = q.value(13).toString();
+    p.operatingLocation = q.value(14).toString();
+    p.validFrom = q.value(15).toString();
+    p.validTo = q.value(16).toString();
+    p.isDefault = q.value(17).toBool();
+    p.revision = q.value(18).toInt();
+    p.deleted = q.value(19).toBool();
+    p.dirty = q.value(20).toBool();
+    p.qsoCount = q.value(21).toInt();
+    p.operatorProfileId = q.value(22).toLongLong();
+    p.operatingLocationId = q.value(23).toLongLong();
+    p.dxccEntityId = q.value(24).toInt();
     return p;
 }
 
 const QString kProfileSelect = QStringLiteral(
     "SELECT id, uuid, name, station_callsign, operator, my_gridsquare, my_cq_zone, my_itu_zone, my_dxcc, "
-    "my_rig, my_antenna, default_tx_pwr, lotw_station_loc, is_default, revision, deleted, dirty, "
-    "(SELECT COUNT(*) FROM qso WHERE qso.station_profile_id = station_profile.id AND qso.deleted = 0) "
+    "my_rig, my_antenna, default_tx_pwr, lotw_station_loc, award_account, operating_location, valid_from, valid_to, "
+    "is_default, revision, deleted, dirty, "
+    "(SELECT COUNT(*) FROM qso WHERE qso.station_profile_id = station_profile.id AND qso.deleted = 0), "
+    "operator_profile_id, operating_location_id, dxcc_entity_id "
     "FROM station_profile");
 
 } // namespace
@@ -3258,9 +3402,68 @@ std::optional<StationProfile> LogDatabase::stationProfile(qint64 id) const
 qint64 LogDatabase::saveStationProfile(const StationProfile& p)
 {
     QSqlDatabase db = connection();
-    db.transaction();
+    if (!db.transaction()) {
+        m_lastError = db.lastError().text();
+        return 0;
+    }
     auto nullableInt = [](int v) { return v > 0 ? QVariant(v) : QVariant(); };
     auto nullableText = [](const QString& s) { return s.trimmed().isEmpty() ? QVariant() : QVariant(s.trimmed()); };
+    const QString timestamp = nowIso();
+
+    auto operatorId = [&]() -> qint64 {
+        const QString callsign = p.operatorCall.trimmed().toUpper();
+        if (callsign.isEmpty()) return 0;
+        QSqlQuery normalized(db);
+        normalized.prepare(QStringLiteral(
+            "INSERT INTO operator_profile(callsign, display_name, updated_at) VALUES (?, ?, ?) "
+            "ON CONFLICT(callsign) DO UPDATE SET display_name = excluded.display_name, updated_at = excluded.updated_at"));
+        normalized.addBindValue(callsign);
+        normalized.addBindValue(callsign);
+        normalized.addBindValue(timestamp);
+        if (!normalized.exec()) return 0;
+        normalized.prepare(QStringLiteral("SELECT id FROM operator_profile WHERE callsign = ?"));
+        normalized.addBindValue(callsign);
+        return normalized.exec() && normalized.next() ? normalized.value(0).toLongLong() : 0;
+    };
+    auto locationId = [&]() -> qint64 {
+        const QString key = p.operatingLocation.trimmed();
+        if (key.isEmpty()) return 0;
+        QSqlQuery normalized(db);
+        normalized.prepare(QStringLiteral(
+            "INSERT INTO operating_location(location_key, label, gridsquare, dxcc, updated_at) VALUES (?, ?, ?, ?, ?) "
+            "ON CONFLICT(location_key) DO UPDATE SET label = excluded.label, gridsquare = excluded.gridsquare, "
+            "dxcc = excluded.dxcc, updated_at = excluded.updated_at"));
+        normalized.addBindValue(key);
+        normalized.addBindValue(key);
+        normalized.addBindValue(nullableText(p.myGridsquare));
+        normalized.addBindValue(nullableInt(p.myDxcc));
+        normalized.addBindValue(timestamp);
+        if (!normalized.exec()) return 0;
+        normalized.prepare(QStringLiteral("SELECT id FROM operating_location WHERE location_key = ?"));
+        normalized.addBindValue(key);
+        return normalized.exec() && normalized.next() ? normalized.value(0).toLongLong() : 0;
+    };
+    const qint64 normalizedOperatorId = operatorId();
+    const qint64 normalizedLocationId = locationId();
+    if ((!p.operatorCall.trimmed().isEmpty() && normalizedOperatorId <= 0)
+        || (!p.operatingLocation.trimmed().isEmpty() && normalizedLocationId <= 0)) {
+        m_lastError = QStringLiteral("cannot normalize station profile entities");
+        db.rollback();
+        return 0;
+    }
+    if (p.myDxcc > 0) {
+        QSqlQuery normalized(db);
+        normalized.prepare(QStringLiteral(
+            "INSERT INTO dxcc_entity(id, name, updated_at) VALUES (?, '', ?) "
+            "ON CONFLICT(id) DO UPDATE SET updated_at = excluded.updated_at"));
+        normalized.addBindValue(p.myDxcc);
+        normalized.addBindValue(timestamp);
+        if (!normalized.exec()) {
+            m_lastError = normalized.lastError().text();
+            db.rollback();
+            return 0;
+        }
+    }
 
     // Un solo profilo predefinito alla volta.
     if (p.isDefault) {
@@ -3277,8 +3480,9 @@ qint64 LogDatabase::saveStationProfile(const StationProfile& p)
     if (p.id <= 0) {
         q.prepare(QStringLiteral(
             "INSERT INTO station_profile (uuid, name, station_callsign, operator, my_gridsquare, my_cq_zone, "
-            "my_itu_zone, my_dxcc, my_rig, my_antenna, default_tx_pwr, lotw_station_loc, is_default, updated_at) "
-            "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"));
+            "my_itu_zone, my_dxcc, my_rig, my_antenna, default_tx_pwr, lotw_station_loc, award_account, "
+            "operating_location, valid_from, valid_to, operator_profile_id, operating_location_id, dxcc_entity_id, "
+            "is_default, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"));
         const QString profileUuid = p.uuid.trimmed().isEmpty()
             ? QUuid::createUuid().toString(QUuid::WithoutBraces)
             : p.uuid.trimmed();
@@ -3287,7 +3491,9 @@ qint64 LogDatabase::saveStationProfile(const StationProfile& p)
         q.prepare(QStringLiteral(
             "UPDATE station_profile SET name = ?, station_callsign = ?, operator = ?, my_gridsquare = ?, "
             "my_cq_zone = ?, my_itu_zone = ?, my_dxcc = ?, my_rig = ?, my_antenna = ?, default_tx_pwr = ?, "
-            "lotw_station_loc = ?, is_default = ?, updated_at = ?, revision = revision + 1, dirty = 1 WHERE id = ?"));
+            "lotw_station_loc = ?, award_account = ?, operating_location = ?, valid_from = ?, valid_to = ?, "
+            "operator_profile_id = ?, operating_location_id = ?, dxcc_entity_id = ?, is_default = ?, updated_at = ?, "
+            "revision = revision + 1, dirty = 1 WHERE id = ?"));
     }
     q.addBindValue(p.name.trimmed());
     q.addBindValue(p.stationCallsign.trimmed().toUpper());
@@ -3300,6 +3506,13 @@ qint64 LogDatabase::saveStationProfile(const StationProfile& p)
     q.addBindValue(nullableText(p.myAntenna));
     q.addBindValue(p.defaultTxPwr > 0 ? QVariant(p.defaultTxPwr) : QVariant());
     q.addBindValue(nullableText(p.lotwStationLocation));
+    q.addBindValue(nullableText(p.awardAccount));
+    q.addBindValue(nullableText(p.operatingLocation));
+    q.addBindValue(nullableText(p.validFrom));
+    q.addBindValue(nullableText(p.validTo));
+    q.addBindValue(normalizedOperatorId > 0 ? QVariant(normalizedOperatorId) : QVariant());
+    q.addBindValue(normalizedLocationId > 0 ? QVariant(normalizedLocationId) : QVariant());
+    q.addBindValue(p.myDxcc > 0 ? QVariant(p.myDxcc) : QVariant());
     q.addBindValue(p.isDefault ? 1 : 0);
     q.addBindValue(nowIso());
     if (p.id > 0)

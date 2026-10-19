@@ -113,6 +113,15 @@ ClusterController::ClusterController(Context context, QObject* parent)
     m_assistantPreferences.newReferenceWeight = assistant.value(QStringLiteral("newReferenceWeight"), 20).toInt();
     m_assistantPreferences.propagationWeight = assistant.value(QStringLiteral("propagationWeight"), 20).toInt();
     m_assistantPreferences.freshnessMinutes = assistant.value(QStringLiteral("freshnessMinutes"), 30).toInt();
+    m_assistantPreferences.rejectStale = assistant.value(QStringLiteral("rejectStale"), false).toBool();
+    m_assistantPreferences.stalePenalty = assistant.value(QStringLiteral("stalePenalty"), 0.5).toDouble();
+    m_assistantPreferences.awardAccount = assistant.value(QStringLiteral("awardAccount")).toString();
+    m_assistantPreferences.prioritizeWorkedUnconfirmed = assistant.value(QStringLiteral("prioritizeWorkedUnconfirmed"), true).toBool();
+    m_assistantPreferences.requireFeasible = assistant.value(QStringLiteral("requireFeasible"), false).toBool();
+    m_assistantPreferences.availableBands = assistant.value(QStringLiteral("availableBands")).toStringList();
+    m_assistantPreferences.availableModes = assistant.value(QStringLiteral("availableModes")).toStringList();
+    m_assistantPreferences.availableRadios = assistant.value(QStringLiteral("availableRadios")).toStringList();
+    m_assistantPreferences.availableAntennas = assistant.value(QStringLiteral("availableAntennas")).toStringList();
     m_voiceEnabled = s.value(QStringLiteral("cluster/voice/enabled"), true).toBool();
     m_voiceName = s.value(QStringLiteral("cluster/voice/name")).toString();
     m_voiceRate = s.value(QStringLiteral("cluster/voice/rate"), 0).toInt();
@@ -875,6 +884,9 @@ QVariantList ClusterController::assistantRecommendations() const
         c.mode = e.spot.mode;
         c.spottedAt = e.spot.time;
         c.status = e.status;
+        c.worked = (e.status & core::StatusWorkedBand) != 0;
+        c.confirmed = (e.status & core::StatusUnconfirmed) == 0;
+        c.observed = true;
         c.source = e.spot.source;
         c.hasHistory = m_index.qsoCount() > 0;
         if (m_ctx.propagationForecast) {
@@ -896,6 +908,7 @@ QVariantList ClusterController::assistantRecommendations() const
             {QStringLiteral("score"), r.score},
             {QStringLiteral("reasons"), r.reasons},
             {QStringLiteral("limitations"), r.limitations},
+            {QStringLiteral("evidence"), r.evidence},
             {QStringLiteral("propagationEngine"), r.candidate.propagationEngine},
         };
     }
@@ -911,6 +924,15 @@ QVariantMap ClusterController::assistantPreferences() const
         {QStringLiteral("newReferenceWeight"), m_assistantPreferences.newReferenceWeight},
         {QStringLiteral("propagationWeight"), m_assistantPreferences.propagationWeight},
         {QStringLiteral("freshnessMinutes"), m_assistantPreferences.freshnessMinutes},
+        {QStringLiteral("rejectStale"), m_assistantPreferences.rejectStale},
+        {QStringLiteral("stalePenalty"), m_assistantPreferences.stalePenalty},
+        {QStringLiteral("awardAccount"), m_assistantPreferences.awardAccount},
+        {QStringLiteral("prioritizeWorkedUnconfirmed"), m_assistantPreferences.prioritizeWorkedUnconfirmed},
+        {QStringLiteral("requireFeasible"), m_assistantPreferences.requireFeasible},
+        {QStringLiteral("availableBands"), m_assistantPreferences.availableBands},
+        {QStringLiteral("availableModes"), m_assistantPreferences.availableModes},
+        {QStringLiteral("availableRadios"), m_assistantPreferences.availableRadios},
+        {QStringLiteral("availableAntennas"), m_assistantPreferences.availableAntennas},
     };
 }
 
@@ -925,6 +947,15 @@ void ClusterController::setAssistantPreferences(const QVariantMap& preferences)
     m_assistantPreferences.newReferenceWeight = bounded("newReferenceWeight", 20, 0, 100);
     m_assistantPreferences.propagationWeight = bounded("propagationWeight", 20, 0, 100);
     m_assistantPreferences.freshnessMinutes = bounded("freshnessMinutes", 30, 1, 240);
+    m_assistantPreferences.rejectStale = preferences.value(QStringLiteral("rejectStale"), false).toBool();
+    m_assistantPreferences.stalePenalty = std::clamp(preferences.value(QStringLiteral("stalePenalty"), 0.5).toDouble(), 0.0, 1.0);
+    m_assistantPreferences.awardAccount = preferences.value(QStringLiteral("awardAccount")).toString().trimmed();
+    m_assistantPreferences.prioritizeWorkedUnconfirmed = preferences.value(QStringLiteral("prioritizeWorkedUnconfirmed"), true).toBool();
+    m_assistantPreferences.requireFeasible = preferences.value(QStringLiteral("requireFeasible"), false).toBool();
+    m_assistantPreferences.availableBands = preferences.value(QStringLiteral("availableBands")).toStringList();
+    m_assistantPreferences.availableModes = preferences.value(QStringLiteral("availableModes")).toStringList();
+    m_assistantPreferences.availableRadios = preferences.value(QStringLiteral("availableRadios")).toStringList();
+    m_assistantPreferences.availableAntennas = preferences.value(QStringLiteral("availableAntennas")).toStringList();
     QSettings().setValue(QStringLiteral("cluster/assistantPreferences"),
                          QString::fromUtf8(QJsonDocument(QJsonObject::fromVariantMap(assistantPreferences()))
                                                .toJson(QJsonDocument::Compact)));

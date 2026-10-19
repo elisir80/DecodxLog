@@ -3,6 +3,7 @@
 #include "core/LogDatabase.h"
 
 #include <QSettings>
+#include <algorithm>
 
 namespace decolog::app {
 
@@ -26,6 +27,13 @@ QVariantMap toMap(const StationProfile& p)
         {QStringLiteral("myAntenna"), p.myAntenna},
         {QStringLiteral("defaultTxPwr"), p.defaultTxPwr},
         {QStringLiteral("lotwStationLocation"), p.lotwStationLocation},
+        {QStringLiteral("awardAccount"), p.awardAccount},
+        {QStringLiteral("operatingLocation"), p.operatingLocation},
+        {QStringLiteral("validFrom"), p.validFrom},
+        {QStringLiteral("validTo"), p.validTo},
+        {QStringLiteral("operatorProfileId"), p.operatorProfileId},
+        {QStringLiteral("operatingLocationId"), p.operatingLocationId},
+        {QStringLiteral("dxccEntityId"), p.dxccEntityId},
         {QStringLiteral("isDefault"), p.isDefault},
         {QStringLiteral("deleted"), p.deleted},
         {QStringLiteral("dirty"), p.dirty},
@@ -192,6 +200,80 @@ int StationProfileModel::rowForId(qint64 id) const
     return -1;
 }
 
+QVariantList StationProfileModel::awardAccountConflicts() const
+{
+    QVariantList out;
+    for (qsizetype i = 0; i < m_profiles.size(); ++i) {
+        const StationProfile& a = m_profiles.at(i);
+        if (a.deleted || a.awardAccount.trimmed().isEmpty())
+            continue;
+        for (qsizetype j = i + 1; j < m_profiles.size(); ++j) {
+            const StationProfile& b = m_profiles.at(j);
+            if (b.deleted || a.awardAccount.trimmed().compare(b.awardAccount.trimmed(), Qt::CaseInsensitive) != 0)
+                continue;
+            const QDate fromA = QDate::fromString(a.validFrom, Qt::ISODate);
+            const QDate toA = QDate::fromString(a.validTo, Qt::ISODate);
+            const QDate fromB = QDate::fromString(b.validFrom, Qt::ISODate);
+            const QDate toB = QDate::fromString(b.validTo, Qt::ISODate);
+            const bool periodsOverlap = (!toA.isValid() || !fromB.isValid() || toA >= fromB)
+                                     && (!toB.isValid() || !fromA.isValid() || toB >= fromA);
+            QStringList reasons;
+            if (!a.operatorCall.isEmpty() && !b.operatorCall.isEmpty()
+                && a.operatorCall.compare(b.operatorCall, Qt::CaseInsensitive) != 0)
+                reasons << QStringLiteral("different operators");
+            if (a.myDxcc > 0 && b.myDxcc > 0 && a.myDxcc != b.myDxcc)
+                reasons << QStringLiteral("different DXCC entities");
+            if (!a.operatingLocation.isEmpty() && !b.operatingLocation.isEmpty()
+                && a.operatingLocation.compare(b.operatingLocation, Qt::CaseInsensitive) != 0)
+                reasons << QStringLiteral("different operating locations");
+            if (periodsOverlap && reasons.isEmpty())
+                reasons << QStringLiteral("overlapping validity periods require confirmation");
+            if (!reasons.isEmpty())
+                out << QVariantMap{{QStringLiteral("account"), a.awardAccount},
+                                   {QStringLiteral("profiles"), QStringList{a.name, b.name}},
+                                   {QStringLiteral("reason"), reasons.join(QStringLiteral("; "))},
+                                   {QStringLiteral("requiresReview"), true}};
+        }
+    }
+    return out;
+}
+
+QVariantList StationProfileModel::awardAccountGroups() const
+{
+    QVariantList out;
+    QHash<QString, QVariantMap> groups;
+    for (const auto& profile : m_profiles) {
+        if (profile.deleted || profile.awardAccount.trimmed().isEmpty())
+            continue;
+        const QString key = profile.awardAccount.trimmed().toLower();
+        auto& group = groups[key];
+        group.insert(QStringLiteral("account"), profile.awardAccount.trimmed());
+        QStringList profiles = group.value(QStringLiteral("profiles")).toStringList();
+        profiles << profile.name;
+        group.insert(QStringLiteral("profiles"), profiles);
+    }
+    const QVariantList conflicts = awardAccountConflicts();
+    for (auto it = groups.begin(); it != groups.end(); ++it) {
+        QVariantMap group = it.value();
+        QStringList reasons;
+        const QString account = group.value(QStringLiteral("account")).toString();
+        for (const QVariant& value : conflicts) {
+            const QVariantMap conflict = value.toMap();
+            if (conflict.value(QStringLiteral("account")).toString().compare(account, Qt::CaseInsensitive) == 0)
+                reasons << conflict.value(QStringLiteral("reason")).toString();
+        }
+        reasons.removeDuplicates();
+        group.insert(QStringLiteral("conflicts"), reasons);
+        group.insert(QStringLiteral("compatible"), reasons.isEmpty());
+        out << group;
+    }
+    std::sort(out.begin(), out.end(), [](const QVariant& left, const QVariant& right) {
+        return left.toMap().value(QStringLiteral("account")).toString().compare(
+                   right.toMap().value(QStringLiteral("account")).toString(), Qt::CaseInsensitive) < 0;
+    });
+    return out;
+}
+
 qint64 StationProfileModel::save(const QVariantMap& m)
 {
     StationProfile p;
@@ -209,6 +291,10 @@ qint64 StationProfileModel::save(const QVariantMap& m)
     p.myAntenna = m.value(QStringLiteral("myAntenna")).toString();
     p.defaultTxPwr = m.value(QStringLiteral("defaultTxPwr")).toString().replace(QLatin1Char(','), QLatin1Char('.')).toDouble();
     p.lotwStationLocation = m.value(QStringLiteral("lotwStationLocation")).toString();
+    p.awardAccount = m.value(QStringLiteral("awardAccount")).toString().trimmed();
+    p.operatingLocation = m.value(QStringLiteral("operatingLocation")).toString().trimmed();
+    p.validFrom = m.value(QStringLiteral("validFrom")).toString().trimmed();
+    p.validTo = m.value(QStringLiteral("validTo")).toString().trimmed();
     p.isDefault = m.value(QStringLiteral("isDefault")).toBool();
 
     const qint64 id = m_db->saveStationProfile(p);

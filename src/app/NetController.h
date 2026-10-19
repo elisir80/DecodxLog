@@ -10,6 +10,7 @@
 #include <QObject>
 #include <QSet>
 #include <QTimer>
+#include <QUuid>
 #include <QVariantList>
 #include <QVariantMap>
 #include <functional>
@@ -77,6 +78,10 @@ public:
     bool isSerialServer() const;
     QString id() const { return m_id; }
 
+    // Chiave wire-level usata per deduplicare un datagramma. La sessione fa
+    // parte della chiave: dopo un riavvio il contatore puo' ricominciare da 1.
+    static QString frameKey(const QString& session, qint64 seq);
+
     Q_INVOKABLE void sendGab(const QString& text, const QString& to = {});
     Q_INVOKABLE void sendSpot(const QString& call, double khz, const QString& comment = {});
     // Chiede agli altri i QSO della gara che qui mancano.
@@ -120,8 +125,11 @@ private:
         QDateTime seen;
     };
     QHash<QString, Peer> m_peers;
-    QHash<QString, QSet<qint64>> m_seenSeq;
+    // La sequenza riparte a ogni avvio del processo. La sessione evita che un
+    // nuovo messaggio venga confuso con un vecchio frame dello stesso nodo.
+    QHash<QString, QSet<QString>> m_seenSeq;
     qint64 m_seq{0};
+    const QString m_sessionId{QUuid::createUuid().toString(QUuid::WithoutBraces)};
     QVariantList m_messages;
     int m_received{0};
     int m_sent{0};

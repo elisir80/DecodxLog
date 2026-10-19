@@ -133,6 +133,8 @@ void NetController::send(const QString& type, QJsonObject body)
     if (!m_net.running())
         return;
     body.insert(QStringLiteral("seq"), ++m_seq);
+    body.insert(QStringLiteral("session"), m_sessionId);
+    body.insert(QStringLiteral("protocol"), 2);
     body.insert(QStringLiteral("name"), m_name);
     m_net.send(type, body);
     ++m_sent;
@@ -305,11 +307,17 @@ void NetController::onReceived(const QString& from, const QString& type, const Q
 {
     // Lo stesso datagramma arriva una volta per ogni scheda di rete.
     const qint64 seq = body.value(QStringLiteral("seq")).toInteger();
-    QSet<qint64>& seen = m_seenSeq[from];
+    const QString session = body.value(QStringLiteral("session")).toString();
+    // I client precedenti alla sessione 2 non inviano il campo: li trattiamo
+    // come una sessione legacy, mantenendo la compatibilita' senza farli
+    // contaminare le sequenze delle nuove istanze.
+    const QString frameSession = session.isEmpty() ? QStringLiteral("legacy") : session;
+    QSet<QString>& seen = m_seenSeq[from];
     if (seq > 0) {
-        if (seen.contains(seq))
+        const QString frameId = frameKey(frameSession, seq);
+        if (seen.contains(frameId))
             return;
-        seen.insert(seq);
+        seen.insert(frameId);
         if (seen.size() > 2000)
             seen.clear();
     }
@@ -388,6 +396,11 @@ void NetController::onReceived(const QString& from, const QString& type, const Q
     }
     emit peersChanged();
     emit stateChanged();
+}
+
+QString NetController::frameKey(const QString& session, qint64 seq)
+{
+    return session + QLatin1Char(':') + QString::number(seq);
 }
 
 } // namespace decolog::app

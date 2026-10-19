@@ -24,18 +24,19 @@ ctest --test-dir build --output-on-failure -R '^(spots|clustercontroller|propaga
 4/4 test superati
 ```
 
-Questa riesecuzione conferma le fonti di input, ma non chiude il gap: manca
-ancora il ranking composito con motivazioni, età dei dati e limiti esposti.
+Questa riesecuzione conferma le fonti di input. Il ranking composito e
+l'adattatore verso la UI sono ora coperti dai test `dxassistant` e
+`clustercontroller`; la verifica runtime con sorgenti esterne resta separata.
 ```
 
 ## Gap verificato prima dell'implementazione
 
-Non esiste ancora un assistente unico che combini queste fonti in una classifica
-con punteggio, età del dato, motivazione e limiti. L'attuale cluster mostra
-stati e filtri, ma non dichiara una priorità composita; VOACAP resta una
-previsione separata. Non è stato introdotto alcun TX automatico.
+L'assistente combina queste fonti in una classifica con punteggio, età del
+dato, motivazione, evidenza e limiti. Il cluster continua a non eseguire TX
+automatico e VOACAP resta una previsione esplicitamente distinta dai dati
+osservati e storici.
 
-## Implementazione incrementale — 16 ottobre 2026
+## Implementazione incrementale — 16–19 ottobre 2026
 
 È stato aggiunto `core::dxassistant::rank`, un nucleo deterministico che riceve
 candidati già osservati, stato rispetto al log, previsione opzionale e orario
@@ -94,8 +95,14 @@ Prima di aggiungere il ranking servono una specifica versionata per:
 4. formato della spiegazione e dei limiti quando una fonte manca;
 5. divieto esplicito di inventare nominativi/QSO e di trasmettere.
 
-La voce resta parzialmente aperta: il nucleo e l'adattatore al cluster sono
-verificati e la UI è presente. Il collegamento alla previsione è verificato
-con un test di adapter; resta da validare il comportamento con un cluster reale
-e una previsione VOACAP completata, perché la richiesta può inizialmente essere
-in stato pending e gli spot privi di locatore restano senza previsione.
+Il nucleo ora espone anche l'origine dell'evidenza (`observed`, `historical`,
+`forecast/inferred`) e può applicare vincoli dichiarativi su radio e antenna,
+oltre a banda, modo e account diploma. La UI permette di configurare gli
+elenchi hardware; un elenco vuoto significa "qualsiasi". La conferma di uno
+spot viene derivata dal flag `StatusUnconfirmed`, senza inventare una QSL.
+
+I test verificano i tre stati di evidenza, il filtro radio/antenna, il caso
+worked-but-unconfirmed e la persistenza delle preferenze. Restano verifiche
+esterne: il comportamento con un cluster reale e una previsione VOACAP
+completata, perché una richiesta può inizialmente essere pending e gli spot
+privi di locatore restano senza previsione.

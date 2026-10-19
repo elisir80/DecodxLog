@@ -2,6 +2,7 @@
 
 #include "core/NetworkError.h"
 #include "core/Diagnostics.h"
+#include "core/Performance.h"
 #include "core/CloudSettings.h"
 #include "core/QslUpload.h"
 #include "core/LogMigration.h"
@@ -652,10 +653,11 @@ void DecoLogController::refreshStatsInBackground()
     for (const auto& entity : m_countries.entities())
         names.insert(entity.dxcc, entity.name);
     const quint64 generation = ++m_statsGeneration;
+    const qint64 startedAt = QDateTime::currentMSecsSinceEpoch();
     QPointer<DecoLogController> self(this);
     const AwardCalculator calc = awardCalculator(names);
 
-    m_statsPool.start([self, path, filter, calc, generation] {
+    m_statsPool.start([self, path, filter, calc, generation, startedAt] {
         LogDatabase db;
         if (!db.open(path))
             return;
@@ -680,9 +682,11 @@ void DecoLogController::refreshStatsInBackground()
 
         QMetaObject::invokeMethod(
             self.data(),
-            [self, filter, awards, global, ft2, bands, modes, generation] {
+            [self, filter, awards, global, ft2, bands, modes, generation, startedAt] {
                 if (!self || generation != self->m_statsGeneration)
                     return;
+                self->recordUiLatency(QStringLiteral("stats.awards"),
+                                      QDateTime::currentMSecsSinceEpoch() - startedAt);
                 self->m_globalAwardCache = global;
                 self->m_globalAwardsDirty = false;
                 const AwardFilter& now = self->m_awardFilter;
@@ -1402,7 +1406,10 @@ QVariantMap DecoLogController::about() const
         {QStringLiteral("author"), QStringLiteral("Martino Merola — IU8LMC")},
         {QStringLiteral("email"), QStringLiteral("iu8lmc@gmail.com")},
         {QStringLiteral("license"), QStringLiteral("GPL-3.0-or-later")},
-        {QStringLiteral("home"), QStringLiteral("https://github.com/iu8lmc/DecoDXLog")},
+        {QStringLiteral("home"), QStringLiteral("https://github.com/elisir80/DecodxLog")},
+        {QStringLiteral("repository"), QStringLiteral(DECODXLOG_DISTRIBUTION_REPOSITORY)},
+        {QStringLiteral("commit"), QStringLiteral(DECODXLOG_GIT_COMMIT)},
+        {QStringLiteral("channel"), QStringLiteral("fork")},
         {QStringLiteral("family"), QStringLiteral("Decodium")},
         {QStringLiteral("qt"), QStringLiteral(QT_VERSION_STR)},
         {QStringLiteral("built"), QStringLiteral(__DATE__)},
@@ -1537,8 +1544,11 @@ QString DecoLogController::qtVersion() const
 
 QString DecoLogController::buildInfo() const
 {
-    return tr("built on %1").arg(QLocale::c().toDate(QString::fromLatin1(__DATE__).simplified(),
-                                                     QStringLiteral("MMM d yyyy")).toString(Qt::ISODate));
+    return tr("built on %1 · %2 @ %3")
+        .arg(QLocale::c().toDate(QString::fromLatin1(__DATE__).simplified(),
+                                 QStringLiteral("MMM d yyyy")).toString(Qt::ISODate),
+             QStringLiteral(DECODXLOG_DISTRIBUTION_REPOSITORY),
+             QStringLiteral(DECODXLOG_GIT_COMMIT));
 }
 
 // ── Impostazioni del collegamento ─────────────────────────────────────────────
@@ -2417,6 +2427,90 @@ QVariantList DecoLogController::awardBandTotals(const QString& awardId) const
     return out;
 }
 
+QVariantMap DecoLogController::cqMarathonPreview(int year, const QString& category,
+                                                  int maxPerEntity) const
+{
+    core::cqmarathon::Rules rules;
+    rules.year = year;
+    rules.category = category;
+    rules.maxPerEntity = maxPerEntity;
+
+    QString error;
+    const QList<core::cqmarathon::Entry> entries = core::cqmarathon::loadEntries(m_db, &error);
+    if (!error.isEmpty())
+        return QVariantMap{{QStringLiteral("valid"), false},
+                           {QStringLiteral("error"), error},
+                           {QStringLiteral("selected"), QVariantList()},
+                           {QStringLiteral("exclusions"), QStringList()}};
+
+    const core::cqmarathon::Result result = core::cqmarathon::select(entries, rules);
+    QVariantList selected;
+    for (const auto& entry : result.selected) {
+        selected << QVariantMap{{QStringLiteral("qsoId"), entry.qsoId},
+                                {QStringLiteral("call"), entry.call},
+                                {QStringLiteral("dxcc"), entry.dxcc},
+                                {QStringLiteral("cqZone"), entry.cqZone},
+                                {QStringLiteral("band"), entry.band},
+                                {QStringLiteral("mode"), entry.mode},
+                                {QStringLiteral("timestamp"), entry.timestamp.toUTC().toString(Qt::ISODateWithMs)}};
+    }
+    QString validationError;
+    return QVariantMap{{QStringLiteral("valid"), result.isValid(&validationError)},
+                       {QStringLiteral("error"), validationError},
+                       {QStringLiteral("selected"), selected},
+                       {QStringLiteral("exclusions"), result.exclusions},
+                       {QStringLiteral("json"), QString::fromUtf8(result.toJson().toJson(QJsonDocument::Indented))},
+                       {QStringLiteral("edition"), rules.year},
+                       {QStringLiteral("category"), rules.category.trimmed().toLower()},
+                       {QStringLiteral("maxPerEntity"), rules.maxPerEntity}};
+}
+
+bool DecoLogController::saveCqMarathonExport(const QUrl& file, int year, const QString& category,
+                                              int maxPerEntity) const
+{
+    if (!file.isLocalFile())
+        return false;
+    core::cqmarathon::Rules rules{year, category, maxPerEntity};
+    QString error;
+    const auto entries = core::cqmarathon::loadEntries(m_db, &error);
+    if (!error.isEmpty())
+        return false;
+    const auto result = core::cqmarathon::select(entries, rules);
+    if (!result.isValid(&error))
+        return false;
+    QFile output(file.toLocalFile());
+    if (!output.open(QIODevice::WriteOnly | QIODevice::Truncate))
+        return false;
+    return output.write(result.toJson().toJson(QJsonDocument::Indented)) >= 0;
+}
+
+QVariantMap DecoLogController::vuccPreview(const QString& band, const QString& account,
+                                            const QString& site, int target) const
+{
+    core::vucc::Rules rules{account, site, band, target};
+    QString error;
+    const auto entries = core::vucc::loadEntries(m_db, &error);
+    if (!error.isEmpty())
+        return QVariantMap{{QStringLiteral("valid"), false}, {QStringLiteral("error"), error},
+                           {QStringLiteral("eligible"), QVariantList()}, {QStringLiteral("exclusions"), QStringList()}};
+    const auto result = core::vucc::select(entries, rules);
+    QVariantList eligible;
+    for (const auto& entry : result.eligible)
+        eligible << QVariantMap{{QStringLiteral("qsoId"), entry.qsoId},
+                                {QStringLiteral("grid4"), entry.grid},
+                                {QStringLiteral("band"), entry.band},
+                                {QStringLiteral("account"), entry.account},
+                                {QStringLiteral("site"), entry.site},
+                                {QStringLiteral("evidence"), entry.evidence}};
+    QString validationError;
+    return QVariantMap{{QStringLiteral("valid"), result.isValid(&validationError)},
+                       {QStringLiteral("error"), validationError},
+                       {QStringLiteral("officialRulesVerified"), result.officialRulesVerified},
+                       {QStringLiteral("eligible"), eligible},
+                       {QStringLiteral("exclusions"), result.exclusions},
+                       {QStringLiteral("json"), QString::fromUtf8(result.toJson().toJson(QJsonDocument::Indented))}};
+}
+
 QVariantList DecoLogController::awardGrids() const
 {
     QVariantList out;
@@ -2572,6 +2666,8 @@ QVariantList DecoLogController::awardClaims() const
         QVariantMap item{
             {QStringLiteral("id"), claim.id},
             {QStringLiteral("awardId"), claim.awardId},
+            {QStringLiteral("accountId"), claim.accountId},
+            {QStringLiteral("category"), claim.category},
             {QStringLiteral("ruleVersion"), claim.ruleVersion},
             {QStringLiteral("state"), core::awards::AwardClaim::stateName(claim.state)},
             {QStringLiteral("createdAt"), claim.createdAt.toUTC().toString(Qt::ISODateWithMs)},
@@ -2579,7 +2675,10 @@ QVariantList DecoLogController::awardClaims() const
             {QStringLiteral("decidedAt"), claim.decidedAt.isValid() ? claim.decidedAt.toUTC().toString(Qt::ISODateWithMs) : QString()},
             {QStringLiteral("qsoIds"), QVariant::fromValue(claim.qsoIds)},
             {QStringLiteral("outcome"), claim.outcome},
-            {QStringLiteral("evidence"), claim.evidence}};
+            {QStringLiteral("evidence"), claim.evidence},
+            {QStringLiteral("externalProvider"), claim.externalProvider},
+            {QStringLiteral("creditedQsoIds"), QVariant::fromValue(claim.creditedQsoIds)},
+            {QStringLiteral("rejectedQsoIds"), QVariant::fromValue(claim.rejectedQsoIds)}};
         out << item;
     }
     return out;
@@ -2632,6 +2731,15 @@ bool DecoLogController::transitionAwardClaim(const QString& claimId, const QStri
         return true;
     }
     return false;
+}
+
+QString DecoLogController::reconcileAwardResult(const QString& json)
+{
+    QString error;
+    if (!core::awards::AwardClaimStore::reconcileExternalResult(m_db, json.toUtf8(), &error))
+        return error.isEmpty() ? tr("External result was rejected") : error;
+    emit awardsChanged();
+    return {};
 }
 
 void DecoLogController::setAwardConfirmLotw(bool on)
@@ -2968,11 +3076,11 @@ HttpResponse DecoLogController::handleApi(const HttpRequest& request)
         if (idempotencyKey.size() > 128)
             return HttpResponse::error(400, QStringLiteral("idempotency key is too long"));
         if (!idempotencyKey.isEmpty()) {
-            const auto previous = m_apiIdempotency.constFind(idempotencyKey);
-            if (previous != m_apiIdempotency.cend()) {
-                if (previous->first != request.body)
+            const auto previous = m_db.apiIdempotency(idempotencyKey);
+            if (previous) {
+                if (previous->requestBody != request.body)
                     return HttpResponse::error(409, QStringLiteral("idempotency key was used with a different body"));
-                return previous->second;
+                return HttpResponse{previous->status, previous->contentType, previous->responseBody};
             }
         }
         // ADIF nel corpo, o JSON {"adif": "..."}.
@@ -3001,11 +3109,10 @@ HttpResponse DecoLogController::handleApi(const HttpRequest& request)
         }
         const HttpResponse response = HttpResponse::json(saved > 0 ? 201 : 409,
                                                           QJsonObject{{QStringLiteral("results"), results}});
-        if (!idempotencyKey.isEmpty()) {
-            m_apiIdempotency.insert(idempotencyKey, qMakePair(request.body, response));
-            while (m_apiIdempotency.size() > 512)
-                m_apiIdempotency.erase(m_apiIdempotency.begin());
-        }
+        if (!idempotencyKey.isEmpty())
+            m_db.saveApiIdempotency(idempotencyKey,
+                                    ApiIdempotencyRecord{request.body, response.status, response.contentType,
+                                                         response.body, QDateTime::currentDateTimeUtc().toString(Qt::ISODate)});
         return response;
     }
 
@@ -3392,7 +3499,7 @@ QVariantList DecoLogController::integrationDiagnostics() const
     int qslReady = 0;
     for (const QVariant& item : qslServices)
         qslReady += item.toMap().value(QStringLiteral("ready")).toBool() ? 1 : 0;
-    return {
+    QVariantList out = {
         QVariantMap{{QStringLiteral("id"), QStringLiteral("receive")}, {QStringLiteral("label"), tr("Receive")},
                     {QStringLiteral("state"), decodium ? QStringLiteral("ok") : QStringLiteral("warning")},
                     {QStringLiteral("detail"), decodium ? tr("Decodium connection is active") : tr("No Decodium client is connected")}},
@@ -3409,6 +3516,22 @@ QVariantList DecoLogController::integrationDiagnostics() const
                     {QStringLiteral("state"), qslReady > 0 ? QStringLiteral("ok") : QStringLiteral("info")},
                     {QStringLiteral("detail"), tr("%1 QSL service(s) ready; diagnostic mode never uploads").arg(qslReady)}}
     };
+    const bool rigConnected = m_rig && m_rig->connected();
+    diagnostics::StationContext station;
+    if (m_rig) {
+        station.backend = m_rig->link();
+        station.model = m_rig->rigModel() > 0 ? QString::number(m_rig->rigModel()) : QStringLiteral("not selected");
+        station.firmware = QStringLiteral("not reported by CAT backend");
+    }
+    const auto checklist = diagnostics::operationalChecklist(logOpen, rigConnected,
+                                                              m_rig ? m_rig->frequencyHz() : 0,
+                                                              m_rig ? m_rig->features() : 0, station);
+    for (const auto& step : checklist)
+        out << QVariantMap{{QStringLiteral("id"), step.id},
+                           {QStringLiteral("label"), step.id.toUpper()},
+                           {QStringLiteral("state"), step.state},
+                           {QStringLiteral("detail"), step.detail}};
+    return out;
 }
 
 QString DecoLogController::diagnosticSupportText() const
@@ -3423,7 +3546,46 @@ QString DecoLogController::diagnosticSupportText() const
                                                    row.value(QStringLiteral("state")).toString(),
                                                    row.value(QStringLiteral("detail")).toString());
     }
+    for (auto it = m_uiLatencySamples.cbegin(); it != m_uiLatencySamples.cend(); ++it)
+        lines << core::performance::toText(core::performance::summarize(it.value()),
+                                           QStringLiteral("ui.%1").arg(it.key()));
     return diagnostics::redactSecrets(lines.join(QLatin1Char('\n')));
+}
+
+QString DecoLogController::diagnosticSupportJson() const
+{
+    QJsonObject report;
+    report.insert(QStringLiteral("schema"), QStringLiteral("decodxlog.diagnostics/v1"));
+    report.insert(QStringLiteral("generatedAt"), QDateTime::currentDateTimeUtc().toString(Qt::ISODateWithMs));
+    report.insert(QStringLiteral("applicationVersion"), QCoreApplication::applicationVersion());
+    report.insert(QStringLiteral("verificationScope"), QStringLiteral("local-observation; hardware and external services not exercised automatically"));
+    report.insert(QStringLiteral("supportText"), diagnosticSupportText());
+    QJsonArray steps;
+    for (const QVariant& item : integrationDiagnostics())
+        steps.append(QJsonObject::fromVariantMap(item.toMap()));
+    report.insert(QStringLiteral("steps"), steps);
+    QJsonArray performance;
+    for (auto it = m_uiLatencySamples.cbegin(); it != m_uiLatencySamples.cend(); ++it) {
+        const auto summary = core::performance::summarize(it.value());
+        performance.append(QJsonObject{{QStringLiteral("scenario"), it.key()},
+                                       {QStringLiteral("samples"), summary.samples},
+                                       {QStringLiteral("p50Ms"), summary.p50Ms},
+                                       {QStringLiteral("p95Ms"), summary.p95Ms},
+                                       {QStringLiteral("maxMs"), summary.maxMs}});
+    }
+    report.insert(QStringLiteral("uiLatency"), performance);
+    return QString::fromUtf8(QJsonDocument(report).toJson(QJsonDocument::Indented));
+}
+
+void DecoLogController::recordUiLatency(const QString& scenario, qint64 elapsedMs)
+{
+    const QString key = scenario.trimmed().left(80);
+    if (key.isEmpty())
+        return;
+    QList<qint64>& samples = m_uiLatencySamples[key];
+    samples.append(qMax<qint64>(0, elapsedMs));
+    while (samples.size() > 256)
+        samples.removeFirst();
 }
 
 QString DecoLogController::saveDiagnosticReport(const QUrl& file) const
@@ -3436,6 +3598,20 @@ QString DecoLogController::saveDiagnosticReport(const QUrl& file) const
         return tr("Cannot write diagnostic report: %1").arg(output.errorString());
     const QByteArray text = diagnosticSupportText().toUtf8();
     if (output.write(text) != text.size() || !output.commit())
+        return tr("Cannot save diagnostic report");
+    return {};
+}
+
+QString DecoLogController::saveDiagnosticJsonReport(const QUrl& file) const
+{
+    const QString path = file.isLocalFile() ? file.toLocalFile() : file.toString();
+    if (path.isEmpty())
+        return tr("Choose a file first");
+    QSaveFile output(path);
+    if (!output.open(QIODevice::WriteOnly))
+        return tr("Cannot write diagnostic report: %1").arg(output.errorString());
+    const QByteArray json = diagnosticSupportJson().toUtf8();
+    if (output.write(json) != json.size() || !output.commit())
         return tr("Cannot save diagnostic report");
     return {};
 }
@@ -4119,6 +4295,7 @@ void DecoLogController::importAdif(const QUrl& url)
     }
     file.close();
     const qint64 profile = m_profiles ? m_profiles->activeProfileId() : 0;
+    const qint64 startedAt = QDateTime::currentMSecsSinceEpoch();
     const QString dbPath = m_db.path();
     // Un log di prova in memoria non si apre da un altro filo: li' si importa qui.
     if (dbPath.isEmpty() || dbPath == QLatin1String(":memory:")) {
@@ -4130,6 +4307,7 @@ void DecoLogController::importAdif(const QUrl& url)
             result.errors << error;
         }
         finishImport(path, result);
+        recordUiLatency(QStringLiteral("import.adif"), QDateTime::currentMSecsSinceEpoch() - startedAt);
         return;
     }
 
@@ -4142,7 +4320,7 @@ void DecoLogController::importAdif(const QUrl& url)
     const int digital = m_db.dedupWindowSeconds(false);
     const int manual = m_db.dedupWindowSeconds(true);
     QPointer<DecoLogController> self(this);
-    m_importPool.start([self, path, dbPath, profile, digital, manual] {
+    m_importPool.start([self, path, dbPath, profile, digital, manual, startedAt] {
         ImportResult result;
         // ADIF com'e'; un CSV o un database di N1MM convertiti prima.
         QString readError;
@@ -4172,9 +4350,12 @@ void DecoLogController::importAdif(const QUrl& url)
                                    1000);
         }
         QMetaObject::invokeMethod(
-            self.data(), [self, path, result] {
-                if (self)
+            self.data(), [self, path, result, startedAt] {
+                if (self) {
+                    self->recordUiLatency(QStringLiteral("import.adif"),
+                                          QDateTime::currentMSecsSinceEpoch() - startedAt);
                     self->finishImport(path, result);
+                }
             },
             Qt::QueuedConnection);
     });
@@ -4516,6 +4697,7 @@ void DecoLogController::backupNow()
     QSettings settings;
     const auto portableSettings = core::cloudsettings::collect(settings);
     const QString dbPath = m_db.path();
+    const qint64 startedAt = QDateTime::currentMSecsSinceEpoch();
     // La copia si fa su un altro filo, con una sua connessione: VACUUM INTO di
     // un log da un milione sono secondi, e il programma non si deve fermare.
     if (dbPath.isEmpty() || dbPath == QLatin1String(":memory:")) {
@@ -4528,11 +4710,12 @@ void DecoLogController::backupNow()
                 error = made.error;
         }
         finishBackup(path, error);
+        recordUiLatency(QStringLiteral("backup.station"), QDateTime::currentMSecsSinceEpoch() - startedAt);
         return;
     }
     m_backupRunning = true;
     QPointer<DecoLogController> self(this);
-    m_backupPool.start([self, dbPath, path, bundle, resources, portableSettings] {
+    m_backupPool.start([self, dbPath, path, bundle, resources, portableSettings, startedAt] {
         QString error;
         {
             LogDatabase db;
@@ -4545,10 +4728,12 @@ void DecoLogController::backupNow()
             }
         }
         QMetaObject::invokeMethod(
-            self.data(), [self, path, error] {
+            self.data(), [self, path, error, startedAt] {
                 if (!self)
                     return;
                 self->m_backupRunning = false;
+                self->recordUiLatency(QStringLiteral("backup.station"),
+                                      QDateTime::currentMSecsSinceEpoch() - startedAt);
                 self->finishBackup(path, error);
             },
             Qt::QueuedConnection);

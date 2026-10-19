@@ -27,6 +27,8 @@
 #include "app/QsoTableModel.h"
 #include "app/StationProfileModel.h"
 #include "core/Awards.h"
+#include "core/CqMarathon.h"
+#include "core/Vucc.h"
 #include "core/Callbook.h"
 #include "core/Countries.h"
 #include "core/DecoLinkServer.h"
@@ -433,6 +435,9 @@ public:
                                           const QVariantList& qsoIds);
     Q_INVOKABLE bool transitionAwardClaim(const QString& claimId, const QString& state,
                                           const QString& note, const QString& evidence);
+    // Importa un esito esterno verificabile; ritorna una stringa vuota solo
+    // quando account, categoria, provider e QSO sono stati riconciliati.
+    Q_INVOKABLE QString reconcileAwardResult(const QString& json);
     bool awardConfirmLotw() const { return m_awardFilter.confirmLotw; }
     void setAwardConfirmLotw(bool on);
     bool awardConfirmCard() const { return m_awardFilter.confirmCard; }
@@ -450,6 +455,15 @@ public:
     Q_INVOKABLE QVariantList awardItems(const QString& awardId, const QString& search, const QString& view) const;
     // Per banda (le colonne della tabella): [{band, worked, confirmed}].
     Q_INVOKABLE QVariantList awardBandTotals(const QString& awardId) const;
+    // Anteprima/export deterministico dei QSO per CQ DX Marathon. Non modifica
+    // il log e non dichiara il risultato ufficiale dell'ente organizzatore.
+    Q_INVOKABLE QVariantMap cqMarathonPreview(int year, const QString& category,
+                                               int maxPerEntity = 1) const;
+    Q_INVOKABLE bool saveCqMarathonExport(const QUrl& file, int year, const QString& category,
+                                          int maxPerEntity = 1) const;
+    // VUCC resta separato dal conteggio statistico dei locatori.
+    Q_INVOKABLE QVariantMap vuccPreview(const QString& band, const QString& account = {},
+                                         const QString& site = {}, int target = 100) const;
 
     // ── Statistiche ─────────────────────────────────────────────────────────
     // `mode` vuoto = tutti i modi, `year` 0 = tutti gli anni. Ogni elenco e'
@@ -701,7 +715,12 @@ public:
     Q_INVOKABLE QVariantMap qslManagerSuggestion(qint64 qsoId) const;
     Q_INVOKABLE QVariantList integrationDiagnostics() const;
     Q_INVOKABLE QString diagnosticSupportText() const;
+    Q_INVOKABLE QString diagnosticSupportJson() const;
     Q_INVOKABLE QString saveDiagnosticReport(const QUrl& file) const;
+    Q_INVOKABLE QString saveDiagnosticJsonReport(const QUrl& file) const;
+    // Misura locale, senza telemetria: la UI registra solo durate aggregate
+    // per poter documentare p50/p95 durante un collaudo esplicito.
+    Q_INVOKABLE void recordUiLatency(const QString& scenario, qint64 elapsedMs);
     // Per le prove: un evento del mouse vero ("press", "move", "release") nel
     // punto x, y della finestra, come se l'avesse fatto l'operatore. Serve a
     // provare che un clic arrivi davvero al pulsante giusto.
@@ -896,6 +915,7 @@ private:
     core::AwardCalculator awardCalculator(const QHash<int, QString>& names) const;
     QList<RecoveryJob> m_recoveryQueue;
     QHash<QString, QString> m_recoveryStatuses;   // file tenuto d'occhio → ultimo esito
+    mutable QHash<QString, QList<qint64>> m_uiLatencySamples;
     QTimer m_recoveryTimer;
     QThreadPool m_recoveryPool;
     int m_confirmAutoHours{12};
@@ -980,7 +1000,6 @@ private:
     core::LocalApiServer m_api;
     int       m_apiPort{0};
     QString   m_apiToken;
-    QHash<QString, QPair<QByteArray, core::HttpResponse>> m_apiIdempotency;
     void onN1mmReplaced(const core::AdifRecord& record, const QString& id);
     void onN1mmDeleted(const QString& id, const core::AdifRecord& record);
     QString   m_udpForwardError;

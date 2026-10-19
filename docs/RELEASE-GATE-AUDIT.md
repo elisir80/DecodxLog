@@ -7,19 +7,18 @@ includeva `QslCards.cpp` e `QslDesign.cpp`. Il test suite completo falliva in
 fase di link, anche se l'applicazione principale compilava. Il target ora usa
 gli stessi sorgenti QSL necessari al controller.
 
-## Verifica locale
+## Verifica locale — 19 ottobre 2026
 
 ```text
-bash scripts/release-gate.sh build build/DecoDXLog.app/Contents/MacOS/DecoDXLog
+bash scripts/release-gate.sh build build/DecoDXLog.app/Contents/MacOS/DecoDXLog build/decodxlog-capabilities.json
 ```
 
 Risultato:
 
-- controllo versione/documentazione: passato dopo l'allineamento dei riferimenti
-  alla versione `1.17.24` (il primo run aveva rilevato `README=1.17.23`);
-- build dell'app macOS: passata;
-- CTest: 69/69 passati, 0 falliti;
-- eseguibile macOS presente e avviabile dal percorso del gate.
+- controllo versione/documentazione: passato per la versione `1.17.26`;
+- build completa dell'app macOS e dei target di test: passata;
+- CTest: 75/75 passati, 0 falliti;
+- eseguibile macOS presente e avviabile dal percorso del gate;
 - smoke test offscreen `--grab`: passato.
 
 Il nome del file temporaneo dello smoke test usa ora un template portabile
@@ -28,11 +27,9 @@ con `XXXXXX` in coda, compatibile con `mktemp` di macOS e Linux.
 Il gate blocca quindi un artefatto locale quando build, test o versione
 documentale falliscono, verifica anche l'avvio offscreen e la creazione di una
 schermata smoke, invece di limitarsi alla compilazione dell'app. La CI
-principale include inoltre un job separato per la suite Cloud. Il
-Il comando è stato rieseguito il 2026-10-16. Il primo tentativo si è fermato
-correttamente per un riferimento README obsoleto; dopo l'allineamento a
-`1.17.24`, il gate ha completato build, CTest (69/69) e smoke test senza
-errori. Durante la verifica è emerso anche un errore reale di avvio QML:
+principale include inoltre un job separato per la suite Cloud. Il comando è
+stato rieseguito il 2026-10-19 e ha completato build, CTest (75/75) e smoke
+test senza errori. Durante la verifica è emerso anche un errore reale di avvio QML:
 `ClusterPanel.qml` usava `Note` senza dichiararlo quando veniva caricato
 direttamente. Il componente è stato reso locale a `ClusterPanel`; il test
 `udppipeline` è poi passato 1/1 e il gate è stato rieseguito con successo.
@@ -43,7 +40,7 @@ Il job Cloud separato è presente in `.github/workflows/ci.yml`; la dipendenza
 Python 3.11: 136 test passati, 3 warning di dipendenze, 0 errori.
 
 Per evitare che un runner assegnato ma bloccato resti indefinitamente in
-`in_progress`, i job Windows, Linux e Cloud della CI hanno ora timeout espliciti
+`in_progress`, i job Windows, Linux e Cloud della CI hanno timeout espliciti
 di 35, 35 e 20 minuti. Il timeout fa fallire il gate in modo osservabile; non
 trasforma un job sospeso in un successo.
 

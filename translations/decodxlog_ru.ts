@@ -87,6 +87,14 @@
         <source>Close</source>
         <translation>Закрыть</translation>
     </message>
+    <message>
+        <source>Distribution</source>
+        <translation>Дистрибутив</translation>
+    </message>
+    <message>
+        <source>Commit</source>
+        <translation>Коммит</translation>
+    </message>
 </context>
 <context>
     <name>ActivationController</name>
@@ -651,6 +659,126 @@
         <source>● confirmed  ○ worked  ·  double-click opens the first QSO. DXCC counts entities with a DXCC number; use Setup → General → Fill missing DXCC for older QSOs.</source>
         <translation>● подтверждён  ○ проведён  ·  двойной щелчок открывает первый QSO. DXCC считает территории с номером DXCC; для старых QSO используйте Настройки → Общие → Дополнить недостающие DXCC.</translation>
     </message>
+    <message>
+        <source>External result reconciled</source>
+        <translation>Внешний результат сверен</translation>
+    </message>
+    <message>
+        <source>Export CQ DX Marathon JSON</source>
+        <translation>Экспорт JSON CQ DX Marathon</translation>
+    </message>
+    <message>
+        <source>JSON files (*.json)</source>
+        <translation>Файлы JSON (*.json)</translation>
+    </message>
+    <message>
+        <source>All files (*)</source>
+        <translation type="unfinished">Все файлы (*)</translation>
+    </message>
+    <message>
+        <source>Paste verified external result JSON</source>
+        <translation>Вставьте проверенный внешний результат в формате JSON</translation>
+    </message>
+    <message>
+        <source>Reconcile result</source>
+        <translation>Сверить результат</translation>
+    </message>
+    <message>
+        <source>CQ DX Marathon preview</source>
+        <translation>Предпросмотр CQ DX Marathon</translation>
+    </message>
+    <message>
+        <source>local selection/export · not an official result</source>
+        <translation>локальный отбор/экспорт · не официальный результат</translation>
+    </message>
+    <message>
+        <source>CQ DX Marathon edition year</source>
+        <translation>Год выпуска CQ DX Marathon</translation>
+    </message>
+    <message>
+        <source>CQ DX Marathon category</source>
+        <translation>Категория CQ DX Marathon</translation>
+    </message>
+    <message>
+        <source>Mixed</source>
+        <translation>Смешанный</translation>
+    </message>
+    <message>
+        <source>CQ DX Marathon maximum contacts per entity</source>
+        <translation>Максимум связей на одну территорию в CQ DX Marathon</translation>
+    </message>
+    <message>
+        <source>Preview CQ DX Marathon selection</source>
+        <translation>Предпросмотр отбора CQ DX Marathon</translation>
+    </message>
+    <message>
+        <source>Preview</source>
+        <translation>Предпросмотр</translation>
+    </message>
+    <message>
+        <source>Export JSON</source>
+        <translation>Экспорт JSON</translation>
+    </message>
+    <message>
+        <source>Configure edition, category and entity limit, then preview.</source>
+        <translation>Задайте выпуск, категорию и лимит на территорию, затем откройте предпросмотр.</translation>
+    </message>
+    <message>
+        <source>Selected: %1 · excluded: %2</source>
+        <translation>Выбрано: %1 · исключено: %2</translation>
+    </message>
+    <message>
+        <source>VUCC preview</source>
+        <translation>Предпросмотр VUCC</translation>
+    </message>
+    <message>
+        <source>separate from statistical locator totals</source>
+        <translation>отдельно от статистических итогов по локаторам</translation>
+    </message>
+    <message>
+        <source>VUCC band</source>
+        <translation>Диапазон VUCC</translation>
+    </message>
+    <message>
+        <source>VUCC award account</source>
+        <translation>Учётная запись диплома VUCC</translation>
+    </message>
+    <message>
+        <source>Award account</source>
+        <translation>Учётная запись диплома</translation>
+    </message>
+    <message>
+        <source>VUCC operating site</source>
+        <translation>Место работы для VUCC</translation>
+    </message>
+    <message>
+        <source>Operating site</source>
+        <translation>Место работы</translation>
+    </message>
+    <message>
+        <source>VUCC target</source>
+        <translation>Цель VUCC</translation>
+    </message>
+    <message>
+        <source>Preview VUCC selection</source>
+        <translation>Предпросмотр отбора VUCC</translation>
+    </message>
+    <message>
+        <source>Confirmed evidence is required; configure the band/account/site and preview.</source>
+        <translation>Нужны подтверждённые данные: задайте диапазон, учётную запись и место работы, затем откройте предпросмотр.</translation>
+    </message>
+    <message>
+        <source>Eligible GRID4: %1 / %2 · excluded: %3 · external rules verified: %4</source>
+        <translation>Подходящих GRID4: %1 / %2 · исключено: %3 · внешние правила проверены: %4</translation>
+    </message>
+    <message>
+        <source>yes</source>
+        <translation>да</translation>
+    </message>
+    <message>
+        <source>no</source>
+        <translation>нет</translation>
+    </message>
 </context>
 <context>
     <name>BandMapPanel</name>
@@ -887,6 +1015,18 @@
     <message>
         <source>LoTW last sync %1</source>
         <translation>LoTW, последняя синхронизация %1</translation>
+    </message>
+    <message>
+        <source>Save JSON evidence…</source>
+        <translation>Сохранить данные JSON…</translation>
+    </message>
+    <message>
+        <source>Save structured diagnostic evidence</source>
+        <translation>Сохранить структурированные данные диагностики</translation>
+    </message>
+    <message>
+        <source>JSON files (*.json)</source>
+        <translation>Файлы JSON (*.json)</translation>
     </message>
 </context>
 <context>
@@ -1311,6 +1451,58 @@ The call Decodium is working shows up here by itself.</source>
     <message>
         <source>Waiting for spots…</source>
         <translation>Ждём споты…</translation>
+    </message>
+    <message>
+        <source>Award account</source>
+        <translation>Учётная запись диплома</translation>
+    </message>
+    <message>
+        <source>optional account id</source>
+        <translation>ID учётной записи (необязательно)</translation>
+    </message>
+    <message>
+        <source>Require feasible station</source>
+        <translation>Требовать выполнимую станцию</translation>
+    </message>
+    <message>
+        <source>Prioritize worked/unconfirmed</source>
+        <translation>Приоритет: работал/не подтверждено</translation>
+    </message>
+    <message>
+        <source>Available bands</source>
+        <translation>Доступные диапазоны</translation>
+    </message>
+    <message>
+        <source>DX Assistant available bands</source>
+        <translation>Доступные диапазоны для DX-ассистента</translation>
+    </message>
+    <message>
+        <source>comma separated; empty = any</source>
+        <translation>через запятую; пусто = любые</translation>
+    </message>
+    <message>
+        <source>Modes</source>
+        <translation type="unfinished">Режимы</translation>
+    </message>
+    <message>
+        <source>DX Assistant available modes</source>
+        <translation>Доступные виды излучения для DX-ассистента</translation>
+    </message>
+    <message>
+        <source>Available radios</source>
+        <translation>Доступные радиостанции</translation>
+    </message>
+    <message>
+        <source>DX Assistant available radios</source>
+        <translation>Доступные радиостанции для DX-ассистента</translation>
+    </message>
+    <message>
+        <source>Antennas</source>
+        <translation>Антенны</translation>
+    </message>
+    <message>
+        <source>DX Assistant available antennas</source>
+        <translation>Доступные антенны для DX-ассистента</translation>
     </message>
 </context>
 <context>
@@ -8642,6 +8834,30 @@ Extra fields are preserved: %8</source>
         <source>Save profile</source>
         <translation>Сохранить профиль</translation>
     </message>
+    <message>
+        <source>Award account</source>
+        <translation>Учётная запись диплома</translation>
+    </message>
+    <message>
+        <source>Historical operating location</source>
+        <translation>Прежнее место работы</translation>
+    </message>
+    <message>
+        <source>Valid from (YYYY-MM-DD)</source>
+        <translation>Действует с (ГГГГ-ММ-ДД)</translation>
+    </message>
+    <message>
+        <source>Valid to (YYYY-MM-DD)</source>
+        <translation>Действует по (ГГГГ-ММ-ДД)</translation>
+    </message>
+    <message>
+        <source>Award account requires review: %1</source>
+        <translation>Учётную запись диплома нужно проверить: %1</translation>
+    </message>
+    <message>
+        <source>Award account groups: %1</source>
+        <translation>Группы учётной записи диплома: %1</translation>
+    </message>
 </context>
 <context>
     <name>StatsAwardsPage</name>
@@ -10225,10 +10441,6 @@ Extra fields are preserved: %8</source>
         <translation>Исправлено N1MM: %1</translation>
     </message>
     <message>
-        <source>built on %1</source>
-        <translation>собрано %1</translation>
-    </message>
-    <message>
         <source>Not understood: %1 (write address:port)</source>
         <translation>Не понято: %1 (пишите адрес:порт)</translation>
     </message>
@@ -11088,6 +11300,14 @@ Extra fields are preserved: %8</source>
             <numerusform>Починено %n QSO после плохого старого импорта (прежний текст остаётся в истории).</numerusform>
             <numerusform>Починено %n QSO после плохого старого импорта (прежний текст остаётся в истории).</numerusform>
         </translation>
+    </message>
+    <message>
+        <source>built on %1 · %2 @ %3</source>
+        <translation>собрано %1 · %2 @ %3</translation>
+    </message>
+    <message>
+        <source>External result was rejected</source>
+        <translation>Внешний результат отклонён</translation>
     </message>
 </context>
 <context>

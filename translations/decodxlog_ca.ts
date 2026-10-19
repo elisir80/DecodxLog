@@ -87,6 +87,14 @@
         <source>Close</source>
         <translation>Tancar</translation>
     </message>
+    <message>
+        <source>Distribution</source>
+        <translation>Distribució</translation>
+    </message>
+    <message>
+        <source>Commit</source>
+        <translation>Commit</translation>
+    </message>
 </context>
 <context>
     <name>ActivationController</name>
@@ -649,6 +657,126 @@
         <source>● confirmed  ○ worked  ·  double-click opens the first QSO. DXCC counts entities with a DXCC number; use Setup → General → Fill missing DXCC for older QSOs.</source>
         <translation>● confirmat  ○ treballat  ·  el doble clic obre el primer QSO. DXCC compta entitats amb número DXCC; fes servir Configuració → General → Omple els DXCC que falten per als QSO més antics.</translation>
     </message>
+    <message>
+        <source>External result reconciled</source>
+        <translation>Resultat extern conciliat</translation>
+    </message>
+    <message>
+        <source>Export CQ DX Marathon JSON</source>
+        <translation>Exporta el JSON de CQ DX Marathon</translation>
+    </message>
+    <message>
+        <source>JSON files (*.json)</source>
+        <translation>Fitxers JSON (*.json)</translation>
+    </message>
+    <message>
+        <source>All files (*)</source>
+        <translation type="unfinished">Tots els fitxers (*)</translation>
+    </message>
+    <message>
+        <source>Paste verified external result JSON</source>
+        <translation>Enganxa el JSON del resultat extern verificat</translation>
+    </message>
+    <message>
+        <source>Reconcile result</source>
+        <translation>Concilia el resultat</translation>
+    </message>
+    <message>
+        <source>CQ DX Marathon preview</source>
+        <translation>Previsualització de CQ DX Marathon</translation>
+    </message>
+    <message>
+        <source>local selection/export · not an official result</source>
+        <translation>selecció/exportació local · no és un resultat oficial</translation>
+    </message>
+    <message>
+        <source>CQ DX Marathon edition year</source>
+        <translation>Any de l&apos;edició de CQ DX Marathon</translation>
+    </message>
+    <message>
+        <source>CQ DX Marathon category</source>
+        <translation>Categoria de CQ DX Marathon</translation>
+    </message>
+    <message>
+        <source>Mixed</source>
+        <translation>Mixt</translation>
+    </message>
+    <message>
+        <source>CQ DX Marathon maximum contacts per entity</source>
+        <translation>Màxim de contactes per entitat a CQ DX Marathon</translation>
+    </message>
+    <message>
+        <source>Preview CQ DX Marathon selection</source>
+        <translation>Previsualització de la selecció de CQ DX Marathon</translation>
+    </message>
+    <message>
+        <source>Preview</source>
+        <translation>Previsualització</translation>
+    </message>
+    <message>
+        <source>Export JSON</source>
+        <translation>Exporta JSON</translation>
+    </message>
+    <message>
+        <source>Configure edition, category and entity limit, then preview.</source>
+        <translation>Configura l&apos;edició, la categoria i el límit per entitat i després mira la previsualització.</translation>
+    </message>
+    <message>
+        <source>Selected: %1 · excluded: %2</source>
+        <translation>Seleccionats: %1 · exclosos: %2</translation>
+    </message>
+    <message>
+        <source>VUCC preview</source>
+        <translation>Previsualització de VUCC</translation>
+    </message>
+    <message>
+        <source>separate from statistical locator totals</source>
+        <translation>separat dels totals estadístics de locators</translation>
+    </message>
+    <message>
+        <source>VUCC band</source>
+        <translation>Banda VUCC</translation>
+    </message>
+    <message>
+        <source>VUCC award account</source>
+        <translation>Compte de diploma VUCC</translation>
+    </message>
+    <message>
+        <source>Award account</source>
+        <translation>Compte de diploma</translation>
+    </message>
+    <message>
+        <source>VUCC operating site</source>
+        <translation>Lloc d&apos;operació VUCC</translation>
+    </message>
+    <message>
+        <source>Operating site</source>
+        <translation>Lloc d&apos;operació</translation>
+    </message>
+    <message>
+        <source>VUCC target</source>
+        <translation>Objectiu VUCC</translation>
+    </message>
+    <message>
+        <source>Preview VUCC selection</source>
+        <translation>Previsualització de la selecció VUCC</translation>
+    </message>
+    <message>
+        <source>Confirmed evidence is required; configure the band/account/site and preview.</source>
+        <translation>Calen proves confirmades: configura banda, compte i lloc i mira la previsualització.</translation>
+    </message>
+    <message>
+        <source>Eligible GRID4: %1 / %2 · excluded: %3 · external rules verified: %4</source>
+        <translation>GRID4 vàlids: %1 / %2 · exclosos: %3 · regles externes verificades: %4</translation>
+    </message>
+    <message>
+        <source>yes</source>
+        <translation>sí</translation>
+    </message>
+    <message>
+        <source>no</source>
+        <translation>no</translation>
+    </message>
 </context>
 <context>
     <name>BandMapPanel</name>
@@ -883,6 +1011,18 @@
     <message>
         <source>LoTW last sync %1</source>
         <translation>LoTW darrera sincronització %1</translation>
+    </message>
+    <message>
+        <source>Save JSON evidence…</source>
+        <translation>Desa les proves JSON…</translation>
+    </message>
+    <message>
+        <source>Save structured diagnostic evidence</source>
+        <translation>Desa les proves de diagnòstic estructurades</translation>
+    </message>
+    <message>
+        <source>JSON files (*.json)</source>
+        <translation>Fitxers JSON (*.json)</translation>
     </message>
 </context>
 <context>
@@ -1307,6 +1447,58 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
     <message>
         <source>Waiting for spots…</source>
         <translation>Esperant spots…</translation>
+    </message>
+    <message>
+        <source>Award account</source>
+        <translation>Compte de diploma</translation>
+    </message>
+    <message>
+        <source>optional account id</source>
+        <translation>id de compte (opcional)</translation>
+    </message>
+    <message>
+        <source>Require feasible station</source>
+        <translation>Exigeix una estació factible</translation>
+    </message>
+    <message>
+        <source>Prioritize worked/unconfirmed</source>
+        <translation>Prioritza els treballats/sense confirmar</translation>
+    </message>
+    <message>
+        <source>Available bands</source>
+        <translation>Bandes disponibles</translation>
+    </message>
+    <message>
+        <source>DX Assistant available bands</source>
+        <translation>Bandes disponibles per a l&apos;assistent DX</translation>
+    </message>
+    <message>
+        <source>comma separated; empty = any</source>
+        <translation>separats per comes; buit = qualsevol</translation>
+    </message>
+    <message>
+        <source>Modes</source>
+        <translation type="unfinished">Modes</translation>
+    </message>
+    <message>
+        <source>DX Assistant available modes</source>
+        <translation>Modes disponibles per a l&apos;assistent DX</translation>
+    </message>
+    <message>
+        <source>Available radios</source>
+        <translation>Equips disponibles</translation>
+    </message>
+    <message>
+        <source>DX Assistant available radios</source>
+        <translation>Equips disponibles per a l&apos;assistent DX</translation>
+    </message>
+    <message>
+        <source>Antennas</source>
+        <translation>Antenes</translation>
+    </message>
+    <message>
+        <source>DX Assistant available antennas</source>
+        <translation>Antenes disponibles per a l&apos;assistent DX</translation>
     </message>
 </context>
 <context>
@@ -8620,6 +8812,30 @@ Camps extra conservats: %8</translation>
         <source>Save profile</source>
         <translation>Desa el perfil</translation>
     </message>
+    <message>
+        <source>Award account</source>
+        <translation>Compte de diploma</translation>
+    </message>
+    <message>
+        <source>Historical operating location</source>
+        <translation>Lloc d&apos;operació històric</translation>
+    </message>
+    <message>
+        <source>Valid from (YYYY-MM-DD)</source>
+        <translation>Vàlid des de (AAAA-MM-DD)</translation>
+    </message>
+    <message>
+        <source>Valid to (YYYY-MM-DD)</source>
+        <translation>Vàlid fins a (AAAA-MM-DD)</translation>
+    </message>
+    <message>
+        <source>Award account requires review: %1</source>
+        <translation>El compte de diploma requereix revisió: %1</translation>
+    </message>
+    <message>
+        <source>Award account groups: %1</source>
+        <translation>Grups del compte de diploma: %1</translation>
+    </message>
 </context>
 <context>
     <name>StatsAwardsPage</name>
@@ -10188,10 +10404,6 @@ Camps extra conservats: %8</translation>
         <translation>Corregit per N1MM: %1</translation>
     </message>
     <message>
-        <source>built on %1</source>
-        <translation>compilat el %1</translation>
-    </message>
-    <message>
         <source>Not understood: %1 (write address:port)</source>
         <translation>No entès: %1 (escriu adreça:port)</translation>
     </message>
@@ -11039,6 +11251,14 @@ Camps extra conservats: %8</translation>
             <numerusform>%n QSO netejat d&apos;una importació antiga dolenta (el text anterior es queda a l&apos;historial).</numerusform>
             <numerusform>%n QSO netejats d&apos;una importació antiga dolenta (el text anterior es queda a l&apos;historial).</numerusform>
         </translation>
+    </message>
+    <message>
+        <source>built on %1 · %2 @ %3</source>
+        <translation>compilat el %1 · %2 @ %3</translation>
+    </message>
+    <message>
+        <source>External result was rejected</source>
+        <translation>El resultat extern s&apos;ha rebutjat</translation>
     </message>
 </context>
 <context>

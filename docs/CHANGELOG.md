@@ -3,6 +3,19 @@
 Le date sono quelle del lavoro, non di una pubblicazione: DecoDXLog cresce mentre lo si usa
 in stazione.
 
+## 1.17.28 — 19 ottobre 2026
+
+**Allineata alla 1.17.27 di elisir80.** Separa meglio operatore, luogo operativo, profilo tecnico ed
+entita' DXCC (migrazioni SQLite, controlli di compatibilita', conflitti fra account diploma) e porta le
+regole dei diplomi come pacchetti dichiarativi verificabili, con VUCC e CQ DX Marathon: anteprima,
+esportazione JSON e riconciliazione dei risultati esterni. Il DX assistant tiene conto degli obiettivi
+lavorati-ma-non-confermati, dell'account diploma e della fattibilita' rispetto a radio, antenna, banda
+e modo. In piu': matrice di migrazione (Log4OM, DXKeeper, N1MM), report diagnostico strutturato e
+collaudo di avvio nel release gate. Nessun conflitto nella fusione.
+
+Traduzioni: 51 stringhe nuove in tutte e 14 le lingue (diplomi VUCC e CQ DX Marathon, DX assistant,
+profili di stazione, evidenze diagnostiche, informazioni sulla copia).
+
 ## 1.17.26 — 16 ottobre 2026
 
 **Tema e menu Appearance.** Il tema selezionabile torna realmente raggiungibile dal menu del

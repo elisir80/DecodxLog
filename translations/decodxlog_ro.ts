@@ -87,6 +87,14 @@
         <source>Close</source>
         <translation>Închide</translation>
     </message>
+    <message>
+        <source>Distribution</source>
+        <translation>Distribuție</translation>
+    </message>
+    <message>
+        <source>Commit</source>
+        <translation>Commit</translation>
+    </message>
 </context>
 <context>
     <name>ActivationController</name>
@@ -651,6 +659,126 @@
         <source>● confirmed  ○ worked  ·  double-click opens the first QSO. DXCC counts entities with a DXCC number; use Setup → General → Fill missing DXCC for older QSOs.</source>
         <translation>● confirmat  ○ lucrat  ·  dublu clic deschide primul QSO. DXCC numără entitățile cu număr DXCC; pentru QSO-uri mai vechi folosește Setări → General → Completează DXCC lipsă.</translation>
     </message>
+    <message>
+        <source>External result reconciled</source>
+        <translation>Rezultat extern reconciliat</translation>
+    </message>
+    <message>
+        <source>Export CQ DX Marathon JSON</source>
+        <translation>Exportă JSON CQ DX Marathon</translation>
+    </message>
+    <message>
+        <source>JSON files (*.json)</source>
+        <translation>Fișiere JSON (*.json)</translation>
+    </message>
+    <message>
+        <source>All files (*)</source>
+        <translation type="unfinished">Toate fișierele (*)</translation>
+    </message>
+    <message>
+        <source>Paste verified external result JSON</source>
+        <translation>Lipește JSON-ul rezultatului extern verificat</translation>
+    </message>
+    <message>
+        <source>Reconcile result</source>
+        <translation>Reconciliază rezultatul</translation>
+    </message>
+    <message>
+        <source>CQ DX Marathon preview</source>
+        <translation>Previzualizare CQ DX Marathon</translation>
+    </message>
+    <message>
+        <source>local selection/export · not an official result</source>
+        <translation>selecție/export local · nu este un rezultat oficial</translation>
+    </message>
+    <message>
+        <source>CQ DX Marathon edition year</source>
+        <translation>Anul ediției CQ DX Marathon</translation>
+    </message>
+    <message>
+        <source>CQ DX Marathon category</source>
+        <translation>Categoria CQ DX Marathon</translation>
+    </message>
+    <message>
+        <source>Mixed</source>
+        <translation>Mixt</translation>
+    </message>
+    <message>
+        <source>CQ DX Marathon maximum contacts per entity</source>
+        <translation>Număr maxim de contacte pe entitate în CQ DX Marathon</translation>
+    </message>
+    <message>
+        <source>Preview CQ DX Marathon selection</source>
+        <translation>Previzualizează selecția CQ DX Marathon</translation>
+    </message>
+    <message>
+        <source>Preview</source>
+        <translation>Previzualizare</translation>
+    </message>
+    <message>
+        <source>Export JSON</source>
+        <translation>Exportă JSON</translation>
+    </message>
+    <message>
+        <source>Configure edition, category and entity limit, then preview.</source>
+        <translation>Setează ediția, categoria și limita pe entitate, apoi vezi previzualizarea.</translation>
+    </message>
+    <message>
+        <source>Selected: %1 · excluded: %2</source>
+        <translation>Selectate: %1 · excluse: %2</translation>
+    </message>
+    <message>
+        <source>VUCC preview</source>
+        <translation>Previzualizare VUCC</translation>
+    </message>
+    <message>
+        <source>separate from statistical locator totals</source>
+        <translation>separat de totalurile statistice ale locatorilor</translation>
+    </message>
+    <message>
+        <source>VUCC band</source>
+        <translation>Banda VUCC</translation>
+    </message>
+    <message>
+        <source>VUCC award account</source>
+        <translation>Cont diplomă VUCC</translation>
+    </message>
+    <message>
+        <source>Award account</source>
+        <translation>Cont diplomă</translation>
+    </message>
+    <message>
+        <source>VUCC operating site</source>
+        <translation>Locație de operare VUCC</translation>
+    </message>
+    <message>
+        <source>Operating site</source>
+        <translation>Locație de operare</translation>
+    </message>
+    <message>
+        <source>VUCC target</source>
+        <translation>Țintă VUCC</translation>
+    </message>
+    <message>
+        <source>Preview VUCC selection</source>
+        <translation>Previzualizează selecția VUCC</translation>
+    </message>
+    <message>
+        <source>Confirmed evidence is required; configure the band/account/site and preview.</source>
+        <translation>Sunt necesare dovezi confirmate: setează banda, contul și locația, apoi vezi previzualizarea.</translation>
+    </message>
+    <message>
+        <source>Eligible GRID4: %1 / %2 · excluded: %3 · external rules verified: %4</source>
+        <translation>GRID4 eligibile: %1 / %2 · excluse: %3 · reguli externe verificate: %4</translation>
+    </message>
+    <message>
+        <source>yes</source>
+        <translation>da</translation>
+    </message>
+    <message>
+        <source>no</source>
+        <translation>nu</translation>
+    </message>
 </context>
 <context>
     <name>BandMapPanel</name>
@@ -887,6 +1015,18 @@
     <message>
         <source>LoTW last sync %1</source>
         <translation>LoTW ultima sincronizare %1</translation>
+    </message>
+    <message>
+        <source>Save JSON evidence…</source>
+        <translation>Salvează dovezile JSON…</translation>
+    </message>
+    <message>
+        <source>Save structured diagnostic evidence</source>
+        <translation>Salvează dovezile de diagnostic structurate</translation>
+    </message>
+    <message>
+        <source>JSON files (*.json)</source>
+        <translation>Fișiere JSON (*.json)</translation>
     </message>
 </context>
 <context>
@@ -1311,6 +1451,58 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
     <message>
         <source>Waiting for spots…</source>
         <translation>Se așteaptă spoturi…</translation>
+    </message>
+    <message>
+        <source>Award account</source>
+        <translation>Cont diplomă</translation>
+    </message>
+    <message>
+        <source>optional account id</source>
+        <translation>id cont (opțional)</translation>
+    </message>
+    <message>
+        <source>Require feasible station</source>
+        <translation>Cere o stație fezabilă</translation>
+    </message>
+    <message>
+        <source>Prioritize worked/unconfirmed</source>
+        <translation>Prioritizează cele lucrate/neconfirmate</translation>
+    </message>
+    <message>
+        <source>Available bands</source>
+        <translation>Benzi disponibile</translation>
+    </message>
+    <message>
+        <source>DX Assistant available bands</source>
+        <translation>Benzi disponibile pentru asistentul DX</translation>
+    </message>
+    <message>
+        <source>comma separated; empty = any</source>
+        <translation>separate prin virgulă; gol = oricare</translation>
+    </message>
+    <message>
+        <source>Modes</source>
+        <translation type="unfinished">Moduri</translation>
+    </message>
+    <message>
+        <source>DX Assistant available modes</source>
+        <translation>Moduri disponibile pentru asistentul DX</translation>
+    </message>
+    <message>
+        <source>Available radios</source>
+        <translation>Aparate disponibile</translation>
+    </message>
+    <message>
+        <source>DX Assistant available radios</source>
+        <translation>Aparate disponibile pentru asistentul DX</translation>
+    </message>
+    <message>
+        <source>Antennas</source>
+        <translation>Antene</translation>
+    </message>
+    <message>
+        <source>DX Assistant available antennas</source>
+        <translation>Antene disponibile pentru asistentul DX</translation>
     </message>
 </context>
 <context>
@@ -8642,6 +8834,30 @@ Câmpuri suplimentare păstrate: %8</translation>
         <source>Save profile</source>
         <translation>Salvează profilul</translation>
     </message>
+    <message>
+        <source>Award account</source>
+        <translation>Cont diplomă</translation>
+    </message>
+    <message>
+        <source>Historical operating location</source>
+        <translation>Locație de operare istorică</translation>
+    </message>
+    <message>
+        <source>Valid from (YYYY-MM-DD)</source>
+        <translation>Valabil de la (AAAA-LL-ZZ)</translation>
+    </message>
+    <message>
+        <source>Valid to (YYYY-MM-DD)</source>
+        <translation>Valabil până la (AAAA-LL-ZZ)</translation>
+    </message>
+    <message>
+        <source>Award account requires review: %1</source>
+        <translation>Contul de diplomă necesită verificare: %1</translation>
+    </message>
+    <message>
+        <source>Award account groups: %1</source>
+        <translation>Grupurile contului de diplomă: %1</translation>
+    </message>
 </context>
 <context>
     <name>StatsAwardsPage</name>
@@ -10225,10 +10441,6 @@ Câmpuri suplimentare păstrate: %8</translation>
         <translation>Corectat de N1MM: %1</translation>
     </message>
     <message>
-        <source>built on %1</source>
-        <translation>compilat pe %1</translation>
-    </message>
-    <message>
         <source>Not understood: %1 (write address:port)</source>
         <translation>Neînțeles: %1 (scrie adresă:port)</translation>
     </message>
@@ -11088,6 +11300,14 @@ Câmpuri suplimentare păstrate: %8</translation>
             <numerusform>%n QSO curățate după un import vechi prost (textul dinainte rămâne în istoric).</numerusform>
             <numerusform>%n de QSO curățate după un import vechi prost (textul dinainte rămâne în istoric).</numerusform>
         </translation>
+    </message>
+    <message>
+        <source>built on %1 · %2 @ %3</source>
+        <translation>compilat la %1 · %2 @ %3</translation>
+    </message>
+    <message>
+        <source>External result was rejected</source>
+        <translation>Rezultatul extern a fost respins</translation>
     </message>
 </context>
 <context>

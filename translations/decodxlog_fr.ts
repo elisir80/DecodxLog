@@ -87,6 +87,14 @@
         <source>Close</source>
         <translation>Fermer</translation>
     </message>
+    <message>
+        <source>Distribution</source>
+        <translation>Distribution</translation>
+    </message>
+    <message>
+        <source>Commit</source>
+        <translation>Commit</translation>
+    </message>
 </context>
 <context>
     <name>ActivationController</name>
@@ -649,6 +657,126 @@
         <source>● confirmed  ○ worked  ·  double-click opens the first QSO. DXCC counts entities with a DXCC number; use Setup → General → Fill missing DXCC for older QSOs.</source>
         <translation>● confirmé  ○ travaillé  ·  un double-clic ouvre le premier QSO. DXCC compte les entités avec un numéro DXCC ; pour les vieux QSO, Réglages → Général → Compléter les DXCC manquants.</translation>
     </message>
+    <message>
+        <source>External result reconciled</source>
+        <translation>Résultat externe rapproché</translation>
+    </message>
+    <message>
+        <source>Export CQ DX Marathon JSON</source>
+        <translation>Exporter le JSON CQ DX Marathon</translation>
+    </message>
+    <message>
+        <source>JSON files (*.json)</source>
+        <translation>Fichiers JSON (*.json)</translation>
+    </message>
+    <message>
+        <source>All files (*)</source>
+        <translation type="unfinished">Tous les fichiers (*)</translation>
+    </message>
+    <message>
+        <source>Paste verified external result JSON</source>
+        <translation>Coller le JSON du résultat externe vérifié</translation>
+    </message>
+    <message>
+        <source>Reconcile result</source>
+        <translation>Rapprocher le résultat</translation>
+    </message>
+    <message>
+        <source>CQ DX Marathon preview</source>
+        <translation>Aperçu CQ DX Marathon</translation>
+    </message>
+    <message>
+        <source>local selection/export · not an official result</source>
+        <translation>sélection/export local · pas un résultat officiel</translation>
+    </message>
+    <message>
+        <source>CQ DX Marathon edition year</source>
+        <translation>Année de l&apos;édition CQ DX Marathon</translation>
+    </message>
+    <message>
+        <source>CQ DX Marathon category</source>
+        <translation>Catégorie CQ DX Marathon</translation>
+    </message>
+    <message>
+        <source>Mixed</source>
+        <translation>Mixte</translation>
+    </message>
+    <message>
+        <source>CQ DX Marathon maximum contacts per entity</source>
+        <translation>Nombre maximal de contacts par entité pour CQ DX Marathon</translation>
+    </message>
+    <message>
+        <source>Preview CQ DX Marathon selection</source>
+        <translation>Aperçu de la sélection CQ DX Marathon</translation>
+    </message>
+    <message>
+        <source>Preview</source>
+        <translation>Aperçu</translation>
+    </message>
+    <message>
+        <source>Export JSON</source>
+        <translation>Exporter le JSON</translation>
+    </message>
+    <message>
+        <source>Configure edition, category and entity limit, then preview.</source>
+        <translation>Réglez l&apos;édition, la catégorie et la limite par entité, puis lancez l&apos;aperçu.</translation>
+    </message>
+    <message>
+        <source>Selected: %1 · excluded: %2</source>
+        <translation>Sélectionnés : %1 · exclus : %2</translation>
+    </message>
+    <message>
+        <source>VUCC preview</source>
+        <translation>Aperçu VUCC</translation>
+    </message>
+    <message>
+        <source>separate from statistical locator totals</source>
+        <translation>distinct des totaux statistiques de locators</translation>
+    </message>
+    <message>
+        <source>VUCC band</source>
+        <translation>Bande VUCC</translation>
+    </message>
+    <message>
+        <source>VUCC award account</source>
+        <translation>Compte de diplôme VUCC</translation>
+    </message>
+    <message>
+        <source>Award account</source>
+        <translation>Compte de diplôme</translation>
+    </message>
+    <message>
+        <source>VUCC operating site</source>
+        <translation>Site d&apos;exploitation VUCC</translation>
+    </message>
+    <message>
+        <source>Operating site</source>
+        <translation>Site d&apos;exploitation</translation>
+    </message>
+    <message>
+        <source>VUCC target</source>
+        <translation>Objectif VUCC</translation>
+    </message>
+    <message>
+        <source>Preview VUCC selection</source>
+        <translation>Aperçu de la sélection VUCC</translation>
+    </message>
+    <message>
+        <source>Confirmed evidence is required; configure the band/account/site and preview.</source>
+        <translation>Des preuves confirmées sont requises : réglez la bande, le compte et le site, puis lancez l&apos;aperçu.</translation>
+    </message>
+    <message>
+        <source>Eligible GRID4: %1 / %2 · excluded: %3 · external rules verified: %4</source>
+        <translation>GRID4 éligibles : %1 / %2 · exclus : %3 · règles externes vérifiées : %4</translation>
+    </message>
+    <message>
+        <source>yes</source>
+        <translation>oui</translation>
+    </message>
+    <message>
+        <source>no</source>
+        <translation>non</translation>
+    </message>
 </context>
 <context>
     <name>BandMapPanel</name>
@@ -883,6 +1011,18 @@
     <message>
         <source>LoTW last sync %1</source>
         <translation>LoTW dernier échange %1</translation>
+    </message>
+    <message>
+        <source>Save JSON evidence…</source>
+        <translation>Enregistrer les preuves JSON…</translation>
+    </message>
+    <message>
+        <source>Save structured diagnostic evidence</source>
+        <translation>Enregistrer les preuves de diagnostic structurées</translation>
+    </message>
+    <message>
+        <source>JSON files (*.json)</source>
+        <translation>Fichiers JSON (*.json)</translation>
     </message>
 </context>
 <context>
@@ -1307,6 +1447,58 @@ L&apos;indicatif que Decodium travaille apparaît ici tout seul.</translation>
     <message>
         <source>Waiting for spots…</source>
         <translation>En attente de spots…</translation>
+    </message>
+    <message>
+        <source>Award account</source>
+        <translation>Compte de diplôme</translation>
+    </message>
+    <message>
+        <source>optional account id</source>
+        <translation>identifiant de compte (facultatif)</translation>
+    </message>
+    <message>
+        <source>Require feasible station</source>
+        <translation>Exiger une station réalisable</translation>
+    </message>
+    <message>
+        <source>Prioritize worked/unconfirmed</source>
+        <translation>Prioriser les contacts faits/non confirmés</translation>
+    </message>
+    <message>
+        <source>Available bands</source>
+        <translation>Bandes disponibles</translation>
+    </message>
+    <message>
+        <source>DX Assistant available bands</source>
+        <translation>Bandes disponibles pour l&apos;assistant DX</translation>
+    </message>
+    <message>
+        <source>comma separated; empty = any</source>
+        <translation>séparés par des virgules ; vide = tous</translation>
+    </message>
+    <message>
+        <source>Modes</source>
+        <translation type="unfinished">Modes</translation>
+    </message>
+    <message>
+        <source>DX Assistant available modes</source>
+        <translation>Modes disponibles pour l&apos;assistant DX</translation>
+    </message>
+    <message>
+        <source>Available radios</source>
+        <translation>Radios disponibles</translation>
+    </message>
+    <message>
+        <source>DX Assistant available radios</source>
+        <translation>Radios disponibles pour l&apos;assistant DX</translation>
+    </message>
+    <message>
+        <source>Antennas</source>
+        <translation>Antennes</translation>
+    </message>
+    <message>
+        <source>DX Assistant available antennas</source>
+        <translation>Antennes disponibles pour l&apos;assistant DX</translation>
     </message>
 </context>
 <context>
@@ -8620,6 +8812,30 @@ Champs supplémentaires conservés : %8</translation>
         <source>Save profile</source>
         <translation>Enregistrer le profil</translation>
     </message>
+    <message>
+        <source>Award account</source>
+        <translation>Compte de diplôme</translation>
+    </message>
+    <message>
+        <source>Historical operating location</source>
+        <translation>Lieu d&apos;exploitation historique</translation>
+    </message>
+    <message>
+        <source>Valid from (YYYY-MM-DD)</source>
+        <translation>Valable à partir du (AAAA-MM-JJ)</translation>
+    </message>
+    <message>
+        <source>Valid to (YYYY-MM-DD)</source>
+        <translation>Valable jusqu&apos;au (AAAA-MM-JJ)</translation>
+    </message>
+    <message>
+        <source>Award account requires review: %1</source>
+        <translation>Le compte de diplôme doit être vérifié : %1</translation>
+    </message>
+    <message>
+        <source>Award account groups: %1</source>
+        <translation>Groupes du compte de diplôme : %1</translation>
+    </message>
 </context>
 <context>
     <name>StatsAwardsPage</name>
@@ -10188,10 +10404,6 @@ Champs supplémentaires conservés : %8</translation>
         <translation>Corrigé par N1MM : %1</translation>
     </message>
     <message>
-        <source>built on %1</source>
-        <translation>construit le %1</translation>
-    </message>
-    <message>
         <source>Not understood: %1 (write address:port)</source>
         <translation>Pas compris : %1 (écrire adresse:port)</translation>
     </message>
@@ -11039,6 +11251,14 @@ Champs supplémentaires conservés : %8</translation>
             <numerusform>%n QSO réparé après un vieil import raté (le texte précédent reste dans l&apos;historique).</numerusform>
             <numerusform>%n QSO réparés après un vieil import raté (le texte précédent reste dans l&apos;historique).</numerusform>
         </translation>
+    </message>
+    <message>
+        <source>built on %1 · %2 @ %3</source>
+        <translation>compilé le %1 · %2 @ %3</translation>
+    </message>
+    <message>
+        <source>External result was rejected</source>
+        <translation>Le résultat externe a été rejeté</translation>
     </message>
 </context>
 <context>

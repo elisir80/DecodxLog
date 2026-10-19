@@ -1,9 +1,23 @@
 cmake_minimum_required(VERSION 3.21)
 
 project(DecoDXLog
-    VERSION 1.17.26
+    VERSION 1.17.28
     DESCRIPTION "Station logbook for the Decodium family"
     LANGUAGES C CXX)
+
+# Identita' della distribuzione: il fork pubblico e l'upstream possono avere
+# la stessa versione ma non sono intercambiabili per aggiornamenti e chiavi.
+set(DECODXLOG_DISTRIBUTION_REPOSITORY "elisir80/DecodxLog" CACHE STRING
+    "Repository identity embedded in diagnostics and capability manifests")
+execute_process(
+    COMMAND git rev-parse --short=12 HEAD
+    WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
+    OUTPUT_VARIABLE DECODXLOG_GIT_COMMIT
+    OUTPUT_STRIP_TRAILING_WHITESPACE
+    ERROR_QUIET)
+if(NOT DECODXLOG_GIT_COMMIT)
+    set(DECODXLOG_GIT_COMMIT "unknown")
+endif()
 
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -94,6 +108,10 @@ add_library(decolog_core STATIC
     src/core/CloudSettings.h
     src/core/CloudSync.cpp
     src/core/CloudSync.h
+    src/core/CqMarathon.cpp
+    src/core/CqMarathon.h
+    src/core/Vucc.cpp
+    src/core/Vucc.h
     src/core/Countries.cpp
     src/core/Countries.h
     src/core/DecoLinkServer.cpp
@@ -199,6 +217,8 @@ add_library(decolog_core STATIC
     src/core/WorldClock.cpp
     src/core/WorldClock.h
     src/core/Propagation.cpp
+    src/core/Performance.cpp
+    src/core/Performance.h
     src/core/Propagation.h
     src/core/KstChat.cpp
     src/core/KstChat.h
@@ -551,7 +571,10 @@ foreach(file IN LISTS DECODXLOG_QML_FILES)
     set_source_files_properties(${file} PROPERTIES QT_RESOURCE_ALIAS ${alias} QT_QML_SKIP_CACHEGEN TRUE)
 endforeach()
 
-target_compile_definitions(decolog PRIVATE DECODXLOG_VERSION="${PROJECT_VERSION}")
+target_compile_definitions(decolog PRIVATE
+    DECODXLOG_VERSION="${PROJECT_VERSION}"
+    DECODXLOG_DISTRIBUTION_REPOSITORY="${DECODXLOG_DISTRIBUTION_REPOSITORY}"
+    DECODXLOG_GIT_COMMIT="${DECODXLOG_GIT_COMMIT}")
 target_include_directories(decolog PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src)
 target_link_libraries(decolog PRIVATE
     Qt6::Core Qt6::Gui Qt6::Qml Qt6::Quick Qt6::QuickControls2 Qt6::Multimedia Qt6::Positioning Qt6::Location
@@ -624,12 +647,20 @@ endif()
 if(DECODXLOG_BUILD_TESTS)
     enable_testing()
     find_package(Qt6 REQUIRED COMPONENTS Test)
-    foreach(name adif protocol database countries credentials callbook awards decolink lotw spots cluster qsl cabrillo solar rotor rig modes updates cw cwkeyer cloud cloudsettings vault mailsender dates tci rotorgateway worldclock propagation kstchat flrig supercheck contestnet winkeyer catshare logbackup qsldownload decodiumlog n1mm localapi clublogcty migration voacap connectionprobe ctcdecoder lexicon cwcalls cwskimmer slowop diagnostics architecture serialports dxassistant)
+    foreach(name adif protocol database countries credentials callbook awards decolink lotw spots cluster qsl cabrillo solar rotor rig modes updates cw cwkeyer cloud cloudsettings vault mailsender dates tci rotorgateway worldclock propagation kstchat flrig supercheck contestnet winkeyer catshare logbackup qsldownload decodiumlog n1mm localapi clublogcty migration voacap connectionprobe ctcdecoder lexicon cwcalls cwskimmer slowop diagnostics architecture serialports dxassistant netcontroller cqmarathon cqmarathon_db vucc)
         qt_add_executable(tst_${name} tests/tst_${name}.cpp)
         target_link_libraries(tst_${name} PRIVATE decolog_core Qt6::Test)
         set_target_properties(tst_${name} PROPERTIES WIN32_EXECUTABLE OFF)
         add_test(NAME ${name} COMMAND tst_${name})
     endforeach()
+
+    qt_add_executable(tst_stationprofile tests/tst_stationprofile.cpp src/app/StationProfileModel.cpp src/app/StationProfileModel.h)
+    target_include_directories(tst_stationprofile PRIVATE src)
+    target_link_libraries(tst_stationprofile PRIVATE decolog_core Qt6::Test Qt6::Gui)
+    set_target_properties(tst_stationprofile PROPERTIES WIN32_EXECUTABLE OFF)
+    add_test(NAME stationprofile COMMAND tst_stationprofile)
+    target_sources(tst_netcontroller PRIVATE src/app/NetController.cpp src/app/NetController.h)
+    target_include_directories(tst_netcontroller PRIVATE src)
     target_compile_definitions(tst_architecture PRIVATE CMAKE_SOURCE_DIR="${CMAKE_SOURCE_DIR}")
     target_compile_definitions(tst_awards PRIVATE
         DECO_DXLOG_SOURCE_DIR="${CMAKE_CURRENT_SOURCE_DIR}")
@@ -675,6 +706,10 @@ if(DECODXLOG_BUILD_TESTS)
     target_link_libraries(tst_qmlpopups PRIVATE Qt6::Test)
     set_target_properties(tst_qmlpopups PROPERTIES WIN32_EXECUTABLE OFF)
     add_test(NAME qmlpopups COMMAND tst_qmlpopups)
+
+    qt_add_executable(tst_performance tests/tst_performance.cpp)
+    target_link_libraries(tst_performance PRIVATE decolog_core Qt6::Test)
+    add_test(NAME performance COMMAND tst_performance)
     qt_add_executable(tst_clustercontroller tests/tst_clustercontroller.cpp
         src/app/ClusterController.cpp src/app/ClusterController.h src/app/SpotModel.cpp src/app/SpotModel.h)
     target_include_directories(tst_clustercontroller PRIVATE src)

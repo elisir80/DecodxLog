@@ -220,7 +220,37 @@ private slots:
         QVERIFY(source.contains(QStringLiteral("Approve and save report")));
         QVERIFY(source.contains(QStringLiteral("onAccepted")));
         QVERIFY(source.contains(QStringLiteral("saveDiagnosticReport")));
+        QVERIFY(source.contains(QStringLiteral("saveDiagnosticJsonReport")));
+        QVERIFY(source.contains(QStringLiteral("Save JSON evidence")));
         QVERIFY(source.contains(QStringLiteral("The checks stay on this computer")));
+        QVERIFY(source.contains(QStringLiteral("recordUiLatency")));
+        const QString profiles = readFile(qmlDir.filePath(QStringLiteral("StationProfilesDialog.qml")));
+        QVERIFY(profiles.contains(QStringLiteral("awardAccountConflicts")));
+        QVERIFY(profiles.contains(QStringLiteral("awardAccountGroups")));
+        QVERIFY(profiles.contains(QStringLiteral("Award account groups")));
+        QVERIFY(profiles.contains(QStringLiteral("Award account requires review")));
+        const QString awards = readFile(qmlDir.filePath(QStringLiteral("AwardsDialog.qml")));
+        QVERIFY(awards.contains(QStringLiteral("reconcileAwardResult")));
+        QVERIFY(awards.contains(QStringLiteral("Paste verified external result JSON")));
+        const QString cluster = readFile(qmlDir.filePath(QStringLiteral("ClusterPanel.qml")));
+        QVERIFY(cluster.contains(QStringLiteral("availableBands")));
+        QVERIFY(cluster.contains(QStringLiteral("availableModes")));
+        QVERIFY(cluster.contains(QStringLiteral("Available bands")));
+        QVERIFY(cluster.contains(QStringLiteral("DX Assistant available bands")));
+        QVERIFY(cluster.contains(QStringLiteral("DX Assistant available modes")));
+        QVERIFY(cluster.contains(QStringLiteral("DX Assistant available radios")));
+        QVERIFY(cluster.contains(QStringLiteral("DX Assistant available antennas")));
+    }
+
+    void awardExtensionControlsHaveAccessibleNames()
+    {
+        const QDir qmlDir(QStringLiteral(QML_DIR));
+        const QString source = readFile(qmlDir.filePath(QStringLiteral("AwardsDialog.qml")));
+        QVERIFY(source.contains(QStringLiteral("Accessible.name: qsTr(\"CQ DX Marathon edition year\")")));
+        QVERIFY(source.contains(QStringLiteral("Accessible.name: qsTr(\"CQ DX Marathon category\")")));
+        QVERIFY(source.contains(QStringLiteral("Accessible.name: qsTr(\"Export CQ DX Marathon JSON\")")));
+        QVERIFY(source.contains(QStringLiteral("Accessible.name: qsTr(\"VUCC award account\")")));
+        QVERIFY(source.contains(QStringLiteral("Accessible.name: qsTr(\"Preview VUCC selection\")")));
     }
 
     // Nella 1.17.20 «importa» non partiva (la finestra dell'anteprima chiamava

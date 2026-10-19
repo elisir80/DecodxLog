@@ -30,6 +30,8 @@ struct AwardClaim {
 
     QString id;
     QString awardId;
+    QString accountId; // diploma account/profile aggregation identity
+    QString category;  // external provider category, if applicable
     QString ruleVersion;
     QList<qint64> qsoIds;
     State state{State::Draft};
@@ -38,6 +40,9 @@ struct AwardClaim {
     QDateTime decidedAt;
     QString outcome;
     QString evidence;
+    QString externalProvider;
+    QList<qint64> creditedQsoIds;
+    QList<qint64> rejectedQsoIds;
 
     static QString stateName(State state);
     static std::optional<State> stateFromName(const QString& name);
@@ -50,9 +55,17 @@ class AwardClaimStore {
 public:
     static QList<AwardClaim> load(const LogDatabase& db, QString* error = nullptr);
     static bool save(LogDatabase& db, const QList<AwardClaim>& claims, QString* error = nullptr);
+    // Importa un esito JSON dichiarativo; non considera mai una conferma QSL
+    // come credito esterno e conserva gli esiti parziali per singolo QSO.
+    static bool reconcileExternalResult(LogDatabase& db, const QByteArray& json,
+                                        QString* error = nullptr);
 };
 
 struct AwardRulePackage {
+    struct Condition {
+        QString field;
+        QStringList values;
+    };
     QString id;
     QString title;
     QString source;
@@ -60,6 +73,7 @@ struct AwardRulePackage {
     QDate validFrom;
     QDate validTo;
     QString keyField; // DXCC, STATE, CQZ, GRID4, BAND, CALL_PREFIX
+    QList<Condition> conditions; // all conditions must match; data-only, no code
     QString fingerprint;
     int target{0};
     int total{0};
@@ -153,6 +167,7 @@ struct AwardFilter {
     bool confirmCard{true};
     bool confirmEqsl{false};
     qint64 stationProfileId{0}; // 0 = tutti i profili
+    QString awardAccountUuid;    // vuoto = tutti; account storico del profilo
     QString tag;                // etichetta dei QSO che contano, vuota = tutti
     // I 60 metri nel DXCC, nel DXCC Challenge e nel WAS. Per l'ARRL non
     // valgono: il profilo predefinito e' quindi ufficiale; true e' l'override

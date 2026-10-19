@@ -12,7 +12,7 @@ on:
       tag:
         description: Release tag
         required: true
-        default: v1.17.26
+        default: v1.17.28
 
 permissions:
   contents: write
@@ -63,6 +63,7 @@ jobs:
             libxkbcommon-dev \
             ninja-build \
             patchelf \
+            xvfb \
             wget
 
       - name: Build qtkeychain x86_64
@@ -100,7 +101,8 @@ jobs:
             qt6-tools-dev \
             qt6-websockets-dev \
             qtkeychain-qt6-dev \
-            libssl-dev
+            libssl-dev \
+            xvfb
 
       - name: Configure x86_64
         if: matrix.arch == 'x86_64'
@@ -168,7 +170,14 @@ jobs:
           version="${{ inputs.tag }}"
           version="${version#v}"
           mkdir -p release-assets
-          mv DecoDXLog-*.AppImage "release-assets/DecoDXLog-$version-linux-${{ matrix.arch }}.AppImage"
+          asset="release-assets/DecoDXLog-$version-linux-${{ matrix.arch }}.AppImage"
+          mv DecoDXLog-*.AppImage "$asset"
+          # The aarch64 Ubuntu image does not ship Qt's offscreen platform
+          # plugin. Use the bundled xcb plugin under a virtual X server so the
+          # final AppImage is smoke-tested on both Linux architectures.
+          xvfb-run -a env QT_QPA_PLATFORM=xcb APPIMAGE_EXTRACT_AND_RUN=1 \
+            "$asset" --show badge --grab "$RUNNER_TEMP/decodxlog-appimage.png"
+          test -s "$RUNNER_TEMP/decodxlog-appimage.png"
 
       - name: Sign Linux package for automatic updates
         env:

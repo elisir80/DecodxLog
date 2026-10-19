@@ -87,6 +87,14 @@
         <source>Close</source>
         <translation>Aizvērt</translation>
     </message>
+    <message>
+        <source>Distribution</source>
+        <translation>Izplatīšana</translation>
+    </message>
+    <message>
+        <source>Commit</source>
+        <translation>Commit</translation>
+    </message>
 </context>
 <context>
     <name>ActivationController</name>
@@ -651,6 +659,126 @@
         <source>● confirmed  ○ worked  ·  double-click opens the first QSO. DXCC counts entities with a DXCC number; use Setup → General → Fill missing DXCC for older QSOs.</source>
         <translation>● apstiprināts  ○ nostrādāts  ·  dubultklikšķis atver pirmo QSO. DXCC skaita vienības ar DXCC numuru; vecākiem QSO izmanto Iestatījumi → Vispārīgi → Aizpildīt trūkstošos DXCC.</translation>
     </message>
+    <message>
+        <source>External result reconciled</source>
+        <translation>Ārējais rezultāts saskaņots</translation>
+    </message>
+    <message>
+        <source>Export CQ DX Marathon JSON</source>
+        <translation>Eksportēt CQ DX Marathon JSON</translation>
+    </message>
+    <message>
+        <source>JSON files (*.json)</source>
+        <translation>JSON faili (*.json)</translation>
+    </message>
+    <message>
+        <source>All files (*)</source>
+        <translation type="unfinished">Visi faili (*)</translation>
+    </message>
+    <message>
+        <source>Paste verified external result JSON</source>
+        <translation>Ielīmējiet pārbaudītā ārējā rezultāta JSON</translation>
+    </message>
+    <message>
+        <source>Reconcile result</source>
+        <translation>Saskaņot rezultātu</translation>
+    </message>
+    <message>
+        <source>CQ DX Marathon preview</source>
+        <translation>CQ DX Marathon priekšskatījums</translation>
+    </message>
+    <message>
+        <source>local selection/export · not an official result</source>
+        <translation>vietēja atlase/eksports · nav oficiāls rezultāts</translation>
+    </message>
+    <message>
+        <source>CQ DX Marathon edition year</source>
+        <translation>CQ DX Marathon izdevuma gads</translation>
+    </message>
+    <message>
+        <source>CQ DX Marathon category</source>
+        <translation>CQ DX Marathon kategorija</translation>
+    </message>
+    <message>
+        <source>Mixed</source>
+        <translation>Jaukts</translation>
+    </message>
+    <message>
+        <source>CQ DX Marathon maximum contacts per entity</source>
+        <translation>Maksimālais sakaru skaits uz entītiju CQ DX Marathon</translation>
+    </message>
+    <message>
+        <source>Preview CQ DX Marathon selection</source>
+        <translation>CQ DX Marathon atlases priekšskatījums</translation>
+    </message>
+    <message>
+        <source>Preview</source>
+        <translation>Priekšskatījums</translation>
+    </message>
+    <message>
+        <source>Export JSON</source>
+        <translation>Eksportēt JSON</translation>
+    </message>
+    <message>
+        <source>Configure edition, category and entity limit, then preview.</source>
+        <translation>Iestatiet izdevumu, kategoriju un ierobežojumu uz entītiju, tad skatiet priekšskatījumu.</translation>
+    </message>
+    <message>
+        <source>Selected: %1 · excluded: %2</source>
+        <translation>Atlasīti: %1 · izslēgti: %2</translation>
+    </message>
+    <message>
+        <source>VUCC preview</source>
+        <translation>VUCC priekšskatījums</translation>
+    </message>
+    <message>
+        <source>separate from statistical locator totals</source>
+        <translation>atsevišķi no statistiskajiem lokatoru kopskaitļiem</translation>
+    </message>
+    <message>
+        <source>VUCC band</source>
+        <translation>VUCC josla</translation>
+    </message>
+    <message>
+        <source>VUCC award account</source>
+        <translation>VUCC diploma konts</translation>
+    </message>
+    <message>
+        <source>Award account</source>
+        <translation>Diploma konts</translation>
+    </message>
+    <message>
+        <source>VUCC operating site</source>
+        <translation>VUCC darbības vieta</translation>
+    </message>
+    <message>
+        <source>Operating site</source>
+        <translation>Darbības vieta</translation>
+    </message>
+    <message>
+        <source>VUCC target</source>
+        <translation>VUCC mērķis</translation>
+    </message>
+    <message>
+        <source>Preview VUCC selection</source>
+        <translation>VUCC atlases priekšskatījums</translation>
+    </message>
+    <message>
+        <source>Confirmed evidence is required; configure the band/account/site and preview.</source>
+        <translation>Nepieciešami apstiprināti pierādījumi; iestatiet joslu, kontu un vietu, tad skatiet priekšskatījumu.</translation>
+    </message>
+    <message>
+        <source>Eligible GRID4: %1 / %2 · excluded: %3 · external rules verified: %4</source>
+        <translation>Derīgi GRID4: %1 / %2 · izslēgti: %3 · ārējie noteikumi pārbaudīti: %4</translation>
+    </message>
+    <message>
+        <source>yes</source>
+        <translation>jā</translation>
+    </message>
+    <message>
+        <source>no</source>
+        <translation>nē</translation>
+    </message>
 </context>
 <context>
     <name>BandMapPanel</name>
@@ -887,6 +1015,18 @@
     <message>
         <source>LoTW last sync %1</source>
         <translation>LoTW pēdējā sinhronizācija %1</translation>
+    </message>
+    <message>
+        <source>Save JSON evidence…</source>
+        <translation>Saglabāt JSON pierādījumus…</translation>
+    </message>
+    <message>
+        <source>Save structured diagnostic evidence</source>
+        <translation>Saglabāt strukturētus diagnostikas pierādījumus</translation>
+    </message>
+    <message>
+        <source>JSON files (*.json)</source>
+        <translation>JSON faili (*.json)</translation>
     </message>
 </context>
 <context>
@@ -1311,6 +1451,58 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
     <message>
         <source>Waiting for spots…</source>
         <translation>Gaida spotus…</translation>
+    </message>
+    <message>
+        <source>Award account</source>
+        <translation>Diploma konts</translation>
+    </message>
+    <message>
+        <source>optional account id</source>
+        <translation>konta ID (nav obligāts)</translation>
+    </message>
+    <message>
+        <source>Require feasible station</source>
+        <translation>Prasīt īstenojamu staciju</translation>
+    </message>
+    <message>
+        <source>Prioritize worked/unconfirmed</source>
+        <translation>Prioritizēt strādātos/neapstiprinātos</translation>
+    </message>
+    <message>
+        <source>Available bands</source>
+        <translation>Pieejamās joslas</translation>
+    </message>
+    <message>
+        <source>DX Assistant available bands</source>
+        <translation>DX asistenta pieejamās joslas</translation>
+    </message>
+    <message>
+        <source>comma separated; empty = any</source>
+        <translation>atdalīti ar komatiem; tukšs = jebkurš</translation>
+    </message>
+    <message>
+        <source>Modes</source>
+        <translation type="unfinished">Režīmi</translation>
+    </message>
+    <message>
+        <source>DX Assistant available modes</source>
+        <translation>DX asistenta pieejamie režīmi</translation>
+    </message>
+    <message>
+        <source>Available radios</source>
+        <translation>Pieejamie raidmāksti</translation>
+    </message>
+    <message>
+        <source>DX Assistant available radios</source>
+        <translation>DX asistenta pieejamie raidmāksti</translation>
+    </message>
+    <message>
+        <source>Antennas</source>
+        <translation>Antenas</translation>
+    </message>
+    <message>
+        <source>DX Assistant available antennas</source>
+        <translation>DX asistenta pieejamās antenas</translation>
     </message>
 </context>
 <context>
@@ -8642,6 +8834,30 @@ Papildu lauki tiek saglabāti: %8</translation>
         <source>Save profile</source>
         <translation>Saglabāt profilu</translation>
     </message>
+    <message>
+        <source>Award account</source>
+        <translation>Diploma konts</translation>
+    </message>
+    <message>
+        <source>Historical operating location</source>
+        <translation>Vēsturiskā darbības vieta</translation>
+    </message>
+    <message>
+        <source>Valid from (YYYY-MM-DD)</source>
+        <translation>Derīgs no (GGGG-MM-DD)</translation>
+    </message>
+    <message>
+        <source>Valid to (YYYY-MM-DD)</source>
+        <translation>Derīgs līdz (GGGG-MM-DD)</translation>
+    </message>
+    <message>
+        <source>Award account requires review: %1</source>
+        <translation>Diploma kontu nepieciešams pārskatīt: %1</translation>
+    </message>
+    <message>
+        <source>Award account groups: %1</source>
+        <translation>Diploma konta grupas: %1</translation>
+    </message>
 </context>
 <context>
     <name>StatsAwardsPage</name>
@@ -10225,10 +10441,6 @@ Papildu lauki tiek saglabāti: %8</translation>
         <translation>N1MM laboja: %1</translation>
     </message>
     <message>
-        <source>built on %1</source>
-        <translation>būvēts %1</translation>
-    </message>
-    <message>
         <source>Not understood: %1 (write address:port)</source>
         <translation>Nav saprasts: %1 (raksti adrese:ports)</translation>
     </message>
@@ -11088,6 +11300,14 @@ Papildu lauki tiek saglabāti: %8</translation>
             <numerusform>%n QSO sakārtoti pēc slikta veca importa (iepriekšējais teksts paliek vēsturē).</numerusform>
             <numerusform>%n QSO sakārtoti pēc slikta veca importa (iepriekšējais teksts paliek vēsturē).</numerusform>
         </translation>
+    </message>
+    <message>
+        <source>built on %1 · %2 @ %3</source>
+        <translation>kompilēts %1 · %2 @ %3</translation>
+    </message>
+    <message>
+        <source>External result was rejected</source>
+        <translation>Ārējais rezultāts tika noraidīts</translation>
     </message>
 </context>
 <context>

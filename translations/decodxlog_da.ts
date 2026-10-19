@@ -87,6 +87,14 @@
         <source>Close</source>
         <translation>Luk</translation>
     </message>
+    <message>
+        <source>Distribution</source>
+        <translation>Distribution</translation>
+    </message>
+    <message>
+        <source>Commit</source>
+        <translation>Commit</translation>
+    </message>
 </context>
 <context>
     <name>ActivationController</name>
@@ -649,6 +657,126 @@
         <source>● confirmed  ○ worked  ·  double-click opens the first QSO. DXCC counts entities with a DXCC number; use Setup → General → Fill missing DXCC for older QSOs.</source>
         <translation>● bekræftet  ○ kørt  ·  dobbeltklik åbner det første QSO. DXCC tæller entiteter med et DXCC-nummer; brug Indstillinger → Generelt → Udfyld manglende DXCC til ældre QSO&apos;er.</translation>
     </message>
+    <message>
+        <source>External result reconciled</source>
+        <translation>Eksternt resultat afstemt</translation>
+    </message>
+    <message>
+        <source>Export CQ DX Marathon JSON</source>
+        <translation>Eksportér CQ DX Marathon-JSON</translation>
+    </message>
+    <message>
+        <source>JSON files (*.json)</source>
+        <translation>JSON-filer (*.json)</translation>
+    </message>
+    <message>
+        <source>All files (*)</source>
+        <translation type="unfinished">Alle filer (*)</translation>
+    </message>
+    <message>
+        <source>Paste verified external result JSON</source>
+        <translation>Indsæt det verificerede eksterne resultat som JSON</translation>
+    </message>
+    <message>
+        <source>Reconcile result</source>
+        <translation>Afstem resultat</translation>
+    </message>
+    <message>
+        <source>CQ DX Marathon preview</source>
+        <translation>CQ DX Marathon-forhåndsvisning</translation>
+    </message>
+    <message>
+        <source>local selection/export · not an official result</source>
+        <translation>lokalt udvalg/eksport · ikke et officielt resultat</translation>
+    </message>
+    <message>
+        <source>CQ DX Marathon edition year</source>
+        <translation>Årgang af CQ DX Marathon</translation>
+    </message>
+    <message>
+        <source>CQ DX Marathon category</source>
+        <translation>CQ DX Marathon-kategori</translation>
+    </message>
+    <message>
+        <source>Mixed</source>
+        <translation>Blandet</translation>
+    </message>
+    <message>
+        <source>CQ DX Marathon maximum contacts per entity</source>
+        <translation>Maksimalt antal forbindelser pr. enhed i CQ DX Marathon</translation>
+    </message>
+    <message>
+        <source>Preview CQ DX Marathon selection</source>
+        <translation>Forhåndsvis CQ DX Marathon-udvalget</translation>
+    </message>
+    <message>
+        <source>Preview</source>
+        <translation>Forhåndsvis</translation>
+    </message>
+    <message>
+        <source>Export JSON</source>
+        <translation>Eksportér JSON</translation>
+    </message>
+    <message>
+        <source>Configure edition, category and entity limit, then preview.</source>
+        <translation>Indstil årgang, kategori og grænse pr. enhed, og se derefter forhåndsvisningen.</translation>
+    </message>
+    <message>
+        <source>Selected: %1 · excluded: %2</source>
+        <translation>Valgt: %1 · udeladt: %2</translation>
+    </message>
+    <message>
+        <source>VUCC preview</source>
+        <translation>VUCC-forhåndsvisning</translation>
+    </message>
+    <message>
+        <source>separate from statistical locator totals</source>
+        <translation>adskilt fra de statistiske locator-totaler</translation>
+    </message>
+    <message>
+        <source>VUCC band</source>
+        <translation>VUCC-bånd</translation>
+    </message>
+    <message>
+        <source>VUCC award account</source>
+        <translation>VUCC-diplomkonto</translation>
+    </message>
+    <message>
+        <source>Award account</source>
+        <translation>Diplomkonto</translation>
+    </message>
+    <message>
+        <source>VUCC operating site</source>
+        <translation>VUCC-driftssted</translation>
+    </message>
+    <message>
+        <source>Operating site</source>
+        <translation>Driftssted</translation>
+    </message>
+    <message>
+        <source>VUCC target</source>
+        <translation>VUCC-mål</translation>
+    </message>
+    <message>
+        <source>Preview VUCC selection</source>
+        <translation>Forhåndsvis VUCC-udvalget</translation>
+    </message>
+    <message>
+        <source>Confirmed evidence is required; configure the band/account/site and preview.</source>
+        <translation>Bekræftet dokumentation er påkrævet; indstil bånd, konto og sted, og se forhåndsvisningen.</translation>
+    </message>
+    <message>
+        <source>Eligible GRID4: %1 / %2 · excluded: %3 · external rules verified: %4</source>
+        <translation>Gyldige GRID4: %1 / %2 · udeladt: %3 · eksterne regler verificeret: %4</translation>
+    </message>
+    <message>
+        <source>yes</source>
+        <translation>ja</translation>
+    </message>
+    <message>
+        <source>no</source>
+        <translation>nej</translation>
+    </message>
 </context>
 <context>
     <name>BandMapPanel</name>
@@ -883,6 +1011,18 @@
     <message>
         <source>LoTW last sync %1</source>
         <translation>LoTW sidste synkronisering %1</translation>
+    </message>
+    <message>
+        <source>Save JSON evidence…</source>
+        <translation>Gem JSON-dokumentation…</translation>
+    </message>
+    <message>
+        <source>Save structured diagnostic evidence</source>
+        <translation>Gem struktureret diagnosedokumentation</translation>
+    </message>
+    <message>
+        <source>JSON files (*.json)</source>
+        <translation>JSON-filer (*.json)</translation>
     </message>
 </context>
 <context>
@@ -1307,6 +1447,58 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
     <message>
         <source>Waiting for spots…</source>
         <translation>Venter på spots…</translation>
+    </message>
+    <message>
+        <source>Award account</source>
+        <translation>Diplomkonto</translation>
+    </message>
+    <message>
+        <source>optional account id</source>
+        <translation>konto-id (valgfrit)</translation>
+    </message>
+    <message>
+        <source>Require feasible station</source>
+        <translation>Kræv en mulig station</translation>
+    </message>
+    <message>
+        <source>Prioritize worked/unconfirmed</source>
+        <translation>Prioritér kørte/ubekræftede</translation>
+    </message>
+    <message>
+        <source>Available bands</source>
+        <translation>Tilgængelige bånd</translation>
+    </message>
+    <message>
+        <source>DX Assistant available bands</source>
+        <translation>Tilgængelige bånd til DX-assistenten</translation>
+    </message>
+    <message>
+        <source>comma separated; empty = any</source>
+        <translation>adskilt med komma; tom = alle</translation>
+    </message>
+    <message>
+        <source>Modes</source>
+        <translation type="unfinished">Modes</translation>
+    </message>
+    <message>
+        <source>DX Assistant available modes</source>
+        <translation>Tilgængelige driftsarter til DX-assistenten</translation>
+    </message>
+    <message>
+        <source>Available radios</source>
+        <translation>Tilgængelige radioer</translation>
+    </message>
+    <message>
+        <source>DX Assistant available radios</source>
+        <translation>Tilgængelige radioer til DX-assistenten</translation>
+    </message>
+    <message>
+        <source>Antennas</source>
+        <translation>Antenner</translation>
+    </message>
+    <message>
+        <source>DX Assistant available antennas</source>
+        <translation>Tilgængelige antenner til DX-assistenten</translation>
     </message>
 </context>
 <context>
@@ -8620,6 +8812,30 @@ Ekstra felter bevares: %8</translation>
         <source>Save profile</source>
         <translation>Gem profil</translation>
     </message>
+    <message>
+        <source>Award account</source>
+        <translation>Diplomkonto</translation>
+    </message>
+    <message>
+        <source>Historical operating location</source>
+        <translation>Historisk driftssted</translation>
+    </message>
+    <message>
+        <source>Valid from (YYYY-MM-DD)</source>
+        <translation>Gyldig fra (ÅÅÅÅ-MM-DD)</translation>
+    </message>
+    <message>
+        <source>Valid to (YYYY-MM-DD)</source>
+        <translation>Gyldig til (ÅÅÅÅ-MM-DD)</translation>
+    </message>
+    <message>
+        <source>Award account requires review: %1</source>
+        <translation>Diplomkontoen skal gennemgås: %1</translation>
+    </message>
+    <message>
+        <source>Award account groups: %1</source>
+        <translation>Grupper i diplomkontoen: %1</translation>
+    </message>
 </context>
 <context>
     <name>StatsAwardsPage</name>
@@ -10188,10 +10404,6 @@ Ekstra felter bevares: %8</translation>
         <translation>Rettet af N1MM: %1</translation>
     </message>
     <message>
-        <source>built on %1</source>
-        <translation>bygget den %1</translation>
-    </message>
-    <message>
         <source>Not understood: %1 (write address:port)</source>
         <translation>Ikke forstået: %1 (skriv adresse:port)</translation>
     </message>
@@ -11039,6 +11251,14 @@ Ekstra felter bevares: %8</translation>
             <numerusform>%n QSO ryddet op efter en dårlig gammel import (den tidligere tekst bliver i historikken).</numerusform>
             <numerusform>%n QSO ryddet op efter en dårlig gammel import (den tidligere tekst bliver i historikken).</numerusform>
         </translation>
+    </message>
+    <message>
+        <source>built on %1 · %2 @ %3</source>
+        <translation>bygget den %1 · %2 @ %3</translation>
+    </message>
+    <message>
+        <source>External result was rejected</source>
+        <translation>Det eksterne resultat blev afvist</translation>
     </message>
 </context>
 <context>

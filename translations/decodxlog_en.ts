@@ -87,6 +87,14 @@
         <source>Close</source>
         <translation>Close</translation>
     </message>
+    <message>
+        <source>Distribution</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Commit</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ActivationController</name>
@@ -649,6 +657,126 @@
         <source>● confirmed  ○ worked  ·  double-click opens the first QSO. DXCC counts entities with a DXCC number; use Setup → General → Fill missing DXCC for older QSOs.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>External result reconciled</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Export CQ DX Marathon JSON</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>JSON files (*.json)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>All files (*)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Paste verified external result JSON</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Reconcile result</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>CQ DX Marathon preview</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>local selection/export · not an official result</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>CQ DX Marathon edition year</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>CQ DX Marathon category</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Mixed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>CQ DX Marathon maximum contacts per entity</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Preview CQ DX Marathon selection</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Preview</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Export JSON</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Configure edition, category and entity limit, then preview.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Selected: %1 · excluded: %2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>VUCC preview</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>separate from statistical locator totals</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>VUCC band</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>VUCC award account</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Award account</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>VUCC operating site</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Operating site</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>VUCC target</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Preview VUCC selection</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Confirmed evidence is required; configure the band/account/site and preview.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Eligible GRID4: %1 / %2 · excluded: %3 · external rules verified: %4</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>yes</source>
+        <translation>yes</translation>
+    </message>
+    <message>
+        <source>no</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>BandMapPanel</name>
@@ -882,6 +1010,18 @@
     </message>
     <message>
         <source>LoTW last sync %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Save JSON evidence…</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Save structured diagnostic evidence</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>JSON files (*.json)</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1305,6 +1445,58 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Waiting for spots…</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Award account</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>optional account id</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Require feasible station</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Prioritize worked/unconfirmed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Available bands</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>DX Assistant available bands</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>comma separated; empty = any</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Modes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>DX Assistant available modes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Available radios</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>DX Assistant available radios</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Antennas</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>DX Assistant available antennas</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -8613,6 +8805,30 @@ Extra fields are preserved: %8</source>
         <source>Save profile</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Award account</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Historical operating location</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Valid from (YYYY-MM-DD)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Valid to (YYYY-MM-DD)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Award account requires review: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Award account groups: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>StatsAwardsPage</name>
@@ -10181,10 +10397,6 @@ Extra fields are preserved: %8</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>built on %1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Not understood: %1 (write address:port)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -11032,6 +11244,14 @@ Extra fields are preserved: %8</source>
             <numerusform></numerusform>
             <numerusform></numerusform>
         </translation>
+    </message>
+    <message>
+        <source>built on %1 · %2 @ %3</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>External result was rejected</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

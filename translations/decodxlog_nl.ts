@@ -87,6 +87,14 @@
         <source>Close</source>
         <translation>Sluiten</translation>
     </message>
+    <message>
+        <source>Distribution</source>
+        <translation>Distributie</translation>
+    </message>
+    <message>
+        <source>Commit</source>
+        <translation>Commit</translation>
+    </message>
 </context>
 <context>
     <name>ActivationController</name>
@@ -649,6 +657,126 @@
         <source>● confirmed  ○ worked  ·  double-click opens the first QSO. DXCC counts entities with a DXCC number; use Setup → General → Fill missing DXCC for older QSOs.</source>
         <translation>● bevestigd  ○ gewerkt  ·  dubbelklik opent het eerste QSO. DXCC telt entiteiten met een DXCC-nummer; gebruik Instellingen → Algemeen → Ontbrekende DXCC aanvullen voor oudere QSO&apos;s.</translation>
     </message>
+    <message>
+        <source>External result reconciled</source>
+        <translation>Extern resultaat afgestemd</translation>
+    </message>
+    <message>
+        <source>Export CQ DX Marathon JSON</source>
+        <translation>CQ DX Marathon-JSON exporteren</translation>
+    </message>
+    <message>
+        <source>JSON files (*.json)</source>
+        <translation>JSON-bestanden (*.json)</translation>
+    </message>
+    <message>
+        <source>All files (*)</source>
+        <translation type="unfinished">Alle bestanden (*)</translation>
+    </message>
+    <message>
+        <source>Paste verified external result JSON</source>
+        <translation>Plak de geverifieerde JSON van het externe resultaat</translation>
+    </message>
+    <message>
+        <source>Reconcile result</source>
+        <translation>Resultaat afstemmen</translation>
+    </message>
+    <message>
+        <source>CQ DX Marathon preview</source>
+        <translation>CQ DX Marathon-voorbeeld</translation>
+    </message>
+    <message>
+        <source>local selection/export · not an official result</source>
+        <translation>lokale selectie/export · geen officieel resultaat</translation>
+    </message>
+    <message>
+        <source>CQ DX Marathon edition year</source>
+        <translation>Jaar van de CQ DX Marathon-editie</translation>
+    </message>
+    <message>
+        <source>CQ DX Marathon category</source>
+        <translation>CQ DX Marathon-categorie</translation>
+    </message>
+    <message>
+        <source>Mixed</source>
+        <translation>Gemengd</translation>
+    </message>
+    <message>
+        <source>CQ DX Marathon maximum contacts per entity</source>
+        <translation>Maximaal aantal verbindingen per entiteit in CQ DX Marathon</translation>
+    </message>
+    <message>
+        <source>Preview CQ DX Marathon selection</source>
+        <translation>Voorbeeld van de CQ DX Marathon-selectie</translation>
+    </message>
+    <message>
+        <source>Preview</source>
+        <translation>Voorbeeld</translation>
+    </message>
+    <message>
+        <source>Export JSON</source>
+        <translation>JSON exporteren</translation>
+    </message>
+    <message>
+        <source>Configure edition, category and entity limit, then preview.</source>
+        <translation>Stel editie, categorie en limiet per entiteit in en bekijk dan het voorbeeld.</translation>
+    </message>
+    <message>
+        <source>Selected: %1 · excluded: %2</source>
+        <translation>Geselecteerd: %1 · uitgesloten: %2</translation>
+    </message>
+    <message>
+        <source>VUCC preview</source>
+        <translation>VUCC-voorbeeld</translation>
+    </message>
+    <message>
+        <source>separate from statistical locator totals</source>
+        <translation>los van de statistische locatortotalen</translation>
+    </message>
+    <message>
+        <source>VUCC band</source>
+        <translation>VUCC-band</translation>
+    </message>
+    <message>
+        <source>VUCC award account</source>
+        <translation>VUCC-diplomaaccount</translation>
+    </message>
+    <message>
+        <source>Award account</source>
+        <translation>Diplomaaccount</translation>
+    </message>
+    <message>
+        <source>VUCC operating site</source>
+        <translation>VUCC-standplaats</translation>
+    </message>
+    <message>
+        <source>Operating site</source>
+        <translation>Standplaats</translation>
+    </message>
+    <message>
+        <source>VUCC target</source>
+        <translation>VUCC-doel</translation>
+    </message>
+    <message>
+        <source>Preview VUCC selection</source>
+        <translation>Voorbeeld van de VUCC-selectie</translation>
+    </message>
+    <message>
+        <source>Confirmed evidence is required; configure the band/account/site and preview.</source>
+        <translation>Bevestigd bewijs is vereist; stel band, account en standplaats in en bekijk het voorbeeld.</translation>
+    </message>
+    <message>
+        <source>Eligible GRID4: %1 / %2 · excluded: %3 · external rules verified: %4</source>
+        <translation>Geldige GRID4: %1 / %2 · uitgesloten: %3 · externe regels geverifieerd: %4</translation>
+    </message>
+    <message>
+        <source>yes</source>
+        <translation>ja</translation>
+    </message>
+    <message>
+        <source>no</source>
+        <translation>nee</translation>
+    </message>
 </context>
 <context>
     <name>BandMapPanel</name>
@@ -883,6 +1011,18 @@
     <message>
         <source>LoTW last sync %1</source>
         <translation>LoTW laatste synchronisatie %1</translation>
+    </message>
+    <message>
+        <source>Save JSON evidence…</source>
+        <translation>JSON-bewijs opslaan…</translation>
+    </message>
+    <message>
+        <source>Save structured diagnostic evidence</source>
+        <translation>Gestructureerd diagnosebewijs opslaan</translation>
+    </message>
+    <message>
+        <source>JSON files (*.json)</source>
+        <translation>JSON-bestanden (*.json)</translation>
     </message>
 </context>
 <context>
@@ -1307,6 +1447,58 @@ De roepletters waar Decodium mee bezig is, verschijnen hier vanzelf.</translatio
     <message>
         <source>Waiting for spots…</source>
         <translation>Wachten op spots…</translation>
+    </message>
+    <message>
+        <source>Award account</source>
+        <translation>Diplomaaccount</translation>
+    </message>
+    <message>
+        <source>optional account id</source>
+        <translation>account-id (optioneel)</translation>
+    </message>
+    <message>
+        <source>Require feasible station</source>
+        <translation>Haalbaar station vereisen</translation>
+    </message>
+    <message>
+        <source>Prioritize worked/unconfirmed</source>
+        <translation>Gewerkt/onbevestigd voorrang geven</translation>
+    </message>
+    <message>
+        <source>Available bands</source>
+        <translation>Beschikbare banden</translation>
+    </message>
+    <message>
+        <source>DX Assistant available bands</source>
+        <translation>Beschikbare banden voor de DX-assistent</translation>
+    </message>
+    <message>
+        <source>comma separated; empty = any</source>
+        <translation>gescheiden door komma&apos;s; leeg = alle</translation>
+    </message>
+    <message>
+        <source>Modes</source>
+        <translation type="unfinished">Modes</translation>
+    </message>
+    <message>
+        <source>DX Assistant available modes</source>
+        <translation>Beschikbare modes voor de DX-assistent</translation>
+    </message>
+    <message>
+        <source>Available radios</source>
+        <translation>Beschikbare radio&apos;s</translation>
+    </message>
+    <message>
+        <source>DX Assistant available radios</source>
+        <translation>Beschikbare radio&apos;s voor de DX-assistent</translation>
+    </message>
+    <message>
+        <source>Antennas</source>
+        <translation>Antennes</translation>
+    </message>
+    <message>
+        <source>DX Assistant available antennas</source>
+        <translation>Beschikbare antennes voor de DX-assistent</translation>
     </message>
 </context>
 <context>
@@ -8620,6 +8812,30 @@ Extra velden blijven behouden: %8</translation>
         <source>Save profile</source>
         <translation>Profiel opslaan</translation>
     </message>
+    <message>
+        <source>Award account</source>
+        <translation>Diplomaaccount</translation>
+    </message>
+    <message>
+        <source>Historical operating location</source>
+        <translation>Historische standplaats</translation>
+    </message>
+    <message>
+        <source>Valid from (YYYY-MM-DD)</source>
+        <translation>Geldig vanaf (JJJJ-MM-DD)</translation>
+    </message>
+    <message>
+        <source>Valid to (YYYY-MM-DD)</source>
+        <translation>Geldig tot (JJJJ-MM-DD)</translation>
+    </message>
+    <message>
+        <source>Award account requires review: %1</source>
+        <translation>Het diplomaaccount moet worden nagekeken: %1</translation>
+    </message>
+    <message>
+        <source>Award account groups: %1</source>
+        <translation>Groepen van het diplomaaccount: %1</translation>
+    </message>
 </context>
 <context>
     <name>StatsAwardsPage</name>
@@ -10188,10 +10404,6 @@ Extra velden blijven behouden: %8</translation>
         <translation>Gecorrigeerd door N1MM: %1</translation>
     </message>
     <message>
-        <source>built on %1</source>
-        <translation>gebouwd op %1</translation>
-    </message>
-    <message>
         <source>Not understood: %1 (write address:port)</source>
         <translation>Niet begrepen: %1 (schrijf adres:poort)</translation>
     </message>
@@ -11039,6 +11251,14 @@ Extra velden blijven behouden: %8</translation>
             <numerusform>%n QSO opgeschoond na een slechte oude import (de vorige tekst blijft in de geschiedenis).</numerusform>
             <numerusform>%n QSO opgeschoond na een slechte oude import (de vorige tekst blijft in de geschiedenis).</numerusform>
         </translation>
+    </message>
+    <message>
+        <source>built on %1 · %2 @ %3</source>
+        <translation>gebouwd op %1 · %2 @ %3</translation>
+    </message>
+    <message>
+        <source>External result was rejected</source>
+        <translation>Het externe resultaat is geweigerd</translation>
     </message>
 </context>
 <context>

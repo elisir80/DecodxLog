@@ -87,6 +87,14 @@
         <source>Close</source>
         <translation>閉じる</translation>
     </message>
+    <message>
+        <source>Distribution</source>
+        <translation>配布元</translation>
+    </message>
+    <message>
+        <source>Commit</source>
+        <translation>コミット</translation>
+    </message>
 </context>
 <context>
     <name>ActivationController</name>
@@ -647,6 +655,126 @@
         <source>● confirmed  ○ worked  ·  double-click opens the first QSO. DXCC counts entities with a DXCC number; use Setup → General → Fill missing DXCC for older QSOs.</source>
         <translation>● 確認済み  ○ 交信済み  ·  ダブルクリックで最初の QSO が開きます。DXCC は DXCC 番号を持つエンティティを数えます。古い QSO には 設定 → 全般 → 足りない DXCC を補う を使ってください。</translation>
     </message>
+    <message>
+        <source>External result reconciled</source>
+        <translation>外部結果を照合しました</translation>
+    </message>
+    <message>
+        <source>Export CQ DX Marathon JSON</source>
+        <translation>CQ DX Marathon の JSON を書き出す</translation>
+    </message>
+    <message>
+        <source>JSON files (*.json)</source>
+        <translation>JSON ファイル (*.json)</translation>
+    </message>
+    <message>
+        <source>All files (*)</source>
+        <translation type="unfinished">すべてのファイル (*)</translation>
+    </message>
+    <message>
+        <source>Paste verified external result JSON</source>
+        <translation>検証済みの外部結果の JSON を貼り付け</translation>
+    </message>
+    <message>
+        <source>Reconcile result</source>
+        <translation>結果を照合</translation>
+    </message>
+    <message>
+        <source>CQ DX Marathon preview</source>
+        <translation>CQ DX Marathon プレビュー</translation>
+    </message>
+    <message>
+        <source>local selection/export · not an official result</source>
+        <translation>ローカルでの選択/書き出し · 公式の結果ではありません</translation>
+    </message>
+    <message>
+        <source>CQ DX Marathon edition year</source>
+        <translation>CQ DX Marathon の開催年</translation>
+    </message>
+    <message>
+        <source>CQ DX Marathon category</source>
+        <translation>CQ DX Marathon の部門</translation>
+    </message>
+    <message>
+        <source>Mixed</source>
+        <translation>ミックス</translation>
+    </message>
+    <message>
+        <source>CQ DX Marathon maximum contacts per entity</source>
+        <translation>CQ DX Marathon のエンティティごとの最大交信数</translation>
+    </message>
+    <message>
+        <source>Preview CQ DX Marathon selection</source>
+        <translation>CQ DX Marathon の選択をプレビュー</translation>
+    </message>
+    <message>
+        <source>Preview</source>
+        <translation>プレビュー</translation>
+    </message>
+    <message>
+        <source>Export JSON</source>
+        <translation>JSON を書き出す</translation>
+    </message>
+    <message>
+        <source>Configure edition, category and entity limit, then preview.</source>
+        <translation>開催年、部門、エンティティごとの上限を設定してから、プレビューを表示します。</translation>
+    </message>
+    <message>
+        <source>Selected: %1 · excluded: %2</source>
+        <translation>選択: %1 · 除外: %2</translation>
+    </message>
+    <message>
+        <source>VUCC preview</source>
+        <translation>VUCC プレビュー</translation>
+    </message>
+    <message>
+        <source>separate from statistical locator totals</source>
+        <translation>統計上のロケーター合計とは別</translation>
+    </message>
+    <message>
+        <source>VUCC band</source>
+        <translation>VUCC のバンド</translation>
+    </message>
+    <message>
+        <source>VUCC award account</source>
+        <translation>VUCC アワードのアカウント</translation>
+    </message>
+    <message>
+        <source>Award account</source>
+        <translation>アワードのアカウント</translation>
+    </message>
+    <message>
+        <source>VUCC operating site</source>
+        <translation>VUCC の運用場所</translation>
+    </message>
+    <message>
+        <source>Operating site</source>
+        <translation>運用場所</translation>
+    </message>
+    <message>
+        <source>VUCC target</source>
+        <translation>VUCC の目標</translation>
+    </message>
+    <message>
+        <source>Preview VUCC selection</source>
+        <translation>VUCC の選択をプレビュー</translation>
+    </message>
+    <message>
+        <source>Confirmed evidence is required; configure the band/account/site and preview.</source>
+        <translation>確認済みの証拠が必要です。バンド・アカウント・運用場所を設定してプレビューしてください。</translation>
+    </message>
+    <message>
+        <source>Eligible GRID4: %1 / %2 · excluded: %3 · external rules verified: %4</source>
+        <translation>有効な GRID4: %1 / %2 · 除外: %3 · 外部ルール検証済み: %4</translation>
+    </message>
+    <message>
+        <source>yes</source>
+        <translation>あり</translation>
+    </message>
+    <message>
+        <source>no</source>
+        <translation>いいえ</translation>
+    </message>
 </context>
 <context>
     <name>BandMapPanel</name>
@@ -879,6 +1007,18 @@
     <message>
         <source>LoTW last sync %1</source>
         <translation>LoTW 最後の同期 %1</translation>
+    </message>
+    <message>
+        <source>Save JSON evidence…</source>
+        <translation>JSON の証拠を保存…</translation>
+    </message>
+    <message>
+        <source>Save structured diagnostic evidence</source>
+        <translation>構造化された診断証拠を保存</translation>
+    </message>
+    <message>
+        <source>JSON files (*.json)</source>
+        <translation>JSON ファイル (*.json)</translation>
     </message>
 </context>
 <context>
@@ -1303,6 +1443,58 @@ Decodium が交信しているコールサインは、ここにひとりでに�
     <message>
         <source>Waiting for spots…</source>
         <translation>スポットを待っています…</translation>
+    </message>
+    <message>
+        <source>Award account</source>
+        <translation>アワードのアカウント</translation>
+    </message>
+    <message>
+        <source>optional account id</source>
+        <translation>アカウント ID (任意)</translation>
+    </message>
+    <message>
+        <source>Require feasible station</source>
+        <translation>実現可能な局を必須にする</translation>
+    </message>
+    <message>
+        <source>Prioritize worked/unconfirmed</source>
+        <translation>交信済み/未確認を優先</translation>
+    </message>
+    <message>
+        <source>Available bands</source>
+        <translation>利用可能なバンド</translation>
+    </message>
+    <message>
+        <source>DX Assistant available bands</source>
+        <translation>DX アシスタントの利用可能なバンド</translation>
+    </message>
+    <message>
+        <source>comma separated; empty = any</source>
+        <translation>カンマ区切り。空欄 = すべて</translation>
+    </message>
+    <message>
+        <source>Modes</source>
+        <translation type="unfinished">モード</translation>
+    </message>
+    <message>
+        <source>DX Assistant available modes</source>
+        <translation>DX アシスタントの利用可能なモード</translation>
+    </message>
+    <message>
+        <source>Available radios</source>
+        <translation>利用可能な無線機</translation>
+    </message>
+    <message>
+        <source>DX Assistant available radios</source>
+        <translation>DX アシスタントの利用可能な無線機</translation>
+    </message>
+    <message>
+        <source>Antennas</source>
+        <translation>アンテナ</translation>
+    </message>
+    <message>
+        <source>DX Assistant available antennas</source>
+        <translation>DX アシスタントの利用可能なアンテナ</translation>
     </message>
 </context>
 <context>
@@ -8598,6 +8790,30 @@ QSL の状態: %6 · UTC が不完全: %7。
         <source>Save profile</source>
         <translation>プロファイルを保存</translation>
     </message>
+    <message>
+        <source>Award account</source>
+        <translation>アワードのアカウント</translation>
+    </message>
+    <message>
+        <source>Historical operating location</source>
+        <translation>過去の運用場所</translation>
+    </message>
+    <message>
+        <source>Valid from (YYYY-MM-DD)</source>
+        <translation>有効開始日 (YYYY-MM-DD)</translation>
+    </message>
+    <message>
+        <source>Valid to (YYYY-MM-DD)</source>
+        <translation>有効終了日 (YYYY-MM-DD)</translation>
+    </message>
+    <message>
+        <source>Award account requires review: %1</source>
+        <translation>アワードのアカウントの確認が必要です: %1</translation>
+    </message>
+    <message>
+        <source>Award account groups: %1</source>
+        <translation>アワードのアカウントのグループ: %1</translation>
+    </message>
 </context>
 <context>
     <name>StatsAwardsPage</name>
@@ -10151,10 +10367,6 @@ QSL の状態: %6 · UTC が不完全: %7。
         <translation>N1MM による訂正: %1</translation>
     </message>
     <message>
-        <source>built on %1</source>
-        <translation>%1 にビルド</translation>
-    </message>
-    <message>
         <source>Not understood: %1 (write address:port)</source>
         <translation>わかりません: %1 (アドレス:ポートの形で)</translation>
     </message>
@@ -10990,6 +11202,14 @@ QSL の状態: %6 · UTC が不完全: %7。
         <translation>
             <numerusform>古いよくない取り込みで壊れた QSO を %n 件直しました (前の文字は履歴に残ります)。</numerusform>
         </translation>
+    </message>
+    <message>
+        <source>built on %1 · %2 @ %3</source>
+        <translation>ビルド日 %1 · %2 @ %3</translation>
+    </message>
+    <message>
+        <source>External result was rejected</source>
+        <translation>外部結果は拒否されました</translation>
     </message>
 </context>
 <context>

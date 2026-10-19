@@ -13,6 +13,8 @@ DialogFrame {
     property var draft: ({})
     property int formRev: 0
     property bool edited: false
+    readonly property var awardConflicts: { root.formRev; return profiles.awardAccountConflicts() }
+    readonly property var awardGroups: { root.formRev; return profiles.awardAccountGroups() }
 
     title: qsTr("Station profiles")
     dotColor: Theme.primaryColor
@@ -247,6 +249,45 @@ DialogFrame {
                 ProfileInput { key: "defaultTxPwr"; label: qsTr("Def. pwr W"); Layout.preferredWidth: 90; Layout.fillWidth: false }
             }
             ProfileInput { key: "lotwStationLocation"; label: qsTr("LoTW station location (TQSL)") }
+            GridLayout {
+                Layout.fillWidth: true
+                columns: 2
+                columnSpacing: 10
+                ProfileInput { key: "awardAccount"; label: qsTr("Award account") }
+                ProfileInput { key: "operatingLocation"; label: qsTr("Historical operating location") }
+                ProfileInput { key: "validFrom"; label: qsTr("Valid from (YYYY-MM-DD)") }
+                ProfileInput { key: "validTo"; label: qsTr("Valid to (YYYY-MM-DD)") }
+            }
+
+            Rectangle {
+                Layout.fillWidth: true
+                visible: root.awardConflicts.length > 0
+                implicitHeight: conflictText.implicitHeight + 16
+                radius: 5
+                color: Qt.rgba(Theme.warningColor.r, Theme.warningColor.g, Theme.warningColor.b, 0.12)
+                border.width: 1
+                border.color: Theme.warningColor
+                Text {
+                    id: conflictText
+                    anchors.fill: parent
+                    anchors.margins: 8
+                    wrapMode: Text.Wrap
+                    text: qsTr("Award account requires review: %1")
+                          .arg(root.awardConflicts.map(function(c) { return c.account + " — " + c.reason }).join(" · "))
+                    color: Theme.warningColor
+                    font.pixelSize: 11
+                }
+            }
+            Text {
+                Layout.fillWidth: true
+                visible: root.awardGroups.length > 0
+                text: qsTr("Award account groups: %1").arg(root.awardGroups.map(function(g) {
+                    return g.account + " (" + g.profiles.length + ")" + (g.compatible ? "" : " · review")
+                }).join(" · "))
+                color: Theme.textSecondary
+                wrapMode: Text.Wrap
+                font.pixelSize: 11
+            }
 
             // Un nominativo speciale ha il suo logbook QRZ e la sua casella eQSL:
             // l'invio e le conferme dei suoi QSO passano da li'.

@@ -8,7 +8,29 @@ CREATE TABLE schema_version (
     version     INTEGER NOT NULL,
     applied_at  TEXT    NOT NULL DEFAULT (strftime('%Y-%m-%dT%H:%M:%SZ','now'))
 );
-INSERT INTO schema_version (version) VALUES (8);
+INSERT INTO schema_version (version) VALUES (11);
+
+CREATE TABLE operator_profile (
+    id INTEGER PRIMARY KEY,
+    callsign TEXT NOT NULL UNIQUE,
+    display_name TEXT,
+    updated_at TEXT NOT NULL
+);
+
+CREATE TABLE operating_location (
+    id INTEGER PRIMARY KEY,
+    location_key TEXT NOT NULL UNIQUE,
+    label TEXT,
+    gridsquare TEXT,
+    dxcc INTEGER,
+    updated_at TEXT NOT NULL
+);
+
+CREATE TABLE dxcc_entity (
+    id INTEGER PRIMARY KEY,
+    name TEXT,
+    updated_at TEXT NOT NULL
+);
 
 -- Profili stazione (portatile, casa, evento speciale...)
 CREATE TABLE station_profile (
@@ -25,6 +47,13 @@ CREATE TABLE station_profile (
     my_antenna          TEXT,
     default_tx_pwr      REAL,                      -- W
     lotw_station_loc    TEXT,                      -- nome Station Location in TQSL
+    award_account       TEXT,                      -- account diploma storico
+    operating_location  TEXT,                      -- luogo operativo dichiarato
+    valid_from          TEXT,                      -- yyyy-MM-dd
+    valid_to            TEXT,                      -- yyyy-MM-dd
+    operator_profile_id INTEGER REFERENCES operator_profile(id),
+    operating_location_id INTEGER REFERENCES operating_location(id),
+    dxcc_entity_id      INTEGER REFERENCES dxcc_entity(id),
     is_default          INTEGER NOT NULL DEFAULT 0,
     revision            INTEGER NOT NULL DEFAULT 1,
     updated_at          TEXT    NOT NULL,
@@ -173,3 +202,14 @@ CREATE TABLE app_setting (
     key     TEXT PRIMARY KEY,
     value   TEXT
 );
+
+-- Risposte API idempotenti, persistenti attraverso riavvii e retry.
+CREATE TABLE api_idempotency (
+    key          TEXT PRIMARY KEY,
+    request_body BLOB NOT NULL,
+    status       INTEGER NOT NULL,
+    content_type TEXT NOT NULL,
+    response_body BLOB NOT NULL,
+    created_at   TEXT NOT NULL
+);
+CREATE INDEX idx_api_idempotency_created ON api_idempotency(created_at);

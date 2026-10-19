@@ -26,7 +26,7 @@ Tutte le risposte sono JSON.
 
 ### `GET /api/v1/status`
 
-    {"app":"DecoDXLog","version":"1.17.26","log":"decodxlog","qsos":26497,
+    {"app":"DecoDXLog","version":"1.17.28","log":"decodxlog","qsos":26497,
      "station":"IU8LMC","decodium":true}
 
 ### `GET /api/v1/worked?call=K1ABC&band=20m&mode=FT8`
@@ -72,6 +72,10 @@ non creano un secondo QSO. Riutilizzare la chiave con un corpo diverso restituis
 `409`. Anche senza la chiave, la deduplicazione normale del log impedisce che lo
 stesso contatto venga registrato due volte; contatti distinti restano distinti.
 
-Le chiavi sono mantenute solo in memoria, fino a 512, e decadono al riavvio.
+Le chiavi sono persistite nel database del log, con una retention di 30 giorni;
+le voci scadute vengono rimosse alla prima consultazione. Il primo risultato
+salvato per una chiave resta immutabile: anche richieste concorrenti non possono
+sovrascriverlo. Dopo un riavvio, lo stesso retry restituisce quindi l'esito
+originale senza creare un secondo QSO.
 L'API resta spenta per impostazione predefinita e, quando attiva, ascolta solo su
 `127.0.0.1`.
