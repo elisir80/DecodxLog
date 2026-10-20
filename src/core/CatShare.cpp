@@ -145,7 +145,11 @@ QString CatShare::dumpState()
         "0\n0\n0\n0\n"
         "0\n"
         "0\n"
-        "0x0\n0x0\n0x0\n0x0\n0x0\n0x0\n"
+        // TUNER get/set; SWR and forward-power meters are read-only.  KEYSPD
+        // is proxied too: clients such as Decodium call rig_set_level() before
+        // send_morse, and Hamlib will refuse that call unless dump_state says
+        // that this rigctld endpoint implements it.
+        "0x40000000\n0x40000000\n0x8130004000\n0x4000\n0x0\n0x0\n"
         "vfo_ops=0x0\n"
         "ptt_type=0x1\n"
         "targetable_vfo=0x0\n"
@@ -164,6 +168,7 @@ QString CatShare::handleLine(const QString& line)
 {
     // "+" chiede la forma estesa, ";" il separatore: per i comandi di qui la
     // forma semplice va bene a tutti.
+    const bool extended = line.startsWith(QLatin1Char('+'));
     QString cleaned = line;
     while (!cleaned.isEmpty() && (cleaned.at(0) == QLatin1Char('+') || cleaned.at(0) == QLatin1Char(';')))
         cleaned.remove(0, 1);
@@ -179,13 +184,17 @@ QString CatShare::handleLine(const QString& line)
     // "0", non "CHKVFO 0": con la forma lunga Hamlib rifiuta l'apertura.
     if (cmd == QLatin1String("\\chk_vfo"))
         return QStringLiteral("0\n");
-    if (cmd == QLatin1String("\\get_powerstat"))
-        return QStringLiteral("1\n");
     if (cmd == QLatin1String("\\get_lock_mode"))
         return QStringLiteral("0\n");
 
     RigLink* rig = m_rig ? m_rig() : nullptr;
     const bool up = rig && rig->connected();
+
+    if (cmd == QLatin1String("\\get_powerstat")) {
+        const int value = up && rig->powerStateKnown() ? (rig->powerOn() ? 1 : 0) : (up ? 1 : 0);
+        return extended ? QStringLiteral("get_powerstat:\nPower Status: %1\nRPRT 0\n").arg(value)
+                        : QStringLiteral("%1\n").arg(value);
+    }
 
     // Letture: dallo stato che DecoDXLog ha gia', senza traffico sulla seriale.
     if (cmd == QLatin1String("f") || cmd == QLatin1String("\\get_freq"))
@@ -200,8 +209,36 @@ QString CatShare::handleLine(const QString& line)
         return QStringLiteral("0\nVFOB\n");
     if (cmd == QLatin1String("i") || cmd == QLatin1String("\\get_split_freq"))
         return QStringLiteral("%1\n").arg(up ? rig->frequencyHz() : 0);
-    if (cmd == QLatin1String("l") || cmd == QLatin1String("\\get_level"))
-        return QString::fromLatin1(kNotImpl);
+    if (cmd == QLatin1String("l") || cmd == QLatin1String("\\get_level")) {
+        if (parts.size() < 2 || !up)
+            return QString::fromLatin1(kNotImpl);
+        const QString level = parts.at(1).trimmed().toUpper();
+        auto fail = [&]() {
+            return extended ? QStringLiteral("get_level: %1\n").arg(level) + QString::fromLatin1(kNotImpl)
+                            : QString::fromLatin1(kNotImpl);
+        };
+        auto ok = [&](double value) {
+            return extended ? QStringLiteral("get_level: %1\nLevel Value: %2\nRPRT 0\n")
+                                      .arg(level).arg(value, 0, 'f', 6)
+                            : QStringLiteral("%1\n").arg(value, 0, 'f', 6);
+        };
+        if (level == QLatin1String("SWR"))
+            return rig->swrKnown() && rig->swr() >= 1.0 ? ok(rig->swr()) : fail();
+        if (level == QLatin1String("ALC"))
+            return rig->alcKnown() ? ok(rig->alc()) : fail();
+        if (level == QLatin1String("RFPOWER_METER_WATTS"))
+            return rig->rfPowerKnown() ? ok(rig->rfPowerWatts()) : fail();
+        if (level == QLatin1String("KEYSPD"))
+            return rig->speedWpm() > 0 ? ok(rig->speedWpm()) : fail();
+        return fail();
+    }
+    if (cmd == QLatin1String("u") || cmd == QLatin1String("\\get_func")) {
+        if (parts.size() < 2 || parts.at(1).trimmed().toUpper() != QLatin1String("TUNER") || !up
+            || !rig->tunerKnown())
+            return QString::fromLatin1(kNotImpl);
+        return extended ? QStringLiteral("get_func: TUNER\n%1\nRPRT 0\n").arg(rig->tunerOn() ? 1 : 0)
+                        : QStringLiteral("%1\n").arg(rig->tunerOn() ? 1 : 0);
+    }
 
     // Scritture: solo se consentite.
     if (cmd == QLatin1String("F") || cmd == QLatin1String("\\set_freq")) {
@@ -222,11 +259,37 @@ QString CatShare::handleLine(const QString& line)
         rig->setMode(hamlibMode(parts.at(1)));
         return QString::fromLatin1(kOk);
     }
+    if (cmd == QLatin1String("L") || cmd == QLatin1String("\\set_level")) {
+        if (refuseWrite(cmd, false) || parts.size() < 3 || !up
+            || parts.at(1).trimmed().toUpper() != QLatin1String("KEYSPD"))
+            return QString::fromLatin1(kRefused);
+        bool valid = false;
+        const int wpm = parts.last().toInt(&valid);
+        if (!valid || wpm < 5 || wpm > 60)
+            return QString::fromLatin1(kRefused);
+        rig->setSpeedWpm(wpm);
+        return QString::fromLatin1(kOk);
+    }
     if (cmd == QLatin1String("T") || cmd == QLatin1String("\\set_ptt")) {
         if (refuseWrite(cmd, true) || parts.size() < 2 || !up)
             return QString::fromLatin1(kRefused);
         m_pttOn = parts.last().toInt() != 0;
         rig->setPtt(m_pttOn);
+        return QString::fromLatin1(kOk);
+    }
+    if (cmd == QLatin1String("\\set_powerstat")) {
+        if (refuseWrite(cmd, false) || parts.size() < 2 || !up)
+            return QString::fromLatin1(kRefused);
+        rig->setPowerOn(parts.last().toInt() != 0);
+        return QString::fromLatin1(kOk);
+    }
+    if (cmd == QLatin1String("U") || cmd == QLatin1String("\\set_func")) {
+        if (parts.size() < 3 || parts.at(1).trimmed().toUpper() != QLatin1String("TUNER") || !up)
+            return QString::fromLatin1(kRefused);
+        const bool on = parts.last().toInt() != 0;
+        if (refuseWrite(cmd, on) || (!on && !m_allowControl))
+            return QString::fromLatin1(kRefused);
+        rig->setTunerOn(on);
         return QString::fromLatin1(kOk);
     }
     if (cmd == QLatin1String("b") || cmd == QLatin1String("\\send_morse")) {

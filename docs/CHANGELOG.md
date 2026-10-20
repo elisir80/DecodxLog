@@ -3,6 +3,17 @@
 Le date sono quelle del lavoro, non di una pubblicazione: DecoDXLog cresce mentre lo si usa
 in stazione.
 
+## 1.17.31 — 20 ottobre 2026
+
+**CAT condivisa: ALC.** Il proxy Hamlib di DecoDXLog inoltra ora anche il livello `ALC` con
+polling CAT, capability dichiarata e risposta estesa compatibile con Decodium. Il valore resta
+disponibile soltanto quando radio e driver Hamlib lo forniscono, normalmente durante la TX.
+La stessa catena CAT espone inoltre SWR, potenza RF in watt, stato alimentazione e ATU, con
+controlli power e tuner protetti dalle autorizzazioni di controllo/trasmissione.
+
+**Test.** Aggiunti test per il formato Hamlib di ALC e per il proxy dei meter e dei comandi radio;
+la suite CAT/Rig resta verificata su build multipiattaforma.
+
 ## 1.17.30 — 20 ottobre 2026
 
 **Allineata alla 1.17.29 di elisir80.** Rafforza la CAT condivisa: connessioni piu' sicure, riuso

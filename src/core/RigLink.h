@@ -33,6 +33,26 @@ public:
     // Il modo come lo scrive Hamlib (USB, CW, PKTUSB…).
     virtual void setMode(const QString& mode) = 0;
     virtual void setPtt(bool on) = 0;
+    virtual bool powerOn() const { return connected(); }
+    virtual bool powerStateKnown() const { return false; }
+    virtual double swr() const { return 0.0; }
+    virtual bool swrKnown() const { return false; }
+    virtual double alc() const { return 0.0; }
+    virtual bool alcKnown() const { return false; }
+    virtual double rfPowerWatts() const { return 0.0; }
+    virtual bool rfPowerKnown() const { return false; }
+    virtual bool tunerOn() const { return false; }
+    virtual bool tunerKnown() const { return false; }
+    virtual void setPowerOn(bool on)
+    {
+        Q_UNUSED(on);
+        emit failed(tr("This radio link cannot control power"));
+    }
+    virtual void setTunerOn(bool on)
+    {
+        Q_UNUSED(on);
+        emit failed(tr("This radio link cannot control the tuner"));
+    }
     virtual void setSpeedWpm(int wpm) = 0;
     virtual void sendMorse(const QString& text) = 0;
     virtual void stopMorse() = 0;

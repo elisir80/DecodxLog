@@ -30,6 +30,11 @@ RigControl::RigControl(QObject* parent)
         m_lines.clear();
         m_buffer.clear();
         m_plainBridge = false;
+        m_powerStateKnown = false;
+        m_swrKnown = false;
+        m_alcKnown = false;
+        m_rfPowerKnown = false;
+        m_tunerKnown = false;
         refresh();
         m_poll.start();
         emit changed();
@@ -102,6 +107,11 @@ void RigControl::disconnectFromRig()
     m_socket->abort();
     m_frequencyHz = 0;
     m_mode.clear();
+    m_powerStateKnown = false;
+    m_swrKnown = false;
+    m_alcKnown = false;
+    m_rfPowerKnown = false;
+    m_tunerKnown = false;
     setStatus(tr("Radio off"));
     emit changed();
 }
@@ -128,10 +138,18 @@ void RigControl::refresh()
     send(QStringLiteral("freq"), QStringLiteral("f"), 1);
     send(QStringLiteral("mode"), QStringLiteral("m"), 2);
     send(QStringLiteral("speed"), QStringLiteral("l KEYSPD"), 1);
-    // Split, VFO, RIT e XIT solo finche' la radio li sa fare, e una volta ogni
-    // tre giri: ogni domanda e' un comando CAT sul cavo, e le radio lente non
-    // devono perdere la frequenza per saperli.
-    if (m_extraPoll++ % 3 != 0)
+    // Un giro e' dedicato ai meter e allo stato di alimentazione/tuner; quello
+    // successivo alle funzioni VFO. Cosi' il polling non satura le radio lente.
+    const int pollCycle = m_extraPoll++ % 3;
+    if (pollCycle == 1) {
+        send(QStringLiteral("powerstat"), QStringLiteral("\\get_powerstat"), 1);
+        send(QStringLiteral("swr"), QStringLiteral("l SWR"), 1);
+        send(QStringLiteral("alc"), QStringLiteral("l ALC"), 1);
+        send(QStringLiteral("powerwatts"), QStringLiteral("l RFPOWER_METER_WATTS"), 1);
+        send(QStringLiteral("tuner"), QStringLiteral("u TUNER"), 1);
+        return;
+    }
+    if (pollCycle != 0)
         return;
     if (m_features & Split) {
         send(QStringLiteral("split"), QStringLiteral("s"), 2);
@@ -222,6 +240,26 @@ void RigControl::setMode(const QString& mode)
 void RigControl::setPtt(bool on)
 {
     send(QStringLiteral("set"), QStringLiteral("T %1").arg(on ? 1 : 0), 0);
+}
+
+void RigControl::setPowerOn(bool on)
+{
+    if (!connected())
+        return;
+    send(QStringLiteral("setpowerstat"), QStringLiteral("\\set_powerstat %1").arg(on ? 1 : 0), 0);
+    m_powerOn = on;
+    m_powerStateKnown = true;
+    emit changed();
+}
+
+void RigControl::setTunerOn(bool on)
+{
+    if (!connected())
+        return;
+    send(QStringLiteral("settuner"), QStringLiteral("U TUNER %1").arg(on ? 1 : 0), 0);
+    m_tunerOn = on;
+    m_tunerKnown = true;
+    emit changed();
 }
 
 void RigControl::setSpeedWpm(int wpm)
@@ -468,6 +506,20 @@ void RigControl::handleReply(const QStringList& lines)
             m_noStopMorse = true;
             emit failed(tr("This radio cannot stop the CW from CAT: the message ends by itself. "
                            "To cut it short use the radio, or a serial keyer."));
+        } else if (what.kind == QLatin1String("powerstat") || what.kind == QLatin1String("swr")
+                   || what.kind == QLatin1String("alc")
+                   || what.kind == QLatin1String("powerwatts") || what.kind == QLatin1String("tuner")) {
+            if (what.kind == QLatin1String("powerstat")) m_powerStateKnown = false;
+            if (what.kind == QLatin1String("swr")) m_swrKnown = false;
+            if (what.kind == QLatin1String("alc")) m_alcKnown = false;
+            if (what.kind == QLatin1String("powerwatts")) m_rfPowerKnown = false;
+            if (what.kind == QLatin1String("tuner")) m_tunerKnown = false;
+            emit changed();
+        } else if (what.kind == QLatin1String("setpowerstat") || what.kind == QLatin1String("settuner")) {
+            if (what.kind == QLatin1String("setpowerstat")) m_powerStateKnown = false;
+            if (what.kind == QLatin1String("settuner")) m_tunerKnown = false;
+            emit failed(tr("The radio refused the CAT power/tuner command (rigctld: %1)").arg(result));
+            emit changed();
         } else if (what.kind == QLatin1String("split") || what.kind == QLatin1String("txfreq")
                    || what.kind == QLatin1String("setsplit") || what.kind == QLatin1String("splitcheck")
                    || what.kind == QLatin1String("txcheck")) {
@@ -608,6 +660,45 @@ void RigControl::handleReply(const QStringList& lines)
                 moved = true;
             }
         }
+    } else if (what.kind == QLatin1String("powerstat")) {
+        const QString v = first(QStringLiteral("Power Status"));
+        m_powerOn = (v.isEmpty() && !plain.isEmpty() ? plain.first() : v).toInt() != 0;
+        m_powerStateKnown = true;
+        moved = true;
+    } else if (what.kind == QLatin1String("swr")) {
+        const QString v = first(QStringLiteral("Level Value"));
+        bool ok = false;
+        const double value = (v.isEmpty() && !plain.isEmpty() ? plain.first() : v).toDouble(&ok);
+        if (ok && value >= 1.0) {
+            m_swr = value;
+            m_swrKnown = true;
+            moved = true;
+        }
+    } else if (what.kind == QLatin1String("alc")) {
+        const QString v = first(QStringLiteral("Level Value"));
+        bool ok = false;
+        const double value = (v.isEmpty() && !plain.isEmpty() ? plain.first() : v).toDouble(&ok);
+        if (ok && value >= 0.0) {
+            m_alc = value;
+            m_alcKnown = true;
+            moved = true;
+        }
+    } else if (what.kind == QLatin1String("powerwatts")) {
+        const QString v = first(QStringLiteral("Level Value"));
+        bool ok = false;
+        const double value = (v.isEmpty() && !plain.isEmpty() ? plain.first() : v).toDouble(&ok);
+        if (ok && value >= 0.0) {
+            m_rfPowerWatts = value;
+            m_rfPowerKnown = true;
+            moved = true;
+        }
+    } else if (what.kind == QLatin1String("tuner")) {
+        const QString v = first(QStringLiteral("Tuner"));
+        m_tunerOn = (v.isEmpty() && !plain.isEmpty() ? plain.first() : v).toInt() != 0;
+        m_tunerKnown = true;
+        moved = true;
+    } else if (what.kind == QLatin1String("setpowerstat") || what.kind == QLatin1String("settuner")) {
+        moved = true;
     } else if (what.kind == QLatin1String("morse")) {
         finishMorse(what, true);
     }
