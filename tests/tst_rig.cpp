@@ -360,6 +360,50 @@ private slots:
                 < rig.received.indexOf(QStringLiteral("+\\stop_morse")));
     }
 
+    void emergencyStopStillWorksAfterNormalSocketDrops()
+    {
+        FakeRigctld rig;
+        RigControl control;
+        control.connectTo(QStringLiteral("127.0.0.1"), rig.serverPort());
+        QTRY_VERIFY_WITH_TIMEOUT(control.connected(), 5000);
+        rig.received.clear();
+
+        // Simulates the CAT socket disappearing while the radio/keyer is still
+        // transmitting. The emergency connection must not depend on connected().
+        control.disconnectFromRig();
+        QVERIFY(!control.connected());
+        control.emergencyStop();
+
+        QTRY_VERIFY_WITH_TIMEOUT(rig.received.contains(QStringLiteral("+T 0")), 5000);
+        QTRY_VERIFY_WITH_TIMEOUT(rig.received.contains(QStringLiteral("+\\stop_morse")), 5000);
+        QVERIFY(rig.received.indexOf(QStringLiteral("+T 0"))
+                < rig.received.indexOf(QStringLiteral("+\\stop_morse")));
+    }
+
+    void emergencyStopCanForceYaesuCatReceiveWithExternalPtt()
+    {
+        FakeRigctld rig;
+        RigControl control;
+        control.setEmergencyCatOffCommand(QStringLiteral("TX0;"));
+        control.connectTo(QStringLiteral("127.0.0.1"), rig.serverPort());
+        QTRY_VERIFY_WITH_TIMEOUT(control.connected(), 5000);
+        rig.received.clear();
+
+        control.emergencyStop();
+
+        QTRY_VERIFY_WITH_TIMEOUT(rig.received.contains(QStringLiteral("+T 0")), 5000);
+        QTRY_VERIFY_WITH_TIMEOUT(rig.received.contains(QStringLiteral("+w TX0;")), 5000);
+        QTRY_VERIFY_WITH_TIMEOUT(rig.received.contains(QStringLiteral("+\\stop_morse")), 5000);
+        const int configuredPttOff = rig.received.indexOf(QStringLiteral("+T 0"));
+        const int catPttOff = rig.received.indexOf(QStringLiteral("+w TX0;"));
+        // The normal CAT socket also sends an idempotent stop before the
+        // emergency socket connects.  The last stop belongs to the complete
+        // emergency sequence and must follow its raw Yaesu TX0 command.
+        const int stopMorse = rig.received.lastIndexOf(QStringLiteral("+\\stop_morse"));
+        QVERIFY(configuredPttOff < catPttOff);
+        QVERIFY(catPttOff < stopMorse);
+    }
+
     // rigctld risponde a "get_level" col valore nudo e *poi* con RPRT. Il
     // valore nudo bastava a chiudere la risposta, e il RPRT che arrivava dopo
     // si prendeva la domanda seguente: da li' in poi ogni risposta finiva sulla

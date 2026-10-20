@@ -52,6 +52,10 @@ public:
     static QString morseText(const QString& text);
     void stopMorse() override;
     void emergencyStop() override;
+    // Some radios start their native CW memory independently of an external
+    // RTS/DTR PTT line.  For a locally managed rigctld, the owner can provide
+    // the model-specific CAT receive command used only by emergencyStop().
+    void setEmergencyCatOffCommand(const QString& command);
 
     int features() const override { return m_features; }
     bool split() const override { return m_split; }
@@ -134,6 +138,7 @@ private:
     QString m_activeMorse;
     quint64 m_activeMorseToken{0};
     quint64 m_morseToken{0};
+    QString m_emergencyCatOffCommand;
     qint64 m_splitTxWanted{0};
     quint64 m_splitCheck{0};
 };

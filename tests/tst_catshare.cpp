@@ -13,6 +13,9 @@ public:
     qint64 hz{14074000};
     QString m{"PKTUSB"};
     bool ptt{false};
+    QStringList morse;
+    QStringList calls;
+    int stops{0};
     void disconnectFromRig() override {}
     bool connected() const override { return true; }
     qint64 frequencyHz() const override { return hz; }
@@ -21,11 +24,11 @@ public:
     QString status() const override { return {}; }
     void refresh() override {}
     void setFrequency(qint64 h) override { hz = h; }
-    void setMode(const QString& mode) override { m = mode; }
-    void setPtt(bool on) override { ptt = on; }
+    void setMode(const QString& mode) override { m = mode; calls << QStringLiteral("mode:%1").arg(mode); }
+    void setPtt(bool on) override { ptt = on; calls << QStringLiteral("ptt:%1").arg(on ? 1 : 0); }
     void setSpeedWpm(int) override {}
-    void sendMorse(const QString&) override {}
-    void stopMorse() override {}
+    void sendMorse(const QString& text) override { morse << text; calls << QStringLiteral("morse:%1").arg(text); }
+    void stopMorse() override { ++stops; calls << QStringLiteral("stop"); }
 };
 
 class TestCatShare : public QObject {
@@ -66,10 +69,24 @@ private slots:
         // La trasmissione ha un interruttore suo.
         QCOMPARE(share.handleLine("T 1"), QString("RPRT -1\n"));
         QVERIFY(!rig.ptt);
+        QCOMPARE(share.handleLine("\\send_morse CQ TEST"), QString("RPRT -1\n"));
+        QVERIFY(rig.morse.isEmpty());
         share.configure(false, 4533, true, true);
         QCOMPARE(share.handleLine("T 1"), QString("RPRT 0\n"));
         QVERIFY(rig.ptt);
         QCOMPARE(share.handleLine("t"), QString("1\n"));
+        QCOMPARE(share.handleLine("\\send_morse CQ TEST"), QString("RPRT 0\n"));
+        QCOMPARE(rig.m, QString("CW"));
+        QCOMPARE(rig.morse, QStringList({QStringLiteral("CQ TEST")}));
+        QVERIFY(rig.calls.indexOf(QStringLiteral("mode:CW"))
+                < rig.calls.indexOf(QStringLiteral("morse:CQ TEST")));
+        QCOMPARE(share.handleLine("b ?"), QString("RPRT 0\n"));
+        QCOMPARE(rig.morse.last(), QString("?"));
+        QCOMPARE(share.handleLine("b"), QString("RPRT -1\n"));
+        QCOMPARE(share.handleLine("\\stop_morse"), QString("RPRT 0\n"));
+        QVERIFY(!rig.ptt);
+        QCOMPARE(rig.stops, 1);
+        QCOMPARE(share.handleLine("t"), QString("0\n"));
         // Senza controllo, il PTT non passa neanche se chiesto.
         share.configure(false, 4533, false, true);
         QVERIFY(!share.allowPtt());
@@ -99,6 +116,27 @@ private slots:
         QVERIFY(!second.lastError().isEmpty());
         share.configure(false, port, false, false);
         QVERIFY(!share.listening());
+    }
+
+    void cwForwardingOverTcp()
+    {
+        FakeRig rig;
+        CatShare share;
+        share.setRigProvider([&rig]() -> RigLink* { return &rig; });
+        const int port = 45331;
+        QVERIFY(share.configure(true, port, true, true));
+
+        QTcpSocket client;
+        client.connectToHost("127.0.0.1", static_cast<quint16>(port));
+        QVERIFY(client.waitForConnected(3000));
+        client.write("\\send_morse CQ DE TEST\n\\stop_morse\n");
+        QByteArray replies;
+        QTRY_VERIFY_WITH_TIMEOUT((replies += client.readAll()).count('\n') >= 2, 3000);
+        QCOMPARE(replies, QByteArray("RPRT 0\nRPRT 0\n"));
+        QCOMPARE(rig.m, QString("CW"));
+        QCOMPARE(rig.morse, QStringList({QStringLiteral("CQ DE TEST")}));
+        QCOMPARE(rig.stops, 1);
+        QVERIFY(!rig.ptt);
     }
 };
 

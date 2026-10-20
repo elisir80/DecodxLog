@@ -229,6 +229,33 @@ QString CatShare::handleLine(const QString& line)
         rig->setPtt(m_pttOn);
         return QString::fromLatin1(kOk);
     }
+    if (cmd == QLatin1String("b") || cmd == QLatin1String("\\send_morse")) {
+        const qsizetype argumentStart = cleaned.indexOf(QLatin1Char(' '));
+        const QString text = argumentStart >= 0 ? cleaned.mid(argumentStart + 1).trimmed() : QString();
+        if (refuseWrite(cmd, true) || text.isEmpty() || !up)
+            return QString::fromLatin1(kRefused);
+
+        // send_morse is valid only in CW/CWR.  A client can have just changed
+        // band while DecoDXLog still reports the former DATA mode, so put the
+        // mode command in the same underlying rigctld queue before the text.
+        // The radio's break-in keyer remains responsible for dots, dashes and
+        // gaps: this does not assert a continuous PTT.
+        if (!rig->mode().trimmed().toUpper().startsWith(QLatin1String("CW")))
+            rig->setMode(QStringLiteral("CW"));
+        rig->sendMorse(text);
+        return QString::fromLatin1(kOk);
+    }
+    const bool stopMorse = cmd == QLatin1String("\\stop_morse")
+        || (cmd.size() == 1 && cmd.at(0).unicode() == 0x00bb);
+    if (stopMorse) {
+        if (refuseWrite(cmd, true) || !up)
+            return QString::fromLatin1(kRefused);
+        // Treat a remote keyer stop as a safety stop as well.  This clears the
+        // Morse queue and releases any PTT left by the client or radio link.
+        m_pttOn = false;
+        rig->emergencyStop();
+        return QString::fromLatin1(kOk);
+    }
     // VFO e split si accettano senza agire: i client li impostano all'apertura,
     // e rifiutarli farebbe fallire chi non vuole comandare niente.
     if (cmd == QLatin1String("V") || cmd == QLatin1String("\\set_vfo") || cmd == QLatin1String("S")

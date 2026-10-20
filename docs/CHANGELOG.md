@@ -3,6 +3,14 @@
 Le date sono quelle del lavoro, non di una pubblicazione: DecoDXLog cresce mentre lo si usa
 in stazione.
 
+## 1.17.30 — 20 ottobre 2026
+
+**Allineata alla 1.17.29 di elisir80.** Rafforza la CAT condivisa: connessioni piu' sicure, riuso
+della CAT condivisa e diagnostica piu' chiara per radio raggiungibile, non raggiungibile o in
+riconnessione. La configurazione CW/CAT evita le interferenze fra controllo di frequenza/modo e keyer,
+con le seriali locali piu' affidabili, e il pannello CW riflette lo stato delle periferiche. Nessun
+conflitto nella fusione, nessuna stringa nuova da tradurre.
+
 ## 1.17.28 — 19 ottobre 2026
 
 **Allineata alla 1.17.27 di elisir80.** Separa meglio operatore, luogo operativo, profilo tecnico ed
