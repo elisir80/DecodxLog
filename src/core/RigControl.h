@@ -43,6 +43,18 @@ public:
     void setFrequency(qint64 hz) override;
     void setMode(const QString& mode) override;
     void setPtt(bool on) override;
+    bool powerOn() const override { return m_powerOn; }
+    bool powerStateKnown() const override { return m_powerStateKnown; }
+    double swr() const override { return m_swr; }
+    bool swrKnown() const override { return m_swrKnown; }
+    double alc() const override { return m_alc; }
+    bool alcKnown() const override { return m_alcKnown; }
+    double rfPowerWatts() const override { return m_rfPowerWatts; }
+    bool rfPowerKnown() const override { return m_rfPowerKnown; }
+    bool tunerOn() const override { return m_tunerOn; }
+    bool tunerKnown() const override { return m_tunerKnown; }
+    void setPowerOn(bool on) override;
+    void setTunerOn(bool on) override;
     // La velocita' del manipolatore della radio, in parole al minuto.
     void setSpeedWpm(int wpm) override;
     // Manda il testo in CW con il manipolatore della radio, e lo ferma.
@@ -111,6 +123,16 @@ private:
     QString m_mode;
     int m_wpm{0};
     QString m_status;
+    bool m_powerOn{true};
+    bool m_powerStateKnown{false};
+    double m_swr{0.0};
+    bool m_swrKnown{false};
+    double m_alc{0.0};
+    bool m_alcKnown{false};
+    double m_rfPowerWatts{0.0};
+    bool m_rfPowerKnown{false};
+    bool m_tunerOn{false};
+    bool m_tunerKnown{false};
     // Quello che la radio sa fare: si parte da tutto, e un errore toglie.
     int m_features{Split | VfoSelect | Rit | Xit};
     bool m_split{false};

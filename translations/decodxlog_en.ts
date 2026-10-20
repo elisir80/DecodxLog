@@ -12865,6 +12865,10 @@ Extra fields are preserved: %8</source>
         <source>The radio is still split: switch it off on the radio, or from the program that holds the CAT.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>The radio refused the CAT power/tuner command (rigctld: %1)</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>decolog::core::RigLink</name>
@@ -12882,6 +12886,14 @@ Extra fields are preserved: %8</source>
     </message>
     <message>
         <source>This radio link does not do XIT</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This radio link cannot control power</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This radio link cannot control the tuner</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

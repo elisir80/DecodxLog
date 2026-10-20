@@ -12807,6 +12807,10 @@ QSL の状態: %6 · UTC が不完全: %7。
         <source>The radio is still split: switch it off on the radio, or from the program that holds the CAT.</source>
         <translation>無線機はまだスプリットです。無線機で、または CAT を持っているプログラムでオフにしてください。</translation>
     </message>
+    <message>
+        <source>The radio refused the CAT power/tuner command (rigctld: %1)</source>
+        <translation>無線機が出力/チューナーの CAT コマンドを拒否しました (rigctld: %1)</translation>
+    </message>
 </context>
 <context>
     <name>decolog::core::RigLink</name>
@@ -12825,6 +12829,14 @@ QSL の状態: %6 · UTC が不完全: %7。
     <message>
         <source>This radio link does not do XIT</source>
         <translation>この無線機接続は XIT に対応していません</translation>
+    </message>
+    <message>
+        <source>This radio link cannot control power</source>
+        <translation>この無線機との接続では出力を制御できません</translation>
+    </message>
+    <message>
+        <source>This radio link cannot control the tuner</source>
+        <translation>この無線機との接続ではチューナーを制御できません</translation>
     </message>
 </context>
 <context>

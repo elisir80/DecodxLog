@@ -12872,6 +12872,10 @@ Campi extra conservati: %8</translation>
         <source>The radio is still split: switch it off on the radio, or from the program that holds the CAT.</source>
         <translation>La radio è ancora in split: spegnilo dalla radio, o dal programma che tiene il CAT.</translation>
     </message>
+    <message>
+        <source>The radio refused the CAT power/tuner command (rigctld: %1)</source>
+        <translation>La radio ha rifiutato il comando CAT di potenza/accordatore (rigctld: %1)</translation>
+    </message>
 </context>
 <context>
     <name>decolog::core::RigLink</name>
@@ -12890,6 +12894,14 @@ Campi extra conservati: %8</translation>
     <message>
         <source>This radio link does not do XIT</source>
         <translation>Questo collegamento con la radio non fa l&apos;XIT</translation>
+    </message>
+    <message>
+        <source>This radio link cannot control power</source>
+        <translation>Questo collegamento radio non può controllare la potenza</translation>
+    </message>
+    <message>
+        <source>This radio link cannot control the tuner</source>
+        <translation>Questo collegamento radio non può controllare l&apos;accordatore</translation>
     </message>
 </context>
 <context>

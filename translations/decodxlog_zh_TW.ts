@@ -12807,6 +12807,10 @@ QSL 狀態：%6 · UTC 不完整：%7。
         <source>The radio is still split: switch it off on the radio, or from the program that holds the CAT.</source>
         <translation>電台仍處於異頻：請在電台上或在控制 CAT 的程式中關閉它。</translation>
     </message>
+    <message>
+        <source>The radio refused the CAT power/tuner command (rigctld: %1)</source>
+        <translation>電台拒絕了功率/天調的 CAT 指令 (rigctld: %1)</translation>
+    </message>
 </context>
 <context>
     <name>decolog::core::RigLink</name>
@@ -12825,6 +12829,14 @@ QSL 狀態：%6 · UTC 不完整：%7。
     <message>
         <source>This radio link does not do XIT</source>
         <translation>此電台連線不支援 XIT</translation>
+    </message>
+    <message>
+        <source>This radio link cannot control power</source>
+        <translation>此電台連線無法控制功率</translation>
+    </message>
+    <message>
+        <source>This radio link cannot control the tuner</source>
+        <translation>此電台連線無法控制天調</translation>
     </message>
 </context>
 <context>

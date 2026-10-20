@@ -12937,6 +12937,10 @@ Câmpuri suplimentare păstrate: %8</translation>
         <source>The radio is still split: switch it off on the radio, or from the program that holds the CAT.</source>
         <translation>Aparatul e încă în split: oprește-l de pe aparat sau din programul care ține CAT-ul.</translation>
     </message>
+    <message>
+        <source>The radio refused the CAT power/tuner command (rigctld: %1)</source>
+        <translation>Aparatul a refuzat comanda CAT de putere/cuplor (rigctld: %1)</translation>
+    </message>
 </context>
 <context>
     <name>decolog::core::RigLink</name>
@@ -12955,6 +12959,14 @@ Câmpuri suplimentare păstrate: %8</translation>
     <message>
         <source>This radio link does not do XIT</source>
         <translation>Această legătură cu stația nu face XIT</translation>
+    </message>
+    <message>
+        <source>This radio link cannot control power</source>
+        <translation>Această legătură radio nu poate controla puterea</translation>
+    </message>
+    <message>
+        <source>This radio link cannot control the tuner</source>
+        <translation>Această legătură radio nu poate controla cuplorul</translation>
     </message>
 </context>
 <context>

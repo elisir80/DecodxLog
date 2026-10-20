@@ -12807,6 +12807,10 @@ A további mezők megmaradnak: %8</translation>
         <source>The radio is still split: switch it off on the radio, or from the program that holds the CAT.</source>
         <translation>A rádió még split üzemben van: kapcsold ki a rádión, vagy abban a programban, amely a CAT-et tartja.</translation>
     </message>
+    <message>
+        <source>The radio refused the CAT power/tuner command (rigctld: %1)</source>
+        <translation>A rádió elutasította a teljesítmény/antennahangoló CAT-parancsot (rigctld: %1)</translation>
+    </message>
 </context>
 <context>
     <name>decolog::core::RigLink</name>
@@ -12825,6 +12829,14 @@ A további mezők megmaradnak: %8</translation>
     <message>
         <source>This radio link does not do XIT</source>
         <translation>Ez a rádiókapcsolat nem tud XIT-et</translation>
+    </message>
+    <message>
+        <source>This radio link cannot control power</source>
+        <translation>Ez a rádiókapcsolat nem tudja vezérelni a teljesítményt</translation>
+    </message>
+    <message>
+        <source>This radio link cannot control the tuner</source>
+        <translation>Ez a rádiókapcsolat nem tudja vezérelni az antennahangolót</translation>
     </message>
 </context>
 <context>

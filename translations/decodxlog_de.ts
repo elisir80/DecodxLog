@@ -12872,6 +12872,10 @@ Zusatzfelder bleiben erhalten: %8</translation>
         <source>The radio is still split: switch it off on the radio, or from the program that holds the CAT.</source>
         <translation>Das Funkgerät ist noch in Split: am Funkgerät ausschalten oder in dem Programm, das die CAT hält.</translation>
     </message>
+    <message>
+        <source>The radio refused the CAT power/tuner command (rigctld: %1)</source>
+        <translation>Das Funkgerät hat den CAT-Befehl für Leistung/Tuner abgelehnt (rigctld: %1)</translation>
+    </message>
 </context>
 <context>
     <name>decolog::core::RigLink</name>
@@ -12890,6 +12894,14 @@ Zusatzfelder bleiben erhalten: %8</translation>
     <message>
         <source>This radio link does not do XIT</source>
         <translation>Diese Geräteverbindung kann kein XIT</translation>
+    </message>
+    <message>
+        <source>This radio link cannot control power</source>
+        <translation>Diese Funkverbindung kann die Leistung nicht steuern</translation>
+    </message>
+    <message>
+        <source>This radio link cannot control the tuner</source>
+        <translation>Diese Funkverbindung kann den Tuner nicht steuern</translation>
     </message>
 </context>
 <context>

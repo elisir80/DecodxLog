@@ -12872,6 +12872,10 @@ Ekstra felter bevares: %8</translation>
         <source>The radio is still split: switch it off on the radio, or from the program that holds the CAT.</source>
         <translation>Radioen er stadig i split: slå det fra på radioen eller i det program, der har CAT.</translation>
     </message>
+    <message>
+        <source>The radio refused the CAT power/tuner command (rigctld: %1)</source>
+        <translation>Radioen afviste CAT-kommandoen for effekt/tuner (rigctld: %1)</translation>
+    </message>
 </context>
 <context>
     <name>decolog::core::RigLink</name>
@@ -12890,6 +12894,14 @@ Ekstra felter bevares: %8</translation>
     <message>
         <source>This radio link does not do XIT</source>
         <translation>Denne radioforbindelse kan ikke XIT</translation>
+    </message>
+    <message>
+        <source>This radio link cannot control power</source>
+        <translation>Denne radioforbindelse kan ikke styre effekten</translation>
+    </message>
+    <message>
+        <source>This radio link cannot control the tuner</source>
+        <translation>Denne radioforbindelse kan ikke styre tuneren</translation>
     </message>
 </context>
 <context>

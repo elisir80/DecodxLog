@@ -12937,6 +12937,10 @@ Extra fields are preserved: %8</source>
         <source>The radio is still split: switch it off on the radio, or from the program that holds the CAT.</source>
         <translation>Трансивер всё ещё в сплите: выключите его на трансивере или в программе, которая держит CAT.</translation>
     </message>
+    <message>
+        <source>The radio refused the CAT power/tuner command (rigctld: %1)</source>
+        <translation>Радиостанция отклонила CAT-команду мощности/тюнера (rigctld: %1)</translation>
+    </message>
 </context>
 <context>
     <name>decolog::core::RigLink</name>
@@ -12955,6 +12959,14 @@ Extra fields are preserved: %8</source>
     <message>
         <source>This radio link does not do XIT</source>
         <translation>Это подключение к радиостанции не умеет XIT</translation>
+    </message>
+    <message>
+        <source>This radio link cannot control power</source>
+        <translation>Эта связь с радиостанцией не может управлять мощностью</translation>
+    </message>
+    <message>
+        <source>This radio link cannot control the tuner</source>
+        <translation>Эта связь с радиостанцией не может управлять тюнером</translation>
     </message>
 </context>
 <context>
