@@ -34,6 +34,11 @@ class CloudController : public QObject {
     Q_PROPERTY(QString status READ status NOTIFY changed)
     Q_PROPERTY(QString lastSync READ lastSync NOTIFY changed)
     Q_PROPERTY(int queued READ queued NOTIFY changed)
+    // L'avanzamento della spinta: da 0 a 1, o -1 quando non si sa (si sta
+    // ricevendo, o si prepara). Fatti e totale contano i QSO di questo giro.
+    Q_PROPERTY(double progress READ progress NOTIFY changed)
+    Q_PROPERTY(int progressDone READ progressDone NOTIFY changed)
+    Q_PROPERTY(int progressTotal READ progressTotal NOTIFY changed)
     Q_PROPERTY(QVariantMap remote READ remote NOTIFY changed)
     Q_PROPERTY(QVariantList pendingSettings READ pendingSettings NOTIFY changed)
     // "qso" dopo ogni QSO e ogni cinque minuti, "timer" solo a tempo, "manual".
@@ -90,6 +95,9 @@ public:
     // Salvata ISO, mostrata nella forma della lingua.
     QString lastSync() const { return core::dates::show(m_lastSync); }
     int queued() const;
+    double progress() const;
+    int progressDone() const { return m_pushSent; }
+    int progressTotal() const { return m_pushTotal; }
     QVariantMap remote() const { return m_remote; }
     QVariantList pendingSettings() const { return m_pendingSettings; }
     QString autoMode() const { return m_autoMode; }
@@ -217,6 +225,10 @@ private:
     // Il cursore e' gia' stato riportato in pari dopo la spinta di questo giro?
     bool m_cursorCaughtUp{false};
     bool m_pulling{false};
+    // I QSO da mandare in questo giro, contati quando la spinta parte (e rialzati
+    // se intanto se ne loggano altri): serve alla barra di avanzamento.
+    int m_pushTotal{0};
+    int m_pushSent{0};
     // I QSO mandati nell'ultima spinta, nell'ordine: gli esiti tornano cosi'.
     QList<qint64> m_batch;
     // La preparazione a fette: quello che resta da preparare e quello che e'

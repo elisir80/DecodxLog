@@ -913,6 +913,27 @@ DialogFrame {
                                     font.family: Theme.monoFamily
                                     font.pixelSize: 11
                                 }
+                                // Mentre il log sale: quanti QSO sono gia' partiti.
+                                // Senza totale (si sta ricevendo) la barra scorre e basta.
+                                RowLayout {
+                                    width: parent.width
+                                    visible: decolog.cloud.busy
+                                    spacing: 8
+                                    ProgressBar {
+                                        Layout.fillWidth: true
+                                        from: 0
+                                        to: 1
+                                        indeterminate: decolog.cloud.progress < 0
+                                        value: Math.max(0, decolog.cloud.progress)
+                                    }
+                                    Text {
+                                        visible: decolog.cloud.progress >= 0
+                                        text: decolog.cloud.progressDone + " / " + decolog.cloud.progressTotal + " QSO"
+                                        color: Theme.textSecondary
+                                        font.family: Theme.monoFamily
+                                        font.pixelSize: 11
+                                    }
+                                }
                             }
                             GlassButton {
                                 text: decolog.cloud.busy ? qsTr("syncing…") : qsTr("Sync now")

@@ -569,12 +569,22 @@ Rectangle {
                 }
                 Text {
                     text: decolog.cloud.busy ? qsTr("syncing…")
+                          + (decolog.cloud.progress >= 0 ? " " + Math.round(decolog.cloud.progress * 100) + "%" : "")
                         : decolog.cloud.queued > 0 ? qsTr("%1 queued").arg(decolog.cloud.queued)
                         : decolog.cloud.lastSync.length ? qsTr("synced %1").arg(decolog.cloud.lastSync)
                         : qsTr("%1 queued").arg(decolog.dirtyCount)
                     color: decolog.cloud.queued > 0 ? Theme.warningColor : Theme.textSecondary
                     font.family: Theme.monoFamily
                     font.pixelSize: 11
+                }
+                // La barra sotto lo stato: riempita quanto e' salito del log.
+                ProgressBar {
+                    visible: decolog.cloud.busy && decolog.cloud.progress >= 0
+                    width: parent.width
+                    height: 4
+                    from: 0
+                    to: 1
+                    value: Math.max(0, decolog.cloud.progress)
                 }
             }
             // Solo l'icona: lo stato e' gia' scritto accanto, e la barra

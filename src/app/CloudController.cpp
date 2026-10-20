@@ -141,6 +141,7 @@ CloudController::CloudController(Context context, QObject* parent)
             [this](const QVariantList& results, const QVariantList& docResults, qint64 cursor) {
         applyPushResults(results);
         applyDocResults(docResults);
+        m_pushSent += static_cast<int>(results.size());
         m_cursor = qMax(m_cursor, cursor);
         m_ctx.db->setSyncState(accountKey(), {{QStringLiteral("lastPush"), nowLabel()},
                                               {QStringLiteral("lastError"), QString()}});
@@ -345,6 +346,13 @@ int CloudController::queued() const
     return m_ctx.db && m_ctx.db->isOpen() ? m_ctx.db->dirtyCount() : 0;
 }
 
+double CloudController::progress() const
+{
+    if (!m_busy || m_pulling || m_pushTotal <= 0)
+        return -1.0;
+    return qBound(0.0, static_cast<double>(m_pushSent) / m_pushTotal, 1.0);
+}
+
 void CloudController::note(const QString& text, const QString& level)
 {
     if (m_ctx.activity)
@@ -354,6 +362,8 @@ void CloudController::note(const QString& text, const QString& level)
 void CloudController::finish(const QString& text, const QString& level)
 {
     m_busy = false;
+    m_pushTotal = 0;
+    m_pushSent = 0;
     m_status = text;
     note(text, level);
     emit changed();
@@ -560,6 +570,8 @@ void CloudController::syncNow()
     if (m_busy)
         return;
     m_busy = true;
+    m_pushTotal = 0;
+    m_pushSent = 0;
     m_cursorCaughtUp = false;
     m_status = tr("Cloud: syncing…");
     emit changed();
@@ -581,6 +593,7 @@ void CloudController::startPush()
     // la finestra restava ferma per secondi — e a chi opera sembra il
     // programma piantato. Si prepara a fette, tornando in mezzo a servire
     // l'interfaccia: ci si mette lo stesso tempo, ma il programma resta vivo.
+    m_pushTotal = qMax(m_pushTotal, m_pushSent + queued());
     m_batch = m_ctx.db->dirtyQsos(kBatch);
     m_toPrepare = m_batch;
     m_prepared.clear();

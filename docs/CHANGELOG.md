@@ -11,6 +11,11 @@ riconnessione. La configurazione CW/CAT evita le interferenze fra controllo di f
 con le seriali locali piu' affidabili, e il pannello CW riflette lo stato delle periferiche. Nessun
 conflitto nella fusione, nessuna stringa nuova da tradurre.
 
+**Barra di avanzamento nel Cloud.** Quando il log sale al Cloud si vede quanto manca: in Setup →
+Sync & Cloud la barra con «QSO mandati / totale», e nella barra in alto la percentuale con una barra
+sottile. Mentre si riceve, o si prepara, la barra scorre senza percentuale. Se intanto si logga, il
+totale si alza e la barra non torna indietro.
+
 ## 1.17.28 — 19 ottobre 2026
 
 **Allineata alla 1.17.27 di elisir80.** Separa meglio operatore, luogo operativo, profilo tecnico ed
