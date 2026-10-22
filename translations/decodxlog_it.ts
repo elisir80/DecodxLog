@@ -5260,6 +5260,10 @@ Campi extra conservati: %8</translation>
         <source>Club Log: no answer</source>
         <translation>Club Log: nessuna risposta</translation>
     </message>
+    <message>
+        <source>eQSL sent no card picture for this QSO (found: %1)</source>
+        <translation>eQSL non ha mandato l&apos;immagine della cartolina per questo QSO (trovato: %1)</translation>
+    </message>
 </context>
 <context>
     <name>QslCardDesign</name>

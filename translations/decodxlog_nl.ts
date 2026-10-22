@@ -5260,6 +5260,10 @@ Extra velden blijven behouden: %8</translation>
         <source>Club Log: no answer</source>
         <translation>Club Log: geen antwoord</translation>
     </message>
+    <message>
+        <source>eQSL sent no card picture for this QSO (found: %1)</source>
+        <translation>eQSL stuurde geen kaartafbeelding voor deze QSO (gevonden: %1)</translation>
+    </message>
 </context>
 <context>
     <name>QslCardDesign</name>

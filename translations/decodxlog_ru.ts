@@ -5273,6 +5273,10 @@ Extra fields are preserved: %8</source>
         <source>Club Log: no answer</source>
         <translation>Club Log: нет ответа</translation>
     </message>
+    <message>
+        <source>eQSL sent no card picture for this QSO (found: %1)</source>
+        <translation>eQSL не прислал изображение карточки для этого QSO (найдено: %1)</translation>
+    </message>
 </context>
 <context>
     <name>QslCardDesign</name>

@@ -5260,6 +5260,10 @@ Ekstra felter bevares: %8</translation>
         <source>Club Log: no answer</source>
         <translation>Club Log: intet svar</translation>
     </message>
+    <message>
+        <source>eQSL sent no card picture for this QSO (found: %1)</source>
+        <translation>eQSL sendte intet kortbillede for denne QSO (fundet: %1)</translation>
+    </message>
 </context>
 <context>
     <name>QslCardDesign</name>

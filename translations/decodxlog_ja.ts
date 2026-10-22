@@ -5247,6 +5247,10 @@ QSL の状態: %6 · UTC が不完全: %7。
         <source>Club Log: no answer</source>
         <translation>Club Log: 返事がありません</translation>
     </message>
+    <message>
+        <source>eQSL sent no card picture for this QSO (found: %1)</source>
+        <translation>eQSL はこの QSO のカード画像を送ってきませんでした (見つかったもの: %1)</translation>
+    </message>
 </context>
 <context>
     <name>QslCardDesign</name>

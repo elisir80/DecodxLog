@@ -5247,6 +5247,10 @@ A további mezők megmaradnak: %8</translation>
         <source>Club Log: no answer</source>
         <translation>Club Log: nincs válasz</translation>
     </message>
+    <message>
+        <source>eQSL sent no card picture for this QSO (found: %1)</source>
+        <translation>Az eQSL nem küldött kártyaképet ehhez a QSO-hoz (talált: %1)</translation>
+    </message>
 </context>
 <context>
     <name>QslCardDesign</name>

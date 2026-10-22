@@ -5260,6 +5260,10 @@ Zusatzfelder bleiben erhalten: %8</translation>
         <source>Club Log: no answer</source>
         <translation>Club Log: keine Antwort</translation>
     </message>
+    <message>
+        <source>eQSL sent no card picture for this QSO (found: %1)</source>
+        <translation>eQSL hat für dieses QSO kein Kartenbild geschickt (gefunden: %1)</translation>
+    </message>
 </context>
 <context>
     <name>QslCardDesign</name>

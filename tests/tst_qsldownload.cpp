@@ -249,6 +249,15 @@ private slots:
                      "<HTML><BODY><IMG SRC=\"/CFFileServlet/_cf_image/_cfimg123.JPG\" ALT=\"eQSL\"></BODY></HTML>",
                      QUrl("https://www.eqsl.cc/qslcard/GeteQSL.cfm"), &error),
                  QUrl("https://www.eqsl.cc/CFFileServlet/_cf_image/_cfimg123.JPG"));
+        // Un <img> senza un file vero dietro ("and") non e' la cartolina: si va
+        // a quello dopo, e se non ce n'e' si dice cosa c'era invece di un 404.
+        QCOMPARE(confirmations::eqslCardImage(
+                     "<HTML><IMG SRC=and><IMG BORDER=0 SRC=\"/CFFileServlet/_cf_image/_cfimg9.PNG\"></HTML>",
+                     QUrl("https://www.eqsl.cc/qslcard/GeteQSL.cfm"), &error),
+                 QUrl("https://www.eqsl.cc/CFFileServlet/_cf_image/_cfimg9.PNG"));
+        QVERIFY(confirmations::eqslCardImage("<HTML><IMG SRC=and></HTML>",
+                                             QUrl("https://www.eqsl.cc/qslcard/GeteQSL.cfm"), &error).isEmpty());
+        QVERIFY2(error.contains(QLatin1String("and")), qPrintable(error));
         QVERIFY(confirmations::eqslCardImage("<HTML><BODY>Error: I cannot find that log entry</BODY></HTML>",
                                              QUrl("https://www.eqsl.cc/"), &error).isEmpty());
         QCOMPARE(error, QString("Error: I cannot find that log entry"));

@@ -3,6 +3,17 @@
 Le date sono quelle del lavoro, non di una pubblicazione: DecoDXLog cresce mentre lo si usa
 in stazione.
 
+## 1.17.34 — 27 ottobre 2026
+
+**La cartolina eQSL non porta piu' a un 404.** Nella casella eQSL la cartolina di alcuni QSO dava
+«Error transferring https://www.eqsl.cc/qslcard/and — Not Found»: si prendeva il primo `<img>` della
+pagina di eQSL anche quando non era un'immagine. Adesso vale solo un `<img>` che punta a un file
+.jpg/.png/.gif o al servlet delle immagini di eQSL, anche con altri attributi prima di `src`. Se la
+pagina non ha nessuna immagine vera lo dice («eQSL non ha mandato l'immagine della cartolina per questo
+QSO, trovato: ...») invece di scaricare un indirizzo inventato.
+
+Traduzioni: 1 stringa nuova in tutte e 14 le lingue.
+
 ## 1.17.33 — 22 ottobre 2026
 
 **Un log per ogni manifestazione o diploma.** Creando un log si sceglie per cosa e': di tutti i giorni,

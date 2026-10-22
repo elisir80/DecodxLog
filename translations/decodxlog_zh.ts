@@ -5247,6 +5247,10 @@ QSL 状态：%6 · UTC 不完整：%7。
         <source>Club Log: no answer</source>
         <translation>Club Log：没有回复</translation>
     </message>
+    <message>
+        <source>eQSL sent no card picture for this QSO (found: %1)</source>
+        <translation>eQSL 没有为此 QSO 发送卡片图片（找到：%1）</translation>
+    </message>
 </context>
 <context>
     <name>QslCardDesign</name>

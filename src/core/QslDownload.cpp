@@ -60,16 +60,36 @@ QUrl eqslFileLink(const QByteArray& html, const QUrl& page, QString* error)
 
 QUrl eqslCardImage(const QByteArray& html, const QUrl& page, QString* error)
 {
-    static const QRegularExpression img(QStringLiteral("<img\\s+src\\s*=\\s*[\"']?([^\"'\\s>]+)"),
-                                        QRegularExpression::CaseInsensitiveOption);
-    const QRegularExpressionMatch m = img.match(QString::fromUtf8(html));
-    if (m.hasMatch())
-        return page.resolved(QUrl(m.captured(1)));
+    // Il primo <img> non e' per forza la cartolina: la pagina puo' averne altri
+    // (loghi, segnaposto) e un "src" senza un file vero dietro ("and") porta a
+    // un 404 che non dice niente. Vale solo quello che ha l'aspetto di
+    // un'immagine: un file .jpg/.png/.gif, o il servlet delle immagini di eQSL.
+    static const QRegularExpression img(
+        QStringLiteral(R"(<img\b[^>]*?\bsrc\s*=\s*["']?([^"'\s>]+))"),
+        QRegularExpression::CaseInsensitiveOption);
+    static const QRegularExpression looksLikeImage(
+        QStringLiteral(R"((\.(jpe?g|png|gif|bmp)(\?.*)?$|CFFileServlet|_cf_image))"),
+        QRegularExpression::CaseInsensitiveOption);
+    const QString text = QString::fromUtf8(html);
+    QString firstOther;
+    QRegularExpressionMatchIterator it = img.globalMatch(text);
+    while (it.hasNext()) {
+        const QString src = it.next().captured(1);
+        if (looksLikeImage.match(src).hasMatch())
+            return page.resolved(QUrl(src));
+        if (firstOther.isEmpty())
+            firstOther = src;
+    }
     if (error) {
-        const QString text = pageText(html);
-        static const QRegularExpression said(QStringLiteral("(Error:[^.<]*\\.?)"), QRegularExpression::CaseInsensitiveOption);
-        const QRegularExpressionMatch e = said.match(text);
-        *error = e.hasMatch() ? e.captured(1).trimmed().left(200) : text.left(200);
+        if (!firstOther.isEmpty()) {
+            *error = QCoreApplication::translate("Qsl", "eQSL sent no card picture for this QSO (found: %1)")
+                         .arg(firstOther.left(80));
+        } else {
+            const QString plain = pageText(html);
+            static const QRegularExpression said(QStringLiteral(R"((Error:[^.<]*\.?))"), QRegularExpression::CaseInsensitiveOption);
+            const QRegularExpressionMatch e = said.match(plain);
+            *error = e.hasMatch() ? e.captured(1).trimmed().left(200) : plain.left(200);
+        }
     }
     return {};
 }

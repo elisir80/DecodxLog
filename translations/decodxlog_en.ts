@@ -5253,6 +5253,10 @@ Extra fields are preserved: %8</source>
         <source>Club Log: no answer</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>eQSL sent no card picture for this QSO (found: %1)</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>QslCardDesign</name>

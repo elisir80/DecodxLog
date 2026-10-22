@@ -5273,6 +5273,10 @@ Papildu lauki tiek saglabāti: %8</translation>
         <source>Club Log: no answer</source>
         <translation>Club Log: nav atbildes</translation>
     </message>
+    <message>
+        <source>eQSL sent no card picture for this QSO (found: %1)</source>
+        <translation>eQSL šim QSO nav atsūtījis kartītes attēlu (atrasts: %1)</translation>
+    </message>
 </context>
 <context>
     <name>QslCardDesign</name>

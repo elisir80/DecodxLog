@@ -5273,6 +5273,10 @@ Câmpuri suplimentare păstrate: %8</translation>
         <source>Club Log: no answer</source>
         <translation>Club Log: niciun răspuns</translation>
     </message>
+    <message>
+        <source>eQSL sent no card picture for this QSO (found: %1)</source>
+        <translation>eQSL nu a trimis imaginea cărții pentru acest QSO (găsit: %1)</translation>
+    </message>
 </context>
 <context>
     <name>QslCardDesign</name>
