@@ -75,7 +75,7 @@ private slots:
         const auto stored = db.record(inserted.id);
         QVERIFY(stored);
         QCOMPARE(stored->value(QStringLiteral("RDA")), QStringLiteral("MO-01"));
-        QVERIFY(db.exportAdif({inserted.id}).contains("<rda:5>MO-01"));
+        QVERIFY(db.exportAdif(QList<qint64>{inserted.id}).contains("<rda:5>MO-01"));
     }
 };
 
