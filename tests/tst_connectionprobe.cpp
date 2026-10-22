@@ -121,6 +121,8 @@ private slots:
         const auto r = probe(QStringLiteral(" 127.0.0.1 "), node.serverPort());
         QCOMPARE(r.verdict, ConnectionProbe::Verdict::Ok);
         QVERIFY(r.steps.first().contains(QStringLiteral("127.0.0.1")));
+        QVERIFY(r.hint.contains(QStringLiteral("stops at the login prompt")));
+        QVERIFY(r.hint.contains(QStringLiteral("configured callsign")));
     }
 
     // Due controlli insieme sullo stesso oggetto: il secondo non parte.

@@ -1756,6 +1756,18 @@ Decodium 正在通聯的呼號會自己出現在這裡。</translation>
         <translation>登入名稱（留空 = 電台設定檔的呼號）</translation>
     </message>
     <message>
+        <source>Node password (only if requested)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>stored in the system keystore — leave empty to keep it</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Remove saved password</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Commands after login (one per line)</source>
         <translation>登入後的指令（每行一條）</translation>
     </message>
@@ -4723,6 +4735,81 @@ QSL 狀態：%6 · UTC 不完整：%7。
     </message>
 </context>
 <context>
+    <name>NewQsoFieldsDialog</name>
+    <message>
+        <source>New QSO fields</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Choose the optional fields shown in the compact New QSO panel. Callsign, UTC, band, frequency, mode and reports always remain available.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>STANDARD FIELDS</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show %1 in New QSO</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>CUSTOM ADIF FIELDS</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Add field</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Add fields such as RDA or an APP_ field. Use the exact ADIF name; the optional label is what appears in the panel. STATE and TX_PWR are already available above.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>No custom fields configured.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>ADIF name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Custom ADIF field name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Label (optional)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Russian district</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Custom ADIF field label</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Remove custom field</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Remove custom field %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Restore defaults</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation type="unfinished">取消</translation>
+    </message>
+    <message>
+        <source>Save</source>
+        <translation type="unfinished">儲存</translation>
+    </message>
+</context>
+<context>
     <name>NewQsoPanel</name>
     <message>
         <source>New QSO</source>
@@ -4731,6 +4818,14 @@ QSL 狀態：%6 · UTC 不完整：%7。
     <message>
         <source>manual</source>
         <translation>手動</translation>
+    </message>
+    <message>
+        <source>Configure New QSO fields</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Choose fields</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Full form (Ctrl+N)</source>
@@ -4801,6 +4896,14 @@ QSL 狀態：%6 · UTC 不完整：%7。
         <translation>QTH</translation>
     </message>
     <message>
+        <source>State</source>
+        <translation type="unfinished">州</translation>
+    </message>
+    <message>
+        <source>TX pwr W</source>
+        <translation type="unfinished">發射功率 W</translation>
+    </message>
+    <message>
         <source>Prop</source>
         <translation>傳播</translation>
     </message>
@@ -4823,6 +4926,10 @@ QSL 狀態：%6 · UTC 不完整：%7。
     <message>
         <source>Comment</source>
         <translation>備註</translation>
+    </message>
+    <message>
+        <source>%1 (%2) value</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>LOG QSO</source>
@@ -10194,6 +10301,14 @@ QSL 狀態：%6 · UTC 不完整：%7。
         <translation>沒有金鑰庫</translation>
     </message>
     <message>
+        <source>Saving the node password in the system keystore…</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Removing the node password from the system keystore…</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Nothing to check here: this source is read over the web, not through a node connection.</source>
         <translation>這裡沒有可檢查的內容: 此來源透過網頁讀取，而不是透過節點連線。</translation>
     </message>
@@ -10558,8 +10673,72 @@ QSL 狀態：%6 · UTC 不完整：%7。
         <translation>dd/mm/yyyy</translation>
     </message>
     <message>
+        <source>Grid locator</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Operator name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>QTH</source>
+        <translation type="unfinished">QTH</translation>
+    </message>
+    <message>
+        <source>State / province</source>
+        <translation type="unfinished">州 / 省</translation>
+    </message>
+    <message>
+        <source>TX power</source>
+        <translation type="unfinished">發射功率</translation>
+    </message>
+    <message>
+        <source>Propagation mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Satellite mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Invalid ADIF field name: %1. Use 1–32 letters, digits or underscores, starting with a letter.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The ADIF field %1 is listed more than once.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1 is already available as a standard field. Enable it above instead.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1 is managed by DecoDXLog and cannot be replaced by a custom field.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You can add at most %1 custom ADIF fields.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The New QSO field settings could not be saved.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Enter a valid UTC date</source>
         <translation>請輸入有效的 UTC 日期</translation>
+    </message>
+    <message>
+        <source>Invalid custom ADIF field: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The ADIF field %1 is managed by DecoDXLog.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use the standard %1 field instead of a custom field.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Logged %1 %2 %3 (manual)</source>
@@ -12503,12 +12682,16 @@ QSL 狀態：%6 · UTC 不完整：%7。
         <translation>節點還沒說話連線就被關閉了: 可能是防毒軟體或防火牆 (AVG、Avast…) 扣住了它 — 請按「檢查」</translation>
     </message>
     <message>
-        <source>password needed</source>
-        <translation>需要密碼</translation>
+        <source>the node accepted the callsign and requested a password, but no system keystore is available</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>no password stored</source>
-        <translation>沒有儲存密碼</translation>
+        <source>the node accepted the callsign and requested a password, but no password is stored for this source</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>the node accepted the callsign and requested a password, but the stored password could not be read: %1</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -12560,6 +12743,10 @@ QSL 狀態：%6 · UTC 不完整：%7。
     <message>
         <source>3. Connected, but the node says nothing</source>
         <translation>3. 已連線，但節點什麼也沒說</translation>
+    </message>
+    <message>
+        <source>This check stops at the login prompt by design and does not authenticate. The enabled source sends the configured callsign; if the node then requests a password, save it in the source editor.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>The name does not resolve: check the network and the DNS. An antivirus or a filtering DNS (AVG, Avast…) can also block a name it does not trust: try the address in numbers.</source>

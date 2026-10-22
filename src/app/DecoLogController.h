@@ -165,6 +165,10 @@ class DecoLogController : public QObject {
     Q_PROPERTY(QStringList bands READ bands CONSTANT)
     // "auto", "it", "en": si applica al riavvio.
     Q_PROPERTY(QString uiLanguage READ uiLanguage WRITE setUiLanguage NOTIFY uiLanguageChanged)
+    // Campi opzionali e campi ADIF liberi del pannello Nuovo QSO. Sono
+    // preferenze UI portabili e cambiano subito, senza riavviare.
+    Q_PROPERTY(QStringList newQsoVisibleFields READ newQsoVisibleFields NOTIFY newQsoSettingsChanged)
+    Q_PROPERTY(QVariantList newQsoCustomFields READ newQsoCustomFields NOTIFY newQsoSettingsChanged)
 
     // ── Entita' DXCC (cty.csv di AD1C) ─────────────────────────────────────
     Q_PROPERTY(QString countriesVersion READ countriesVersion NOTIFY countriesChanged)
@@ -617,6 +621,14 @@ public:
     // iota, wwff_ref, comment. Restituisce un messaggio d'errore, o stringa vuota
     // se il QSO e' stato scritto.
     Q_INVOKABLE QString logManualQso(const QVariantMap& fields);
+    QStringList newQsoVisibleFields() const;
+    QVariantList newQsoCustomFields() const;
+    Q_INVOKABLE QVariantList newQsoFieldOptions() const;
+    // Salva la configurazione dopo aver validato i nomi ADIF. Stringa vuota =
+    // successo; in caso contrario la UI mostra il motivo e non cambia nulla.
+    Q_INVOKABLE QString saveNewQsoPanelSettings(const QStringList& visibleFields,
+                                                const QVariantList& customFields);
+    Q_INVOKABLE void resetNewQsoPanelSettings();
     Q_INVOKABLE QVariantMap utcNow() const;
     // Le date davanti all'operatore, nella forma della sua lingua (in
     // italiano 25/09/2026); dentro restano ISO. readDate capisce quello che
@@ -755,6 +767,7 @@ signals:
     void awardsChanged();
     void decoLinkChanged();
     void uiLanguageChanged();
+    void newQsoSettingsChanged();
     void logColorsChanged();
     void lotwChanged();
     void qslImportChanged();

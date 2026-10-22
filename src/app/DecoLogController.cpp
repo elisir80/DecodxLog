@@ -12,6 +12,7 @@
 #include "core/Dates.h"
 #include "core/Maidenhead.h"
 #include "core/Modes.h"
+#include "core/NewQsoFields.h"
 #include "core/Spots.h"
 #include "ThemeManager.h"
 
@@ -1080,6 +1081,7 @@ bool DecoLogController::openDatabase(const QString& path)
     connect(m_cloud, &CloudController::settingsApplied, this, [this] {
         if (auto* rig = qobject_cast<RigController*>(m_rig))
             rig->reloadMacros();
+        emit newQsoSettingsChanged();
     });
 
     ActivationController::Context actCtx;
@@ -3224,6 +3226,82 @@ QString DecoLogController::dateHint() const
     return tr("dd/mm/yyyy").replace(QLatin1Char('/'), dates::format().mid(2, 1));
 }
 
+QStringList DecoLogController::newQsoVisibleFields() const
+{
+    QSettings settings;
+    const QString key = QStringLiteral("ui/newQso/visibleFields");
+    if (!settings.contains(key))
+        return newqso::defaultVisibleFields();
+    return newqso::normalizeVisibleFields(settings.value(key).toStringList());
+}
+
+QVariantList DecoLogController::newQsoCustomFields() const
+{
+    return newqso::decodeCustomFields(
+        QSettings().value(QStringLiteral("ui/newQso/customFields")).toString());
+}
+
+QVariantList DecoLogController::newQsoFieldOptions() const
+{
+    auto option = [](const QString& key, const QString& label) {
+        return QVariantMap{{QStringLiteral("key"), key}, {QStringLiteral("label"), label}};
+    };
+    return {
+        option(QStringLiteral("GRIDSQUARE"), tr("Grid locator")),
+        option(QStringLiteral("NAME"), tr("Operator name")),
+        option(QStringLiteral("QTH"), tr("QTH")),
+        option(QStringLiteral("STATE"), tr("State / province")),
+        option(QStringLiteral("TX_PWR"), tr("TX power")),
+        option(QStringLiteral("PROP_MODE"), tr("Propagation mode")),
+        option(QStringLiteral("SAT_NAME"), tr("Satellite")),
+        option(QStringLiteral("SAT_MODE"), tr("Satellite mode")),
+        option(QStringLiteral("COMMENT"), tr("Comment")),
+    };
+}
+
+QString DecoLogController::saveNewQsoPanelSettings(const QStringList& visibleFields,
+                                                   const QVariantList& customFields)
+{
+    const newqso::CustomFieldsResult checked = newqso::validateCustomFields(customFields);
+    if (!checked.ok()) {
+        switch (checked.error) {
+        case newqso::CustomFieldError::InvalidName:
+            return tr("Invalid ADIF field name: %1. Use 1–32 letters, digits or underscores, starting with a letter.")
+                .arg(checked.field.isEmpty() ? tr("(empty)") : checked.field);
+        case newqso::CustomFieldError::Duplicate:
+            return tr("The ADIF field %1 is listed more than once.").arg(checked.field);
+        case newqso::CustomFieldError::StandardField:
+            return tr("%1 is already available as a standard field. Enable it above instead.").arg(checked.field);
+        case newqso::CustomFieldError::ProtectedField:
+            return tr("%1 is managed by DecoDXLog and cannot be replaced by a custom field.").arg(checked.field);
+        case newqso::CustomFieldError::TooMany:
+            return tr("You can add at most %1 custom ADIF fields.").arg(newqso::kMaxCustomFields);
+        case newqso::CustomFieldError::None:
+            break;
+        }
+    }
+
+    QSettings settings;
+    settings.setValue(QStringLiteral("ui/newQso/visibleFields"),
+                      newqso::normalizeVisibleFields(visibleFields));
+    settings.setValue(QStringLiteral("ui/newQso/customFields"),
+                      newqso::encodeCustomFields(checked.fields));
+    settings.sync();
+    if (settings.status() != QSettings::NoError)
+        return tr("The New QSO field settings could not be saved.");
+    emit newQsoSettingsChanged();
+    return {};
+}
+
+void DecoLogController::resetNewQsoPanelSettings()
+{
+    QSettings settings;
+    settings.remove(QStringLiteral("ui/newQso/visibleFields"));
+    settings.remove(QStringLiteral("ui/newQso/customFields"));
+    settings.sync();
+    emit newQsoSettingsChanged();
+}
+
 QString DecoLogController::logManualQso(const QVariantMap& fields)
 {
     auto text = [&fields](const char* key) { return fields.value(QLatin1String(key)).toString().trimmed(); };
@@ -3304,6 +3382,22 @@ QString DecoLogController::logManualQso(const QVariantMap& fields)
     r.set(QStringLiteral("EMAIL"), text("email"));
     r.set(QStringLiteral("QSL_VIA"), text("qsl_via").toUpper());
     r.set(QStringLiteral("APP_DECOLOG_TAGS"), text("tags"));
+    // Campi aggiunti dall'operatore nel pannello compatto. I campi fondamentali
+    // e quelli standard del pannello non si possono mascherare con una seconda
+    // casella dallo stesso nome; i veri campi extra finiscono in adif_extra e
+    // tornano nell'export ADIF senza perdere nulla.
+    const QVariantMap customFields = fields.value(QStringLiteral("custom_fields")).toMap();
+    const QStringList standardPanelFields = newqso::standardFields();
+    for (auto it = customFields.cbegin(); it != customFields.cend(); ++it) {
+        const QString name = newqso::normalizeAdifName(it.key());
+        if (!newqso::isValidAdifName(name))
+            return tr("Invalid custom ADIF field: %1").arg(it.key());
+        if (newqso::isProtectedAdifField(name))
+            return tr("The ADIF field %1 is managed by DecoDXLog.").arg(name);
+        if (standardPanelFields.contains(name))
+            return tr("Use the standard %1 field instead of a custom field.").arg(name);
+        r.set(name, it.value().toString().trimmed());
+    }
     // Contest: il numero ricevuto, come lo vuole ADIF.
     if (!text("srx").isEmpty()) {
         r.set(QStringLiteral("SRX"), text("srx"));

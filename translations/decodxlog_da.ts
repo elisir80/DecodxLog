@@ -1760,6 +1760,18 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
         <translation>Login (tomt = kaldesignal fra stationsprofilen)</translation>
     </message>
     <message>
+        <source>Node password (only if requested)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>stored in the system keystore — leave empty to keep it</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Remove saved password</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Commands after login (one per line)</source>
         <translation>Kommandoer efter login (én pr. linje)</translation>
     </message>
@@ -4734,6 +4746,81 @@ Ekstra felter bevares: %8</translation>
     </message>
 </context>
 <context>
+    <name>NewQsoFieldsDialog</name>
+    <message>
+        <source>New QSO fields</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Choose the optional fields shown in the compact New QSO panel. Callsign, UTC, band, frequency, mode and reports always remain available.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>STANDARD FIELDS</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show %1 in New QSO</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>CUSTOM ADIF FIELDS</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Add field</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Add fields such as RDA or an APP_ field. Use the exact ADIF name; the optional label is what appears in the panel. STATE and TX_PWR are already available above.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>No custom fields configured.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>ADIF name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Custom ADIF field name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Label (optional)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Russian district</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Custom ADIF field label</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Remove custom field</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Remove custom field %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Restore defaults</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation type="unfinished">Annullér</translation>
+    </message>
+    <message>
+        <source>Save</source>
+        <translation type="unfinished">Gem</translation>
+    </message>
+</context>
+<context>
     <name>NewQsoPanel</name>
     <message>
         <source>New QSO</source>
@@ -4742,6 +4829,14 @@ Ekstra felter bevares: %8</translation>
     <message>
         <source>manual</source>
         <translation>i hånden</translation>
+    </message>
+    <message>
+        <source>Configure New QSO fields</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Choose fields</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Full form (Ctrl+N)</source>
@@ -4812,6 +4907,14 @@ Ekstra felter bevares: %8</translation>
         <translation>QTH</translation>
     </message>
     <message>
+        <source>State</source>
+        <translation type="unfinished">Stat</translation>
+    </message>
+    <message>
+        <source>TX pwr W</source>
+        <translation type="unfinished">TX-effekt W</translation>
+    </message>
+    <message>
         <source>Prop</source>
         <translation>Prop</translation>
     </message>
@@ -4834,6 +4937,10 @@ Ekstra felter bevares: %8</translation>
     <message>
         <source>Comment</source>
         <translation>Kommentar</translation>
+    </message>
+    <message>
+        <source>%1 (%2) value</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>LOG QSO</source>
@@ -10228,6 +10335,14 @@ Ekstra felter bevares: %8</translation>
         <translation>ingen nøglering</translation>
     </message>
     <message>
+        <source>Saving the node password in the system keystore…</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Removing the node password from the system keystore…</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Nothing to check here: this source is read over the web, not through a node connection.</source>
         <translation>Intet at kontrollere her: denne kilde læses via nettet, ikke gennem en forbindelse til en node.</translation>
     </message>
@@ -10596,8 +10711,72 @@ Ekstra felter bevares: %8</translation>
         <translation>dd/mm/åååå</translation>
     </message>
     <message>
+        <source>Grid locator</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Operator name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>QTH</source>
+        <translation type="unfinished">QTH</translation>
+    </message>
+    <message>
+        <source>State / province</source>
+        <translation type="unfinished">Stat / provins</translation>
+    </message>
+    <message>
+        <source>TX power</source>
+        <translation type="unfinished">TX-effekt</translation>
+    </message>
+    <message>
+        <source>Propagation mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Satellite mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Invalid ADIF field name: %1. Use 1–32 letters, digits or underscores, starting with a letter.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The ADIF field %1 is listed more than once.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1 is already available as a standard field. Enable it above instead.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1 is managed by DecoDXLog and cannot be replaced by a custom field.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You can add at most %1 custom ADIF fields.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The New QSO field settings could not be saved.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Enter a valid UTC date</source>
         <translation>Skriv en gyldig UTC-dato</translation>
+    </message>
+    <message>
+        <source>Invalid custom ADIF field: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The ADIF field %1 is managed by DecoDXLog.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use the standard %1 field instead of a custom field.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Logged %1 %2 %3 (manual)</source>
@@ -12568,12 +12747,16 @@ Ekstra felter bevares: %8</translation>
         <translation>forbindelsen blev lukket, før noden sagde noget: et antivirusprogram eller en firewall (AVG, Avast…) kan holde den fast — tryk på Tjek</translation>
     </message>
     <message>
-        <source>password needed</source>
-        <translation>der skal bruges en adgangskode</translation>
+        <source>the node accepted the callsign and requested a password, but no system keystore is available</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>no password stored</source>
-        <translation>ingen adgangskode gemt</translation>
+        <source>the node accepted the callsign and requested a password, but no password is stored for this source</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>the node accepted the callsign and requested a password, but the stored password could not be read: %1</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -12625,6 +12808,10 @@ Ekstra felter bevares: %8</translation>
     <message>
         <source>3. Connected, but the node says nothing</source>
         <translation>3. Forbundet, men noden siger ikke noget</translation>
+    </message>
+    <message>
+        <source>This check stops at the login prompt by design and does not authenticate. The enabled source sends the configured callsign; if the node then requests a password, save it in the source editor.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>The name does not resolve: check the network and the DNS. An antivirus or a filtering DNS (AVG, Avast…) can also block a name it does not trust: try the address in numbers.</source>

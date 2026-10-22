@@ -3,6 +3,29 @@
 Le date sono quelle del lavoro, non di una pubblicazione: DecoDXLog cresce mentre lo si usa
 in stazione.
 
+## 1.17.34 — 22 ottobre 2026
+
+**Nuovo QSO configurabile.** Il pannello compatto e la finestra Nuovo QSO permettono di
+mostrare o nascondere i campi opzionali `STATE`, `TX_PWR`, propagazione e satellite. Un
+editor dedicato consente inoltre di aggiungere campi ADIF personalizzati, con normalizzazione,
+controllo dei duplicati e protezione dei campi gestiti dal programma. I valori vengono salvati
+in `adif_extra` e restano disponibili nell'export ADIF senza perdere informazioni.
+
+**Inserimento piu' rapido.** La potenza TX predefinita viene dal profilo stazione, il rapporto
+inviato viene inizializzato insieme a quello ricevuto e `Alt+W` pulisce il nuovo QSO sia nel
+pannello sia nella finestra staccata.
+
+**Password dei cluster piu' chiare e sicure.** DecoDXLog non interroga piu' il portachiavi per
+una password mai salvata, distingue tra password assente e non leggibile, mostra lo stato del
+salvataggio e riavvia automaticamente la connessione dopo un salvataggio riuscito. Il controllo
+del nodo chiarisce che la verifica termina intenzionalmente al prompt di login e non autentica
+l'utente.
+
+**Test.** Aggiunti test per validazione e persistenza dei campi ADIF, password DX cluster,
+diagnostica del prompt di login e presenza delle nuove funzioni nella GUI QML.
+
+Dettagli bilingui: [`docs/RELEASE_NOTES_1.17.34.md`](RELEASE_NOTES_1.17.34.md).
+
 ## 1.17.33 — 22 ottobre 2026
 
 **Un log per ogni manifestazione o diploma.** Creando un log si sceglie per cosa e': di tutti i giorni,

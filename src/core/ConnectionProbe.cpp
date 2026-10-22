@@ -141,6 +141,9 @@ void ConnectionProbe::finish(Verdict verdict)
     m_result.verdict = verdict;
     switch (verdict) {
     case Verdict::Ok:
+        if (m_result.banner.trimmed().endsWith(QLatin1String("login:"), Qt::CaseInsensitive)) {
+            m_result.hint = tr("This check stops at the login prompt by design and does not authenticate. The enabled source sends the configured callsign; if the node then requests a password, save it in the source editor.");
+        }
         break;
     case Verdict::DnsFailed:
         m_result.hint = tr("The name does not resolve: check the network and the DNS. An antivirus or a filtering "

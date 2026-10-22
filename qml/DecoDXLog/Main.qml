@@ -1314,6 +1314,7 @@ RoundedWindow {
                 contestWindow.item.openCabrillo()
         }
         else if (what[0] === "call") decolog.lookupCall = what[1]
+        else if (what[0] === "newqsofields") newQsoFieldsTimer.start()
         else if (what[0] === "awards") {
             // awards:<id>[:map|:missing|:unconfirmed]
             if (what[2] === "map") awardsDialog.showMap = true
@@ -1346,6 +1347,15 @@ RoundedWindow {
     Timer { id: cwMacrosTimer; interval: 800
            onTriggered: { const it = window.panelItem("cw"); if (it) it.showMacros(parseInt(startupShow.split(":")[1] || "-1")) } }
     Timer { id: combo2Timer; interval: 900; onTriggered: newQsoDialog.showBandCombo() }
+    Timer {
+        id: newQsoFieldsTimer
+        interval: 700
+        onTriggered: {
+            const panel = window.panelItem("newqso")
+            if (panel && panel.item)
+                panel.item.showFieldSettings()
+        }
+    }
     Timer { id: cwSendTimer; interval: 1200; onTriggered: decolog.rig.sendMacro(0, {}) }
     // Prova dell'aggiornamento: si aspetta la risposta, poi si scarica.
     Timer { id: updateGetTimer; interval: 2500; onTriggered: decolog.updates.downloadAndInstall() }

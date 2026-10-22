@@ -11,6 +11,32 @@ GlassPanel {
     signal expandRequested()
 
     readonly property var last: decolog.incoming.length > 0 ? decolog.incoming[0] : null
+    readonly property var visibleFields: decolog.newQsoVisibleFields
+    readonly property var customFields: decolog.newQsoCustomFields
+
+    function fieldVisible(name) { return root.visibleFields.indexOf(name) >= 0 }
+    function defaultTxPower() {
+        const power = decolog.stationProfiles.activeProfile.defaultTxPwr
+        return power > 0 ? String(power) : ""
+    }
+    function customAdifValues() {
+        const values = ({})
+        for (let i = 0; i < customFieldRepeater.count; ++i) {
+            const item = customFieldRepeater.itemAt(i)
+            if (item && item.fieldValue.trim().length > 0)
+                values[item.adifName] = item.fieldValue.trim()
+        }
+        return values
+    }
+    function clearCustomFields() {
+        for (let i = 0; i < customFieldRepeater.count; ++i) {
+            const item = customFieldRepeater.itemAt(i)
+            if (item)
+                item.fieldValue = ""
+        }
+    }
+    // Entry point shared by the header button and the isolated UI smoke test.
+    function showFieldSettings() { fieldsDialog.open() }
 
     title: qsTr("New QSO")
     dotColor: Theme.accentColor
@@ -22,6 +48,23 @@ GlassPanel {
             color: Theme.textSecondary
             font.family: Theme.monoFamily
             font.pixelSize: 11
+        },
+        Text {
+            anchors.verticalCenter: parent.verticalCenter
+            text: "⚙"
+            color: settingsArea.containsMouse ? Theme.primaryColor : Theme.textSecondary
+            font.pixelSize: Theme.fontSize + 1
+            MouseArea {
+                id: settingsArea
+                anchors.fill: parent
+                anchors.margins: -4
+                hoverEnabled: true
+                cursorShape: Qt.PointingHandCursor
+                Accessible.name: qsTr("Configure New QSO fields")
+                onClicked: root.showFieldSettings()
+            }
+            ToolTip.visible: settingsArea.containsMouse
+            ToolTip.text: qsTr("Choose fields")
         },
         Text {
             anchors.verticalCenter: parent.verticalCenter
@@ -143,12 +186,16 @@ GlassPanel {
         nameField.text = ""
         qthField.text = ""
         gridField.text = ""
+        stateField.text = ""
+        txPwrField.text = root.defaultTxPower()
         commentField.text = ""
         propModeBox.currentIndex = 0
         satNameField.text = ""
         satModeField.text = ""
         srxField.text = ""
+        sentField.text = root.defaultReport(modeBox.editText || modeBox.currentText)
         rcvdField.text = root.defaultReport(modeBox.editText || modeBox.currentText)
+        root.clearCustomFields()
         formError.text = ""
         resetTime()
         callField.forceActiveFocus()
@@ -164,6 +211,10 @@ GlassPanel {
                            (modeBox.editText || modeBox.currentText) + (report ? " " + report : ""))
     }
     SpotDialog { id: spotDialog }
+    NewQsoFieldsDialog {
+        id: fieldsDialog
+        transientParent: root.Window.window
+    }
 
     function submit() {
         const error = decolog.logManualQso({
@@ -171,15 +222,26 @@ GlassPanel {
             freq: freqField.text, band: bandBox.currentIndex > 0 ? bandBox.currentText : "",
             mode: modeBox.editText, rst_sent: sentField.text, rst_rcvd: rcvdField.text,
             gridsquare: gridField.text, name: nameField.text, qth: qthField.text, comment: commentField.text,
+            state: stateField.text, tx_pwr: txPwrField.text,
             prop_mode: propModeBox.editText, sat_name: satNameField.text, sat_mode: satModeField.text,
-            srx: srxField.text
+            srx: srxField.text, custom_fields: root.customAdifValues()
         })
         formError.text = error
         if (error.length === 0)
             clearForm()
     }
 
-    Component.onCompleted: resetTime()
+    Component.onCompleted: {
+        resetTime()
+        txPwrField.text = root.defaultTxPower()
+    }
+
+    Shortcut {
+        sequence: "Alt+W"
+        enabled: root.visible
+        autoRepeat: false
+        onActivated: root.clearForm()
+    }
 
     // Uno spot scelto nel cluster: il DX finisce qui, pronto da registrare.
     // Il nominativo si sostituisce sempre — cliccare uno spot vuol dire "adesso
@@ -217,6 +279,7 @@ GlassPanel {
             if (nameField.text.length === 0) nameField.text = cb.name
             if (qthField.text.length === 0) qthField.text = cb.qth
             if (gridField.text.length === 0) gridField.text = cb.grid
+            if (stateField.text.length === 0 && cb.state) stateField.text = cb.state
         }
     }
 
@@ -436,17 +499,21 @@ GlassPanel {
                         Layout.preferredWidth: 1
                         Layout.horizontalStretchFactor: 2
                         Layout.fillWidth: true
+                        visible: root.fieldVisible("GRIDSQUARE")
                         label: qsTr("Grid")
                         StyledTextField { id: gridField; Layout.fillWidth: true; uppercase: true }
                     }
                 }
                 RowLayout {
                     Layout.fillWidth: true
+                    visible: root.fieldVisible("NAME") || root.fieldVisible("QTH")
+                             || root.fieldVisible("STATE") || root.fieldVisible("TX_PWR")
                     spacing: 8
                     LabeledField {
                         Layout.preferredWidth: 1
                         Layout.horizontalStretchFactor: 3
                         Layout.fillWidth: true
+                        visible: root.fieldVisible("NAME")
                         label: qsTr("Name")
                         StyledTextField { id: nameField; Layout.fillWidth: true; mono: false }
                     }
@@ -454,17 +521,37 @@ GlassPanel {
                         Layout.preferredWidth: 1
                         Layout.horizontalStretchFactor: 3
                         Layout.fillWidth: true
+                        visible: root.fieldVisible("QTH")
                         label: qsTr("QTH")
                         StyledTextField { id: qthField; Layout.fillWidth: true; mono: false }
+                    }
+                    LabeledField {
+                        Layout.preferredWidth: 1
+                        Layout.horizontalStretchFactor: 2
+                        Layout.fillWidth: true
+                        visible: root.fieldVisible("STATE")
+                        label: qsTr("State")
+                        StyledTextField { id: stateField; Layout.fillWidth: true; uppercase: true; placeholderText: "—" }
+                    }
+                    LabeledField {
+                        Layout.preferredWidth: 1
+                        Layout.horizontalStretchFactor: 2
+                        Layout.fillWidth: true
+                        visible: root.fieldVisible("TX_PWR")
+                        label: qsTr("TX pwr W")
+                        StyledTextField { id: txPwrField; Layout.fillWidth: true }
                     }
                 }
                 RowLayout {
                     Layout.fillWidth: true
+                    visible: root.fieldVisible("PROP_MODE") || root.fieldVisible("SAT_NAME")
+                             || root.fieldVisible("SAT_MODE")
                     spacing: 8
                     LabeledField {
                         Layout.preferredWidth: 1
                         Layout.horizontalStretchFactor: 2
                         Layout.fillWidth: true
+                        visible: root.fieldVisible("PROP_MODE")
                         label: qsTr("Prop")
                         StyledComboBox {
                             id: propModeBox
@@ -477,6 +564,7 @@ GlassPanel {
                         Layout.preferredWidth: 1
                         Layout.horizontalStretchFactor: 2
                         Layout.fillWidth: true
+                        visible: root.fieldVisible("SAT_NAME")
                         label: qsTr("Sat")
                         StyledTextField { id: satNameField; Layout.fillWidth: true; uppercase: true; placeholderText: "—" }
                     }
@@ -484,12 +572,14 @@ GlassPanel {
                         Layout.preferredWidth: 1
                         Layout.horizontalStretchFactor: 2
                         Layout.fillWidth: true
+                        visible: root.fieldVisible("SAT_MODE")
                         label: qsTr("Sat mode")
                         StyledTextField { id: satModeField; Layout.fillWidth: true; uppercase: true; placeholderText: "—" }
                     }
                 }
                 RowLayout {
                     Layout.fillWidth: true
+                    visible: decolog.activation.state.serialEnabled === true || root.fieldVisible("COMMENT")
                     spacing: 8
                     LabeledField {
                         // Durante un contest il numero che arriva e' il campo piu'
@@ -517,6 +607,7 @@ GlassPanel {
                         Layout.preferredWidth: 1
                         Layout.horizontalStretchFactor: 6
                         Layout.fillWidth: true
+                        visible: root.fieldVisible("COMMENT")
                         label: qsTr("Comment")
                         StyledTextField {
                             id: commentField
@@ -524,6 +615,30 @@ GlassPanel {
                             mono: false
                             Keys.onReturnPressed: root.submit()
                             Keys.onEnterPressed: root.submit()
+                        }
+                    }
+                }
+                GridLayout {
+                    Layout.fillWidth: true
+                    visible: root.customFields.length > 0
+                    columns: root.width >= 520 ? 2 : 1
+                    columnSpacing: 8
+                    rowSpacing: 8
+
+                    Repeater {
+                        id: customFieldRepeater
+                        model: root.customFields
+                        delegate: LabeledField {
+                            required property var modelData
+                            property string adifName: String(modelData.name)
+                            property alias fieldValue: customInput.text
+                            Layout.fillWidth: true
+                            label: String(modelData.label || modelData.name)
+                            StyledTextField {
+                                id: customInput
+                                Layout.fillWidth: true
+                                Accessible.name: qsTr("%1 (%2) value").arg(String(modelData.label || modelData.name)).arg(String(modelData.name))
+                            }
                         }
                     }
                 }

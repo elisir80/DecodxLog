@@ -466,12 +466,15 @@ RoundedWindow {
     Popup {
         id: sourceEditor
         property var source: ({})
+        property bool passwordRemoved: false
         function openFor(s) {
             source = Object.assign({}, s)
+            passwordRemoved = false
             srcName.text = s.name || ""
             srcHost.text = s.host || ""
             srcPort.text = s.port || ""
             srcLogin.text = s.login || ""
+            srcPassword.text = ""
             srcCommands.text = s.commands || ""
             srcType.currentIndex = Math.max(0, srcType.values.indexOf(s.type || "cluster"))
             open()
@@ -510,6 +513,41 @@ RoundedWindow {
             }
             LabeledField {
                 Layout.fillWidth: true
+                visible: srcType.values[srcType.currentIndex] === "cluster" || srcType.values[srcType.currentIndex] === "rbn"
+                label: qsTr("Node password (only if requested)")
+                RowLayout {
+                    Layout.fillWidth: true
+                    spacing: 8
+                    StyledTextField {
+                        id: srcPassword
+                        Layout.fillWidth: true
+                        echoMode: TextInput.Password
+                        placeholderText: sourceEditor.source.passwordStored && !sourceEditor.passwordRemoved
+                                         ? qsTr("stored in the system keystore — leave empty to keep it") : ""
+                        Keys.onReturnPressed: saveSourceButton.clicked()
+                    }
+                    GlassButton {
+                        text: qsTr("Remove saved password")
+                        tone: Theme.errorColor
+                        visible: sourceEditor.source.id && sourceEditor.source.passwordStored && !sourceEditor.passwordRemoved
+                        onClicked: {
+                            root.cluster.removeSourcePassword(sourceEditor.source.id)
+                            sourceEditor.passwordRemoved = true
+                            srcPassword.text = ""
+                        }
+                    }
+                }
+            }
+            Text {
+                Layout.fillWidth: true
+                visible: (sourceEditor.source.passwordStatus || "").length > 0
+                text: sourceEditor.source.passwordStatus || ""
+                wrapMode: Text.Wrap
+                color: Theme.textSecondary
+                font.pixelSize: 11
+            }
+            LabeledField {
+                Layout.fillWidth: true
                 label: qsTr("Commands after login (one per line)")
                 ScrollView {
                     Layout.fillWidth: true
@@ -529,6 +567,7 @@ RoundedWindow {
                 spacing: 8
                 GlassButton { text: qsTr("Cancel"); onClicked: sourceEditor.close() }
                 GlassButton {
+                    id: saveSourceButton
                     text: qsTr("Save")
                     tone: Theme.accentColor
                     filled: true
@@ -539,8 +578,12 @@ RoundedWindow {
                             host: srcHost.text.trim(), port: parseInt(srcPort.text) || 23, login: srcLogin.text.trim(),
                             commands: srcCommands.text, enabled: sourceEditor.source.enabled !== false
                         }
-                        if (sourceEditor.source.id) root.cluster.updateSource(sourceEditor.source.id, s)
-                        else root.cluster.addSource(s)
+                        let id = sourceEditor.source.id || ""
+                        if (id) root.cluster.updateSource(id, s)
+                        else id = root.cluster.addSource(s)
+                        if (srcPassword.text.length > 0)
+                            root.cluster.saveSourcePassword(id, srcPassword.text)
+                        srcPassword.text = ""
                         sourceEditor.close()
                     }
                 }

@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.21)
 
 project(DecoDXLog
-    VERSION 1.17.33
+    VERSION 1.17.34
     DESCRIPTION "Station logbook for the Decodium family"
     LANGUAGES C CXX)
 
@@ -133,6 +133,8 @@ add_library(decolog_core STATIC
     src/core/Maidenhead.cpp
     src/core/Modes.cpp
     src/core/Modes.h
+    src/core/NewQsoFields.cpp
+    src/core/NewQsoFields.h
     src/core/CwDecoder.cpp
     src/core/CwCalls.cpp
     src/core/CwCalls.h
@@ -405,6 +407,7 @@ set(DECODXLOG_QML_FILES
     qml/DecoDXLog/TopBar.qml
     qml/DecoDXLog/VfoDisplay.qml
     qml/DecoDXLog/NewQsoPanel.qml
+    qml/DecoDXLog/NewQsoFieldsDialog.qml
     qml/DecoDXLog/LogbookPanel.qml
     qml/DecoDXLog/BandModeGrid.qml
     qml/DecoDXLog/CallInfoPanel.qml
@@ -647,7 +650,7 @@ endif()
 if(DECODXLOG_BUILD_TESTS)
     enable_testing()
     find_package(Qt6 REQUIRED COMPONENTS Test)
-    foreach(name adif protocol database countries credentials callbook awards decolink lotw spots cluster qsl cabrillo solar rotor rig modes updates cw cwkeyer cloud cloudsettings vault mailsender dates tci rotorgateway worldclock propagation kstchat flrig supercheck contestnet winkeyer catshare logbackup qsldownload decodiumlog n1mm localapi clublogcty migration voacap connectionprobe ctcdecoder lexicon cwcalls cwskimmer slowop diagnostics architecture serialports dxassistant netcontroller cqmarathon cqmarathon_db vucc)
+    foreach(name adif protocol database countries credentials callbook awards decolink lotw spots cluster qsl cabrillo solar rotor rig modes newqsofields updates cw cwkeyer cloud cloudsettings vault mailsender dates tci rotorgateway worldclock propagation kstchat flrig supercheck contestnet winkeyer catshare logbackup qsldownload decodiumlog n1mm localapi clublogcty migration voacap connectionprobe ctcdecoder lexicon cwcalls cwskimmer slowop diagnostics architecture serialports dxassistant netcontroller cqmarathon cqmarathon_db vucc)
         qt_add_executable(tst_${name} tests/tst_${name}.cpp)
         target_link_libraries(tst_${name} PRIVATE decolog_core Qt6::Test)
         set_target_properties(tst_${name} PROPERTIES WIN32_EXECUTABLE OFF)
