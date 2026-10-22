@@ -7,6 +7,7 @@
 #include "app/LogLibrary.h"
 #include "core/LogDatabase.h"
 
+#include <QDate>
 #include <QDir>
 #include <QSettings>
 #include <QStandardPaths>
@@ -156,6 +157,84 @@ private slots:
         QCOMPARE(row.value(QStringLiteral("missing")).toBool(), true);
         // E aprirlo dice cosa e' successo, invece di riavviare su niente.
         QVERIFY(!library.openLog(file).isEmpty());
+    }
+
+    void aLogRemembersWhatItIsFor()
+    {
+        LogLibrary library;
+        const QString file = QDir(m_dir.path()).filePath(QStringLiteral("vucc.sqlite"));
+        QCOMPARE(library.createLog(QStringLiteral("VUCC 2026"), QUrl::fromLocalFile(file),
+                                   QStringLiteral("award"), QStringLiteral("VUCC")), QString());
+        // Un tipo che non si conosce diventa un log generico, non un'etichetta a caso.
+        const QString other = QDir(m_dir.path()).filePath(QStringLiteral("boh.sqlite"));
+        QCOMPARE(library.createLog(QStringLiteral("boh"), QUrl::fromLocalFile(other),
+                                   QStringLiteral("whatever")), QString());
+
+        LogLibrary again;   // dalle impostazioni, come al riavvio
+        QMap<QString, QVariantMap> byName;
+        for (const QVariant& row : again.logs())
+            byName.insert(row.toMap().value(QStringLiteral("name")).toString(), row.toMap());
+        QCOMPARE(byName.value(QStringLiteral("VUCC 2026")).value(QStringLiteral("kind")).toString(),
+                 QStringLiteral("award"));
+        QCOMPARE(byName.value(QStringLiteral("VUCC 2026")).value(QStringLiteral("event")).toString(),
+                 QStringLiteral("VUCC"));
+        QCOMPARE(byName.value(QStringLiteral("boh")).value(QStringLiteral("kind")).toString(),
+                 QStringLiteral("general"));
+    }
+
+    void anEventWithoutANameNamesTheLogAfterItAndTheYear()
+    {
+        LogLibrary library;
+        QCOMPARE(library.createLog(QString(), QUrl(), QStringLiteral("contest"),
+                                   QStringLiteral("CQ WW SSB")), QString());
+        const QString name = library.logs().first().toMap().value(QStringLiteral("name")).toString();
+        QCOMPARE(name, QStringLiteral("CQ WW SSB %1").arg(QDate::currentDate().year()));
+        // Senza nome e senza evento non c'e' niente da chiamare.
+        QVERIFY(!library.createLog(QString(), QUrl(), QStringLiteral("contest"), QString()).isEmpty());
+    }
+
+    void theLogInUseIsNeverDeleted()
+    {
+        LogLibrary library;
+        const QString file = QDir(m_dir.path()).filePath(QStringLiteral("inuso.sqlite"));
+        QCOMPARE(library.createLog(QStringLiteral("inuso"), QUrl::fromLocalFile(file)), QString());
+        library.setCurrent(file);
+        QVERIFY(!library.deleteLog(file).isEmpty());
+        QVERIFY(QFile::exists(file));
+        QCOMPARE(library.logs().size(), 1);
+    }
+
+    void deletingTakesTheFileAndTheListEntry()
+    {
+        LogLibrary library;
+        const QString keep = QDir(m_dir.path()).filePath(QStringLiteral("resta.sqlite"));
+        const QString gone = QDir(m_dir.path()).filePath(QStringLiteral("va.sqlite"));
+        QCOMPARE(library.createLog(QStringLiteral("resta"), QUrl::fromLocalFile(keep)), QString());
+        QCOMPARE(library.createLog(QStringLiteral("va"), QUrl::fromLocalFile(gone)), QString());
+        library.setCurrent(keep);
+
+        const QString error = library.deleteLog(gone);
+        if (!error.isEmpty())
+            QSKIP(qPrintable(QStringLiteral("no Recycle Bin here: ") + error));
+        QVERIFY(!QFile::exists(gone));
+        QVERIFY(QFile::exists(keep));
+        QCOMPARE(library.logs().size(), 1);
+        // E il nome torna libero: si puo' rifare un log con lo stesso nome.
+        QCOMPARE(library.createLog(QStringLiteral("va"), QUrl::fromLocalFile(gone)), QString());
+    }
+
+    void aLogAlreadyMissingJustLeavesTheList()
+    {
+        LogLibrary library;
+        const QString keep = QDir(m_dir.path()).filePath(QStringLiteral("aperto.sqlite"));
+        const QString lost = QDir(m_dir.path()).filePath(QStringLiteral("perso.sqlite"));
+        QCOMPARE(library.createLog(QStringLiteral("aperto"), QUrl::fromLocalFile(keep)), QString());
+        QCOMPARE(library.createLog(QStringLiteral("perso"), QUrl::fromLocalFile(lost)), QString());
+        library.setCurrent(keep);
+        QVERIFY(QFile::remove(lost));
+        QCOMPARE(library.deleteLog(lost), QString());
+        QCOMPARE(library.logs().size(), 1);
+        QVERIFY(!library.deleteLog(lost).isEmpty());   // non c'e' piu' nemmeno in elenco
     }
 };
 

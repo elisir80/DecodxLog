@@ -4192,16 +4192,60 @@ Open it once in DecoDXLog to bring it up to date.</source>
         <translation>Añadir uno ya hecho…</translation>
     </message>
     <message>
-        <source>The file goes in %1 and stays there: DecoDXLog never deletes a log.</source>
-        <translation>El archivo va a %1 y se queda ahí: DecoDXLog nunca borra un log.</translation>
-    </message>
-    <message>
         <source>Ask which log to open when DecoDXLog starts</source>
         <translation>Preguntar qué log abrir al arrancar DecoDXLog</translation>
     </message>
     <message>
         <source>Close</source>
         <translation>Cerrar</translation>
+    </message>
+    <message>
+        <source>Contest</source>
+        <translation type="unfinished">Concurso</translation>
+    </message>
+    <message>
+        <source>Award</source>
+        <translation>Diploma</translation>
+    </message>
+    <message>
+        <source>Other</source>
+        <translation>Otro</translation>
+    </message>
+    <message>
+        <source>Everyday</source>
+        <translation>De todos los días</translation>
+    </message>
+    <message>
+        <source>Delete the log %1</source>
+        <translation>Eliminar el log %1</translation>
+    </message>
+    <message>
+        <source>The file goes to the Recycle Bin with all its QSO, and the log leaves the list. The QSO in the Cloud are not touched.</source>
+        <translation>El archivo va a la Papelera de reciclaje con todos sus QSO y el log sale de la lista. Los QSO de la nube no se tocan.</translation>
+    </message>
+    <message>
+        <source>Write the name of the log to confirm</source>
+        <translation>Escribe el nombre del log para confirmar</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation type="unfinished">Cancelar</translation>
+    </message>
+    <message>
+        <source>Delete</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Log deleted: it is in the Recycle Bin.</source>
+        <translation>Log eliminado: está en la Papelera de reciclaje.</translation>
+    </message>
+    <message>
+        <source>For</source>
+        <translation>Para</translation>
+    </message>
+    <message>
+        <source>The file goes in %1. Delete moves a log you are not using to the Recycle Bin; Forget only takes it off the list.</source>
+        <translation>El archivo va a %1. Eliminar manda a la Papelera de reciclaje un log que no usas; Olvidar solo lo quita de la lista.</translation>
     </message>
 </context>
 <context>
@@ -11290,6 +11334,18 @@ Campos extra conservados: %8</translation>
     <message>
         <source>The program could not be restarted on %1.</source>
         <translation>El programa no ha podido reiniciarse en %1.</translation>
+    </message>
+    <message>
+        <source>The log in use cannot be deleted: open another one first.</source>
+        <translation>El log en uso no se puede eliminar: abre antes otro log.</translation>
+    </message>
+    <message>
+        <source>This log is not in the list.</source>
+        <translation>Este log no está en la lista.</translation>
+    </message>
+    <message>
+        <source>%1 could not be moved to the Recycle Bin: nothing was deleted.</source>
+        <translation>%1 no se pudo mover a la Papelera de reciclaje: no se eliminó nada.</translation>
     </message>
 </context>
 <context>

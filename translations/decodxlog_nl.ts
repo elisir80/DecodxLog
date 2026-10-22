@@ -4192,16 +4192,60 @@ Open het één keer in DecoDXLog om het bij te werken.</translation>
         <translation>Voeg een bestaand log toe…</translation>
     </message>
     <message>
-        <source>The file goes in %1 and stays there: DecoDXLog never deletes a log.</source>
-        <translation>Het bestand komt in %1 en blijft daar: DecoDXLog wist nooit een log.</translation>
-    </message>
-    <message>
         <source>Ask which log to open when DecoDXLog starts</source>
         <translation>Bij het starten vragen welk log open moet</translation>
     </message>
     <message>
         <source>Close</source>
         <translation>Sluiten</translation>
+    </message>
+    <message>
+        <source>Contest</source>
+        <translation type="unfinished">Contest</translation>
+    </message>
+    <message>
+        <source>Award</source>
+        <translation>Diploma</translation>
+    </message>
+    <message>
+        <source>Other</source>
+        <translation>Anders</translation>
+    </message>
+    <message>
+        <source>Everyday</source>
+        <translation>Dagelijks</translation>
+    </message>
+    <message>
+        <source>Delete the log %1</source>
+        <translation>Log %1 verwijderen</translation>
+    </message>
+    <message>
+        <source>The file goes to the Recycle Bin with all its QSO, and the log leaves the list. The QSO in the Cloud are not touched.</source>
+        <translation>Het bestand gaat met al zijn QSO&apos;s naar de Prullenbak en het log verdwijnt uit de lijst. De QSO&apos;s in de Cloud blijven ongemoeid.</translation>
+    </message>
+    <message>
+        <source>Write the name of the log to confirm</source>
+        <translation>Typ de naam van het log ter bevestiging</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation type="unfinished">Annuleren</translation>
+    </message>
+    <message>
+        <source>Delete</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Log deleted: it is in the Recycle Bin.</source>
+        <translation>Log verwijderd: het staat in de Prullenbak.</translation>
+    </message>
+    <message>
+        <source>For</source>
+        <translation>Voor</translation>
+    </message>
+    <message>
+        <source>The file goes in %1. Delete moves a log you are not using to the Recycle Bin; Forget only takes it off the list.</source>
+        <translation>Het bestand komt in %1. Verwijderen verplaatst een log dat je niet gebruikt naar de Prullenbak; Vergeten haalt het alleen uit de lijst.</translation>
     </message>
 </context>
 <context>
@@ -11290,6 +11334,18 @@ Extra velden blijven behouden: %8</translation>
     <message>
         <source>The program could not be restarted on %1.</source>
         <translation>Het programma kon niet opnieuw starten op %1.</translation>
+    </message>
+    <message>
+        <source>The log in use cannot be deleted: open another one first.</source>
+        <translation>Het log dat in gebruik is kan niet worden verwijderd: open eerst een ander log.</translation>
+    </message>
+    <message>
+        <source>This log is not in the list.</source>
+        <translation>Dit log staat niet in de lijst.</translation>
+    </message>
+    <message>
+        <source>%1 could not be moved to the Recycle Bin: nothing was deleted.</source>
+        <translation>%1 kon niet naar de Prullenbak worden verplaatst: er is niets verwijderd.</translation>
     </message>
 </context>
 <context>

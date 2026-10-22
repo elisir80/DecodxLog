@@ -4181,16 +4181,60 @@ DecoDXLog で一度開いて更新してください。</translation>
         <translation>あるログを追加…</translation>
     </message>
     <message>
-        <source>The file goes in %1 and stays there: DecoDXLog never deletes a log.</source>
-        <translation>ファイルは %1 に置かれ、そこに残ります。DecoDXLog がログを消すことはありません。</translation>
-    </message>
-    <message>
         <source>Ask which log to open when DecoDXLog starts</source>
         <translation>DecoDXLog の起動時にどのログを開くか尋ねる</translation>
     </message>
     <message>
         <source>Close</source>
         <translation>閉じる</translation>
+    </message>
+    <message>
+        <source>Contest</source>
+        <translation type="unfinished">コンテスト</translation>
+    </message>
+    <message>
+        <source>Award</source>
+        <translation>アワード</translation>
+    </message>
+    <message>
+        <source>Other</source>
+        <translation>その他</translation>
+    </message>
+    <message>
+        <source>Everyday</source>
+        <translation>普段用</translation>
+    </message>
+    <message>
+        <source>Delete the log %1</source>
+        <translation>ログ %1 を削除</translation>
+    </message>
+    <message>
+        <source>The file goes to the Recycle Bin with all its QSO, and the log leaves the list. The QSO in the Cloud are not touched.</source>
+        <translation>ファイルはすべての QSO ごとごみ箱に移動し、ログは一覧から消えます。クラウド上の QSO には手を付けません。</translation>
+    </message>
+    <message>
+        <source>Write the name of the log to confirm</source>
+        <translation>確認のためログの名前を入力</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Delete</source>
+        <translation type="unfinished">削除</translation>
+    </message>
+    <message>
+        <source>Log deleted: it is in the Recycle Bin.</source>
+        <translation>ログを削除しました。ごみ箱にあります。</translation>
+    </message>
+    <message>
+        <source>For</source>
+        <translation>用途</translation>
+    </message>
+    <message>
+        <source>The file goes in %1. Delete moves a log you are not using to the Recycle Bin; Forget only takes it off the list.</source>
+        <translation>ファイルは %1 に作られます。「削除」は使っていないログをごみ箱へ移し、「除外」は一覧から外すだけです。</translation>
     </message>
 </context>
 <context>
@@ -11241,6 +11285,18 @@ QSL の状態: %6 · UTC が不完全: %7。
     <message>
         <source>The program could not be restarted on %1.</source>
         <translation>%1 でプログラムを再起動できませんでした。</translation>
+    </message>
+    <message>
+        <source>The log in use cannot be deleted: open another one first.</source>
+        <translation>使用中のログは削除できません。先に別のログを開いてください。</translation>
+    </message>
+    <message>
+        <source>This log is not in the list.</source>
+        <translation>このログは一覧にありません。</translation>
+    </message>
+    <message>
+        <source>%1 could not be moved to the Recycle Bin: nothing was deleted.</source>
+        <translation>%1 をごみ箱に移動できませんでした。何も削除されていません。</translation>
     </message>
 </context>
 <context>

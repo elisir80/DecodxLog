@@ -4192,16 +4192,60 @@ Obre&apos;l una vegada a DecoDXLog per actualitzar-lo.</translation>
         <translation>Afegeix-ne un de ja fet…</translation>
     </message>
     <message>
-        <source>The file goes in %1 and stays there: DecoDXLog never deletes a log.</source>
-        <translation>El fitxer va a %1 i s&apos;hi queda: DecoDXLog no esborra mai un registre.</translation>
-    </message>
-    <message>
         <source>Ask which log to open when DecoDXLog starts</source>
         <translation>Pregunta quin registre obrir quan arrenca DecoDXLog</translation>
     </message>
     <message>
         <source>Close</source>
         <translation>Tanca</translation>
+    </message>
+    <message>
+        <source>Contest</source>
+        <translation type="unfinished">Contest</translation>
+    </message>
+    <message>
+        <source>Award</source>
+        <translation>Diploma</translation>
+    </message>
+    <message>
+        <source>Other</source>
+        <translation>Altre</translation>
+    </message>
+    <message>
+        <source>Everyday</source>
+        <translation>De cada dia</translation>
+    </message>
+    <message>
+        <source>Delete the log %1</source>
+        <translation>Suprimeix el log %1</translation>
+    </message>
+    <message>
+        <source>The file goes to the Recycle Bin with all its QSO, and the log leaves the list. The QSO in the Cloud are not touched.</source>
+        <translation>El fitxer va a la Paperera de reciclatge amb tots els seus QSO i el log surt de la llista. Els QSO del núvol no es toquen.</translation>
+    </message>
+    <message>
+        <source>Write the name of the log to confirm</source>
+        <translation>Escriu el nom del log per confirmar</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation type="unfinished">Cancel·la</translation>
+    </message>
+    <message>
+        <source>Delete</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Log deleted: it is in the Recycle Bin.</source>
+        <translation>Log suprimit: és a la Paperera de reciclatge.</translation>
+    </message>
+    <message>
+        <source>For</source>
+        <translation>Per a</translation>
+    </message>
+    <message>
+        <source>The file goes in %1. Delete moves a log you are not using to the Recycle Bin; Forget only takes it off the list.</source>
+        <translation>El fitxer va a %1. Suprimeix envia a la Paperera de reciclatge un log que no uses; Oblida només el treu de la llista.</translation>
     </message>
 </context>
 <context>
@@ -11290,6 +11334,18 @@ Camps extra conservats: %8</translation>
     <message>
         <source>The program could not be restarted on %1.</source>
         <translation>El programa no ha pogut reiniciar-se a %1.</translation>
+    </message>
+    <message>
+        <source>The log in use cannot be deleted: open another one first.</source>
+        <translation>El log en ús no es pot suprimir: obre abans un altre log.</translation>
+    </message>
+    <message>
+        <source>This log is not in the list.</source>
+        <translation>Aquest log no és a la llista.</translation>
+    </message>
+    <message>
+        <source>%1 could not be moved to the Recycle Bin: nothing was deleted.</source>
+        <translation>%1 no s&apos;ha pogut moure a la Paperera de reciclatge: no s’ha suprimit res.</translation>
     </message>
 </context>
 <context>

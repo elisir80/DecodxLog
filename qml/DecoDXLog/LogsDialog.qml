@@ -20,7 +20,17 @@ DialogFrame {
         message = ""
         messageOk = false
         nameField.text = ""
+        eventField.text = ""
+        kindBox.currentIndex = 0
         open()
+    }
+
+    // Per cosa e' un log: quello di tutti i giorni non porta etichetta.
+    readonly property var kinds: ["general", "contest", "award", "other"]
+    function kindLabel(kind) {
+        return kind === "contest" ? qsTr("Contest")
+             : kind === "award" ? qsTr("Award")
+             : kind === "other" ? qsTr("Other") : qsTr("Everyday")
     }
 
     title: qsTr("Station logs")
@@ -29,6 +39,64 @@ DialogFrame {
     dialogKey: "logs"
     width: 700
     height: 620
+
+    // Cancellare un log non si fa con un clic: si scrive il suo nome. Il file va
+    // nel Cestino, quindi si recupera.
+    Popup {
+        id: deleteDialog
+        property var target: ({})
+        function ask(log) { target = log; confirmField.text = ""; open(); confirmField.forceActiveFocus() }
+        anchors.centerIn: Overlay.overlay
+        modal: true
+        padding: 16
+        closePolicy: Popup.CloseOnEscape
+        background: Rectangle { color: Theme.panelColor; border.color: Theme.errorColor; radius: 6 }
+        contentItem: ColumnLayout {
+            spacing: 10
+            Text {
+                text: qsTr("Delete the log %1").arg(deleteDialog.target.name || "")
+                color: Theme.errorColor
+                font.pixelSize: 14
+                font.bold: true
+            }
+            Text {
+                Layout.maximumWidth: 420
+                wrapMode: Text.Wrap
+                color: Theme.textPrimary
+                text: qsTr("The file goes to the Recycle Bin with all its QSO, and the log leaves the list. "
+                           + "The QSO in the Cloud are not touched.")
+            }
+            LabeledField {
+                label: qsTr("Write the name of the log to confirm")
+                StyledTextField {
+                    id: confirmField
+                    Layout.preferredWidth: 300
+                    mono: false
+                    Keys.onReturnPressed: if (deleteGo.enabled) deleteGo.clicked()
+                }
+            }
+            RowLayout {
+                spacing: 8
+                Item { Layout.fillWidth: true }
+                GlassButton { text: qsTr("Cancel"); onClicked: deleteDialog.close() }
+                GlassButton {
+                    id: deleteGo
+                    text: qsTr("Delete")
+                    tone: Theme.errorColor
+                    filled: true
+                    enabled: (deleteDialog.target.name || "").length > 0
+                             && confirmField.text.trim() === deleteDialog.target.name
+                    onClicked: {
+                        deleteDialog.close()
+                        root.message = root.library.deleteLog(deleteDialog.target.path)
+                        root.messageOk = !root.message.length
+                        if (root.messageOk)
+                            root.message = qsTr("Log deleted: it is in the Recycle Bin.")
+                    }
+                }
+            }
+        }
+    }
 
     FileDialog {
         id: addDialog
@@ -86,6 +154,13 @@ DialogFrame {
                                     text: qsTr("open now")
                                     tone: Theme.accentColor
                                 }
+                                Pill {
+                                    visible: (modelData.kind || "general") !== "general"
+                                    text: (modelData.event || "").length
+                                          ? root.kindLabel(modelData.kind) + " · " + modelData.event
+                                          : root.kindLabel(modelData.kind)
+                                    tone: modelData.kind === "contest" ? Theme.warningColor : Theme.secondaryColor
+                                }
                             }
                             Text {
                                 Layout.fillWidth: true
@@ -114,6 +189,13 @@ DialogFrame {
                             buttonHeight: 26
                             onClicked: root.library.forget(modelData.path)
                         }
+                        GlassButton {
+                            visible: !modelData.current
+                            text: qsTr("Delete")
+                            tone: Theme.errorColor
+                            buttonHeight: 26
+                            onClicked: deleteDialog.ask(modelData)
+                        }
                     }
                 }
             }
@@ -132,13 +214,41 @@ DialogFrame {
             Layout.fillWidth: true
             spacing: 8
             LabeledField {
+                Layout.preferredWidth: 150
+                label: qsTr("For")
+                StyledComboBox {
+                    id: kindBox
+                    Layout.fillWidth: true
+                    mono: false
+                    model: root.kinds.map(k => root.kindLabel(k))
+                }
+            }
+            LabeledField {
+                Layout.fillWidth: true
+                visible: kindBox.currentIndex === 1 || kindBox.currentIndex === 2
+                label: kindBox.currentIndex === 2 ? qsTr("Award") : qsTr("Contest")
+                StyledTextField {
+                    id: eventField
+                    Layout.fillWidth: true
+                    mono: false
+                    placeholderText: kindBox.currentIndex === 2 ? "VUCC" : "CQ WW SSB"
+                    onAccepted: makeButton.clicked()
+                }
+            }
+        }
+        RowLayout {
+            Layout.fillWidth: true
+            spacing: 8
+            LabeledField {
                 Layout.fillWidth: true
                 label: qsTr("Name")
                 StyledTextField {
                     id: nameField
                     Layout.fillWidth: true
                     mono: false
-                    placeholderText: qsTr("CQ WW SSB 2026")
+                    placeholderText: eventField.text.trim().length
+                                     ? eventField.text.trim() + " " + new Date().getFullYear()
+                                     : qsTr("CQ WW SSB 2026")
                     onAccepted: makeButton.clicked()
                 }
             }
@@ -149,10 +259,12 @@ DialogFrame {
                 tone: Theme.accentColor
                 filled: true
                 onClicked: {
-                    root.message = root.library.createLog(nameField.text)
+                    root.message = root.library.createLog(nameField.text, "",
+                                                          root.kinds[kindBox.currentIndex], eventField.text)
                     root.messageOk = !root.message.length
                     if (root.messageOk) {
                         nameField.text = ""
+                        eventField.text = ""
                         root.message = qsTr("Log created. Press Open to work on it.")
                     }
                 }
@@ -165,7 +277,7 @@ DialogFrame {
         }
         Text {
             Layout.fillWidth: true
-            text: qsTr("The file goes in %1 and stays there: DecoDXLog never deletes a log.")
+            text: qsTr("The file goes in %1. Delete moves a log you are not using to the Recycle Bin; Forget only takes it off the list.")
                       .arg(root.library.defaultFolder())
             color: Theme.textSecondary
             wrapMode: Text.Wrap

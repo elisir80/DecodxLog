@@ -4203,16 +4203,60 @@ Atver to vienreiz DecoDXLog, lai atjauninātu.</translation>
         <translation>Pievienot esošu…</translation>
     </message>
     <message>
-        <source>The file goes in %1 and stays there: DecoDXLog never deletes a log.</source>
-        <translation>Fails nokļūst %1 un paliek tur: DecoDXLog nekad nedzēš žurnālu.</translation>
-    </message>
-    <message>
         <source>Ask which log to open when DecoDXLog starts</source>
         <translation>Jautāt, kuru žurnālu atvērt, kad DecoDXLog sākas</translation>
     </message>
     <message>
         <source>Close</source>
         <translation>Aizvērt</translation>
+    </message>
+    <message>
+        <source>Contest</source>
+        <translation type="unfinished">Sacensības</translation>
+    </message>
+    <message>
+        <source>Award</source>
+        <translation>Diploms</translation>
+    </message>
+    <message>
+        <source>Other</source>
+        <translation>Cits</translation>
+    </message>
+    <message>
+        <source>Everyday</source>
+        <translation>Ikdienas</translation>
+    </message>
+    <message>
+        <source>Delete the log %1</source>
+        <translation>Dzēst žurnālu %1</translation>
+    </message>
+    <message>
+        <source>The file goes to the Recycle Bin with all its QSO, and the log leaves the list. The QSO in the Cloud are not touched.</source>
+        <translation>Fails ar visiem QSO tiek pārvietots uz Atkritni, un žurnāls pazūd no saraksta. Mākonī esošie QSO netiek aiztikti.</translation>
+    </message>
+    <message>
+        <source>Write the name of the log to confirm</source>
+        <translation>Lai apstiprinātu, ierakstiet žurnāla nosaukumu</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation type="unfinished">Atcelt</translation>
+    </message>
+    <message>
+        <source>Delete</source>
+        <translation type="unfinished">Dzēst</translation>
+    </message>
+    <message>
+        <source>Log deleted: it is in the Recycle Bin.</source>
+        <translation>Žurnāls izdzēsts: tas ir Atkritnē.</translation>
+    </message>
+    <message>
+        <source>For</source>
+        <translation>Priekš</translation>
+    </message>
+    <message>
+        <source>The file goes in %1. Delete moves a log you are not using to the Recycle Bin; Forget only takes it off the list.</source>
+        <translation>Fails tiek saglabāts mapē %1. Dzēst pārvieto nelietotu žurnālu uz Atkritni; Aizmirst to tikai noņem no saraksta.</translation>
     </message>
 </context>
 <context>
@@ -11339,6 +11383,18 @@ Papildu lauki tiek saglabāti: %8</translation>
     <message>
         <source>The program could not be restarted on %1.</source>
         <translation>Programma nespēja restartēties uz %1.</translation>
+    </message>
+    <message>
+        <source>The log in use cannot be deleted: open another one first.</source>
+        <translation>Lietoto žurnālu nevar izdzēst: vispirms atveriet citu.</translation>
+    </message>
+    <message>
+        <source>This log is not in the list.</source>
+        <translation>Šī žurnāla nav sarakstā.</translation>
+    </message>
+    <message>
+        <source>%1 could not be moved to the Recycle Bin: nothing was deleted.</source>
+        <translation>%1 neizdevās pārvietot uz Atkritni: nekas netika izdzēsts.</translation>
     </message>
 </context>
 <context>

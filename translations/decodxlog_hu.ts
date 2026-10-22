@@ -4181,16 +4181,60 @@ Nyisd meg egyszer a DecoDXLog-ban a frissítéshez.</translation>
         <translation>Meglévő hozzáadása…</translation>
     </message>
     <message>
-        <source>The file goes in %1 and stays there: DecoDXLog never deletes a log.</source>
-        <translation>A fájl a %1 mappába kerül és ott marad: a DecoDXLog soha nem töröl naplót.</translation>
-    </message>
-    <message>
         <source>Ask which log to open when DecoDXLog starts</source>
         <translation>Kérdezze meg induláskor, melyik naplót nyissa meg</translation>
     </message>
     <message>
         <source>Close</source>
         <translation>Bezárás</translation>
+    </message>
+    <message>
+        <source>Contest</source>
+        <translation type="unfinished">Verseny</translation>
+    </message>
+    <message>
+        <source>Award</source>
+        <translation>Díj</translation>
+    </message>
+    <message>
+        <source>Other</source>
+        <translation>Egyéb</translation>
+    </message>
+    <message>
+        <source>Everyday</source>
+        <translation>Mindennapi</translation>
+    </message>
+    <message>
+        <source>Delete the log %1</source>
+        <translation>A(z) %1 napló törlése</translation>
+    </message>
+    <message>
+        <source>The file goes to the Recycle Bin with all its QSO, and the log leaves the list. The QSO in the Cloud are not touched.</source>
+        <translation>A fájl az összes QSO-val a Lomtárba kerül, a napló pedig eltűnik a listáról. A felhőben lévő QSO-khoz nem nyúlunk.</translation>
+    </message>
+    <message>
+        <source>Write the name of the log to confirm</source>
+        <translation>A megerősítéshez írd be a napló nevét</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation type="unfinished">Mégse</translation>
+    </message>
+    <message>
+        <source>Delete</source>
+        <translation type="unfinished">Törlés</translation>
+    </message>
+    <message>
+        <source>Log deleted: it is in the Recycle Bin.</source>
+        <translation>A napló törölve: a Lomtárban van.</translation>
+    </message>
+    <message>
+        <source>For</source>
+        <translation>Ehhez</translation>
+    </message>
+    <message>
+        <source>The file goes in %1. Delete moves a log you are not using to the Recycle Bin; Forget only takes it off the list.</source>
+        <translation>A fájl ide kerül: %1. A Törlés a nem használt naplót a Lomtárba teszi; az Elfelejtés csak a listáról veszi le.</translation>
     </message>
 </context>
 <context>
@@ -11241,6 +11285,18 @@ A további mezők megmaradnak: %8</translation>
     <message>
         <source>The program could not be restarted on %1.</source>
         <translation>A program nem tudott újraindulni ezen: %1.</translation>
+    </message>
+    <message>
+        <source>The log in use cannot be deleted: open another one first.</source>
+        <translation>A használt napló nem törölhető: előbb nyiss meg egy másikat.</translation>
+    </message>
+    <message>
+        <source>This log is not in the list.</source>
+        <translation>Ez a napló nincs a listán.</translation>
+    </message>
+    <message>
+        <source>%1 could not be moved to the Recycle Bin: nothing was deleted.</source>
+        <translation>A(z) %1 nem helyezhető a Lomtárba: semmi sem lett törölve.</translation>
     </message>
 </context>
 <context>

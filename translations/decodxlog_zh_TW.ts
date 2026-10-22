@@ -4181,16 +4181,60 @@ Open it once in DecoDXLog to bring it up to date.</source>
         <translation>加入現有的日誌…</translation>
     </message>
     <message>
-        <source>The file goes in %1 and stays there: DecoDXLog never deletes a log.</source>
-        <translation>檔案放在 %1 並留在那裡：DecoDXLog 從不刪除日誌。</translation>
-    </message>
-    <message>
         <source>Ask which log to open when DecoDXLog starts</source>
         <translation>DecoDXLog 啟動時詢問開啟哪個日誌</translation>
     </message>
     <message>
         <source>Close</source>
         <translation>關閉</translation>
+    </message>
+    <message>
+        <source>Contest</source>
+        <translation type="unfinished">比賽</translation>
+    </message>
+    <message>
+        <source>Award</source>
+        <translation>獎狀</translation>
+    </message>
+    <message>
+        <source>Other</source>
+        <translation>其他</translation>
+    </message>
+    <message>
+        <source>Everyday</source>
+        <translation>日常</translation>
+    </message>
+    <message>
+        <source>Delete the log %1</source>
+        <translation>刪除日誌 %1</translation>
+    </message>
+    <message>
+        <source>The file goes to the Recycle Bin with all its QSO, and the log leaves the list. The QSO in the Cloud are not touched.</source>
+        <translation>檔案及其所有 QSO 將移入資源回收筒，該日誌會從清單中消失。雲端的 QSO 不會受影響。</translation>
+    </message>
+    <message>
+        <source>Write the name of the log to confirm</source>
+        <translation>輸入日誌名稱以確認</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation type="unfinished">取消</translation>
+    </message>
+    <message>
+        <source>Delete</source>
+        <translation type="unfinished">刪除</translation>
+    </message>
+    <message>
+        <source>Log deleted: it is in the Recycle Bin.</source>
+        <translation>日誌已刪除：它在資源回收筒中。</translation>
+    </message>
+    <message>
+        <source>For</source>
+        <translation>用於</translation>
+    </message>
+    <message>
+        <source>The file goes in %1. Delete moves a log you are not using to the Recycle Bin; Forget only takes it off the list.</source>
+        <translation>檔案儲存在 %1。「刪除」會把未使用的日誌移入資源回收筒；「忘記」只是把它從清單中移除。</translation>
     </message>
 </context>
 <context>
@@ -11241,6 +11285,18 @@ QSL 狀態：%6 · UTC 不完整：%7。
     <message>
         <source>The program could not be restarted on %1.</source>
         <translation>程式無法在 %1 上重新啟動。</translation>
+    </message>
+    <message>
+        <source>The log in use cannot be deleted: open another one first.</source>
+        <translation>正在使用的日誌無法刪除：請先開啟另一個日誌。</translation>
+    </message>
+    <message>
+        <source>This log is not in the list.</source>
+        <translation>該日誌不在清單中。</translation>
+    </message>
+    <message>
+        <source>%1 could not be moved to the Recycle Bin: nothing was deleted.</source>
+        <translation>無法將 %1 移入資源回收筒：沒有刪除任何內容。</translation>
     </message>
 </context>
 <context>

@@ -4203,16 +4203,60 @@ Open it once in DecoDXLog to bring it up to date.</source>
         <translation>Добавить существующий…</translation>
     </message>
     <message>
-        <source>The file goes in %1 and stays there: DecoDXLog never deletes a log.</source>
-        <translation>Файл ложится в %1 и остаётся там: DecoDXLog никогда не удаляет журнал.</translation>
-    </message>
-    <message>
         <source>Ask which log to open when DecoDXLog starts</source>
         <translation>Спрашивать при запуске, какой журнал открыть</translation>
     </message>
     <message>
         <source>Close</source>
         <translation>Закрыть</translation>
+    </message>
+    <message>
+        <source>Contest</source>
+        <translation type="unfinished">Соревнование</translation>
+    </message>
+    <message>
+        <source>Award</source>
+        <translation>Диплом</translation>
+    </message>
+    <message>
+        <source>Other</source>
+        <translation>Другое</translation>
+    </message>
+    <message>
+        <source>Everyday</source>
+        <translation>Повседневный</translation>
+    </message>
+    <message>
+        <source>Delete the log %1</source>
+        <translation>Удалить журнал %1</translation>
+    </message>
+    <message>
+        <source>The file goes to the Recycle Bin with all its QSO, and the log leaves the list. The QSO in the Cloud are not touched.</source>
+        <translation>Файл вместе со всеми QSO попадёт в Корзину, а журнал исчезнет из списка. QSO в облаке не затрагиваются.</translation>
+    </message>
+    <message>
+        <source>Write the name of the log to confirm</source>
+        <translation>Для подтверждения введите название журнала</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation type="unfinished">Отмена</translation>
+    </message>
+    <message>
+        <source>Delete</source>
+        <translation type="unfinished">Удалить</translation>
+    </message>
+    <message>
+        <source>Log deleted: it is in the Recycle Bin.</source>
+        <translation>Журнал удалён: он в Корзине.</translation>
+    </message>
+    <message>
+        <source>For</source>
+        <translation>Для</translation>
+    </message>
+    <message>
+        <source>The file goes in %1. Delete moves a log you are not using to the Recycle Bin; Forget only takes it off the list.</source>
+        <translation>Файл сохраняется в %1. «Удалить» отправляет неиспользуемый журнал в Корзину; «Забыть» только убирает его из списка.</translation>
     </message>
 </context>
 <context>
@@ -11339,6 +11383,18 @@ Extra fields are preserved: %8</source>
     <message>
         <source>The program could not be restarted on %1.</source>
         <translation>Программа не смогла перезапуститься на %1.</translation>
+    </message>
+    <message>
+        <source>The log in use cannot be deleted: open another one first.</source>
+        <translation>Используемый журнал удалить нельзя: сначала откройте другой.</translation>
+    </message>
+    <message>
+        <source>This log is not in the list.</source>
+        <translation>Этого журнала нет в списке.</translation>
+    </message>
+    <message>
+        <source>%1 could not be moved to the Recycle Bin: nothing was deleted.</source>
+        <translation>%1 не удалось переместить в Корзину: ничего не удалено.</translation>
     </message>
 </context>
 <context>

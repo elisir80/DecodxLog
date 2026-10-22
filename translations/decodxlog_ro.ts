@@ -4203,16 +4203,60 @@ Deschide-l o dată în DecoDXLog ca să-l actualizezi.</translation>
         <translation>Adaugă unul existent…</translation>
     </message>
     <message>
-        <source>The file goes in %1 and stays there: DecoDXLog never deletes a log.</source>
-        <translation>Fișierul ajunge în %1 și rămâne acolo: DecoDXLog nu șterge niciodată un jurnal.</translation>
-    </message>
-    <message>
         <source>Ask which log to open when DecoDXLog starts</source>
         <translation>Întreabă ce jurnal să deschidă la pornire</translation>
     </message>
     <message>
         <source>Close</source>
         <translation>Închide</translation>
+    </message>
+    <message>
+        <source>Contest</source>
+        <translation type="unfinished">Concurs</translation>
+    </message>
+    <message>
+        <source>Award</source>
+        <translation>Diplomă</translation>
+    </message>
+    <message>
+        <source>Other</source>
+        <translation>Altul</translation>
+    </message>
+    <message>
+        <source>Everyday</source>
+        <translation>Zilnic</translation>
+    </message>
+    <message>
+        <source>Delete the log %1</source>
+        <translation>Șterge jurnalul %1</translation>
+    </message>
+    <message>
+        <source>The file goes to the Recycle Bin with all its QSO, and the log leaves the list. The QSO in the Cloud are not touched.</source>
+        <translation>Fișierul merge în Coșul de reciclare cu toate QSO-urile lui, iar jurnalul iese din listă. QSO-urile din Cloud nu sunt atinse.</translation>
+    </message>
+    <message>
+        <source>Write the name of the log to confirm</source>
+        <translation>Scrie numele jurnalului pentru confirmare</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Delete</source>
+        <translation type="unfinished">Șterge</translation>
+    </message>
+    <message>
+        <source>Log deleted: it is in the Recycle Bin.</source>
+        <translation>Jurnal șters: se află în Coșul de reciclare.</translation>
+    </message>
+    <message>
+        <source>For</source>
+        <translation>Pentru</translation>
+    </message>
+    <message>
+        <source>The file goes in %1. Delete moves a log you are not using to the Recycle Bin; Forget only takes it off the list.</source>
+        <translation>Fișierul se salvează în %1. Șterge mută în Coșul de reciclare un jurnal pe care nu-l folosești; Uită îl scoate doar din listă.</translation>
     </message>
 </context>
 <context>
@@ -11339,6 +11383,18 @@ Câmpuri suplimentare păstrate: %8</translation>
     <message>
         <source>The program could not be restarted on %1.</source>
         <translation>Programul nu a putut reporni pe %1.</translation>
+    </message>
+    <message>
+        <source>The log in use cannot be deleted: open another one first.</source>
+        <translation>Jurnalul în uz nu poate fi șters: deschide mai întâi altul.</translation>
+    </message>
+    <message>
+        <source>This log is not in the list.</source>
+        <translation>Acest jurnal nu este în listă.</translation>
+    </message>
+    <message>
+        <source>%1 could not be moved to the Recycle Bin: nothing was deleted.</source>
+        <translation>%1 nu a putut fi mutat în Coșul de reciclare: nu s-a șters nimic.</translation>
     </message>
 </context>
 <context>

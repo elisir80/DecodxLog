@@ -4192,16 +4192,60 @@ Open it once in DecoDXLog to bring it up to date.</source>
         <translation>Tilføj en der findes…</translation>
     </message>
     <message>
-        <source>The file goes in %1 and stays there: DecoDXLog never deletes a log.</source>
-        <translation>Filen ligger i %1 og bliver der: DecoDXLog sletter aldrig en log.</translation>
-    </message>
-    <message>
         <source>Ask which log to open when DecoDXLog starts</source>
         <translation>Spørg hvilken log der skal åbnes når DecoDXLog starter</translation>
     </message>
     <message>
         <source>Close</source>
         <translation>Luk</translation>
+    </message>
+    <message>
+        <source>Contest</source>
+        <translation type="unfinished">Contest</translation>
+    </message>
+    <message>
+        <source>Award</source>
+        <translation>Diplom</translation>
+    </message>
+    <message>
+        <source>Other</source>
+        <translation>Andet</translation>
+    </message>
+    <message>
+        <source>Everyday</source>
+        <translation>Hverdag</translation>
+    </message>
+    <message>
+        <source>Delete the log %1</source>
+        <translation>Slet loggen %1</translation>
+    </message>
+    <message>
+        <source>The file goes to the Recycle Bin with all its QSO, and the log leaves the list. The QSO in the Cloud are not touched.</source>
+        <translation>Filen flyttes til Papirkurven med alle sine QSO&apos;er, og loggen forsvinder fra listen. QSO&apos;erne i skyen berøres ikke.</translation>
+    </message>
+    <message>
+        <source>Write the name of the log to confirm</source>
+        <translation>Skriv navnet på loggen for at bekræfte</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation type="unfinished">Annullér</translation>
+    </message>
+    <message>
+        <source>Delete</source>
+        <translation type="unfinished">Slet</translation>
+    </message>
+    <message>
+        <source>Log deleted: it is in the Recycle Bin.</source>
+        <translation>Loggen er slettet: den ligger i Papirkurven.</translation>
+    </message>
+    <message>
+        <source>For</source>
+        <translation>Til</translation>
+    </message>
+    <message>
+        <source>The file goes in %1. Delete moves a log you are not using to the Recycle Bin; Forget only takes it off the list.</source>
+        <translation>Filen lægges i %1. Slet flytter en log, du ikke bruger, til Papirkurven; Glem fjerner den kun fra listen.</translation>
     </message>
 </context>
 <context>
@@ -11290,6 +11334,18 @@ Ekstra felter bevares: %8</translation>
     <message>
         <source>The program could not be restarted on %1.</source>
         <translation>Programmet kunne ikke starte igen på %1.</translation>
+    </message>
+    <message>
+        <source>The log in use cannot be deleted: open another one first.</source>
+        <translation>Loggen i brug kan ikke slettes: åbn først en anden log.</translation>
+    </message>
+    <message>
+        <source>This log is not in the list.</source>
+        <translation>Denne log er ikke på listen.</translation>
+    </message>
+    <message>
+        <source>%1 could not be moved to the Recycle Bin: nothing was deleted.</source>
+        <translation>%1 kunne ikke flyttes til Papirkurven: intet er slettet.</translation>
     </message>
 </context>
 <context>

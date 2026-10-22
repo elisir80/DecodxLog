@@ -4188,16 +4188,60 @@ Open it once in DecoDXLog to bring it up to date.</source>
         <translation>Add an existing one…</translation>
     </message>
     <message>
-        <source>The file goes in %1 and stays there: DecoDXLog never deletes a log.</source>
-        <translation>The file goes in %1 and stays there: DecoDXLog never deletes a log.</translation>
-    </message>
-    <message>
         <source>Ask which log to open when DecoDXLog starts</source>
         <translation>Ask which log to open when DecoDXLog starts</translation>
     </message>
     <message>
         <source>Close</source>
         <translation>Close</translation>
+    </message>
+    <message>
+        <source>Contest</source>
+        <translation type="unfinished">Contest</translation>
+    </message>
+    <message>
+        <source>Award</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Other</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Everyday</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Delete the log %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The file goes to the Recycle Bin with all its QSO, and the log leaves the list. The QSO in the Cloud are not touched.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Write the name of the log to confirm</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Delete</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Log deleted: it is in the Recycle Bin.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>For</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The file goes in %1. Delete moves a log you are not using to the Recycle Bin; Forget only takes it off the list.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -11283,6 +11327,18 @@ Extra fields are preserved: %8</source>
     <message>
         <source>The program could not be restarted on %1.</source>
         <translation>The program could not be restarted on %1.</translation>
+    </message>
+    <message>
+        <source>The log in use cannot be deleted: open another one first.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This log is not in the list.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1 could not be moved to the Recycle Bin: nothing was deleted.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

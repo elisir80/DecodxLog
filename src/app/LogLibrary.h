@@ -43,8 +43,17 @@ public:
 
     // Crea un log nuovo e lo apre. `name` e' il nome nell'elenco; il file si
     // chiama come il nome, nella cartella dei dati, se `path` e' vuoto.
+    // `kind` dice per cosa e' il log: "general" (quello di tutti i giorni),
+    // "contest", "award" o "other"; `event` e' la manifestazione o il diploma
+    // ("CQ WW SSB", "VUCC"). Senza nome, ma con l'evento, il nome e' l'evento e
+    // l'anno. Torna un messaggio d'errore, o "" se e' andata.
+    Q_INVOKABLE QString createLog(const QString& name, const QUrl& path = {},
+                                  const QString& kind = {}, const QString& event = {});
+    // Cancella un log: il file va nel Cestino (si recupera) e il log esce
+    // dall'elenco. Il log aperto non si cancella, e se il Cestino non lo prende
+    // il file resta dov'e': non si passa mai alla cancellazione definitiva.
     // Torna un messaggio d'errore, o "" se e' andata.
-    Q_INVOKABLE QString createLog(const QString& name, const QUrl& path = {});
+    Q_INVOKABLE QString deleteLog(const QString& path);
     // Mette nell'elenco un log che c'e' gia' sul disco.
     Q_INVOKABLE QString addExisting(const QUrl& path);
     // Riapre il programma su quel log. Non torna se e' andata.
@@ -66,6 +75,8 @@ private:
         QString name;
         QString path;
         QString lastUsed;   // ISO, per l'ordine
+        QString kind;       // general | contest | award | other
+        QString event;      // la manifestazione o il diploma, se c'e'
     };
 
     QList<Entry> m_entries;

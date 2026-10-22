@@ -3,6 +3,20 @@
 Le date sono quelle del lavoro, non di una pubblicazione: DecoDXLog cresce mentre lo si usa
 in stazione.
 
+## 1.17.33 — 22 ottobre 2026
+
+**Un log per ogni manifestazione o diploma.** Creando un log si sceglie per cosa e': di tutti i giorni,
+contest, award/diploma o altro. Per contest e award si scrive l'evento (CQ WW SSB, VUCC...) e, se non
+si da' un nome, il log si chiama come l'evento con l'anno. L'elenco mostra il tipo accanto al nome e lo
+ricorda fra un avvio e l'altro.
+
+**Cancellare un log.** Accanto a «Dimentica» c'e' «Elimina»: chiede di scrivere il nome del log e
+sposta il file nel Cestino, quindi si recupera. Il log aperto non si cancella; se il Cestino non lo
+prende non si passa mai alla cancellazione definitiva, e un log il cui file non c'e' piu' esce
+dall'elenco. I QSO nel Cloud non si toccano.
+
+Traduzioni: 12 stringhe nuove in tutte e 14 le lingue.
+
 ## 1.17.32 — 20 ottobre 2026
 
 **Allineata alla 1.17.31 di elisir80.** La CAT condivisa inoltra anche il livello ALC (polling,

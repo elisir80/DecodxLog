@@ -3,8 +3,10 @@
 #include "core/LogDatabase.h"
 
 #include <QCoreApplication>
+#include <QDate>
 #include <QDateTime>
 #include <QDir>
+#include <QFile>
 #include <QFileInfo>
 #include <QProcess>
 #include <QRegularExpression>
@@ -30,6 +32,15 @@ QString canonical(const QString& path)
     return QDir::toNativeSeparators(resolved);
 }
 
+// I tipi di log che si conoscono: qualunque altra cosa e' un log generico.
+QString normalizedKind(const QString& kind)
+{
+    static const QStringList known{QStringLiteral("contest"), QStringLiteral("award"),
+                                   QStringLiteral("other")};
+    const QString lower = kind.trimmed().toLower();
+    return known.contains(lower) ? lower : QStringLiteral("general");
+}
+
 } // namespace
 
 LogLibrary::LogLibrary(QObject* parent)
@@ -49,6 +60,8 @@ void LogLibrary::load()
         e.name = settings.value(QStringLiteral("name")).toString();
         e.path = settings.value(QStringLiteral("path")).toString();
         e.lastUsed = settings.value(QStringLiteral("lastUsed")).toString();
+        e.kind = normalizedKind(settings.value(QStringLiteral("kind")).toString());
+        e.event = settings.value(QStringLiteral("event")).toString();
         if (!e.path.isEmpty())
             m_entries << e;
     }
@@ -64,6 +77,8 @@ void LogLibrary::save()
         settings.setValue(QStringLiteral("name"), m_entries.at(i).name);
         settings.setValue(QStringLiteral("path"), m_entries.at(i).path);
         settings.setValue(QStringLiteral("lastUsed"), m_entries.at(i).lastUsed);
+        settings.setValue(QStringLiteral("kind"), m_entries.at(i).kind);
+        settings.setValue(QStringLiteral("event"), m_entries.at(i).event);
     }
     settings.endArray();
     emit changed();
@@ -141,6 +156,8 @@ QVariantList LogLibrary::logs() const
             {QStringLiteral("missing"), !exists},
             {QStringLiteral("qsos"), qsos},
             {QStringLiteral("lastUsed"), e.lastUsed},
+            {QStringLiteral("kind"), e.kind.isEmpty() ? QStringLiteral("general") : e.kind},
+            {QStringLiteral("event"), e.event},
         };
     }
     return out;
@@ -153,9 +170,15 @@ QString LogLibrary::defaultFolder() const
     return QDir::toNativeSeparators(dir);
 }
 
-QString LogLibrary::createLog(const QString& name, const QUrl& path)
+QString LogLibrary::createLog(const QString& name, const QUrl& path, const QString& kind,
+                              const QString& event)
 {
-    const QString wanted = name.trimmed();
+    const QString eventName = event.trimmed();
+    QString wanted = name.trimmed();
+    // Un log per una manifestazione si chiama come lei, con l'anno: e' il nome
+    // che si cerca in elenco quando la gara e' finita.
+    if (wanted.isEmpty() && !eventName.isEmpty())
+        wanted = eventName + QLatin1Char(' ') + QString::number(QDate::currentDate().year());
     if (wanted.isEmpty())
         return tr("Give the log a name.");
 
@@ -187,7 +210,44 @@ QString LogLibrary::createLog(const QString& name, const QUrl& path)
     e.name = wanted;
     e.path = QDir::toNativeSeparators(file);
     e.lastUsed = QDateTime::currentDateTimeUtc().toString(Qt::ISODateWithMs);
+    e.kind = normalizedKind(kind);
+    e.event = eventName;
     m_entries << e;
+    save();
+    return {};
+}
+
+QString LogLibrary::deleteLog(const QString& path)
+{
+    const QString resolved = canonical(path);
+    if (resolved == m_current)
+        return tr("The log in use cannot be deleted: open another one first.");
+    int index = -1;
+    for (int i = 0; i < m_entries.size(); ++i) {
+        if (canonical(m_entries.at(i).path) == resolved)
+            index = i;
+    }
+    if (index < 0)
+        return tr("This log is not in the list.");
+
+    // Il file non c'e' piu' (cancellato a mano): resta solo la voce da togliere.
+    if (QFileInfo::exists(resolved)) {
+        // Il log e il suo registro di SQLite si cancellano insieme: un -wal
+        // rimasto da solo, accanto a un file nuovo con lo stesso nome, lo
+        // guasterebbe.
+        const QStringList companions{resolved + QStringLiteral("-wal"),
+                                     resolved + QStringLiteral("-shm"),
+                                     resolved + QStringLiteral("-journal")};
+        if (!QFile::moveToTrash(resolved)) {
+            return tr("%1 could not be moved to the Recycle Bin: nothing was deleted.")
+                .arg(QDir::toNativeSeparators(resolved));
+        }
+        for (const QString& extra : companions) {
+            if (QFileInfo::exists(extra) && !QFile::moveToTrash(extra))
+                QFile::remove(extra);   // briciole del log gia' nel Cestino
+        }
+    }
+    m_entries.removeAt(index);
     save();
     return {};
 }
