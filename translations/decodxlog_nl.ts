@@ -1760,6 +1760,18 @@ De roepletters waar Decodium mee bezig is, verschijnen hier vanzelf.</translatio
         <translation>Login (leeg = roepletters van het stationsprofiel)</translation>
     </message>
     <message>
+        <source>Node password (only if requested)</source>
+        <translation>Wachtwoord van de node (alleen indien gevraagd)</translation>
+    </message>
+    <message>
+        <source>stored in the system keystore — leave empty to keep it</source>
+        <translation>opgeslagen in de sleutelopslag van het systeem — laat leeg om het te behouden</translation>
+    </message>
+    <message>
+        <source>Remove saved password</source>
+        <translation>Opgeslagen wachtwoord verwijderen</translation>
+    </message>
+    <message>
         <source>Commands after login (one per line)</source>
         <translation>Opdrachten na het inloggen (één per regel)</translation>
     </message>
@@ -4734,6 +4746,81 @@ Extra velden blijven behouden: %8</translation>
     </message>
 </context>
 <context>
+    <name>NewQsoFieldsDialog</name>
+    <message>
+        <source>New QSO fields</source>
+        <translation>Velden van Nieuwe QSO</translation>
+    </message>
+    <message>
+        <source>Choose the optional fields shown in the compact New QSO panel. Callsign, UTC, band, frequency, mode and reports always remain available.</source>
+        <translation>Kies de optionele velden die in het compacte paneel Nieuwe QSO worden getoond. Roepnaam, UTC, band, frequentie, modus en rapporten blijven altijd beschikbaar.</translation>
+    </message>
+    <message>
+        <source>STANDARD FIELDS</source>
+        <translation>STANDAARDVELDEN</translation>
+    </message>
+    <message>
+        <source>Show %1 in New QSO</source>
+        <translation>%1 tonen in Nieuwe QSO</translation>
+    </message>
+    <message>
+        <source>CUSTOM ADIF FIELDS</source>
+        <translation>EIGEN ADIF-VELDEN</translation>
+    </message>
+    <message>
+        <source>Add field</source>
+        <translation>Veld toevoegen</translation>
+    </message>
+    <message>
+        <source>Add fields such as RDA or an APP_ field. Use the exact ADIF name; the optional label is what appears in the panel. STATE and TX_PWR are already available above.</source>
+        <translation>Voeg velden toe zoals RDA of een APP_-veld. Gebruik de exacte ADIF-naam; het optionele label is wat in het paneel verschijnt. STATE en TX_PWR zijn hierboven al beschikbaar.</translation>
+    </message>
+    <message>
+        <source>No custom fields configured.</source>
+        <translation>Geen eigen velden ingesteld.</translation>
+    </message>
+    <message>
+        <source>ADIF name</source>
+        <translation>ADIF-naam</translation>
+    </message>
+    <message>
+        <source>Custom ADIF field name</source>
+        <translation>Naam van het eigen ADIF-veld</translation>
+    </message>
+    <message>
+        <source>Label (optional)</source>
+        <translation>Label (optioneel)</translation>
+    </message>
+    <message>
+        <source>Russian district</source>
+        <translation>Russisch district</translation>
+    </message>
+    <message>
+        <source>Custom ADIF field label</source>
+        <translation>Label van het eigen ADIF-veld</translation>
+    </message>
+    <message>
+        <source>Remove custom field</source>
+        <translation>Eigen veld verwijderen</translation>
+    </message>
+    <message>
+        <source>Remove custom field %1</source>
+        <translation>Eigen veld %1 verwijderen</translation>
+    </message>
+    <message>
+        <source>Restore defaults</source>
+        <translation>Standaardwaarden herstellen</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation type="unfinished">Annuleren</translation>
+    </message>
+    <message>
+        <source>Save</source>
+        <translation type="unfinished">Opslaan</translation>
+    </message>
+</context>
+<context>
     <name>NewQsoPanel</name>
     <message>
         <source>New QSO</source>
@@ -4742,6 +4829,14 @@ Extra velden blijven behouden: %8</translation>
     <message>
         <source>manual</source>
         <translation>met de hand</translation>
+    </message>
+    <message>
+        <source>Configure New QSO fields</source>
+        <translation>Velden van Nieuwe QSO instellen</translation>
+    </message>
+    <message>
+        <source>Choose fields</source>
+        <translation>Velden kiezen</translation>
     </message>
     <message>
         <source>Full form (Ctrl+N)</source>
@@ -4812,6 +4907,14 @@ Extra velden blijven behouden: %8</translation>
         <translation>QTH</translation>
     </message>
     <message>
+        <source>State</source>
+        <translation type="unfinished">Staat</translation>
+    </message>
+    <message>
+        <source>TX pwr W</source>
+        <translation type="unfinished">TX-verm. W</translation>
+    </message>
+    <message>
         <source>Prop</source>
         <translation>Prop</translation>
     </message>
@@ -4834,6 +4937,10 @@ Extra velden blijven behouden: %8</translation>
     <message>
         <source>Comment</source>
         <translation>Opmerking</translation>
+    </message>
+    <message>
+        <source>%1 (%2) value</source>
+        <translation>Waarde van %1 (%2)</translation>
     </message>
     <message>
         <source>LOG QSO</source>
@@ -10232,6 +10339,14 @@ Extra velden blijven behouden: %8</translation>
         <translation>geen sleutelopslag</translation>
     </message>
     <message>
+        <source>Saving the node password in the system keystore…</source>
+        <translation>Het wachtwoord van de node wordt opgeslagen in de sleutelopslag van het systeem…</translation>
+    </message>
+    <message>
+        <source>Removing the node password from the system keystore…</source>
+        <translation>Het wachtwoord van de node wordt verwijderd uit de sleutelopslag van het systeem…</translation>
+    </message>
+    <message>
         <source>Nothing to check here: this source is read over the web, not through a node connection.</source>
         <translation>Hier valt niets te controleren: deze bron wordt via het web gelezen, niet via een verbinding met een knooppunt.</translation>
     </message>
@@ -10600,8 +10715,72 @@ Extra velden blijven behouden: %8</translation>
         <translation>dd/mm/jjjj</translation>
     </message>
     <message>
+        <source>Grid locator</source>
+        <translation>Locator</translation>
+    </message>
+    <message>
+        <source>Operator name</source>
+        <translation>Naam van de operator</translation>
+    </message>
+    <message>
+        <source>QTH</source>
+        <translation type="unfinished">QTH</translation>
+    </message>
+    <message>
+        <source>State / province</source>
+        <translation>Staat / provincie</translation>
+    </message>
+    <message>
+        <source>TX power</source>
+        <translation>TX-vermogen</translation>
+    </message>
+    <message>
+        <source>Propagation mode</source>
+        <translation>Propagatiemodus</translation>
+    </message>
+    <message>
+        <source>Satellite mode</source>
+        <translation>Satellietmodus</translation>
+    </message>
+    <message>
+        <source>Invalid ADIF field name: %1. Use 1–32 letters, digits or underscores, starting with a letter.</source>
+        <translation>Ongeldige ADIF-veldnaam: %1. Gebruik 1–32 letters, cijfers of underscores, beginnend met een letter.</translation>
+    </message>
+    <message>
+        <source>The ADIF field %1 is listed more than once.</source>
+        <translation>Het ADIF-veld %1 staat meer dan eens in de lijst.</translation>
+    </message>
+    <message>
+        <source>%1 is already available as a standard field. Enable it above instead.</source>
+        <translation>%1 is al beschikbaar als standaardveld. Schakel het in plaats daarvan hierboven in.</translation>
+    </message>
+    <message>
+        <source>%1 is managed by DecoDXLog and cannot be replaced by a custom field.</source>
+        <translation>%1 wordt door DecoDXLog beheerd en kan niet door een eigen veld worden vervangen.</translation>
+    </message>
+    <message>
+        <source>You can add at most %1 custom ADIF fields.</source>
+        <translation>Je kunt maximaal %1 eigen ADIF-velden toevoegen.</translation>
+    </message>
+    <message>
+        <source>The New QSO field settings could not be saved.</source>
+        <translation>De instellingen voor de velden van Nieuwe QSO konden niet worden opgeslagen.</translation>
+    </message>
+    <message>
         <source>Enter a valid UTC date</source>
         <translation>Voer een geldige UTC-datum in</translation>
+    </message>
+    <message>
+        <source>Invalid custom ADIF field: %1</source>
+        <translation>Ongeldig eigen ADIF-veld: %1</translation>
+    </message>
+    <message>
+        <source>The ADIF field %1 is managed by DecoDXLog.</source>
+        <translation>Het ADIF-veld %1 wordt door DecoDXLog beheerd.</translation>
+    </message>
+    <message>
+        <source>Use the standard %1 field instead of a custom field.</source>
+        <translation>Gebruik het standaardveld %1 in plaats van een eigen veld.</translation>
     </message>
     <message>
         <source>Logged %1 %2 %3 (manual)</source>
@@ -12572,12 +12751,16 @@ Extra velden blijven behouden: %8</translation>
         <translation>verbinding gesloten voordat het knooppunt iets zei: een antivirusprogramma of firewall (AVG, Avast…) kan haar vasthouden — druk op Controleren</translation>
     </message>
     <message>
-        <source>password needed</source>
-        <translation>wachtwoord nodig</translation>
+        <source>the node accepted the callsign and requested a password, but no system keystore is available</source>
+        <translation>de node heeft de roepnaam geaccepteerd en een wachtwoord gevraagd, maar er is geen sleutelopslag van het systeem beschikbaar</translation>
     </message>
     <message>
-        <source>no password stored</source>
-        <translation>geen wachtwoord opgeslagen</translation>
+        <source>the node accepted the callsign and requested a password, but no password is stored for this source</source>
+        <translation>de node heeft de roepnaam geaccepteerd en een wachtwoord gevraagd, maar voor deze bron is geen wachtwoord opgeslagen</translation>
+    </message>
+    <message>
+        <source>the node accepted the callsign and requested a password, but the stored password could not be read: %1</source>
+        <translation>de node heeft de roepnaam geaccepteerd en een wachtwoord gevraagd, maar het opgeslagen wachtwoord kon niet worden gelezen: %1</translation>
     </message>
 </context>
 <context>
@@ -12629,6 +12812,10 @@ Extra velden blijven behouden: %8</translation>
     <message>
         <source>3. Connected, but the node says nothing</source>
         <translation>3. Verbonden, maar het knooppunt zegt niets</translation>
+    </message>
+    <message>
+        <source>This check stops at the login prompt by design and does not authenticate. The enabled source sends the configured callsign; if the node then requests a password, save it in the source editor.</source>
+        <translation>Deze controle stopt bewust bij de inlogprompt en authenticeert niet. De ingeschakelde bron stuurt de ingestelde roepnaam; vraagt de node daarna om een wachtwoord, sla het dan op in de broneditor.</translation>
     </message>
     <message>
         <source>The name does not resolve: check the network and the DNS. An antivirus or a filtering DNS (AVG, Avast…) can also block a name it does not trust: try the address in numbers.</source>

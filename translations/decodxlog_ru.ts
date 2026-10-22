@@ -1764,6 +1764,18 @@ The call Decodium is working shows up here by itself.</source>
         <translation>Логин (пусто = позывной профиля станции)</translation>
     </message>
     <message>
+        <source>Node password (only if requested)</source>
+        <translation>Пароль узла (только если запрашивается)</translation>
+    </message>
+    <message>
+        <source>stored in the system keystore — leave empty to keep it</source>
+        <translation>сохранён в хранилище ключей системы — оставьте пустым, чтобы сохранить</translation>
+    </message>
+    <message>
+        <source>Remove saved password</source>
+        <translation>Убрать сохранённый пароль</translation>
+    </message>
+    <message>
         <source>Commands after login (one per line)</source>
         <translation>Команды после входа (по одной в строке)</translation>
     </message>
@@ -4745,6 +4757,81 @@ Extra fields are preserved: %8</source>
     </message>
 </context>
 <context>
+    <name>NewQsoFieldsDialog</name>
+    <message>
+        <source>New QSO fields</source>
+        <translation>Поля Нового QSO</translation>
+    </message>
+    <message>
+        <source>Choose the optional fields shown in the compact New QSO panel. Callsign, UTC, band, frequency, mode and reports always remain available.</source>
+        <translation>Выберите необязательные поля, которые показываются в компактной панели Нового QSO. Позывной, UTC, диапазон, частота, режим и рапорты всегда остаются доступными.</translation>
+    </message>
+    <message>
+        <source>STANDARD FIELDS</source>
+        <translation>СТАНДАРТНЫЕ ПОЛЯ</translation>
+    </message>
+    <message>
+        <source>Show %1 in New QSO</source>
+        <translation>Показывать %1 в Новом QSO</translation>
+    </message>
+    <message>
+        <source>CUSTOM ADIF FIELDS</source>
+        <translation>ПОЛЬЗОВАТЕЛЬСКИЕ ПОЛЯ ADIF</translation>
+    </message>
+    <message>
+        <source>Add field</source>
+        <translation>Добавить поле</translation>
+    </message>
+    <message>
+        <source>Add fields such as RDA or an APP_ field. Use the exact ADIF name; the optional label is what appears in the panel. STATE and TX_PWR are already available above.</source>
+        <translation>Добавьте поля вроде RDA или поле APP_. Используйте точное имя ADIF; необязательная подпись — это то, что показывается в панели. STATE и TX_PWR уже доступны выше.</translation>
+    </message>
+    <message>
+        <source>No custom fields configured.</source>
+        <translation>Пользовательские поля не настроены.</translation>
+    </message>
+    <message>
+        <source>ADIF name</source>
+        <translation>Имя ADIF</translation>
+    </message>
+    <message>
+        <source>Custom ADIF field name</source>
+        <translation>Имя пользовательского поля ADIF</translation>
+    </message>
+    <message>
+        <source>Label (optional)</source>
+        <translation>Подпись (необязательно)</translation>
+    </message>
+    <message>
+        <source>Russian district</source>
+        <translation>Российский район</translation>
+    </message>
+    <message>
+        <source>Custom ADIF field label</source>
+        <translation>Подпись пользовательского поля ADIF</translation>
+    </message>
+    <message>
+        <source>Remove custom field</source>
+        <translation>Убрать пользовательское поле</translation>
+    </message>
+    <message>
+        <source>Remove custom field %1</source>
+        <translation>Убрать пользовательское поле %1</translation>
+    </message>
+    <message>
+        <source>Restore defaults</source>
+        <translation>Восстановить значения по умолчанию</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation type="unfinished">Отмена</translation>
+    </message>
+    <message>
+        <source>Save</source>
+        <translation type="unfinished">Сохранить</translation>
+    </message>
+</context>
+<context>
     <name>NewQsoPanel</name>
     <message>
         <source>New QSO</source>
@@ -4753,6 +4840,14 @@ Extra fields are preserved: %8</source>
     <message>
         <source>manual</source>
         <translation>вручную</translation>
+    </message>
+    <message>
+        <source>Configure New QSO fields</source>
+        <translation>Настроить поля Нового QSO</translation>
+    </message>
+    <message>
+        <source>Choose fields</source>
+        <translation>Выбрать поля</translation>
     </message>
     <message>
         <source>Full form (Ctrl+N)</source>
@@ -4823,6 +4918,14 @@ Extra fields are preserved: %8</source>
         <translation>QTH</translation>
     </message>
     <message>
+        <source>State</source>
+        <translation type="unfinished">Штат</translation>
+    </message>
+    <message>
+        <source>TX pwr W</source>
+        <translation type="unfinished">Мощность Вт</translation>
+    </message>
+    <message>
         <source>Prop</source>
         <translation>Прох.</translation>
     </message>
@@ -4845,6 +4948,10 @@ Extra fields are preserved: %8</source>
     <message>
         <source>Comment</source>
         <translation>Комментарий</translation>
+    </message>
+    <message>
+        <source>%1 (%2) value</source>
+        <translation>Значение %1 (%2)</translation>
     </message>
     <message>
         <source>LOG QSO</source>
@@ -10266,6 +10373,14 @@ Extra fields are preserved: %8</source>
         <translation>хранилища ключей нет</translation>
     </message>
     <message>
+        <source>Saving the node password in the system keystore…</source>
+        <translation>Пароль узла сохраняется в хранилище ключей системы…</translation>
+    </message>
+    <message>
+        <source>Removing the node password from the system keystore…</source>
+        <translation>Пароль узла удаляется из хранилища ключей системы…</translation>
+    </message>
+    <message>
         <source>Nothing to check here: this source is read over the web, not through a node connection.</source>
         <translation>Здесь нечего проверять: этот источник читается через веб, а не через соединение с узлом.</translation>
     </message>
@@ -10638,8 +10753,72 @@ Extra fields are preserved: %8</source>
         <translation>дд/мм/гггг</translation>
     </message>
     <message>
+        <source>Grid locator</source>
+        <translation>Локатор</translation>
+    </message>
+    <message>
+        <source>Operator name</source>
+        <translation>Имя оператора</translation>
+    </message>
+    <message>
+        <source>QTH</source>
+        <translation type="unfinished">QTH</translation>
+    </message>
+    <message>
+        <source>State / province</source>
+        <translation>Штат / область</translation>
+    </message>
+    <message>
+        <source>TX power</source>
+        <translation>Мощность TX</translation>
+    </message>
+    <message>
+        <source>Propagation mode</source>
+        <translation>Вид прохождения</translation>
+    </message>
+    <message>
+        <source>Satellite mode</source>
+        <translation>Спутниковый режим</translation>
+    </message>
+    <message>
+        <source>Invalid ADIF field name: %1. Use 1–32 letters, digits or underscores, starting with a letter.</source>
+        <translation>Недопустимое имя поля ADIF: %1. Используйте от 1 до 32 букв, цифр или знаков подчёркивания, начиная с буквы.</translation>
+    </message>
+    <message>
+        <source>The ADIF field %1 is listed more than once.</source>
+        <translation>Поле ADIF %1 указано более одного раза.</translation>
+    </message>
+    <message>
+        <source>%1 is already available as a standard field. Enable it above instead.</source>
+        <translation>%1 уже доступно как стандартное поле. Включите его выше.</translation>
+    </message>
+    <message>
+        <source>%1 is managed by DecoDXLog and cannot be replaced by a custom field.</source>
+        <translation>%1 управляется DecoDXLog и не может быть заменено пользовательским полем.</translation>
+    </message>
+    <message>
+        <source>You can add at most %1 custom ADIF fields.</source>
+        <translation>Можно добавить не более %1 пользовательских полей ADIF.</translation>
+    </message>
+    <message>
+        <source>The New QSO field settings could not be saved.</source>
+        <translation>Не удалось сохранить настройки полей Нового QSO.</translation>
+    </message>
+    <message>
         <source>Enter a valid UTC date</source>
         <translation>Введите правильную дату UTC</translation>
+    </message>
+    <message>
+        <source>Invalid custom ADIF field: %1</source>
+        <translation>Недопустимое пользовательское поле ADIF: %1</translation>
+    </message>
+    <message>
+        <source>The ADIF field %1 is managed by DecoDXLog.</source>
+        <translation>Поле ADIF %1 управляется DecoDXLog.</translation>
+    </message>
+    <message>
+        <source>Use the standard %1 field instead of a custom field.</source>
+        <translation>Используйте стандартное поле %1 вместо пользовательского.</translation>
     </message>
     <message>
         <source>Logged %1 %2 %3 (manual)</source>
@@ -12637,12 +12816,16 @@ Extra fields are preserved: %8</source>
         <translation>соединение закрыто, прежде чем узел что-либо сказал: его может удерживать антивирус или брандмауэр (AVG, Avast…) — нажмите «Проверить»</translation>
     </message>
     <message>
-        <source>password needed</source>
-        <translation>нужен пароль</translation>
+        <source>the node accepted the callsign and requested a password, but no system keystore is available</source>
+        <translation>узел принял позывной и запросил пароль, но хранилище ключей системы недоступно</translation>
     </message>
     <message>
-        <source>no password stored</source>
-        <translation>пароль не сохранён</translation>
+        <source>the node accepted the callsign and requested a password, but no password is stored for this source</source>
+        <translation>узел принял позывной и запросил пароль, но для этого источника пароль не сохранён</translation>
+    </message>
+    <message>
+        <source>the node accepted the callsign and requested a password, but the stored password could not be read: %1</source>
+        <translation>узел принял позывной и запросил пароль, но сохранённый пароль не удалось прочитать: %1</translation>
     </message>
 </context>
 <context>
@@ -12694,6 +12877,10 @@ Extra fields are preserved: %8</source>
     <message>
         <source>3. Connected, but the node says nothing</source>
         <translation>3. Соединено, но узел ничего не говорит</translation>
+    </message>
+    <message>
+        <source>This check stops at the login prompt by design and does not authenticate. The enabled source sends the configured callsign; if the node then requests a password, save it in the source editor.</source>
+        <translation>Эта проверка намеренно останавливается на приглашении входа и не выполняет аутентификацию. Включённый источник отправляет настроенный позывной; если узел затем запросит пароль, сохраните его в редакторе источников.</translation>
     </message>
     <message>
         <source>The name does not resolve: check the network and the DNS. An antivirus or a filtering DNS (AVG, Avast…) can also block a name it does not trust: try the address in numbers.</source>

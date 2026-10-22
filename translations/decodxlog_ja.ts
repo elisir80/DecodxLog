@@ -1756,6 +1756,18 @@ Decodium が交信しているコールサインは、ここにひとりでに�
         <translation>ログイン名 (空なら局プロファイルのコールサイン)</translation>
     </message>
     <message>
+        <source>Node password (only if requested)</source>
+        <translation>ノードのパスワード (求められた場合のみ)</translation>
+    </message>
+    <message>
+        <source>stored in the system keystore — leave empty to keep it</source>
+        <translation>システムの鍵束に保存済み — そのまま残すなら空欄にしてください</translation>
+    </message>
+    <message>
+        <source>Remove saved password</source>
+        <translation>保存したパスワードを外す</translation>
+    </message>
+    <message>
         <source>Commands after login (one per line)</source>
         <translation>ログインしたあとのコマンド (1 行に 1 つ)</translation>
     </message>
@@ -4723,6 +4735,81 @@ QSL の状態: %6 · UTC が不完全: %7。
     </message>
 </context>
 <context>
+    <name>NewQsoFieldsDialog</name>
+    <message>
+        <source>New QSO fields</source>
+        <translation>新しい QSO の項目</translation>
+    </message>
+    <message>
+        <source>Choose the optional fields shown in the compact New QSO panel. Callsign, UTC, band, frequency, mode and reports always remain available.</source>
+        <translation>コンパクトな新しい QSO パネルに表示する任意の項目を選びます。コールサイン、UTC、バンド、周波数、モード、レポートは常に使えます。</translation>
+    </message>
+    <message>
+        <source>STANDARD FIELDS</source>
+        <translation>標準項目</translation>
+    </message>
+    <message>
+        <source>Show %1 in New QSO</source>
+        <translation>新しい QSO に %1 を表示</translation>
+    </message>
+    <message>
+        <source>CUSTOM ADIF FIELDS</source>
+        <translation>カスタム ADIF 項目</translation>
+    </message>
+    <message>
+        <source>Add field</source>
+        <translation>項目を追加</translation>
+    </message>
+    <message>
+        <source>Add fields such as RDA or an APP_ field. Use the exact ADIF name; the optional label is what appears in the panel. STATE and TX_PWR are already available above.</source>
+        <translation>RDA や APP_ 項目などを追加します。ADIF 名は正確に入力してください。任意のラベルがパネルに表示されます。STATE と TX_PWR は上にすでにあります。</translation>
+    </message>
+    <message>
+        <source>No custom fields configured.</source>
+        <translation>カスタム項目はまだありません。</translation>
+    </message>
+    <message>
+        <source>ADIF name</source>
+        <translation>ADIF 名</translation>
+    </message>
+    <message>
+        <source>Custom ADIF field name</source>
+        <translation>カスタム ADIF 項目名</translation>
+    </message>
+    <message>
+        <source>Label (optional)</source>
+        <translation>ラベル (任意)</translation>
+    </message>
+    <message>
+        <source>Russian district</source>
+        <translation>ロシア地区</translation>
+    </message>
+    <message>
+        <source>Custom ADIF field label</source>
+        <translation>カスタム ADIF 項目のラベル</translation>
+    </message>
+    <message>
+        <source>Remove custom field</source>
+        <translation>カスタム項目を外す</translation>
+    </message>
+    <message>
+        <source>Remove custom field %1</source>
+        <translation>カスタム項目 %1 を外す</translation>
+    </message>
+    <message>
+        <source>Restore defaults</source>
+        <translation>初期設定に戻す</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Save</source>
+        <translation type="unfinished">保存</translation>
+    </message>
+</context>
+<context>
     <name>NewQsoPanel</name>
     <message>
         <source>New QSO</source>
@@ -4731,6 +4818,14 @@ QSL の状態: %6 · UTC が不完全: %7。
     <message>
         <source>manual</source>
         <translation>手入力</translation>
+    </message>
+    <message>
+        <source>Configure New QSO fields</source>
+        <translation>新しい QSO の項目を設定</translation>
+    </message>
+    <message>
+        <source>Choose fields</source>
+        <translation>項目を選ぶ</translation>
     </message>
     <message>
         <source>Full form (Ctrl+N)</source>
@@ -4801,6 +4896,14 @@ QSL の状態: %6 · UTC が不完全: %7。
         <translation>QTH</translation>
     </message>
     <message>
+        <source>State</source>
+        <translation type="unfinished">州</translation>
+    </message>
+    <message>
+        <source>TX pwr W</source>
+        <translation type="unfinished">送信出力 W</translation>
+    </message>
+    <message>
         <source>Prop</source>
         <translation>伝搬</translation>
     </message>
@@ -4823,6 +4926,10 @@ QSL の状態: %6 · UTC が不完全: %7。
     <message>
         <source>Comment</source>
         <translation>コメント</translation>
+    </message>
+    <message>
+        <source>%1 (%2) value</source>
+        <translation>%1 (%2) の値</translation>
     </message>
     <message>
         <source>LOG QSO</source>
@@ -10198,6 +10305,14 @@ QSL の状態: %6 · UTC が不完全: %7。
         <translation>鍵束がありません</translation>
     </message>
     <message>
+        <source>Saving the node password in the system keystore…</source>
+        <translation>ノードのパスワードをシステムの鍵束に保存しています…</translation>
+    </message>
+    <message>
+        <source>Removing the node password from the system keystore…</source>
+        <translation>ノードのパスワードをシステムの鍵束から外しています…</translation>
+    </message>
+    <message>
         <source>Nothing to check here: this source is read over the web, not through a node connection.</source>
         <translation>ここで確認するものはありません: このソースはノードへの接続ではなく Web 経由で読み込まれます。</translation>
     </message>
@@ -10562,8 +10677,72 @@ QSL の状態: %6 · UTC が不完全: %7。
         <translation>dd/mm/yyyy</translation>
     </message>
     <message>
+        <source>Grid locator</source>
+        <translation>グリッドロケーター</translation>
+    </message>
+    <message>
+        <source>Operator name</source>
+        <translation>オペレータ名</translation>
+    </message>
+    <message>
+        <source>QTH</source>
+        <translation type="unfinished">QTH</translation>
+    </message>
+    <message>
+        <source>State / province</source>
+        <translation>州 / 県</translation>
+    </message>
+    <message>
+        <source>TX power</source>
+        <translation>送信出力</translation>
+    </message>
+    <message>
+        <source>Propagation mode</source>
+        <translation>伝播モード</translation>
+    </message>
+    <message>
+        <source>Satellite mode</source>
+        <translation>衛星モード</translation>
+    </message>
+    <message>
+        <source>Invalid ADIF field name: %1. Use 1–32 letters, digits or underscores, starting with a letter.</source>
+        <translation>ADIF 項目名が正しくありません: %1。英字で始め、英数字またはアンダースコアを 1–32 文字で指定してください。</translation>
+    </message>
+    <message>
+        <source>The ADIF field %1 is listed more than once.</source>
+        <translation>ADIF 項目 %1 が複数回指定されています。</translation>
+    </message>
+    <message>
+        <source>%1 is already available as a standard field. Enable it above instead.</source>
+        <translation>%1 はすでに標準項目として使えます。代わりに上で有効にしてください。</translation>
+    </message>
+    <message>
+        <source>%1 is managed by DecoDXLog and cannot be replaced by a custom field.</source>
+        <translation>%1 は DecoDXLog が管理しているため、カスタム項目に置き換えられません。</translation>
+    </message>
+    <message>
+        <source>You can add at most %1 custom ADIF fields.</source>
+        <translation>カスタム ADIF 項目は最大 %1 個まで追加できます。</translation>
+    </message>
+    <message>
+        <source>The New QSO field settings could not be saved.</source>
+        <translation>新しい QSO の項目設定を保存できませんでした。</translation>
+    </message>
+    <message>
         <source>Enter a valid UTC date</source>
         <translation>正しい UTC 日付を入力してください</translation>
+    </message>
+    <message>
+        <source>Invalid custom ADIF field: %1</source>
+        <translation>カスタム ADIF 項目が正しくありません: %1</translation>
+    </message>
+    <message>
+        <source>The ADIF field %1 is managed by DecoDXLog.</source>
+        <translation>ADIF 項目 %1 は DecoDXLog が管理しています。</translation>
+    </message>
+    <message>
+        <source>Use the standard %1 field instead of a custom field.</source>
+        <translation>カスタム項目の代わりに標準の %1 項目を使ってください。</translation>
     </message>
     <message>
         <source>Logged %1 %2 %3 (manual)</source>
@@ -12507,12 +12686,16 @@ QSL の状態: %6 · UTC が不完全: %7。
         <translation>ノードが何も言わないうちに接続が閉じられました: ウイルス対策ソフトやファイアウォール (AVG、Avast…) が保持している可能性があります — 「確かめる」を押してください</translation>
     </message>
     <message>
-        <source>password needed</source>
-        <translation>パスワードが要ります</translation>
+        <source>the node accepted the callsign and requested a password, but no system keystore is available</source>
+        <translation>ノードはコールサインを受け付けてパスワードを求めましたが、システムの鍵束が使えません</translation>
     </message>
     <message>
-        <source>no password stored</source>
-        <translation>パスワードを保存していません</translation>
+        <source>the node accepted the callsign and requested a password, but no password is stored for this source</source>
+        <translation>ノードはコールサインを受け付けてパスワードを求めましたが、このソースにはパスワードが保存されていません</translation>
+    </message>
+    <message>
+        <source>the node accepted the callsign and requested a password, but the stored password could not be read: %1</source>
+        <translation>ノードはコールサインを受け付けてパスワードを求めましたが、保存されたパスワードを読み取れませんでした: %1</translation>
     </message>
 </context>
 <context>
@@ -12564,6 +12747,10 @@ QSL の状態: %6 · UTC が不完全: %7。
     <message>
         <source>3. Connected, but the node says nothing</source>
         <translation>3. 接続しましたが、ノードは何も言いません</translation>
+    </message>
+    <message>
+        <source>This check stops at the login prompt by design and does not authenticate. The enabled source sends the configured callsign; if the node then requests a password, save it in the source editor.</source>
+        <translation>この確認は仕様上ログインプロンプトで止まり、認証は行いません。有効なソースは設定済みのコールサインを送ります。その後ノードがパスワードを求めたら、ソースの編集画面で保存してください。</translation>
     </message>
     <message>
         <source>The name does not resolve: check the network and the DNS. An antivirus or a filtering DNS (AVG, Avast…) can also block a name it does not trust: try the address in numbers.</source>

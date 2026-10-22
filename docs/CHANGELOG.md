@@ -3,7 +3,11 @@
 Le date sono quelle del lavoro, non di una pubblicazione: DecoDXLog cresce mentre lo si usa
 in stazione.
 
-## 1.17.34 — 27 ottobre 2026
+## 1.17.35 — 23 ottobre 2026
+
+**Allineata alla 1.17.34 di elisir80.** Porta il Nuovo QSO configurabile (campi opzionali e campi ADIF
+personalizzati in `adif_extra`), l'inserimento piu' rapido (potenza TX dal profilo, `Alt+W`) e le
+password dei cluster piu' chiare e sicure. Nessun conflitto se non nel CHANGELOG.
 
 **La cartolina eQSL non porta piu' a un 404.** Nella casella eQSL la cartolina di alcuni QSO dava
 «Error transferring https://www.eqsl.cc/qslcard/and — Not Found»: si prendeva il primo `<img>` della
@@ -12,7 +16,31 @@ pagina di eQSL anche quando non era un'immagine. Adesso vale solo un `<img>` che
 pagina non ha nessuna immagine vera lo dice («eQSL non ha mandato l'immagine della cartolina per questo
 QSO, trovato: ...») invece di scaricare un indirizzo inventato.
 
-Traduzioni: 1 stringa nuova in tutte e 14 le lingue.
+Traduzioni: 44 stringhe nuove in tutte e 14 le lingue (Nuovo QSO configurabile, password dei cluster,
+cartolina eQSL).
+
+## 1.17.34 — 22 ottobre 2026
+
+**Nuovo QSO configurabile.** Il pannello compatto e la finestra Nuovo QSO permettono di
+mostrare o nascondere i campi opzionali `STATE`, `TX_PWR`, propagazione e satellite. Un
+editor dedicato consente inoltre di aggiungere campi ADIF personalizzati, con normalizzazione,
+controllo dei duplicati e protezione dei campi gestiti dal programma. I valori vengono salvati
+in `adif_extra` e restano disponibili nell'export ADIF senza perdere informazioni.
+
+**Inserimento piu' rapido.** La potenza TX predefinita viene dal profilo stazione, il rapporto
+inviato viene inizializzato insieme a quello ricevuto e `Alt+W` pulisce il nuovo QSO sia nel
+pannello sia nella finestra staccata.
+
+**Password dei cluster piu' chiare e sicure.** DecoDXLog non interroga piu' il portachiavi per
+una password mai salvata, distingue tra password assente e non leggibile, mostra lo stato del
+salvataggio e riavvia automaticamente la connessione dopo un salvataggio riuscito. Il controllo
+del nodo chiarisce che la verifica termina intenzionalmente al prompt di login e non autentica
+l'utente.
+
+**Test.** Aggiunti test per validazione e persistenza dei campi ADIF, password DX cluster,
+diagnostica del prompt di login e presenza delle nuove funzioni nella GUI QML.
+
+Dettagli bilingui: [`docs/RELEASE_NOTES_1.17.34.md`](RELEASE_NOTES_1.17.34.md).
 
 ## 1.17.33 — 22 ottobre 2026
 

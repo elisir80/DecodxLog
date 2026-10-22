@@ -125,6 +125,45 @@ private slots:
         QCOMPARE(spots.at(0).at(0).value<Spot>().dxCall, QString("3Y0J"));
     }
 
+    void dxSpiderPasswordUsesTheSourceCredential()
+    {
+        FakeNode node;
+        node.greeting = "login: ";
+        ClusterConnection c(sourceFor(node, "cluster", "IZ2WYA", "sh/dx 5"));
+        QString askedService;
+        c.setSecretReader([&askedService](const QString& service,
+                                          std::function<void(const QString&, const QString&)> done) {
+            askedService = service;
+            done("node-secret", {});
+        });
+        c.start();
+
+        QVERIFY(node.waitFor("IZ2WYA\r\n"));
+        node.say("password: ");
+        QVERIFY(node.waitFor("node-secret\r\n"));
+        QCOMPARE(askedService, QString("cluster:test"));
+        node.say("Hello IZ2WYA, this is TEST\r\nIZ2WYA de TEST >\r\n");
+        QVERIFY(node.waitFor("sh/dx 5\r\n"));
+        QTRY_COMPARE(c.state(), ClusterConnection::State::Online);
+    }
+
+    void unreadableDxSpiderPasswordExplainsThatTheCallsignWasSent()
+    {
+        FakeNode node;
+        node.greeting = "login: ";
+        ClusterConnection c(sourceFor(node, "cluster", "IZ2WYA", ""));
+        c.setSecretReader([](const QString&, std::function<void(const QString&, const QString&)> done) {
+            done({}, QStringLiteral("Could not decrypt data"));
+        });
+        c.start();
+
+        QVERIFY(node.waitFor("IZ2WYA\r\n"));
+        node.say("password: ");
+        QTRY_COMPARE(c.state(), ClusterConnection::State::Waiting);
+        QVERIFY(c.stateText().contains(QStringLiteral("accepted the callsign")));
+        QVERIFY(c.stateText().contains(QStringLiteral("Could not decrypt data")));
+    }
+
     void reconnectsAfterDrop()
     {
         FakeNode node;

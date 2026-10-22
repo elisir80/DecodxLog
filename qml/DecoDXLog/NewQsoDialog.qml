@@ -181,6 +181,12 @@ DialogFrame {
         enabled: root.visible
         onActivated: root.submit(false)
     }
+    Shortcut {
+        sequence: "Alt+W"
+        enabled: root.visible
+        autoRepeat: false
+        onActivated: root.clearAll()
+    }
 
     body: ColumnLayout {
         spacing: 12

@@ -1764,6 +1764,18 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
         <translation>Login (gol = indicativul profilului de stație)</translation>
     </message>
     <message>
+        <source>Node password (only if requested)</source>
+        <translation>Parola nodului (doar dacă este cerută)</translation>
+    </message>
+    <message>
+        <source>stored in the system keystore — leave empty to keep it</source>
+        <translation>păstrată în seiful de chei al sistemului — lasă gol ca să o păstrezi</translation>
+    </message>
+    <message>
+        <source>Remove saved password</source>
+        <translation>Elimină parola salvată</translation>
+    </message>
+    <message>
         <source>Commands after login (one per line)</source>
         <translation>Comenzi după login (una pe linie)</translation>
     </message>
@@ -4745,6 +4757,81 @@ Câmpuri suplimentare păstrate: %8</translation>
     </message>
 </context>
 <context>
+    <name>NewQsoFieldsDialog</name>
+    <message>
+        <source>New QSO fields</source>
+        <translation>Câmpurile pentru QSO nou</translation>
+    </message>
+    <message>
+        <source>Choose the optional fields shown in the compact New QSO panel. Callsign, UTC, band, frequency, mode and reports always remain available.</source>
+        <translation>Alege câmpurile opționale afișate în panoul compact QSO nou. Indicativul, UTC, banda, frecvența, modul și rapoartele rămân mereu disponibile.</translation>
+    </message>
+    <message>
+        <source>STANDARD FIELDS</source>
+        <translation>CÂMPURI STANDARD</translation>
+    </message>
+    <message>
+        <source>Show %1 in New QSO</source>
+        <translation>Arată %1 în QSO nou</translation>
+    </message>
+    <message>
+        <source>CUSTOM ADIF FIELDS</source>
+        <translation>CÂMPURI ADIF PERSONALIZATE</translation>
+    </message>
+    <message>
+        <source>Add field</source>
+        <translation>Adaugă câmp</translation>
+    </message>
+    <message>
+        <source>Add fields such as RDA or an APP_ field. Use the exact ADIF name; the optional label is what appears in the panel. STATE and TX_PWR are already available above.</source>
+        <translation>Adaugă câmpuri precum RDA sau un câmp APP_. Folosește numele ADIF exact; eticheta opțională este cea care apare în panou. STATE și TX_PWR sunt deja disponibile mai sus.</translation>
+    </message>
+    <message>
+        <source>No custom fields configured.</source>
+        <translation>Niciun câmp personalizat configurat.</translation>
+    </message>
+    <message>
+        <source>ADIF name</source>
+        <translation>Nume ADIF</translation>
+    </message>
+    <message>
+        <source>Custom ADIF field name</source>
+        <translation>Numele câmpului ADIF personalizat</translation>
+    </message>
+    <message>
+        <source>Label (optional)</source>
+        <translation>Etichetă (opțional)</translation>
+    </message>
+    <message>
+        <source>Russian district</source>
+        <translation>District rusesc</translation>
+    </message>
+    <message>
+        <source>Custom ADIF field label</source>
+        <translation>Eticheta câmpului ADIF personalizat</translation>
+    </message>
+    <message>
+        <source>Remove custom field</source>
+        <translation>Elimină câmpul personalizat</translation>
+    </message>
+    <message>
+        <source>Remove custom field %1</source>
+        <translation>Elimină câmpul personalizat %1</translation>
+    </message>
+    <message>
+        <source>Restore defaults</source>
+        <translation>Restaurează valorile implicite</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Save</source>
+        <translation type="unfinished">Salvează</translation>
+    </message>
+</context>
+<context>
     <name>NewQsoPanel</name>
     <message>
         <source>New QSO</source>
@@ -4753,6 +4840,14 @@ Câmpuri suplimentare păstrate: %8</translation>
     <message>
         <source>manual</source>
         <translation>manual</translation>
+    </message>
+    <message>
+        <source>Configure New QSO fields</source>
+        <translation>Configurează câmpurile pentru QSO nou</translation>
+    </message>
+    <message>
+        <source>Choose fields</source>
+        <translation>Alege câmpurile</translation>
     </message>
     <message>
         <source>Full form (Ctrl+N)</source>
@@ -4823,6 +4918,14 @@ Câmpuri suplimentare păstrate: %8</translation>
         <translation>QTH</translation>
     </message>
     <message>
+        <source>State</source>
+        <translation type="unfinished">Stat</translation>
+    </message>
+    <message>
+        <source>TX pwr W</source>
+        <translation type="unfinished">Putere TX W</translation>
+    </message>
+    <message>
         <source>Prop</source>
         <translation>Prop</translation>
     </message>
@@ -4845,6 +4948,10 @@ Câmpuri suplimentare păstrate: %8</translation>
     <message>
         <source>Comment</source>
         <translation>Comentariu</translation>
+    </message>
+    <message>
+        <source>%1 (%2) value</source>
+        <translation>Valoarea %1 (%2)</translation>
     </message>
     <message>
         <source>LOG QSO</source>
@@ -10266,6 +10373,14 @@ Câmpuri suplimentare păstrate: %8</translation>
         <translation>niciun seif de chei</translation>
     </message>
     <message>
+        <source>Saving the node password in the system keystore…</source>
+        <translation>Se salvează parola nodului în seiful de chei al sistemului…</translation>
+    </message>
+    <message>
+        <source>Removing the node password from the system keystore…</source>
+        <translation>Se elimină parola nodului din seiful de chei al sistemului…</translation>
+    </message>
+    <message>
         <source>Nothing to check here: this source is read over the web, not through a node connection.</source>
         <translation>Nimic de verificat aici: această sursă se citește pe web, nu printr-o conexiune la un nod.</translation>
     </message>
@@ -10638,8 +10753,72 @@ Câmpuri suplimentare păstrate: %8</translation>
         <translation>zz/ll/aaaa</translation>
     </message>
     <message>
+        <source>Grid locator</source>
+        <translation>Locator</translation>
+    </message>
+    <message>
+        <source>Operator name</source>
+        <translation>Numele operatorului</translation>
+    </message>
+    <message>
+        <source>QTH</source>
+        <translation type="unfinished">QTH</translation>
+    </message>
+    <message>
+        <source>State / province</source>
+        <translation>Stat / provincie</translation>
+    </message>
+    <message>
+        <source>TX power</source>
+        <translation>Putere TX</translation>
+    </message>
+    <message>
+        <source>Propagation mode</source>
+        <translation>Mod de propagare</translation>
+    </message>
+    <message>
+        <source>Satellite mode</source>
+        <translation>Mod satelit</translation>
+    </message>
+    <message>
+        <source>Invalid ADIF field name: %1. Use 1–32 letters, digits or underscores, starting with a letter.</source>
+        <translation>Nume de câmp ADIF nevalid: %1. Folosește 1–32 de litere, cifre sau liniuțe de subliniere, începând cu o literă.</translation>
+    </message>
+    <message>
+        <source>The ADIF field %1 is listed more than once.</source>
+        <translation>Câmpul ADIF %1 apare de mai multe ori.</translation>
+    </message>
+    <message>
+        <source>%1 is already available as a standard field. Enable it above instead.</source>
+        <translation>%1 este deja disponibil ca câmp standard. Activează-l mai sus, în schimb.</translation>
+    </message>
+    <message>
+        <source>%1 is managed by DecoDXLog and cannot be replaced by a custom field.</source>
+        <translation>%1 este gestionat de DecoDXLog și nu poate fi înlocuit cu un câmp personalizat.</translation>
+    </message>
+    <message>
+        <source>You can add at most %1 custom ADIF fields.</source>
+        <translation>Poți adăuga cel mult %1 câmpuri ADIF personalizate.</translation>
+    </message>
+    <message>
+        <source>The New QSO field settings could not be saved.</source>
+        <translation>Setările câmpurilor pentru QSO nou nu au putut fi salvate.</translation>
+    </message>
+    <message>
         <source>Enter a valid UTC date</source>
         <translation>Introdu o dată UTC validă</translation>
+    </message>
+    <message>
+        <source>Invalid custom ADIF field: %1</source>
+        <translation>Câmp ADIF personalizat nevalid: %1</translation>
+    </message>
+    <message>
+        <source>The ADIF field %1 is managed by DecoDXLog.</source>
+        <translation>Câmpul ADIF %1 este gestionat de DecoDXLog.</translation>
+    </message>
+    <message>
+        <source>Use the standard %1 field instead of a custom field.</source>
+        <translation>Folosește câmpul standard %1 în loc de un câmp personalizat.</translation>
     </message>
     <message>
         <source>Logged %1 %2 %3 (manual)</source>
@@ -12637,12 +12816,16 @@ Câmpuri suplimentare păstrate: %8</translation>
         <translation>conexiune închisă înainte ca nodul să spună ceva: un antivirus sau un firewall (AVG, Avast…) ar putea să o țină — apasă Verifică</translation>
     </message>
     <message>
-        <source>password needed</source>
-        <translation>este nevoie de parolă</translation>
+        <source>the node accepted the callsign and requested a password, but no system keystore is available</source>
+        <translation>nodul a acceptat indicativul și a cerut o parolă, dar nu este disponibil niciun seif de chei al sistemului</translation>
     </message>
     <message>
-        <source>no password stored</source>
-        <translation>nicio parolă păstrată</translation>
+        <source>the node accepted the callsign and requested a password, but no password is stored for this source</source>
+        <translation>nodul a acceptat indicativul și a cerut o parolă, dar pentru această sursă nu este salvată nicio parolă</translation>
+    </message>
+    <message>
+        <source>the node accepted the callsign and requested a password, but the stored password could not be read: %1</source>
+        <translation>nodul a acceptat indicativul și a cerut o parolă, dar parola salvată nu a putut fi citită: %1</translation>
     </message>
 </context>
 <context>
@@ -12694,6 +12877,10 @@ Câmpuri suplimentare păstrate: %8</translation>
     <message>
         <source>3. Connected, but the node says nothing</source>
         <translation>3. Conectat, dar nodul nu spune nimic</translation>
+    </message>
+    <message>
+        <source>This check stops at the login prompt by design and does not authenticate. The enabled source sends the configured callsign; if the node then requests a password, save it in the source editor.</source>
+        <translation>Această verificare se oprește intenționat la promptul de autentificare și nu autentifică. Sursa activată trimite indicativul configurat; dacă nodul cere apoi o parolă, salveaz-o în editorul de surse.</translation>
     </message>
     <message>
         <source>The name does not resolve: check the network and the DNS. An antivirus or a filtering DNS (AVG, Avast…) can also block a name it does not trust: try the address in numbers.</source>

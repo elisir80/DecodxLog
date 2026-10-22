@@ -1760,6 +1760,18 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
         <translation>Login (tomt = kaldesignal fra stationsprofilen)</translation>
     </message>
     <message>
+        <source>Node password (only if requested)</source>
+        <translation>Nodens adgangskode (kun hvis den bliver bedt om)</translation>
+    </message>
+    <message>
+        <source>stored in the system keystore — leave empty to keep it</source>
+        <translation>gemt i systemets nøglering — lad feltet stå tomt for at beholde den</translation>
+    </message>
+    <message>
+        <source>Remove saved password</source>
+        <translation>Fjern gemt adgangskode</translation>
+    </message>
+    <message>
         <source>Commands after login (one per line)</source>
         <translation>Kommandoer efter login (én pr. linje)</translation>
     </message>
@@ -4734,6 +4746,81 @@ Ekstra felter bevares: %8</translation>
     </message>
 </context>
 <context>
+    <name>NewQsoFieldsDialog</name>
+    <message>
+        <source>New QSO fields</source>
+        <translation>Felter i Ny QSO</translation>
+    </message>
+    <message>
+        <source>Choose the optional fields shown in the compact New QSO panel. Callsign, UTC, band, frequency, mode and reports always remain available.</source>
+        <translation>Vælg de valgfrie felter, der vises i det kompakte panel Ny QSO. Kaldesignal, UTC, bånd, frekvens, tilstand og rapporter er altid tilgængelige.</translation>
+    </message>
+    <message>
+        <source>STANDARD FIELDS</source>
+        <translation>STANDARDFELTER</translation>
+    </message>
+    <message>
+        <source>Show %1 in New QSO</source>
+        <translation>Vis %1 i Ny QSO</translation>
+    </message>
+    <message>
+        <source>CUSTOM ADIF FIELDS</source>
+        <translation>EGNE ADIF-FELTER</translation>
+    </message>
+    <message>
+        <source>Add field</source>
+        <translation>Tilføj felt</translation>
+    </message>
+    <message>
+        <source>Add fields such as RDA or an APP_ field. Use the exact ADIF name; the optional label is what appears in the panel. STATE and TX_PWR are already available above.</source>
+        <translation>Tilføj felter som RDA eller et APP_-felt. Brug det præcise ADIF-navn; den valgfrie etiket er det, der vises i panelet. STATE og TX_PWR er allerede tilgængelige ovenfor.</translation>
+    </message>
+    <message>
+        <source>No custom fields configured.</source>
+        <translation>Ingen egne felter er sat op.</translation>
+    </message>
+    <message>
+        <source>ADIF name</source>
+        <translation>ADIF-navn</translation>
+    </message>
+    <message>
+        <source>Custom ADIF field name</source>
+        <translation>Navn på eget ADIF-felt</translation>
+    </message>
+    <message>
+        <source>Label (optional)</source>
+        <translation>Etiket (valgfri)</translation>
+    </message>
+    <message>
+        <source>Russian district</source>
+        <translation>Russisk distrikt</translation>
+    </message>
+    <message>
+        <source>Custom ADIF field label</source>
+        <translation>Etiket på eget ADIF-felt</translation>
+    </message>
+    <message>
+        <source>Remove custom field</source>
+        <translation>Fjern eget felt</translation>
+    </message>
+    <message>
+        <source>Remove custom field %1</source>
+        <translation>Fjern eget felt %1</translation>
+    </message>
+    <message>
+        <source>Restore defaults</source>
+        <translation>Gendan standardværdier</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation type="unfinished">Annullér</translation>
+    </message>
+    <message>
+        <source>Save</source>
+        <translation type="unfinished">Gem</translation>
+    </message>
+</context>
+<context>
     <name>NewQsoPanel</name>
     <message>
         <source>New QSO</source>
@@ -4742,6 +4829,14 @@ Ekstra felter bevares: %8</translation>
     <message>
         <source>manual</source>
         <translation>i hånden</translation>
+    </message>
+    <message>
+        <source>Configure New QSO fields</source>
+        <translation>Indstil felterne i Ny QSO</translation>
+    </message>
+    <message>
+        <source>Choose fields</source>
+        <translation>Vælg felter</translation>
     </message>
     <message>
         <source>Full form (Ctrl+N)</source>
@@ -4812,6 +4907,14 @@ Ekstra felter bevares: %8</translation>
         <translation>QTH</translation>
     </message>
     <message>
+        <source>State</source>
+        <translation type="unfinished">Stat</translation>
+    </message>
+    <message>
+        <source>TX pwr W</source>
+        <translation type="unfinished">TX-effekt W</translation>
+    </message>
+    <message>
         <source>Prop</source>
         <translation>Prop</translation>
     </message>
@@ -4834,6 +4937,10 @@ Ekstra felter bevares: %8</translation>
     <message>
         <source>Comment</source>
         <translation>Kommentar</translation>
+    </message>
+    <message>
+        <source>%1 (%2) value</source>
+        <translation>Værdi for %1 (%2)</translation>
     </message>
     <message>
         <source>LOG QSO</source>
@@ -10232,6 +10339,14 @@ Ekstra felter bevares: %8</translation>
         <translation>ingen nøglering</translation>
     </message>
     <message>
+        <source>Saving the node password in the system keystore…</source>
+        <translation>Gemmer nodens adgangskode i systemets nøglering…</translation>
+    </message>
+    <message>
+        <source>Removing the node password from the system keystore…</source>
+        <translation>Fjerner nodens adgangskode fra systemets nøglering…</translation>
+    </message>
+    <message>
         <source>Nothing to check here: this source is read over the web, not through a node connection.</source>
         <translation>Intet at kontrollere her: denne kilde læses via nettet, ikke gennem en forbindelse til en node.</translation>
     </message>
@@ -10600,8 +10715,72 @@ Ekstra felter bevares: %8</translation>
         <translation>dd/mm/åååå</translation>
     </message>
     <message>
+        <source>Grid locator</source>
+        <translation>Lokator</translation>
+    </message>
+    <message>
+        <source>Operator name</source>
+        <translation>Operatørens navn</translation>
+    </message>
+    <message>
+        <source>QTH</source>
+        <translation type="unfinished">QTH</translation>
+    </message>
+    <message>
+        <source>State / province</source>
+        <translation>Stat / provins</translation>
+    </message>
+    <message>
+        <source>TX power</source>
+        <translation>TX-effekt</translation>
+    </message>
+    <message>
+        <source>Propagation mode</source>
+        <translation>Propagationstilstand</translation>
+    </message>
+    <message>
+        <source>Satellite mode</source>
+        <translation>Satellittilstand</translation>
+    </message>
+    <message>
+        <source>Invalid ADIF field name: %1. Use 1–32 letters, digits or underscores, starting with a letter.</source>
+        <translation>Ugyldigt ADIF-feltnavn: %1. Brug 1–32 bogstaver, cifre eller understregninger, og start med et bogstav.</translation>
+    </message>
+    <message>
+        <source>The ADIF field %1 is listed more than once.</source>
+        <translation>ADIF-feltet %1 er angivet mere end én gang.</translation>
+    </message>
+    <message>
+        <source>%1 is already available as a standard field. Enable it above instead.</source>
+        <translation>%1 er allerede tilgængeligt som standardfelt. Slå det til ovenfor i stedet.</translation>
+    </message>
+    <message>
+        <source>%1 is managed by DecoDXLog and cannot be replaced by a custom field.</source>
+        <translation>%1 styres af DecoDXLog og kan ikke erstattes af et eget felt.</translation>
+    </message>
+    <message>
+        <source>You can add at most %1 custom ADIF fields.</source>
+        <translation>Du kan højst tilføje %1 egne ADIF-felter.</translation>
+    </message>
+    <message>
+        <source>The New QSO field settings could not be saved.</source>
+        <translation>Indstillingerne for felterne i Ny QSO kunne ikke gemmes.</translation>
+    </message>
+    <message>
         <source>Enter a valid UTC date</source>
         <translation>Skriv en gyldig UTC-dato</translation>
+    </message>
+    <message>
+        <source>Invalid custom ADIF field: %1</source>
+        <translation>Ugyldigt eget ADIF-felt: %1</translation>
+    </message>
+    <message>
+        <source>The ADIF field %1 is managed by DecoDXLog.</source>
+        <translation>ADIF-feltet %1 styres af DecoDXLog.</translation>
+    </message>
+    <message>
+        <source>Use the standard %1 field instead of a custom field.</source>
+        <translation>Brug standardfeltet %1 i stedet for et eget felt.</translation>
     </message>
     <message>
         <source>Logged %1 %2 %3 (manual)</source>
@@ -12572,12 +12751,16 @@ Ekstra felter bevares: %8</translation>
         <translation>forbindelsen blev lukket, før noden sagde noget: et antivirusprogram eller en firewall (AVG, Avast…) kan holde den fast — tryk på Tjek</translation>
     </message>
     <message>
-        <source>password needed</source>
-        <translation>der skal bruges en adgangskode</translation>
+        <source>the node accepted the callsign and requested a password, but no system keystore is available</source>
+        <translation>noden accepterede kaldesignalet og bad om en adgangskode, men der er ingen systemnøglering tilgængelig</translation>
     </message>
     <message>
-        <source>no password stored</source>
-        <translation>ingen adgangskode gemt</translation>
+        <source>the node accepted the callsign and requested a password, but no password is stored for this source</source>
+        <translation>noden accepterede kaldesignalet og bad om en adgangskode, men der er ikke gemt nogen adgangskode til denne kilde</translation>
+    </message>
+    <message>
+        <source>the node accepted the callsign and requested a password, but the stored password could not be read: %1</source>
+        <translation>noden accepterede kaldesignalet og bad om en adgangskode, men den gemte adgangskode kunne ikke læses: %1</translation>
     </message>
 </context>
 <context>
@@ -12629,6 +12812,10 @@ Ekstra felter bevares: %8</translation>
     <message>
         <source>3. Connected, but the node says nothing</source>
         <translation>3. Forbundet, men noden siger ikke noget</translation>
+    </message>
+    <message>
+        <source>This check stops at the login prompt by design and does not authenticate. The enabled source sends the configured callsign; if the node then requests a password, save it in the source editor.</source>
+        <translation>Denne kontrol stopper med vilje ved login-prompten og godkender ikke. Den aktiverede kilde sender det indstillede kaldesignal; beder noden derefter om en adgangskode, så gem den i kildeeditoren.</translation>
     </message>
     <message>
         <source>The name does not resolve: check the network and the DNS. An antivirus or a filtering DNS (AVG, Avast…) can also block a name it does not trust: try the address in numbers.</source>

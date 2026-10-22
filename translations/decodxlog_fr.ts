@@ -1760,6 +1760,18 @@ L&apos;indicatif que Decodium travaille apparaît ici tout seul.</translation>
         <translation>Login (vide = indicatif du profil de station)</translation>
     </message>
     <message>
+        <source>Node password (only if requested)</source>
+        <translation>Mot de passe du nœud (seulement si demandé)</translation>
+    </message>
+    <message>
+        <source>stored in the system keystore — leave empty to keep it</source>
+        <translation>enregistré dans le trousseau du système — laissez vide pour le conserver</translation>
+    </message>
+    <message>
+        <source>Remove saved password</source>
+        <translation>Retirer le mot de passe enregistré</translation>
+    </message>
+    <message>
         <source>Commands after login (one per line)</source>
         <translation>Commandes après le login (une par ligne)</translation>
     </message>
@@ -4734,6 +4746,81 @@ Champs supplémentaires conservés : %8</translation>
     </message>
 </context>
 <context>
+    <name>NewQsoFieldsDialog</name>
+    <message>
+        <source>New QSO fields</source>
+        <translation>Champs du Nouveau QSO</translation>
+    </message>
+    <message>
+        <source>Choose the optional fields shown in the compact New QSO panel. Callsign, UTC, band, frequency, mode and reports always remain available.</source>
+        <translation>Choisissez les champs facultatifs affichés dans le panneau compact Nouveau QSO. Indicatif, UTC, bande, fréquence, mode et rapports restent toujours disponibles.</translation>
+    </message>
+    <message>
+        <source>STANDARD FIELDS</source>
+        <translation>CHAMPS STANDARD</translation>
+    </message>
+    <message>
+        <source>Show %1 in New QSO</source>
+        <translation>Afficher %1 dans Nouveau QSO</translation>
+    </message>
+    <message>
+        <source>CUSTOM ADIF FIELDS</source>
+        <translation>CHAMPS ADIF PERSONNALISÉS</translation>
+    </message>
+    <message>
+        <source>Add field</source>
+        <translation>Ajouter un champ</translation>
+    </message>
+    <message>
+        <source>Add fields such as RDA or an APP_ field. Use the exact ADIF name; the optional label is what appears in the panel. STATE and TX_PWR are already available above.</source>
+        <translation>Ajoutez des champs comme RDA ou un champ APP_. Utilisez le nom ADIF exact ; l&apos;étiquette facultative est ce qui apparaît dans le panneau. STATE et TX_PWR sont déjà disponibles ci-dessus.</translation>
+    </message>
+    <message>
+        <source>No custom fields configured.</source>
+        <translation>Aucun champ personnalisé configuré.</translation>
+    </message>
+    <message>
+        <source>ADIF name</source>
+        <translation>Nom ADIF</translation>
+    </message>
+    <message>
+        <source>Custom ADIF field name</source>
+        <translation>Nom du champ ADIF personnalisé</translation>
+    </message>
+    <message>
+        <source>Label (optional)</source>
+        <translation>Étiquette (facultative)</translation>
+    </message>
+    <message>
+        <source>Russian district</source>
+        <translation>District russe</translation>
+    </message>
+    <message>
+        <source>Custom ADIF field label</source>
+        <translation>Étiquette du champ ADIF personnalisé</translation>
+    </message>
+    <message>
+        <source>Remove custom field</source>
+        <translation>Retirer le champ personnalisé</translation>
+    </message>
+    <message>
+        <source>Remove custom field %1</source>
+        <translation>Retirer le champ personnalisé %1</translation>
+    </message>
+    <message>
+        <source>Restore defaults</source>
+        <translation>Rétablir les valeurs par défaut</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation type="unfinished">Annuler</translation>
+    </message>
+    <message>
+        <source>Save</source>
+        <translation type="unfinished">Enregistrer</translation>
+    </message>
+</context>
+<context>
     <name>NewQsoPanel</name>
     <message>
         <source>New QSO</source>
@@ -4742,6 +4829,14 @@ Champs supplémentaires conservés : %8</translation>
     <message>
         <source>manual</source>
         <translation>à la main</translation>
+    </message>
+    <message>
+        <source>Configure New QSO fields</source>
+        <translation>Configurer les champs du Nouveau QSO</translation>
+    </message>
+    <message>
+        <source>Choose fields</source>
+        <translation>Choisir les champs</translation>
     </message>
     <message>
         <source>Full form (Ctrl+N)</source>
@@ -4812,6 +4907,14 @@ Champs supplémentaires conservés : %8</translation>
         <translation>QTH</translation>
     </message>
     <message>
+        <source>State</source>
+        <translation type="unfinished">État</translation>
+    </message>
+    <message>
+        <source>TX pwr W</source>
+        <translation type="unfinished">Puissance TX W</translation>
+    </message>
+    <message>
         <source>Prop</source>
         <translation>Prop</translation>
     </message>
@@ -4834,6 +4937,10 @@ Champs supplémentaires conservés : %8</translation>
     <message>
         <source>Comment</source>
         <translation>Commentaire</translation>
+    </message>
+    <message>
+        <source>%1 (%2) value</source>
+        <translation>Valeur %1 (%2)</translation>
     </message>
     <message>
         <source>LOG QSO</source>
@@ -10232,6 +10339,14 @@ Champs supplémentaires conservés : %8</translation>
         <translation>pas de trousseau</translation>
     </message>
     <message>
+        <source>Saving the node password in the system keystore…</source>
+        <translation>Enregistrement du mot de passe du nœud dans le trousseau du système…</translation>
+    </message>
+    <message>
+        <source>Removing the node password from the system keystore…</source>
+        <translation>Suppression du mot de passe du nœud du trousseau du système…</translation>
+    </message>
+    <message>
         <source>Nothing to check here: this source is read over the web, not through a node connection.</source>
         <translation>Rien à vérifier ici : cette source se lit par le web, pas par une connexion à un nœud.</translation>
     </message>
@@ -10600,8 +10715,72 @@ Champs supplémentaires conservés : %8</translation>
         <translation>jj/mm/aaaa</translation>
     </message>
     <message>
+        <source>Grid locator</source>
+        <translation>Locator</translation>
+    </message>
+    <message>
+        <source>Operator name</source>
+        <translation>Nom de l&apos;opérateur</translation>
+    </message>
+    <message>
+        <source>QTH</source>
+        <translation type="unfinished">QTH</translation>
+    </message>
+    <message>
+        <source>State / province</source>
+        <translation>État / province</translation>
+    </message>
+    <message>
+        <source>TX power</source>
+        <translation>Puissance TX</translation>
+    </message>
+    <message>
+        <source>Propagation mode</source>
+        <translation>Mode de propagation</translation>
+    </message>
+    <message>
+        <source>Satellite mode</source>
+        <translation>Mode satellite</translation>
+    </message>
+    <message>
+        <source>Invalid ADIF field name: %1. Use 1–32 letters, digits or underscores, starting with a letter.</source>
+        <translation>Nom de champ ADIF invalide : %1. Utilisez 1 à 32 lettres, chiffres ou tirets bas, en commençant par une lettre.</translation>
+    </message>
+    <message>
+        <source>The ADIF field %1 is listed more than once.</source>
+        <translation>Le champ ADIF %1 est indiqué plusieurs fois.</translation>
+    </message>
+    <message>
+        <source>%1 is already available as a standard field. Enable it above instead.</source>
+        <translation>%1 est déjà disponible comme champ standard. Activez-le plutôt ci-dessus.</translation>
+    </message>
+    <message>
+        <source>%1 is managed by DecoDXLog and cannot be replaced by a custom field.</source>
+        <translation>%1 est géré par DecoDXLog et ne peut pas être remplacé par un champ personnalisé.</translation>
+    </message>
+    <message>
+        <source>You can add at most %1 custom ADIF fields.</source>
+        <translation>Vous pouvez ajouter au maximum %1 champs ADIF personnalisés.</translation>
+    </message>
+    <message>
+        <source>The New QSO field settings could not be saved.</source>
+        <translation>Les réglages des champs du Nouveau QSO n&apos;ont pas pu être enregistrés.</translation>
+    </message>
+    <message>
         <source>Enter a valid UTC date</source>
         <translation>Saisissez une date UTC valide</translation>
+    </message>
+    <message>
+        <source>Invalid custom ADIF field: %1</source>
+        <translation>Champ ADIF personnalisé invalide : %1</translation>
+    </message>
+    <message>
+        <source>The ADIF field %1 is managed by DecoDXLog.</source>
+        <translation>Le champ ADIF %1 est géré par DecoDXLog.</translation>
+    </message>
+    <message>
+        <source>Use the standard %1 field instead of a custom field.</source>
+        <translation>Utilisez le champ standard %1 au lieu d&apos;un champ personnalisé.</translation>
     </message>
     <message>
         <source>Logged %1 %2 %3 (manual)</source>
@@ -12572,12 +12751,16 @@ Champs supplémentaires conservés : %8</translation>
         <translation>connexion fermée avant que le nœud ne dise quoi que ce soit : un antivirus ou un pare-feu (AVG, Avast…) la retient peut-être — appuyez sur Vérifier</translation>
     </message>
     <message>
-        <source>password needed</source>
-        <translation>mot de passe nécessaire</translation>
+        <source>the node accepted the callsign and requested a password, but no system keystore is available</source>
+        <translation>le nœud a accepté l&apos;indicatif et demandé un mot de passe, mais aucun trousseau système n&apos;est disponible</translation>
     </message>
     <message>
-        <source>no password stored</source>
-        <translation>aucun mot de passe enregistré</translation>
+        <source>the node accepted the callsign and requested a password, but no password is stored for this source</source>
+        <translation>le nœud a accepté l&apos;indicatif et demandé un mot de passe, mais aucun mot de passe n&apos;est enregistré pour cette source</translation>
+    </message>
+    <message>
+        <source>the node accepted the callsign and requested a password, but the stored password could not be read: %1</source>
+        <translation>le nœud a accepté l&apos;indicatif et demandé un mot de passe, mais le mot de passe enregistré n&apos;a pas pu être lu : %1</translation>
     </message>
 </context>
 <context>
@@ -12629,6 +12812,10 @@ Champs supplémentaires conservés : %8</translation>
     <message>
         <source>3. Connected, but the node says nothing</source>
         <translation>3. Connecté, mais le nœud ne dit rien</translation>
+    </message>
+    <message>
+        <source>This check stops at the login prompt by design and does not authenticate. The enabled source sends the configured callsign; if the node then requests a password, save it in the source editor.</source>
+        <translation>Cette vérification s&apos;arrête volontairement à l&apos;invite de connexion et n&apos;authentifie pas. La source activée envoie l&apos;indicatif configuré ; si le nœud demande ensuite un mot de passe, enregistrez-le dans l&apos;éditeur de sources.</translation>
     </message>
     <message>
         <source>The name does not resolve: check the network and the DNS. An antivirus or a filtering DNS (AVG, Avast…) can also block a name it does not trust: try the address in numbers.</source>

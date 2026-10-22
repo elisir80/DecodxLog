@@ -340,7 +340,7 @@ void ClusterConnection::checkPrompt(const QString& pending)
         const QString service = m_source.type == QLatin1String("hamalert") ? QStringLiteral("hamalert")
                                                                             : QStringLiteral("cluster:") + m_source.id;
         if (!m_secrets) {
-            setState(State::Waiting, tr("password needed"));
+            setState(State::Waiting, tr("the node accepted the callsign and requested a password, but no system keystore is available"));
             return;
         }
         QPointer<QTcpSocket> socket = m_socket;
@@ -348,7 +348,10 @@ void ClusterConnection::checkPrompt(const QString& pending)
             if (!socket || socket != m_socket)
                 return;
             if (secret.isEmpty()) {
-                m_lastError = error.isEmpty() ? tr("no password stored") : error;
+                m_lastError = error.isEmpty()
+                    ? tr("the node accepted the callsign and requested a password, but no password is stored for this source")
+                    : tr("the node accepted the callsign and requested a password, but the stored password could not be read: %1")
+                          .arg(error);
                 m_wanted = false;   // senza password riprovare non serve
                 setState(State::Waiting, m_lastError);
                 socket->abort();

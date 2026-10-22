@@ -165,6 +165,10 @@ public:
     Q_INVOKABLE void updateSource(const QString& id, const QVariantMap& source);
     Q_INVOKABLE void removeSource(const QString& id);
     Q_INVOKABLE void setSourceEnabled(const QString& id, bool enabled);
+    // Le password dei nodi telnet non finiscono mai nelle impostazioni della
+    // fonte: stanno nel portachiavi, una per id della fonte.
+    Q_INVOKABLE void saveSourcePassword(const QString& id, const QString& password);
+    Q_INVOKABLE void removeSourcePassword(const QString& id);
     // «Perche' non si collega?»: il nome, la porta, la prima parola del nodo. Il
     // risultato torna nella fonte (checkText, checking) e dice dove si ferma.
     Q_INVOKABLE void checkSource(const QString& id);
@@ -274,6 +278,8 @@ private:
     int m_spotRevision{0};
     QList<core::ClusterConnection*> m_connections;
     QHash<QString, QString> m_checkText;   // l'ultimo controllo di ogni fonte
+    QHash<QString, QString> m_passwordStatus;
+    QSet<QString> m_restartAfterPasswordSave;
     QSet<QString> m_checking;
     core::SpotFilter m_filter;
     bool m_followBand{false};

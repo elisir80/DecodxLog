@@ -53,6 +53,11 @@ QString listToJson(const QVariantList& list)
     return QString::fromUtf8(QJsonDocument(QJsonArray::fromVariantList(list)).toJson(QJsonDocument::Compact));
 }
 
+QString clusterCredential(const QString& sourceId)
+{
+    return QStringLiteral("cluster:") + sourceId;
+}
+
 // Il continente dello spotter: "EA5WU-#" e "IK8XXX-2" sono EA5WU e IK8XXX.
 QString spotterCall(const QString& spotter)
 {
@@ -133,6 +138,31 @@ ClusterController::ClusterController(Context context, QObject* parent)
         m_voice.setVoice(m_voiceName);
     m_voice.setRate(m_voiceRate);
     m_voice.setVolume(m_voiceVolume);
+
+    if (m_ctx.credentials) {
+        connect(m_ctx.credentials, &CredentialStore::changed, this, &ClusterController::sourcesChanged);
+        connect(m_ctx.credentials, &CredentialStore::finished, this,
+                [this](const QString& service, bool ok, const QString& message) {
+                    const QString prefix = QStringLiteral("cluster:");
+                    if (!service.startsWith(prefix))
+                        return;
+                    const QString id = service.mid(prefix.size());
+                    ClusterConnection* c = connectionFor(id);
+                    if (!c) {
+                        m_restartAfterPasswordSave.remove(id);
+                        return;
+                    }
+                    m_passwordStatus.insert(id, message);
+                    emit sourcesChanged();
+                    const bool restart = m_restartAfterPasswordSave.remove(id);
+                    if (!ok || !restart || !c->source().enabled)
+                        return;
+                    // Un errore di lettura del portachiavi arresta i tentativi:
+                    // dopo avere salvato una password valida si riparte subito.
+                    c->stop();
+                    c->start();
+                });
+    }
 
     if (s.contains(QStringLiteral("cluster/rules"))) {
         for (const QVariant& v : jsonToList(s.value(QStringLiteral("cluster/rules")).toString()))
@@ -237,10 +267,18 @@ void ClusterController::createConnection(const ClusterSource& source)
     auto* c = new ClusterConnection(source, this);
     c->setLoginProvider([this] { return m_ctx.stationCall ? m_ctx.stationCall() : QString(); });
     c->setSecretReader([this](const QString& service, std::function<void(const QString&, const QString&)> done) {
-        if (m_ctx.credentials)
-            m_ctx.credentials->readSecret(service, std::move(done));
-        else
+        if (!m_ctx.credentials) {
             done({}, tr("no keystore"));
+            return;
+        }
+        // Non interrogare il portachiavi per una password che l'app non ha mai
+        // dichiarato di avere. "Nessuna password salvata" e "voce corrotta o
+        // non decifrabile" sono due diagnosi diverse e richiedono azioni diverse.
+        if (!m_ctx.credentials->hasSecret(service)) {
+            done({}, {});
+            return;
+        }
+        m_ctx.credentials->readSecret(service, std::move(done));
     });
     connect(c, &ClusterConnection::spotReceived, this, &ClusterController::onSpot);
     connect(c, &ClusterConnection::lineReceived, this, [this, c](const QString& line) {
@@ -292,6 +330,9 @@ QVariantList ClusterController::sources() const
         m.insert(QStringLiteral("lastSpot"), c->lastSpotAt().isValid() ? c->lastSpotAt().toString(QStringLiteral("HH:mm")) : QString());
         m.insert(QStringLiteral("checking"), m_checking.contains(c->source().id));
         m.insert(QStringLiteral("checkText"), m_checkText.value(c->source().id));
+        m.insert(QStringLiteral("passwordStored"),
+                 m_ctx.credentials && m_ctx.credentials->hasSecret(clusterCredential(c->source().id)));
+        m.insert(QStringLiteral("passwordStatus"), m_passwordStatus.value(c->source().id));
         out << m;
     }
     return out;
@@ -357,10 +398,34 @@ void ClusterController::removeSource(const QString& id)
     c->stop();
     m_connections.removeOne(c);
     m_checkText.remove(id);
+    m_passwordStatus.remove(id);
     m_checking.remove(id);
+    if (m_ctx.credentials && m_ctx.credentials->hasSecret(clusterCredential(id)))
+        m_ctx.credentials->remove(clusterCredential(id));
     c->deleteLater();
     saveSources();
     emit sourcesChanged();
+}
+
+void ClusterController::saveSourcePassword(const QString& id, const QString& password)
+{
+    ClusterConnection* c = connectionFor(id);
+    if (!c || !m_ctx.credentials || password.isEmpty())
+        return;
+    m_passwordStatus.insert(id, tr("Saving the node password in the system keystore…"));
+    m_restartAfterPasswordSave.insert(id);
+    emit sourcesChanged();
+    m_ctx.credentials->save(clusterCredential(id), c->source().login, password);
+}
+
+void ClusterController::removeSourcePassword(const QString& id)
+{
+    if (!connectionFor(id) || !m_ctx.credentials)
+        return;
+    m_restartAfterPasswordSave.remove(id);
+    m_passwordStatus.insert(id, tr("Removing the node password from the system keystore…"));
+    emit sourcesChanged();
+    m_ctx.credentials->remove(clusterCredential(id));
 }
 
 void ClusterController::checkSource(const QString& id)

@@ -242,6 +242,39 @@ private slots:
         QVERIFY(cluster.contains(QStringLiteral("DX Assistant available antennas")));
     }
 
+    void clusterNodePasswordStaysInTheSystemKeystore()
+    {
+        const QDir qmlDir(QStringLiteral(QML_DIR));
+        const QString source = readFile(qmlDir.filePath(QStringLiteral("ClusterWindow.qml")));
+        QVERIFY(source.contains(QStringLiteral("Node password (only if requested)")));
+        QVERIFY(source.contains(QStringLiteral("echoMode: TextInput.Password")));
+        QVERIFY(source.contains(QStringLiteral("saveSourcePassword")));
+        QVERIFY(source.contains(QStringLiteral("removeSourcePassword")));
+        QVERIFY(source.contains(QStringLiteral("stored in the system keystore")));
+    }
+
+    void newQsoPanelSupportsClearShortcutAndConfigurableAdifFields()
+    {
+        const QDir qmlDir(QStringLiteral(QML_DIR));
+        const QString panel = readFile(qmlDir.filePath(QStringLiteral("NewQsoPanel.qml")));
+        const QString dialog = readFile(qmlDir.filePath(QStringLiteral("NewQsoDialog.qml")));
+        const QString settings = readFile(qmlDir.filePath(QStringLiteral("NewQsoFieldsDialog.qml")));
+
+        QVERIFY(panel.contains(QStringLiteral("sequence: \"Alt+W\"")));
+        QVERIFY(dialog.contains(QStringLiteral("sequence: \"Alt+W\"")));
+        QVERIFY(panel.contains(QStringLiteral("onActivated: root.clearForm()")));
+        QVERIFY(dialog.contains(QStringLiteral("onActivated: root.clearAll()")));
+        QVERIFY(panel.contains(QStringLiteral("function showFieldSettings()")));
+        QVERIFY(panel.contains(QStringLiteral("custom_fields: root.customAdifValues()")));
+        QVERIFY(panel.contains(QStringLiteral("root.fieldVisible(\"SAT_MODE\")")));
+        QVERIFY(panel.contains(QStringLiteral("root.fieldVisible(\"STATE\")")));
+        QVERIFY(panel.contains(QStringLiteral("root.fieldVisible(\"TX_PWR\")")));
+        QVERIFY(settings.contains(QStringLiteral("saveNewQsoPanelSettings")));
+        QVERIFY(settings.contains(QStringLiteral("resetNewQsoPanelSettings")));
+        QVERIFY(settings.contains(QStringLiteral("CUSTOM ADIF FIELDS")));
+        QVERIFY(settings.contains(QStringLiteral("STATE and TX_PWR")));
+    }
+
     void awardExtensionControlsHaveAccessibleNames()
     {
         const QDir qmlDir(QStringLiteral(QML_DIR));

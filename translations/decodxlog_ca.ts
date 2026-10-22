@@ -1760,6 +1760,18 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
         <translation>Login (buit = indicatiu del perfil d&apos;estació)</translation>
     </message>
     <message>
+        <source>Node password (only if requested)</source>
+        <translation>Contrasenya del node (només si es demana)</translation>
+    </message>
+    <message>
+        <source>stored in the system keystore — leave empty to keep it</source>
+        <translation>desada al magatzem de claus del sistema — deixa-ho buit per conservar-la</translation>
+    </message>
+    <message>
+        <source>Remove saved password</source>
+        <translation>Treu la contrasenya desada</translation>
+    </message>
+    <message>
         <source>Commands after login (one per line)</source>
         <translation>Ordres després del login (una per línia)</translation>
     </message>
@@ -4734,6 +4746,81 @@ Camps extra conservats: %8</translation>
     </message>
 </context>
 <context>
+    <name>NewQsoFieldsDialog</name>
+    <message>
+        <source>New QSO fields</source>
+        <translation>Camps de QSO nou</translation>
+    </message>
+    <message>
+        <source>Choose the optional fields shown in the compact New QSO panel. Callsign, UTC, band, frequency, mode and reports always remain available.</source>
+        <translation>Tria els camps opcionals que es mostren al tauler compacte de QSO nou. Indicatiu, UTC, banda, freqüència, mode i informes sempre continuen disponibles.</translation>
+    </message>
+    <message>
+        <source>STANDARD FIELDS</source>
+        <translation>CAMPS ESTÀNDARD</translation>
+    </message>
+    <message>
+        <source>Show %1 in New QSO</source>
+        <translation>Mostra %1 a QSO nou</translation>
+    </message>
+    <message>
+        <source>CUSTOM ADIF FIELDS</source>
+        <translation>CAMPS ADIF PERSONALITZATS</translation>
+    </message>
+    <message>
+        <source>Add field</source>
+        <translation>Afegeix un camp</translation>
+    </message>
+    <message>
+        <source>Add fields such as RDA or an APP_ field. Use the exact ADIF name; the optional label is what appears in the panel. STATE and TX_PWR are already available above.</source>
+        <translation>Afegeix camps com RDA o un camp APP_. Fes servir el nom ADIF exacte; l&apos;etiqueta opcional és el que apareix al tauler. STATE i TX_PWR ja estan disponibles a dalt.</translation>
+    </message>
+    <message>
+        <source>No custom fields configured.</source>
+        <translation>No hi ha cap camp personalitzat configurat.</translation>
+    </message>
+    <message>
+        <source>ADIF name</source>
+        <translation>Nom ADIF</translation>
+    </message>
+    <message>
+        <source>Custom ADIF field name</source>
+        <translation>Nom del camp ADIF personalitzat</translation>
+    </message>
+    <message>
+        <source>Label (optional)</source>
+        <translation>Etiqueta (opcional)</translation>
+    </message>
+    <message>
+        <source>Russian district</source>
+        <translation>Districte rus</translation>
+    </message>
+    <message>
+        <source>Custom ADIF field label</source>
+        <translation>Etiqueta del camp ADIF personalitzat</translation>
+    </message>
+    <message>
+        <source>Remove custom field</source>
+        <translation>Treu el camp personalitzat</translation>
+    </message>
+    <message>
+        <source>Remove custom field %1</source>
+        <translation>Treu el camp personalitzat %1</translation>
+    </message>
+    <message>
+        <source>Restore defaults</source>
+        <translation>Restableix els valors per defecte</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation type="unfinished">Cancel·la</translation>
+    </message>
+    <message>
+        <source>Save</source>
+        <translation type="unfinished">Desa</translation>
+    </message>
+</context>
+<context>
     <name>NewQsoPanel</name>
     <message>
         <source>New QSO</source>
@@ -4742,6 +4829,14 @@ Camps extra conservats: %8</translation>
     <message>
         <source>manual</source>
         <translation>a mà</translation>
+    </message>
+    <message>
+        <source>Configure New QSO fields</source>
+        <translation>Configura els camps de QSO nou</translation>
+    </message>
+    <message>
+        <source>Choose fields</source>
+        <translation>Tria els camps</translation>
     </message>
     <message>
         <source>Full form (Ctrl+N)</source>
@@ -4812,6 +4907,14 @@ Camps extra conservats: %8</translation>
         <translation>QTH</translation>
     </message>
     <message>
+        <source>State</source>
+        <translation type="unfinished">Estat</translation>
+    </message>
+    <message>
+        <source>TX pwr W</source>
+        <translation type="unfinished">Potència TX W</translation>
+    </message>
+    <message>
         <source>Prop</source>
         <translation>Prop</translation>
     </message>
@@ -4834,6 +4937,10 @@ Camps extra conservats: %8</translation>
     <message>
         <source>Comment</source>
         <translation>Comentari</translation>
+    </message>
+    <message>
+        <source>%1 (%2) value</source>
+        <translation>Valor de %1 (%2)</translation>
     </message>
     <message>
         <source>LOG QSO</source>
@@ -10232,6 +10339,14 @@ Camps extra conservats: %8</translation>
         <translation>cap magatzem de claus</translation>
     </message>
     <message>
+        <source>Saving the node password in the system keystore…</source>
+        <translation>Desant la contrasenya del node al magatzem de claus del sistema…</translation>
+    </message>
+    <message>
+        <source>Removing the node password from the system keystore…</source>
+        <translation>Traient la contrasenya del node del magatzem de claus del sistema…</translation>
+    </message>
+    <message>
         <source>Nothing to check here: this source is read over the web, not through a node connection.</source>
         <translation>Res a comprovar aquí: aquesta font es llegeix per la web, no amb una connexió a un node.</translation>
     </message>
@@ -10600,8 +10715,72 @@ Camps extra conservats: %8</translation>
         <translation>dd/mm/aaaa</translation>
     </message>
     <message>
+        <source>Grid locator</source>
+        <translation>Locator</translation>
+    </message>
+    <message>
+        <source>Operator name</source>
+        <translation>Nom de l&apos;operador</translation>
+    </message>
+    <message>
+        <source>QTH</source>
+        <translation type="unfinished">QTH</translation>
+    </message>
+    <message>
+        <source>State / province</source>
+        <translation>Estat / província</translation>
+    </message>
+    <message>
+        <source>TX power</source>
+        <translation>Potència TX</translation>
+    </message>
+    <message>
+        <source>Propagation mode</source>
+        <translation>Mode de propagació</translation>
+    </message>
+    <message>
+        <source>Satellite mode</source>
+        <translation>Mode satèl·lit</translation>
+    </message>
+    <message>
+        <source>Invalid ADIF field name: %1. Use 1–32 letters, digits or underscores, starting with a letter.</source>
+        <translation>Nom de camp ADIF no vàlid: %1. Fes servir de 1 a 32 lletres, dígits o guions baixos, començant per una lletra.</translation>
+    </message>
+    <message>
+        <source>The ADIF field %1 is listed more than once.</source>
+        <translation>El camp ADIF %1 apareix més d&apos;una vegada.</translation>
+    </message>
+    <message>
+        <source>%1 is already available as a standard field. Enable it above instead.</source>
+        <translation>%1 ja està disponible com a camp estàndard. Activa&apos;l a dalt en lloc d&apos;això.</translation>
+    </message>
+    <message>
+        <source>%1 is managed by DecoDXLog and cannot be replaced by a custom field.</source>
+        <translation>%1 el gestiona DecoDXLog i no es pot substituir per un camp personalitzat.</translation>
+    </message>
+    <message>
+        <source>You can add at most %1 custom ADIF fields.</source>
+        <translation>Pots afegir com a màxim %1 camps ADIF personalitzats.</translation>
+    </message>
+    <message>
+        <source>The New QSO field settings could not be saved.</source>
+        <translation>No s&apos;han pogut desar els ajustos dels camps de QSO nou.</translation>
+    </message>
+    <message>
         <source>Enter a valid UTC date</source>
         <translation>Escriu una data UTC vàlida</translation>
+    </message>
+    <message>
+        <source>Invalid custom ADIF field: %1</source>
+        <translation>Camp ADIF personalitzat no vàlid: %1</translation>
+    </message>
+    <message>
+        <source>The ADIF field %1 is managed by DecoDXLog.</source>
+        <translation>El camp ADIF %1 el gestiona DecoDXLog.</translation>
+    </message>
+    <message>
+        <source>Use the standard %1 field instead of a custom field.</source>
+        <translation>Fes servir el camp estàndard %1 en lloc d&apos;un camp personalitzat.</translation>
     </message>
     <message>
         <source>Logged %1 %2 %3 (manual)</source>
@@ -12572,12 +12751,16 @@ Camps extra conservats: %8</translation>
         <translation>connexió tancada abans que el node digués res: un antivirus o un tallafoc (AVG, Avast…) podria retenir-la — prem Comprova</translation>
     </message>
     <message>
-        <source>password needed</source>
-        <translation>cal una contrasenya</translation>
+        <source>the node accepted the callsign and requested a password, but no system keystore is available</source>
+        <translation>el node ha acceptat l&apos;indicatiu i ha demanat una contrasenya, però no hi ha cap magatzem de claus del sistema disponible</translation>
     </message>
     <message>
-        <source>no password stored</source>
-        <translation>cap contrasenya desada</translation>
+        <source>the node accepted the callsign and requested a password, but no password is stored for this source</source>
+        <translation>el node ha acceptat l&apos;indicatiu i ha demanat una contrasenya, però no hi ha cap contrasenya desada per a aquesta font</translation>
+    </message>
+    <message>
+        <source>the node accepted the callsign and requested a password, but the stored password could not be read: %1</source>
+        <translation>el node ha acceptat l&apos;indicatiu i ha demanat una contrasenya, però no s&apos;ha pogut llegir la contrasenya desada: %1</translation>
     </message>
 </context>
 <context>
@@ -12629,6 +12812,10 @@ Camps extra conservats: %8</translation>
     <message>
         <source>3. Connected, but the node says nothing</source>
         <translation>3. Connectat, però el node no diu res</translation>
+    </message>
+    <message>
+        <source>This check stops at the login prompt by design and does not authenticate. The enabled source sends the configured callsign; if the node then requests a password, save it in the source editor.</source>
+        <translation>Aquesta comprovació s&apos;atura a propòsit a la petició d&apos;inici de sessió i no autentica. La font activada envia l&apos;indicatiu configurat; si el node demana llavors una contrasenya, desa-la a l&apos;editor de fonts.</translation>
     </message>
     <message>
         <source>The name does not resolve: check the network and the DNS. An antivirus or a filtering DNS (AVG, Avast…) can also block a name it does not trust: try the address in numbers.</source>

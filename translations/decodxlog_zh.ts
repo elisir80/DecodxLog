@@ -1756,6 +1756,18 @@ Decodium 正在通联的呼号会自己出现在这里。</translation>
         <translation>登录名（留空 = 电台配置的呼号）</translation>
     </message>
     <message>
+        <source>Node password (only if requested)</source>
+        <translation>节点密码（仅在需要时填写）</translation>
+    </message>
+    <message>
+        <source>stored in the system keystore — leave empty to keep it</source>
+        <translation>已存入系统密钥库 — 留空则保持不变</translation>
+    </message>
+    <message>
+        <source>Remove saved password</source>
+        <translation>移除已保存的密码</translation>
+    </message>
+    <message>
         <source>Commands after login (one per line)</source>
         <translation>登录后的命令（每行一条）</translation>
     </message>
@@ -4723,6 +4735,81 @@ QSL 状态：%6 · UTC 不完整：%7。
     </message>
 </context>
 <context>
+    <name>NewQsoFieldsDialog</name>
+    <message>
+        <source>New QSO fields</source>
+        <translation>新建 QSO 字段</translation>
+    </message>
+    <message>
+        <source>Choose the optional fields shown in the compact New QSO panel. Callsign, UTC, band, frequency, mode and reports always remain available.</source>
+        <translation>选择在精简的“新建 QSO”面板中显示的可选字段。呼号、UTC、波段、频率、模式和报告始终可用。</translation>
+    </message>
+    <message>
+        <source>STANDARD FIELDS</source>
+        <translation>标准字段</translation>
+    </message>
+    <message>
+        <source>Show %1 in New QSO</source>
+        <translation>在新建 QSO 中显示 %1</translation>
+    </message>
+    <message>
+        <source>CUSTOM ADIF FIELDS</source>
+        <translation>自定义 ADIF 字段</translation>
+    </message>
+    <message>
+        <source>Add field</source>
+        <translation>添加字段</translation>
+    </message>
+    <message>
+        <source>Add fields such as RDA or an APP_ field. Use the exact ADIF name; the optional label is what appears in the panel. STATE and TX_PWR are already available above.</source>
+        <translation>添加 RDA 或 APP_ 字段等。请使用准确的 ADIF 名称；可选的标签就是面板中显示的文字。STATE 和 TX_PWR 已在上方提供。</translation>
+    </message>
+    <message>
+        <source>No custom fields configured.</source>
+        <translation>尚未配置自定义字段。</translation>
+    </message>
+    <message>
+        <source>ADIF name</source>
+        <translation>ADIF 名称</translation>
+    </message>
+    <message>
+        <source>Custom ADIF field name</source>
+        <translation>自定义 ADIF 字段名称</translation>
+    </message>
+    <message>
+        <source>Label (optional)</source>
+        <translation>标签（可选）</translation>
+    </message>
+    <message>
+        <source>Russian district</source>
+        <translation>俄罗斯地区</translation>
+    </message>
+    <message>
+        <source>Custom ADIF field label</source>
+        <translation>自定义 ADIF 字段标签</translation>
+    </message>
+    <message>
+        <source>Remove custom field</source>
+        <translation>移除自定义字段</translation>
+    </message>
+    <message>
+        <source>Remove custom field %1</source>
+        <translation>移除自定义字段 %1</translation>
+    </message>
+    <message>
+        <source>Restore defaults</source>
+        <translation>恢复默认值</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation type="unfinished">取消</translation>
+    </message>
+    <message>
+        <source>Save</source>
+        <translation type="unfinished">保存</translation>
+    </message>
+</context>
+<context>
     <name>NewQsoPanel</name>
     <message>
         <source>New QSO</source>
@@ -4731,6 +4818,14 @@ QSL 状态：%6 · UTC 不完整：%7。
     <message>
         <source>manual</source>
         <translation>手动</translation>
+    </message>
+    <message>
+        <source>Configure New QSO fields</source>
+        <translation>配置新建 QSO 字段</translation>
+    </message>
+    <message>
+        <source>Choose fields</source>
+        <translation>选择字段</translation>
     </message>
     <message>
         <source>Full form (Ctrl+N)</source>
@@ -4801,6 +4896,14 @@ QSL 状态：%6 · UTC 不完整：%7。
         <translation>QTH</translation>
     </message>
     <message>
+        <source>State</source>
+        <translation type="unfinished">州</translation>
+    </message>
+    <message>
+        <source>TX pwr W</source>
+        <translation type="unfinished">发射功率 W</translation>
+    </message>
+    <message>
         <source>Prop</source>
         <translation>传播</translation>
     </message>
@@ -4823,6 +4926,10 @@ QSL 状态：%6 · UTC 不完整：%7。
     <message>
         <source>Comment</source>
         <translation>备注</translation>
+    </message>
+    <message>
+        <source>%1 (%2) value</source>
+        <translation>%1 (%2) 的值</translation>
     </message>
     <message>
         <source>LOG QSO</source>
@@ -10198,6 +10305,14 @@ QSL 状态：%6 · UTC 不完整：%7。
         <translation>没有密钥库</translation>
     </message>
     <message>
+        <source>Saving the node password in the system keystore…</source>
+        <translation>正在把节点密码存入系统密钥库…</translation>
+    </message>
+    <message>
+        <source>Removing the node password from the system keystore…</source>
+        <translation>正在从系统密钥库移除节点密码…</translation>
+    </message>
+    <message>
         <source>Nothing to check here: this source is read over the web, not through a node connection.</source>
         <translation>这里没有可检查的内容: 此来源通过网页读取，而不是通过节点连接。</translation>
     </message>
@@ -10562,8 +10677,72 @@ QSL 状态：%6 · UTC 不完整：%7。
         <translation>dd/mm/yyyy</translation>
     </message>
     <message>
+        <source>Grid locator</source>
+        <translation>网格</translation>
+    </message>
+    <message>
+        <source>Operator name</source>
+        <translation>操作员姓名</translation>
+    </message>
+    <message>
+        <source>QTH</source>
+        <translation type="unfinished">QTH</translation>
+    </message>
+    <message>
+        <source>State / province</source>
+        <translation>州 / 省</translation>
+    </message>
+    <message>
+        <source>TX power</source>
+        <translation>发射功率</translation>
+    </message>
+    <message>
+        <source>Propagation mode</source>
+        <translation>传播模式</translation>
+    </message>
+    <message>
+        <source>Satellite mode</source>
+        <translation>卫星模式</translation>
+    </message>
+    <message>
+        <source>Invalid ADIF field name: %1. Use 1–32 letters, digits or underscores, starting with a letter.</source>
+        <translation>ADIF 字段名称无效：%1。请使用 1–32 个字母、数字或下划线，并以字母开头。</translation>
+    </message>
+    <message>
+        <source>The ADIF field %1 is listed more than once.</source>
+        <translation>ADIF 字段 %1 被列出了多次。</translation>
+    </message>
+    <message>
+        <source>%1 is already available as a standard field. Enable it above instead.</source>
+        <translation>%1 已作为标准字段提供。请改为在上方启用它。</translation>
+    </message>
+    <message>
+        <source>%1 is managed by DecoDXLog and cannot be replaced by a custom field.</source>
+        <translation>%1 由 DecoDXLog 管理，不能用自定义字段替换。</translation>
+    </message>
+    <message>
+        <source>You can add at most %1 custom ADIF fields.</source>
+        <translation>最多只能添加 %1 个自定义 ADIF 字段。</translation>
+    </message>
+    <message>
+        <source>The New QSO field settings could not be saved.</source>
+        <translation>无法保存新建 QSO 字段设置。</translation>
+    </message>
+    <message>
         <source>Enter a valid UTC date</source>
         <translation>请输入有效的 UTC 日期</translation>
+    </message>
+    <message>
+        <source>Invalid custom ADIF field: %1</source>
+        <translation>自定义 ADIF 字段无效：%1</translation>
+    </message>
+    <message>
+        <source>The ADIF field %1 is managed by DecoDXLog.</source>
+        <translation>ADIF 字段 %1 由 DecoDXLog 管理。</translation>
+    </message>
+    <message>
+        <source>Use the standard %1 field instead of a custom field.</source>
+        <translation>请使用标准的 %1 字段，而不是自定义字段。</translation>
     </message>
     <message>
         <source>Logged %1 %2 %3 (manual)</source>
@@ -12507,12 +12686,16 @@ QSL 状态：%6 · UTC 不完整：%7。
         <translation>节点还没说话连接就被关闭了: 可能是杀毒软件或防火墙 (AVG、Avast…) 扣住了它 — 请按“检查”</translation>
     </message>
     <message>
-        <source>password needed</source>
-        <translation>需要密码</translation>
+        <source>the node accepted the callsign and requested a password, but no system keystore is available</source>
+        <translation>节点已接受呼号并要求输入密码，但没有可用的系统密钥库</translation>
     </message>
     <message>
-        <source>no password stored</source>
-        <translation>没有保存密码</translation>
+        <source>the node accepted the callsign and requested a password, but no password is stored for this source</source>
+        <translation>节点已接受呼号并要求输入密码，但此来源没有保存密码</translation>
+    </message>
+    <message>
+        <source>the node accepted the callsign and requested a password, but the stored password could not be read: %1</source>
+        <translation>节点已接受呼号并要求输入密码，但无法读取已保存的密码：%1</translation>
     </message>
 </context>
 <context>
@@ -12564,6 +12747,10 @@ QSL 状态：%6 · UTC 不完整：%7。
     <message>
         <source>3. Connected, but the node says nothing</source>
         <translation>3. 已连接，但节点什么也没说</translation>
+    </message>
+    <message>
+        <source>This check stops at the login prompt by design and does not authenticate. The enabled source sends the configured callsign; if the node then requests a password, save it in the source editor.</source>
+        <translation>此检查按设计停在登录提示处，不进行认证。已启用的来源会发送配置好的呼号；如果节点随后要求密码，请在来源编辑器中保存。</translation>
     </message>
     <message>
         <source>The name does not resolve: check the network and the DNS. An antivirus or a filtering DNS (AVG, Avast…) can also block a name it does not trust: try the address in numbers.</source>
