@@ -3,6 +3,19 @@
 Le date sono quelle del lavoro, non di una pubblicazione: DecoDXLog cresce mentre lo si usa
 in stazione.
 
+## 1.17.37 — 24 ottobre 2026
+
+**Invio automatico LoTW ed eQSL corretto.** Quando entrambi i servizi erano attivi, LoTW partiva
+per primo e il controllo `busy()` faceva saltare eQSL. Ora i servizi automatici sono raccolti in
+una coda sequenziale: eQSL parte dopo la conclusione di LoTW, anche se LoTW restituisce un errore.
+La coda evita duplicati, conserva l'ordine dei servizi e riprende il servizio successivo anche
+dopo un errore o un problema temporaneo di rete.
+
+**Test.** Aggiunto un test mirato per LoTW+eQSL attivi, inclusi il comportamento durante l'upload
+del primo servizio, l'ordine sequenziale e la deduplicazione della coda. La suite completa resta
+verificata su macOS.
+
+
 ## 1.17.36 — 24 ottobre 2026
 
 **Pannelli realmente indipendenti.** I pannelli staccati sono ora vere finestre di primo livello,
