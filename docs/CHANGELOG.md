@@ -3,6 +3,23 @@
 Le date sono quelle del lavoro, non di una pubblicazione: DecoDXLog cresce mentre lo si usa
 in stazione.
 
+## 1.17.38 — 24 ottobre 2026
+
+**CW via CAT Yaesu nuovamente disponibile.** Rimosso il blocco preventivo delle macro e del
+testo CW per le Yaesu collegate direttamente a rigctld, incluso il FTDX-3000. Resta un avviso
+nel pannello: Hamlib puo' sovrascrivere la memoria 1 della radio e il contenuto precedente
+non viene ripristinato. Per usare il keyer CAT la porta del manipolatore seriale deve essere
+su «nessuna»: un keyer seriale/WinKeyer aperto continua ad avere la precedenza.
+
+**Testo CW e arresto.** I singoli caratteri Yaesu vengono inviati come testo, non come richiami
+di memoria; le macro oltre 50 caratteri sono suddivise nella coda esistente senza troncamento.
+Il comando Ferma conserva lo svuotamento della coda, il rilascio PTT e la richiesta CAT RX
+di emergenza. Test automatici su instradamento, caratteri singoli, macro lunghe e arresto;
+la verifica RF sul FTDX-3000 dell'utente resta necessaria.
+
+**Provenienza dei pacchetti.** Il runner Windows usa ora il tag di rilascio richiesto,
+come i runner macOS e Linux, anziche' il ramo main in movimento.
+
 ## 1.17.37 — 24 ottobre 2026
 
 **Invio automatico LoTW ed eQSL corretto.** Quando entrambi i servizi erano attivi, LoTW partiva
